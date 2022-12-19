@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
 
@@ -8,6 +9,11 @@ const port = process.env.PORT;
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
+});
+
+const sequelize = new Sequelize('', 'username', 'password', {
+  host: 'localhost:8081',
+  dialect: 'mysql'
 });
 
 app.listen(port, () => {
