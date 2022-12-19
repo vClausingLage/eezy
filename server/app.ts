@@ -1,15 +1,20 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { Sequelize, QueryTypes } from 'sequelize'; //DataTypes
+
+import { kilometersToKts, gallonsToLiters } from './unit_calculators';
+
 dotenv.config();
-const app = express();
+
+const app: Express = express();
 const port = process.env.PORT;
-const db = process.env.DB;
-const user = process.env.USER;
-const pass = process.env.PASS;
+const db = process.env.DB!;
+const user = process.env.USER!;
+const pass = process.env.PASS!;
+
 const sequelize = new Sequelize(db, user, pass, {
-    host: 'host.docker.internal',
-    dialect: 'mysql'
+  host: 'host.docker.internal', // 'host.docker.internal'
+  dialect: 'mysql'
 });
 // const Aircraft = sequelize.define('Aircraft', {
 //   id: {
@@ -43,23 +48,25 @@ const sequelize = new Sequelize(db, user, pass, {
 //   }
 // });
 try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+  await sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
 }
-catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
-const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
-    type: QueryTypes.SELECT
-    // model: Aircraft,
-    // mapToModel: true
+const aircrat = await sequelize.query("SELECT * FROM `aircraft`", { 
+  type: QueryTypes.SELECT
+  // model: Aircraft,
+  // mapToModel: true
 });
-app.get('/', (req, res) => {
-    res.send('Läuft');
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Läuft');
 });
-app.get('/aircraft', (req, res) => {
-    res.send(aircrat);
-});
+
+app.post('/aircraft', (req: Request, res: Response) => {
+  res.send(aircrat)
+})
+
 app.listen(port, () => {
-    console.log(`Server is running at https://localhost:${port}`);
+  console.log(`Server is running at https://localhost:${port}`);
 });

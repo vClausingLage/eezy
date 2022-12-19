@@ -12,6 +12,8 @@
 - Wind
 - Fuel
 - Airports (lat long)
+- WARNING EXCEED FUEL CAPACITY
+- WARNING EDUCATIONAL PURPOSE ONLY
 
 ## Formular
 
