@@ -23,7 +23,9 @@
 
 ### MYSQL
 
-docker run --name eezy-db -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -d mysql:8.0.1
+docker run --name eezy-db -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -d mysql:latest
+
+docker run --name=eezy-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -p 3306:3306 -d mysql:latest
 
 ### PHPmyadmin
 
@@ -37,7 +39,7 @@ eezy
 
 1: aircraft
 
-1. id
+1. id AUTO_INCREMENT
 2. manufacturer VARCHAR
 3. model VARCHAR
 4. fuel type VARCHAR | AVGAS | JETFUEL | DIESEL | SUPER
