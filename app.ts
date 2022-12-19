@@ -11,7 +11,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
 
-const sequelize = new Sequelize('', 'username', 'password', {
+const sequelize = new Sequelize('aircraft', 'root', 'KtorLDelta1', {
   host: 'localhost:8081',
   dialect: 'mysql'
 });
