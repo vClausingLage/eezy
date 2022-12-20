@@ -7,8 +7,8 @@ import Select from '@mui/material/Select'
 
 const Form = () => {
 
-  fetch('localhost:4000/aircraft', {
-    method: 'POST',
+  fetch('/api/aircraft', {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'

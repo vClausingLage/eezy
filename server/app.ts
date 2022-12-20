@@ -13,7 +13,8 @@ const user = process.env.USER!;
 const pass = process.env.PASS!;
 
 const sequelize = new Sequelize(db, user, pass, {
-  host: 'host.docker.internal', // 'host.docker.internal'
+  host: 'localhost', //'host.docker.internal'
+  port: 3306,
   dialect: 'mysql'
 });
 // const Aircraft = sequelize.define('Aircraft', {
@@ -59,11 +60,7 @@ const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
   // mapToModel: true
 });
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Läuft');
-});
-
-app.post('/aircraft', (req: Request, res: Response) => {
+app.post('/api/aircraft', (req: Request, res: Response) => {
   res.send(aircrat)
 })
 
