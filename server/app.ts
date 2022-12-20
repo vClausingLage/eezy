@@ -1,8 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { Sequelize, QueryTypes } from 'sequelize'; //DataTypes
-
 import { kilometersToKts, gallonsToLiters } from './unit_calculators';
+import { Sequelize, QueryTypes } from 'sequelize';
 
 dotenv.config();
 
@@ -12,11 +11,12 @@ const db = process.env.DB!;
 const user = process.env.USER!;
 const pass = process.env.PASS!;
 
-const sequelize = new Sequelize(db, user, pass, {
+export const sequelize = new Sequelize(db, user, pass, {
   host: 'localhost', //'host.docker.internal'
   port: 3306,
   dialect: 'mysql'
 });
+
 // const Aircraft = sequelize.define('Aircraft', {
 //   id: {
 //     type: DataTypes.NUMBER,
@@ -48,6 +48,7 @@ const sequelize = new Sequelize(db, user, pass, {
 //     allowNull: false
 //   }
 // });
+
 try {
   await sequelize.authenticate();
   console.log('Connection has been established successfully.');
