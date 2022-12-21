@@ -1,62 +1,30 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Sequelize, QueryTypes } from 'sequelize';
+// import { sequelize } from './db_connection'
 dotenv.config();
-const app = express();
+export const app = express();
+// ROUTES
 const port = process.env.PORT;
 const db = process.env.DB;
-const user = process.env.USER;
-const pass = process.env.PASS;
+export const user = process.env.USER;
+export const pass = process.env.PASS;
 export const sequelize = new Sequelize(db, user, pass, {
     host: 'localhost',
     port: 3306,
     dialect: 'mysql'
 });
-// const Aircraft = sequelize.define('Aircraft', {
-//   id: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false,
-//     primaryKey: true
-//   },
-//   manufacturer: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   model: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   fuel_type: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   fuel_capacity: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false
-//   },
-//   cruise_speed: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false
-//   },
-//   cruise_fuel_consumption: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false
-//   }
-// });
 try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    console.log('DB connected.');
 }
 catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.error('Error connecting DB:', error);
 }
-const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
+export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
     type: QueryTypes.SELECT
     // model: Aircraft,
     // mapToModel: true
-});
-app.post('/api/aircraft', (req, res) => {
-    res.send(aircrat);
 });
 app.listen(port, () => {
     console.log(`Server is running at https://localhost:${port}`);

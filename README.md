@@ -7,6 +7,8 @@
 
 # To Do
 
+- NODE ROUTES
+
 - Map fertig
 - METAR departure / destination -> Warnings / CAVOK
 - Wind
