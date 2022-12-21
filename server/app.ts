@@ -1,53 +1,13 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { kilometersToKts, gallonsToLiters } from './unit_calculators';
-import { Sequelize, QueryTypes } from 'sequelize';
+import { QueryTypes } from 'sequelize';
+import { sequelize } from './db_connection'
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
-const db = process.env.DB!;
-const user = process.env.USER!;
-const pass = process.env.PASS!;
-
-export const sequelize = new Sequelize(db, user, pass, {
-  host: 'localhost', //'host.docker.internal'
-  port: 3306,
-  dialect: 'mysql'
-});
-
-// const Aircraft = sequelize.define('Aircraft', {
-//   id: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false,
-//     primaryKey: true
-//   },
-//   manufacturer: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   model: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   fuel_type: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   fuel_capacity: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false
-//   },
-//   cruise_speed: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false
-//   },
-//   cruise_fuel_consumption: {
-//     type: DataTypes.NUMBER,
-//     allowNull: false
-//   }
-// });
 
 try {
   await sequelize.authenticate();
