@@ -1,9 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Sequelize, QueryTypes } from 'sequelize';
-// import { sequelize } from './db_connection'
+import router from './controllers.js';
 dotenv.config();
-export const app = express();
+const app = express();
+app.use('/api', router);
 // ROUTES
 const port = process.env.PORT;
 const db = process.env.DB;

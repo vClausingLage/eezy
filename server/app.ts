@@ -2,11 +2,12 @@ import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import { kilometersToKts, gallonsToLiters } from './unit_calculators'
 import { Sequelize, QueryTypes } from 'sequelize'
-// import { sequelize } from './db_connection'
+import router from './controllers.js'
 
 dotenv.config()
 
-export const app: Express = express()
+const app: Express = express()
+app.use('/api', router)
 
 // ROUTES
 const port = process.env.PORT
