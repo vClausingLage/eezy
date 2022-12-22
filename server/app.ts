@@ -30,9 +30,11 @@ export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
   // mapToModel: true
 })
 
-app.post('/api/aircraft', (req: Request, res: Response) => {
-  res.send(aircrat)
-})
+app.use('/', require('./controllers'))
+
+// app.post('/api/aircraft', (req: Request, res: Response) => {
+//   res.send(aircrat)
+// })
 
 app.listen(port, () => {
   console.log(`Server is running at https://localhost:${port}`);

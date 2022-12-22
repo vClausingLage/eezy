@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express'
 import { aircrat } from './app'
 
-const router = Router()
+const routes = Router()
 
-router.post('/api/aircraft', (req: Request, res: Response) => {
+routes.post('/api/aircraft', (req: Request, res: Response) => {
   res.send(aircrat)
 })
 
-export default router
+module.exports = routes
