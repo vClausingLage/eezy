@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import { aircrat } from './app';
-const router = express.Router();
+const router = Router();
 router.post('/api/aircraft', (req, res) => {
     res.send(aircrat);
 });
-module.exports = router;
+export default router;

@@ -1,10 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Sequelize, QueryTypes } from 'sequelize';
-import router from './controllers.js';
 dotenv.config();
 const app = express();
-app.use('/api', router);
 // ROUTES
 const port = process.env.PORT;
 const db = process.env.DB;
@@ -26,6 +24,9 @@ export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
     type: QueryTypes.SELECT
     // model: Aircraft,
     // mapToModel: true
+});
+app.post('/api/aircraft', (req, res) => {
+    res.send(aircrat);
 });
 app.listen(port, () => {
     console.log(`Server is running at https://localhost:${port}`);

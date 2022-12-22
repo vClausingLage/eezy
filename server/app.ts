@@ -2,12 +2,10 @@ import express, { Express, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import { kilometersToKts, gallonsToLiters } from './unit_calculators'
 import { Sequelize, QueryTypes } from 'sequelize'
-import router from './controllers.js'
 
 dotenv.config()
 
 const app: Express = express()
-app.use('/api', router)
 
 // ROUTES
 const port = process.env.PORT
@@ -32,7 +30,9 @@ export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
   // mapToModel: true
 })
 
-
+app.post('/api/aircraft', (req: Request, res: Response) => {
+  res.send(aircrat)
+})
 
 app.listen(port, () => {
   console.log(`Server is running at https://localhost:${port}`);
