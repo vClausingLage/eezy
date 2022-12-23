@@ -32,7 +32,7 @@
 
 docker run --name eezy-db -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -d mysql:latest
 
-docker run --name=eezy-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -p 3306:3306 -d mysql:latest
+// docker run --name=eezy-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -p 3306:3306 -d mysql:latest
 
 ### PHPmyadmin
 
