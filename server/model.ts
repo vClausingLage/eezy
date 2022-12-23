@@ -1,4 +1,4 @@
-import { sequelize } from "./db_connection";
+import sequelize from "./db_connection";
 import { DataTypes } from "sequelize";
 
 export const Aircraft = sequelize.define('Aircraft', {

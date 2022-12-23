@@ -1,5 +1,7 @@
 import mysql from 'mysql2';
-import { user, pass } from '../db_connection';
+// const db = process.env.DB!
+const user = process.env.USER;
+const pass = process.env.PASS;
 // CREATE
 function createDB() {
     const connection = mysql.createConnection({

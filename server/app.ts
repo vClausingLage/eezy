@@ -30,7 +30,7 @@ export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
   // mapToModel: true
 })
 
-app.use('/', require('./controllers'))
+// app.use('/', require('./controllers'))
 
 // app.post('/api/aircraft', (req: Request, res: Response) => {
 //   res.send(aircrat)
