@@ -32,7 +32,7 @@
 
 docker run --name eezy-db -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -d mysql:latest
 
-// docker run --name=eezy-db -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=KtorLDelta1 -p 3306:3306 -d mysql:latest
+docker run --env MYSQL_ROOT_HOST=% --env MYSQL_ROOT_PASSWORD=KtorLDelta1 -p 3306:3306 --name=eezy-db -d mysql:latest
 
 ### PHPmyadmin
 
@@ -70,3 +70,22 @@ eezy
 - fuel consumption
 - wind
 - mag var
+
+
+### for PHPMYADMIN
+
+CREATE TABLE aircraft (
+  id mediumint NOT NULL,
+  manufacturer varchar(100) NOT NULL,
+  model varchar(100) NOT NULL,
+  fuel_type varchar(100) NOT NULL,
+  fuel_capacity int NOT NULL,
+  cruise_speed int NOT NULL,
+  cruise_fuel_consumption int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+;
+
+INSERT INTO aircraft (id, manufacturer, model, fuel_type, fuel_capacity, cruise_speed, cruise_fuel_consumption) VALUES
+(1, 'Cessna', 'C150', 'AVGAS', 144, 196, 22),
+(2, 'Cessna', 'C172', 'AVGAS', 163, 226, 26);
+;

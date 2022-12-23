@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import { Sequelize, QueryTypes } from 'sequelize';
 import routes from './routes.js';
 // SERVER INIT
-const port = process.env.PORT;
 dotenv.config();
 const app = express();
+const port = process.env.PORT;
 // DB CONN
 const db = process.env.DB;
 const user = process.env.USER;

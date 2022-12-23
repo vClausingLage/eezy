@@ -5,9 +5,9 @@ import { Sequelize, QueryTypes } from 'sequelize'
 import routes from './routes.js'
 
 // SERVER INIT
-const port = process.env.PORT
 dotenv.config()
 const app: Express = express()
+const port = process.env.PORT
 
 // DB CONN
 const db = process.env.DB!
