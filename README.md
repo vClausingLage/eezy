@@ -1,3 +1,7 @@
+# EEzy Flight Planner
+
+EEzy Flight Planner is the web version of Wingzy-App written in TypeScript.
+
 # Server
 
 [Express Typescript](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
@@ -71,17 +75,16 @@ eezy
 - wind
 - mag var
 
-
 ### for PHPMYADMIN
 
 CREATE TABLE aircraft (
-  id mediumint NOT NULL,
-  manufacturer varchar(100) NOT NULL,
-  model varchar(100) NOT NULL,
-  fuel_type varchar(100) NOT NULL,
-  fuel_capacity int NOT NULL,
-  cruise_speed int NOT NULL,
-  cruise_fuel_consumption int NOT NULL
+id mediumint NOT NULL,
+manufacturer varchar(100) NOT NULL,
+model varchar(100) NOT NULL,
+fuel_type varchar(100) NOT NULL,
+fuel_capacity int NOT NULL,
+cruise_speed int NOT NULL,
+cruise_fuel_consumption int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ;
 
