@@ -6,9 +6,6 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true,
 }));
-app.get("/", (req, res) => {
-    res.json({ message: "ok" });
-});
 app.use("/api", router);
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

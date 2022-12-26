@@ -10,10 +10,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.json({ message: "ok" });
-});
-
 app.use("/api", router);
 
 app.listen(port, () => {

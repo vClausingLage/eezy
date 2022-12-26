@@ -1,7 +1,8 @@
 import { Aircraft } from "./models.js"
 
 export async function query() {
-  Aircraft.findAll({ where: {
+  const result = await Aircraft.findAll({ where: {
     manufacturer: 'Cessna'
   }})
+  return result
 }
