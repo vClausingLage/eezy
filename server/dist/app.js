@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { Sequelize, QueryTypes } from 'sequelize';
+import { Sequelize } from 'sequelize';
 import routes from './routes.js';
 // SERVER INIT
 dotenv.config();
@@ -24,16 +24,13 @@ catch (error) {
     console.error('Error connecting DB:', error);
 }
 // GET ALL AIRCRAFT FOR SELECTOR 1
-export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", {
-    type: QueryTypes.SELECT
-    // model: Aircraft,
-    // mapToModel: true
-});
+// export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", { 
+//   type: QueryTypes.SELECT
+//   // model: Aircraft,
+//   // mapToModel: true
+// })
 // CONTROLLERS ROUTES
 app.use('/api', routes);
-// app.post('/api/aircraft', (req: Request, res: Response) => {
-//   res.send(aircrat)
-// })
 app.listen(port, () => {
     console.log(`Server is running at https://localhost:${port}`);
 });

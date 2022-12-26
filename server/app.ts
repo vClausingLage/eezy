@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import { kilometersToKts, gallonsToLiters } from './unit_calculators.js'
 import { Sequelize, QueryTypes } from 'sequelize'
 import routes from './routes.js'
+import { Aircraft } from './model.js'
 
 // SERVER INIT
 dotenv.config()
@@ -26,19 +27,15 @@ try {
   console.error('Error connecting DB:', error)
 }
 // GET ALL AIRCRAFT FOR SELECTOR 1
-export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", { 
-  type: QueryTypes.SELECT
-  // model: Aircraft,
-  // mapToModel: true
-})
+// export const aircrat = await sequelize.query("SELECT * FROM `aircraft`", { 
+//   type: QueryTypes.SELECT
+//   // model: Aircraft,
+//   // mapToModel: true
+// })
 
 // CONTROLLERS ROUTES
 
 app.use('/api', routes)
-
-// app.post('/api/aircraft', (req: Request, res: Response) => {
-//   res.send(aircrat)
-// })
 
 app.listen(port, () => {
   console.log(`Server is running at https://localhost:${port}`);

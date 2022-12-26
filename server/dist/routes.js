@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { aircrat } from './app.js';
+import { aircraft } from './controller.js';
 const routes = Router();
 routes.post('/aircraft', (req, res) => {
-    res.send(aircrat);
+    res.send(aircraft);
 });
 export default routes;
