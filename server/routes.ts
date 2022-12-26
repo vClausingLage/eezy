@@ -1,10 +1,8 @@
 import { Router, Request, Response } from 'express'
-import { aircraft } from './controller.js'
+import { getAircraft } from './controller.js'
 
 const routes = Router()
 
-routes.post('/aircraft', (req: Request, res: Response) => {
-  res.send(aircraft)
-})
+routes.post('/aircraft', getAircraft)
 
 export default routes

@@ -1,7 +1,5 @@
 import { Router } from 'express';
-import { aircraft } from './controller.js';
+import { getAircraft } from './controller.js';
 const routes = Router();
-routes.post('/aircraft', (req, res) => {
-    res.send(aircraft);
-});
+routes.post('/aircraft', getAircraft);
 export default routes;
