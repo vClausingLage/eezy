@@ -1,7 +1,9 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import { router } from './routes/aircraft.js';
 const app = express();
-const port = 3000;
+dotenv.config();
+const port = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true,
