@@ -3,4 +3,4 @@ import { query } from '../services/controllers.js'
 
 export const router = Router();
 
-router.post('/aircraft', query)
+router.get('/aircraft', query)
