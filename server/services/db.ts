@@ -7,7 +7,7 @@ export const sequelize = new Sequelize(config.db.database, config.db.user , conf
   define: {
     timestamps: false
 }
-});
+})
 
 try {
   await sequelize.authenticate()
