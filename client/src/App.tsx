@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div>
-      <h1>EEzy Flight Computer</h1>
+      <h1>EEzy Flight Planner</h1>
       <Form />
     </div>
   )
