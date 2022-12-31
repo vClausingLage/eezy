@@ -2,6 +2,9 @@
 
 EEzy Flight Planner is the web version of Wingzy-App written in TypeScript.
 
+METAR / GAFOR API -> Email Benachrichtigung
+DWD Flug Wetterberichte als Vorhersage
+
 # Server
 
 [Express Typescript](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
