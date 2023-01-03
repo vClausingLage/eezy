@@ -3,6 +3,8 @@
 EEzy Flight Planner is the web version of Wingzy-App written in TypeScript.
 
 METAR / GAFOR API -> Email Benachrichtigung
+https://www.aviationweather.gov/dataserver
+!! GAFOR geschützt -> DFS !!
 DWD Flug Wetterberichte als Vorhersage
 
 # Server
