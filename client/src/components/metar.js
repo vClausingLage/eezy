@@ -5,22 +5,23 @@ import { Container } from '@mui/system'
 
 function Metar() {
 
-const [input, setInput] = useState('')
-const [result, setResult] = useState([])
+  const [input, setInput] = useState('')
+  const [result, setResult] = useState([])
 
-const handleChange = event => {
-  // const input = event.target.value.toUpperCase()
-  setInput(event.target.value)
-}
+  const handleChange = event => {
+    // const input = event.target.value.toUpperCase()
+    setInput(event.target.value)
+  }
 
-function setDate() {
-  let time = result[1]
-  let today = new Date()
-  let date = time + '/' + String(today.getMonth()) + String(today.getFullYear())
-  return date
-}
+  function formatDate() {
+    let time = result[1]
+    let today = new Date()
+    let date = time.slice(0, 2) + '.' + ("0" + (today.getMonth() + 1)).slice(-2) + '.' + String(today.getFullYear())
+    let tod = time.slice(2, 4) + ':' + time.slice(4, 6)
+    return `METAR for ${date}, ${tod} Zulu Time`
+  }
 
-let url = 'https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + input
+  let url = 'https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + input
 
   return(
     <>
@@ -43,7 +44,9 @@ let url = 'https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + input
       search
       </Button>
       <Container>
-        {setDate()}
+        {result.length > 0 && result} <br></br>
+        {result.length > 0 && formatDate()} 
+        
       </Container>
       
     </>

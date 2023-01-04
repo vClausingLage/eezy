@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <h1>EEzy Flight Planner</h1>
-      <Aircraft />
+      {/* <Aircraft /> */}
       <Metar />
     </div>
   )
