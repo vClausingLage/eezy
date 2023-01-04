@@ -1,21 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { TextField, Button } from "@mui/material"
-import { GetApp } from '@mui/icons-material'
+import { Container } from '@mui/system'
 
 function Metar() {
 
 const [input, setInput] = useState('')
+const [result, setResult] = useState([])
 
 const handleChange = event => {
+  // const input = event.target.value.toUpperCase()
   setInput(event.target.value)
 }
-const handleAction = () => {
-  console.log(input)
-  
+
+function setDate() {
+  let time = result[1]
+  let today = new Date()
+  let date = time + '/' + String(today.getMonth()) + String(today.getFullYear())
+  return date
 }
 
-
+let url = 'https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + input
 
   return(
     <>
@@ -29,15 +34,18 @@ const handleAction = () => {
       <Button 
         variant='contained'
         onClick={async () => {
-          const metar = await fetch('https://www.aviationweather.gov/adds/dataserver_current/current/' + 'httpparam?datasource=metars& requesttype=retrieve&format=xml&stationString=' + input, {
-            headers: {
-              
-            }
-          })
-          console.log(metar.json())
+          const res = await fetch(url)
+          const data = await res.text()
+          let metar = data.split('\n')
+          metar = metar[0].split(' ')
+          setResult(metar)
         }}>
       search
       </Button>
+      <Container>
+        {setDate()}
+      </Container>
+      
     </>
   )
 }

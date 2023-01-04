@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import Metar from './components/metar'
 import Aircraft from './components/aircraft.js'
 
