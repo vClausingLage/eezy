@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
-const Form = () => {
+const Aircraft = () => {
 
   fetch('/api/aircraft', {
     method: 'GET',
@@ -45,4 +45,4 @@ const Form = () => {
     </>
 )}
 
-export default Form
+export default Aircraft

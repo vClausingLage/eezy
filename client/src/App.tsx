@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import Form from './components/formular.js'
+import Metar from './components/metar'
+import Aircraft from './components/aircraft.js'
 
 function App() {
 
   return (
     <div>
       <h1>EEzy Flight Planner</h1>
-      <Form />
+      <Aircraft />
+      <Metar />
     </div>
   )
 }
