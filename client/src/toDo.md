@@ -1,5 +1,26 @@
 # React App
 
+## METAR
+
+https://api.met.no/weatherapi/tafmetar/1.0/documentation#!/data/get_metar
+https://www.dwd.de/DE/fachnutzer/luftfahrt/teaser/luftsportberichte/fbeu40_node.html
+https://en.wikipedia.org/wiki/METAR
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
+
+EDHK 040750Z 22015KT 190V250 3700 RA BKN006 OVC011 08/08 Q1006=
+
+[1] ICAO
+[2] day + Zulu time
+[3] wind direction and speed
+[4] wind variation
+[5] visibility (m / ft)
+[6] [METAR weather codes](https://en.wikipedia.org/wiki/METAR)
+[7] clouds
+[8] clouds
+[9] temperature/dewpoint (M for minus)
+[10] QNH
+[11] = for end of metar
+
 ## Tech
 
 1. convert JS to TS
