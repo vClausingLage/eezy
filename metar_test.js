@@ -1,7 +1,13 @@
-let metar = 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005='
+let metar = 'ENGM 042300Z 0500/0524 03015KT 7000 -SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT='
+
+// 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
+
+// ALWAYS LOOP WHOLE METAR AFTER REDUCING !!!!!
 
 metar = metar.split(' ')
+tempo_metar = []
 
+// the check function cheks if Metar ends with the = sign (and is therefore sanely formatted)
 function checkMetarIntegr(raw_metar) {
   if (raw_metar[raw_metar.length -1].slice(-1) == '=') {
     console.log('metar integrity checked')
@@ -11,33 +17,51 @@ function checkMetarIntegr(raw_metar) {
 }
 checkMetarIntegr(metar)
 
+// the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
+function reduceTempo(raw_metar) {
+  let length = raw_metar.length
+  raw_metar.forEach((el, idx) => {
+    if (/TEMPO/i.test(el)) {
+      for (let i = idx; i < length; i++) {
+        tempo_metar.push(raw_metar[i])
+      }
+      for (let i = idx; i < length; i++) {
+        raw_metar.splice(i)
+      }
+    }
+  })
+}
+reduceTempo(metar)
 
-
+// the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function mapToObj(raw_metar) {
-  let newObj = {}
+  let metarJSO = {}
   // ICAO
   if (/^[a-z]{4}$/i.test(raw_metar[0])) {
-    newObj['ICAO'] = raw_metar[0]
+    metarJSO['ICAO'] = raw_metar[0]
   }
   // DATE / TIME
   if (/^[0-9]{6}Z$/i.test(raw_metar[1])) {
-    newObj['Date'] = raw_metar[1]
+    metarJSO['Date'] = raw_metar[1]
   }
   // WINDS
   if (/^[0-9]{5}KT$/i.test(raw_metar[2])) {
-    newObj['Winds'] = raw_metar[2]
+    metarJSO['Winds'] = raw_metar[2]
   }
   if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(raw_metar[2])) {
-    newObj['Winds'] = raw_metar[2]
+    metarJSO['Winds'] = raw_metar[2]
   }
   // WINDVAR
-  if (/^\d{3}V\d{3}$/i.test(raw_metar[3])) {
-    newObj['Wind_Variation'] = raw_metar[3]
+  if (/^\d{3,4}(V|[\/])\d{3,4}$/i.test(raw_metar[2])) {
+    metarJSO['Wind_Variation'] = raw_metar[2]
+  }
+  // VISBILIY
+  if (/CAVOK/.test(raw_metar[4])) {
+    metarJSO['Visibility'] = raw_metar[4]
   }
   // LOG
-  console.log(newObj)
+  console.log(metarJSO)
 }
-
 mapToObj(metar)
 
 function formatDate(raw_metar) {
