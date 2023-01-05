@@ -30,6 +30,10 @@ function mapToObj(raw_metar) {
   if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(raw_metar[2])) {
     newObj['Winds'] = raw_metar[2]
   }
+  // WINDVAR
+  if (/^\d{3}V\d{3}$/i.test(raw_metar[3])) {
+    newObj['Wind_Variation'] = raw_metar[3]
+  }
   // LOG
   console.log(newObj)
 }
@@ -42,8 +46,6 @@ function formatDate(raw_metar) {
   let today = new Date()
   let date = time.slice(0, 2) + '.' + ("0" + (today.getMonth() + 1)).slice(-2) + '.' + String(today.getFullYear())
   let tod = time.slice(2, 4) + ':' + time.slice(4, 6)
-  // result = result.filter(el => el !== time)
-  // result = result.filter(el => el !== aerodrome)
   return `METAR for ${aerodrome} on ${date}, ${tod} Zulu Time`
 }
 
