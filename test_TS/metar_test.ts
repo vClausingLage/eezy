@@ -1,40 +1,52 @@
-let metar: string = 'ENGM 042300Z 0500/0524 03015KT 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT='
+import { dateFormat, windFormat } from './metar-helper.js';
+
+let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
 
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 
+// https://metar-taf.com/explanation
+
+export class Wind {
+  direction: number;
+  speed: number;
+  gusts?: number;
+  unit: string;
+}
+
 class Metar {
   ICAO: string;
-  Date: string;
+  Date: Array<string>;
   Wind_Variation: string;
-  Winds: string;
+  Winds: Wind | undefined // WHY UNDEFINED ???
   Visibility: string;
   Precipitation: string;
   Cloud_Layer: Array<string>;
 }
 
-let metarList: Array<string> = metar.split(' ')
-let tempo_metar: Array<string> = []
+
+let metarList: Array<string> = metar.split(' ');
+let tempo_metar: Array<string> = [];
 
 // the check function cheks if Metar ends with the = sign (and is therefore sanely formatted)
 function checkMetarIntegr(metar: Array<string>) {
   if (metar[metar.length -1].slice(-1) == '=') {
-    console.log('metar integrity checked')
+    console.log('metar integrity checked');
   } else {
-    console.log(metar[metar.length -1])
+    console.log(metar[metar.length -1]);
   }
 }
 checkMetarIntegr(metarList)
 
 // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
 function reduceTempo(metar: Array<string>) {
-  let length = metar.length
+  let length = metar.length;
   metar.forEach((el, idx) => {
     if (/TEMPO/i.test(el)) {
       for (let i = idx; i < length; i++) {
-        tempo_metar.push(metar[i])
+        tempo_metar.push(metar[i]);
       }
       for (let i = idx; i < length; i++) {
-        metar.splice(i)
+        metar.splice(i);
       }
     }
   })
@@ -43,51 +55,44 @@ reduceTempo(metarList)
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function maptoMetarObj(metar: Array<string>) {
-  let metarObj = new Metar
-  metarObj['Cloud_Layer'] = []
+  let metarObj = new Metar;
+  metarObj['Cloud_Layer'] = [];
   metar.forEach(el => {
     // ICAO
     if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
-      metarObj['ICAO'] = el
+      metarObj['ICAO'] = el;
     }
     // DATE / TIME
   if (/^[0-9]{6}Z$/i.test(el)) {
-    metarObj['Date'] = el
+    let input = dateFormat(el);
+    metarObj['Date'] = input;
   }
   // WINDS
   if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
-    metarObj['Winds'] = el
+    let input = windFormat(el);
+    metarObj['Winds'] = input;
   }
   // WINDVAR
   if (/^\d{3,4}(V|[\/])\d{3,4}$/i.test(el)) {
-    metarObj['Wind_Variation'] = el
+    metarObj['Wind_Variation'] = el;
   }
   // VISBILIY
   if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
-    metarObj['Visibility'] = el
+    metarObj['Visibility'] = el;
   }
   // PRECIPITATION
   if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
-    metarObj['Precipitation'] = el
+    metarObj['Precipitation'] = el;
   }
   // CLOUDS
   if (/^\w{3}\d{3}$/i.test(el)) {
-    metarObj['Cloud_Layer'].push(el)
+    metarObj['Cloud_Layer'].push(el);
   }
   })
   // LOG
-  console.log(metarObj)
+  console.log(metarObj);
 }
 maptoMetarObj(metarList)
-
-function formatDate(metar: Array<string>) {
-  let aerodrome = metar[0]
-  let time = metar[1]
-  let today = new Date()
-  let date = time.slice(0, 2) + '.' + ("0" + (today.getMonth() + 1)).slice(-2) + '.' + String(today.getFullYear())
-  let tod = time.slice(2, 4) + ':' + time.slice(4, 6)
-  return `METAR for ${aerodrome} on ${date}, ${tod} Zulu Time`
-}
 
 // TESTS
 

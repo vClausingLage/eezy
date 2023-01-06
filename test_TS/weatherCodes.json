@@ -1,0 +1,19 @@
+{
+  "intensity": {
+    "RE": "recent",
+    "VC": "in the vicinity"
+  },
+  "characteristic": {
+    "BC": "batches of",
+    "DR": "low drifting",
+    "MI": "shallow",
+    "PR": "partial",
+    "BL": "blowing",
+    "FZ": "freezing",
+    "SH": "showers",
+    "TS": "thunderstorms"
+  },
+  "type": {
+    
+  }
+}
