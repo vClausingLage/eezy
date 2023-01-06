@@ -46,16 +46,14 @@ function visFormat(vis) {
 exports.visFormat = visFormat;
 function precipFormat(precip) {
     var output = new metar_test_js_1.Precipitation;
-    var length = precip.length;
-    if (precip[0] === '+') {
-        output.intensity = 'heavy';
-    }
-    if (precip[0] === '-') {
-        output.intensity = 'light';
-    }
-    if (precip[1 - 2] == 'SN') {
-        output.firstElement = 'snow';
+    if (precip.length % 2 != 0) {
+        console.log(precip.length);
     }
     return output;
 }
 exports.precipFormat = precipFormat;
+/*
+
+
+
+*/ 

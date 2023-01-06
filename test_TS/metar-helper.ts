@@ -42,12 +42,22 @@ export function visFormat(vis: string) {
   }
 }
 
+function precipPrepare(precip, preposition) {
+  if (precip.length % 2 != 0) {
+    if (precip[0] === '+') {
+      preposition = 'heavy'
+    } else if (precip[0] === '-') {
+      preposition = 'light'
+    }
+  }
+  return [precip, preposition]
+}
+
 export function precipFormat(precip: string) {
   let output = new Precipitation;
-  let length = precip.length
-  if (precip[1-2] == 'SN') {
-    output.firstElement = 'snow'
-  }
+  let preposition: string | any = ''
+  [precip, preposition] = precipPrepare(precip, preposition)
+  
   return output
 }
 
