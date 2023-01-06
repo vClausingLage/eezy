@@ -67,7 +67,7 @@ function maptoMetarObj(metar: Array<string>) {
     metarObj['Visibility'] = el
   }
   // PRECIPITATION
-  if (/^\+?\w{2}$/i.test(el) || /^\-?\w{2}$/i.test(el)) {
+  if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) {
     metarObj['Precipitation'] = el
   }
   // CLOUDS
