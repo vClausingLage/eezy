@@ -1,7 +1,5 @@
 var metar = 'ENGM 042300Z 0500/0524 03015KT 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
-// does a class make sense?
-// ALWAYS LOOP WHOLE METAR AFTER REDUCING !!!!!
 var Metar = /** @class */ (function () {
     function Metar() {
     }
@@ -60,7 +58,7 @@ function maptoMetarObj(metar) {
             metarObj['Visibility'] = el;
         }
         // PRECIPITATION
-        if (/^\+?\w{2}$/i.test(el) || /^\-?\w{2}$/i.test(el)) {
+        if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) {
             metarObj['Precipitation'] = el;
         }
         // CLOUDS

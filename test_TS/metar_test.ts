@@ -47,7 +47,7 @@ function maptoMetarObj(metar: Array<string>) {
   metarObj['Cloud_Layer'] = []
   metar.forEach(el => {
     // ICAO
-    if (/^[a-z]{4}$/i.test(el)) {
+    if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
       metarObj['ICAO'] = el
     }
     // DATE / TIME
@@ -67,7 +67,7 @@ function maptoMetarObj(metar: Array<string>) {
     metarObj['Visibility'] = el
   }
   // PRECIPITATION
-  if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) {
+  if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
     metarObj['Precipitation'] = el
   }
   // CLOUDS
