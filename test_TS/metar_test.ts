@@ -2,10 +2,6 @@ let metar: string = 'ENGM 042300Z 0500/0524 03015KT 7000 +SN SCT012 BKN025 TEMPO
 
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 
-// does a class make sense?
-
-// ALWAYS LOOP WHOLE METAR AFTER REDUCING !!!!!
-
 class Metar {
   ICAO: string;
   Date: string;
