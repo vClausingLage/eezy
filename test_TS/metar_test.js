@@ -1,15 +1,23 @@
 "use strict";
 exports.__esModule = true;
-exports.Wind = void 0;
+exports.Precipitation = exports.Wind = void 0;
 var metar_helper_js_1 = require("./metar-helper.js");
-var metar = 'ENGM 042300Z 0500/0524 21010G21KT 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
+var metar = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
+// TO DO REMOVE ALL PARSE INT IN HELPER !!! !!! !!!
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
+// https://metar-taf.com/explanation
 var Wind = /** @class */ (function () {
     function Wind() {
     }
     return Wind;
 }());
 exports.Wind = Wind;
+var Precipitation = /** @class */ (function () {
+    function Precipitation() {
+    }
+    return Precipitation;
+}());
+exports.Precipitation = Precipitation;
 var Metar = /** @class */ (function () {
     function Metar() {
     }
@@ -23,7 +31,7 @@ function checkMetarIntegr(metar) {
         console.log('metar integrity checked');
     }
     else {
-        console.log(metar[metar.length - 1]);
+        console.log('metar not complete');
     }
 }
 checkMetarIntegr(metarList);
@@ -45,37 +53,46 @@ reduceTempo(metarList);
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function maptoMetarObj(metar) {
     var metarObj = new Metar;
+    metarObj['ICAO'] = metar[0];
+    metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
     metarObj['Cloud_Layer'] = [];
     metar.forEach(function (el) {
         // ICAO
-        if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
-            metarObj['ICAO'] = el;
-        }
+        // if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
+        //   metarObj['ICAO'] = el;      // remove from STRING ---> str = str.replace(/ICAO/g, '')
+        // }
         // DATE / TIME
         if (/^[0-9]{6}Z$/i.test(el)) {
-            var input = (0, metar_helper_js_1.dateFormat)(el);
-            metarObj['Date'] = input;
+            var output = (0, metar_helper_js_1.dateFormat)(el);
+            metarObj['Date'] = output;
         }
         // WINDS
         if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
-            var input = (0, metar_helper_js_1.windFormat)(el);
-            metarObj['Winds'] = input;
+            var output = (0, metar_helper_js_1.windFormat)(el);
+            metarObj['Winds'] = output;
         }
         // WINDVAR
-        if (/^\d{3,4}(V|[\/])\d{3,4}$/i.test(el)) {
-            metarObj['Wind_Variation'] = el;
+        if (/^\d{3}V\d{3}$/i.test(el)) {
+            var output = (0, metar_helper_js_1.windVarFormat)(el);
+            metarObj['Wind_Variation'] = output;
         }
         // VISBILIY
         if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
-            metarObj['Visibility'] = el;
+            var output = (0, metar_helper_js_1.visFormat)(el);
+            metarObj['Visibility'] = output;
         }
         // PRECIPITATION
-        if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
-            metarObj['Precipitation'] = el;
+        if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
+            var output = (0, metar_helper_js_1.precipFormat)(el);
+            metarObj['Precipitation'] = output;
         }
         // CLOUDS
-        if (/^\w{3}\d{3}$/i.test(el)) {
+        if (/^\D{3}\d{3}$/i.test(el)) {
             metarObj['Cloud_Layer'].push(el);
+        }
+        // TAF PROGNOSIS
+        if (/^\d{4}\/\d{4}$/i.test(el)) {
+            metarObj['TAF_Prognosis'] = el;
         }
     });
     // LOG
@@ -83,10 +100,6 @@ function maptoMetarObj(metar) {
 }
 maptoMetarObj(metarList);
 // TESTS
-// class Metar {
-//   constructor(icao, date, winds, windvar, vis, precip, cloud1, cloud2, cloud3, temp, qnh, tempo, change) {
-//   }
-// }
 // let edds_metar = `EDDS 041750Z 23015KT 190V270 9999 FEW034 10/05 Q1022 NOSIG=
 // EDDS 041820Z 23013G24KT 190V270 CAVOK 10/06 Q1022 NOSIG=
 // EDDS 041850Z 23013G23KT 190V250 CAVOK 10/06 Q1022=

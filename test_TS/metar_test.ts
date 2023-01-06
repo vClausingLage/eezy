@@ -1,6 +1,8 @@
-import { dateFormat, windFormat } from './metar-helper.js';
+import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper.js';
 
-let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
+let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
+
+// TO DO REMOVE ALL PARSE INT IN HELPER !!! !!! !!!
 
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 
@@ -13,14 +15,22 @@ export class Wind {
   unit: string;
 }
 
+export class Precipitation {
+  intensity?: string;
+  firstElement: string;
+  secondElement?: string;
+  thridElement?: string;
+}
+
 class Metar {
   ICAO: string;
-  Date: Array<string>;
-  Wind_Variation: string;
+  Date: Date;
+  Wind_Variation?: Array<number>;
   Winds: Wind | undefined // WHY UNDEFINED ???
-  Visibility: string;
-  Precipitation: string;
+  Visibility: string | number | undefined; // WHY UNDEFINED ???
+  Precipitation: Precipitation;
   Cloud_Layer: Array<string>;
+  TAF_Prognosis: string;
 }
 
 
@@ -32,7 +42,7 @@ function checkMetarIntegr(metar: Array<string>) {
   if (metar[metar.length -1].slice(-1) == '=') {
     console.log('metar integrity checked');
   } else {
-    console.log(metar[metar.length -1]);
+    console.log('metar not complete');
   }
 }
 checkMetarIntegr(metarList)
@@ -56,37 +66,46 @@ reduceTempo(metarList)
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function maptoMetarObj(metar: Array<string>) {
   let metarObj = new Metar;
+  metarObj['ICAO'] = metar[0]
+  metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
   metarObj['Cloud_Layer'] = [];
   metar.forEach(el => {
     // ICAO
-    if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
-      metarObj['ICAO'] = el;
-    }
+    // if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
+    //   metarObj['ICAO'] = el;      // remove from STRING ---> str = str.replace(/ICAO/g, '')
+    // }
     // DATE / TIME
   if (/^[0-9]{6}Z$/i.test(el)) {
-    let input = dateFormat(el);
-    metarObj['Date'] = input;
+    let output = dateFormat(el);
+    metarObj['Date'] = output;
   }
   // WINDS
   if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
-    let input = windFormat(el);
-    metarObj['Winds'] = input;
+    let output = windFormat(el);
+    metarObj['Winds'] = output;
   }
   // WINDVAR
-  if (/^\d{3,4}(V|[\/])\d{3,4}$/i.test(el)) {
-    metarObj['Wind_Variation'] = el;
+  if (/^\d{3}V\d{3}$/i.test(el)) {
+    let output = windVarFormat(el)
+    metarObj['Wind_Variation'] = output;
   }
   // VISBILIY
   if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
-    metarObj['Visibility'] = el;
+    let output = visFormat(el)
+    metarObj['Visibility'] = output;
   }
   // PRECIPITATION
-  if (/^\+?\w{2,4}$/i.test(el) || /^\-?\w{2,4}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
-    metarObj['Precipitation'] = el;
+  if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
+    let output = precipFormat(el)
+    metarObj['Precipitation'] = output;
   }
   // CLOUDS
-  if (/^\w{3}\d{3}$/i.test(el)) {
+  if (/^\D{3}\d{3}$/i.test(el)) {
     metarObj['Cloud_Layer'].push(el);
+  }
+  // TAF PROGNOSIS
+  if (/^\d{4}\/\d{4}$/i.test(el)) {
+    metarObj['TAF_Prognosis'] = el;
   }
   })
   // LOG
@@ -95,12 +114,6 @@ function maptoMetarObj(metar: Array<string>) {
 maptoMetarObj(metarList)
 
 // TESTS
-
-// class Metar {
-//   constructor(icao, date, winds, windvar, vis, precip, cloud1, cloud2, cloud3, temp, qnh, tempo, change) {
-
-//   }
-// }
 
 // let edds_metar = `EDDS 041750Z 23015KT 190V270 9999 FEW034 10/05 Q1022 NOSIG=
 // EDDS 041820Z 23013G24KT 190V270 CAVOK 10/06 Q1022 NOSIG=

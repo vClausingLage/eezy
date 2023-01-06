@@ -1,12 +1,11 @@
 "use strict";
 exports.__esModule = true;
-exports.windFormat = exports.dateFormat = void 0;
+exports.precipFormat = exports.visFormat = exports.windVarFormat = exports.windFormat = exports.dateFormat = void 0;
 var metar_test_js_1 = require("./metar_test.js");
 function dateFormat(time) {
     var today = new Date();
-    var date = time.slice(0, 2) + '.' + ("0" + (today.getMonth() + 1)).slice(-2) + '.' + String(today.getFullYear());
-    var tod = time.slice(2, 4) + ':' + time.slice(4, 6);
-    return [date, tod];
+    var date = new Date(today.getFullYear(), today.getMonth(), parseInt(time.slice(0, 2)), parseInt(time.slice(2, 4)), parseInt(time.slice(4, 6)));
+    return date;
 }
 exports.dateFormat = dateFormat;
 function windFormat(wind) {
@@ -31,3 +30,32 @@ function windFormat(wind) {
     }
 }
 exports.windFormat = windFormat;
+function windVarFormat(windVar) {
+    var output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))];
+    return output;
+}
+exports.windVarFormat = windVarFormat;
+function visFormat(vis) {
+    if (/^CAVOK$/.test(vis)) {
+        return vis;
+    }
+    if (/^\d{4}$/i.test(vis)) {
+        return parseInt(vis);
+    }
+}
+exports.visFormat = visFormat;
+function precipFormat(precip) {
+    var output = new metar_test_js_1.Precipitation;
+    var length = precip.length;
+    if (precip[0] === '+') {
+        output.intensity = 'heavy';
+    }
+    if (precip[0] === '-') {
+        output.intensity = 'light';
+    }
+    if (precip[1 - 2] == 'SN') {
+        output.firstElement = 'snow';
+    }
+    return output;
+}
+exports.precipFormat = precipFormat;
