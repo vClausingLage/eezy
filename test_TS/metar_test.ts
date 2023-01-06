@@ -1,10 +1,20 @@
-let metar: string = 'ENGM 042300Z 0500/0524 03015KT 7000 -SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT='
+let metar: string = 'ENGM 042300Z 0500/0524 03015KT 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT='
 
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 
 // does a class make sense?
 
 // ALWAYS LOOP WHOLE METAR AFTER REDUCING !!!!!
+
+class Metar {
+  ICAO: string;
+  Date: string;
+  Wind_Variation: string;
+  Winds: string;
+  Visibility: string;
+  Precipitation: string;
+  Cloud_Layer: Array<string>;
+}
 
 let metarList: Array<string> = metar.split(' ')
 let tempo_metar: Array<string> = []
@@ -37,7 +47,8 @@ reduceTempo(metarList)
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function maptoMetarObj(metar: Array<string>) {
-  let metarObj = {}
+  let metarObj = new Metar
+  metarObj['Cloud_Layer'] = []
   metar.forEach(el => {
     // ICAO
     if (/^[a-z]{4}$/i.test(el)) {
@@ -60,8 +71,12 @@ function maptoMetarObj(metar: Array<string>) {
     metarObj['Visibility'] = el
   }
   // PRECIPITATION
-  if (/(^+?)(^-?)\w{2}$/.test(el)) {
+  if (/^\+?\w{2}$/i.test(el) || /^\-?\w{2}$/i.test(el)) {
     metarObj['Precipitation'] = el
+  }
+  // CLOUDS
+  if (/^\w{3}\d{3}$/i.test(el)) {
+    metarObj['Cloud_Layer'].push(el)
   }
   })
   // LOG
