@@ -1,5 +1,6 @@
 var metar = 'ENGM 042300Z 0500/0524 03015KT 7000 -SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
+// does a class make sense?
 // ALWAYS LOOP WHOLE METAR AFTER REDUCING !!!!!
 var metarList = metar.split(' ');
 var tempo_metar = [];
@@ -29,35 +30,38 @@ function reduceTempo(metar) {
 }
 reduceTempo(metarList);
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
-function mapToObj(metar) {
-    var metarJSO = {};
-    // ICAO
-    if (/^[a-z]{4}$/i.test(metar[0])) {
-        metarJSO['ICAO'] = metar[0];
-    }
-    // DATE / TIME
-    if (/^[0-9]{6}Z$/i.test(metar[1])) {
-        metarJSO['Date'] = metar[1];
-    }
-    // WINDS
-    if (/^[0-9]{5}KT$/i.test(metar[2])) {
-        metarJSO['Winds'] = metar[2];
-    }
-    if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(metar[2])) {
-        metarJSO['Winds'] = metar[2];
-    }
-    // WINDVAR
-    if (/^\d{3,4}(V|[\/])\d{3,4}$/i.test(metar[2])) {
-        metarJSO['Wind_Variation'] = metar[2];
-    }
-    // VISBILIY
-    if (/CAVOK/.test(metar[4])) {
-        metarJSO['Visibility'] = metar[4];
-    }
+function maptoMetarObj(metar) {
+    var metarObj = {};
+    metar.forEach(function (el) {
+        // ICAO
+        if (/^[a-z]{4}$/i.test(el)) {
+            metarObj['ICAO'] = el;
+        }
+        // DATE / TIME
+        if (/^[0-9]{6}Z$/i.test(el)) {
+            metarObj['Date'] = el;
+        }
+        // WINDS
+        if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
+            metarObj['Winds'] = el;
+        }
+        // WINDVAR
+        if (/^\d{3,4}(V|[\/])\d{3,4}$/i.test(el)) {
+            metarObj['Wind_Variation'] = el;
+        }
+        // VISBILIY
+        if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
+            metarObj['Visibility'] = el;
+        }
+        // PRECIPITATION
+        if (/(^+?)(^-?)\w{2}$/.test(el)) {
+            metarObj['Precipitation'] = el;
+        }
+    });
     // LOG
-    console.log(metarJSO);
+    console.log(metarObj);
 }
-mapToObj(metarList);
+maptoMetarObj(metarList);
 function formatDate(metar) {
     var aerodrome = metar[0];
     var time = metar[1];
