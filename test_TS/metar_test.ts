@@ -1,4 +1,4 @@
-import { Metar } from './metar-classes.js'
+import { Metar } from './metar-classes.js';
 import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper.js';
 
 let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
@@ -41,45 +41,45 @@ reduceTempo(metarList)
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function maptoMetarObj(metar: Array<string>) {
-  let metarObj = new Metar;
+  let metarObj = new Metar();
+    // ICAO
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
   metarObj['Cloud_Layer'] = [];
   metar.forEach(el => {
-    // ICAO
-    // if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
-    //   metarObj['ICAO'] = el;      // remove from STRING ---> str = str.replace(/ICAO/g, '')
-    // }
     // DATE / TIME
   if (/^[0-9]{6}Z$/i.test(el)) {
     let output = dateFormat(el);
     metarObj['Date'] = output;
   }
-  // WINDS
+    // WINDS
   if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
     let output = windFormat(el);
     metarObj['Winds'] = output;
   }
-  // WINDVAR
+    // WINDVAR
   if (/^\d{3}V\d{3}$/i.test(el)) {
     let output = windVarFormat(el)
     metarObj['Wind_Variation'] = output;
   }
-  // VISBILIY
+    // VISBILIY
   if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
     let output = visFormat(el)
     metarObj['Visibility'] = output;
   }
-  // PRECIPITATION
-  if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
-    let output = precipFormat(el)
+    // PRECIPITATION
+  if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) {
+    let pre_output = precipFormat(el)
+    if (typeof pre_output === 'object') {
+      return pre_output[0] + pre_output[1]
+    }
     metarObj['Precipitation'] = output;
   }
-  // CLOUDS
+    // CLOUDS
   if (/^\D{3}\d{3}$/i.test(el)) {
     metarObj['Cloud_Layer'].push(el);
   }
-  // TAF PROGNOSIS
+    // TAF PROGNOSIS
   if (/^\d{4}\/\d{4}$/i.test(el)) {
     metarObj['TAF_Prognosis'] = el;
   }

@@ -1,30 +1,13 @@
 "use strict";
-exports.__esModule = true;
-exports.Precipitation = exports.Wind = void 0;
-var metar_helper_js_1 = require("./metar-helper.js");
-var metar = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
+Object.defineProperty(exports, "__esModule", { value: true });
+const metar_classes_js_1 = require("./metar-classes.js");
+const metar_helper_js_1 = require("./metar-helper.js");
+let metar = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
 // TO DO REMOVE ALL PARSE INT IN HELPER !!! !!! !!!
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 // https://metar-taf.com/explanation
-var Wind = /** @class */ (function () {
-    function Wind() {
-    }
-    return Wind;
-}());
-exports.Wind = Wind;
-var Precipitation = /** @class */ (function () {
-    function Precipitation() {
-    }
-    return Precipitation;
-}());
-exports.Precipitation = Precipitation;
-var Metar = /** @class */ (function () {
-    function Metar() {
-    }
-    return Metar;
-}());
-var metarList = metar.split(' ');
-var tempo_metar = [];
+let metarList = metar.split(' ');
+let tempo_metar = [];
 // the check function cheks if Metar ends with the = sign (and is therefore sanely formatted)
 function checkMetarIntegr(metar) {
     if (metar[metar.length - 1].slice(-1) == '=') {
@@ -37,13 +20,13 @@ function checkMetarIntegr(metar) {
 checkMetarIntegr(metarList);
 // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
 function reduceTempo(metar) {
-    var length = metar.length;
-    metar.forEach(function (el, idx) {
+    let length = metar.length;
+    metar.forEach((el, idx) => {
         if (/TEMPO/i.test(el)) {
-            for (var i = idx; i < length; i++) {
+            for (let i = idx; i < length; i++) {
                 tempo_metar.push(metar[i]);
             }
-            for (var i = idx; i < length; i++) {
+            for (let i = idx; i < length; i++) {
                 metar.splice(i);
             }
         }
@@ -52,38 +35,38 @@ function reduceTempo(metar) {
 reduceTempo(metarList);
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 function maptoMetarObj(metar) {
-    var metarObj = new Metar;
+    let metarObj = new metar_classes_js_1.Metar();
     metarObj['ICAO'] = metar[0];
     metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
     metarObj['Cloud_Layer'] = [];
-    metar.forEach(function (el) {
+    metar.forEach(el => {
         // ICAO
         // if (/^[a-z]{4}$/i.test(el)) { // !!! -> CAN BE SAME AS PRECIPITATION !!!
         //   metarObj['ICAO'] = el;      // remove from STRING ---> str = str.replace(/ICAO/g, '')
         // }
         // DATE / TIME
         if (/^[0-9]{6}Z$/i.test(el)) {
-            var output = (0, metar_helper_js_1.dateFormat)(el);
+            let output = (0, metar_helper_js_1.dateFormat)(el);
             metarObj['Date'] = output;
         }
         // WINDS
         if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
-            var output = (0, metar_helper_js_1.windFormat)(el);
+            let output = (0, metar_helper_js_1.windFormat)(el);
             metarObj['Winds'] = output;
         }
         // WINDVAR
         if (/^\d{3}V\d{3}$/i.test(el)) {
-            var output = (0, metar_helper_js_1.windVarFormat)(el);
+            let output = (0, metar_helper_js_1.windVarFormat)(el);
             metarObj['Wind_Variation'] = output;
         }
         // VISBILIY
         if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
-            var output = (0, metar_helper_js_1.visFormat)(el);
+            let output = (0, metar_helper_js_1.visFormat)(el);
             metarObj['Visibility'] = output;
         }
         // PRECIPITATION
         if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) { // -> INTEREFERES WITH ICAO !!!
-            var output = (0, metar_helper_js_1.precipFormat)(el);
+            let output = (0, metar_helper_js_1.precipFormat)(el);
             metarObj['Precipitation'] = output;
         }
         // CLOUDS

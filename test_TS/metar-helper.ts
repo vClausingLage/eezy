@@ -1,5 +1,7 @@
 import { Wind, Precipitation } from './metar-classes.js'
 
+import weatherCodes from './weatherCodes.json'
+
 export function dateFormat(time: string) {
   let today = new Date();
   let date = new Date(today.getFullYear(), today.getMonth(), parseInt(time.slice(0, 2)), parseInt(time.slice(2, 4)), parseInt(time.slice(4, 6)))
@@ -8,7 +10,7 @@ export function dateFormat(time: string) {
 
 export function windFormat(wind: string) {
   if (/^[0-9]{5}KT$/i.test(wind)) {
-    let output = new Wind;
+    let output = {} as Wind;
     output = {
       direction: parseInt(wind.slice(0, 3)),
       speed: parseInt(wind.slice(3, 4)),
@@ -17,7 +19,7 @@ export function windFormat(wind: string) {
     return output
   }
   if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
-    let output = new Wind;
+    let output = {} as Wind;
       output = {
       direction: parseInt(wind.slice(0, 3)),
       speed: parseInt(wind.slice(3, 5)),
@@ -42,32 +44,29 @@ export function visFormat(vis: string) {
   }
 }
 
-function precipPrepare(precip, preposition) {
-  if (precip.length % 2 != 0) {
-    if (precip[0] === '+') {
-      preposition = 'heavy'
-    } else if (precip[0] === '-') {
-      preposition = 'light'
-    }
-  }
-  return [precip, preposition]
+// function precipPrepare(precip, preposition) {
+//   if (precip.length % 2 != 0) {
+//     if (precip[0] === '+') {
+//       preposition = 'heavy'
+//     } else if (precip[0] === '-') {
+//       preposition = 'light'
+//     }
+//   }
+//   return [precip, preposition]
+// }
+
+export function decodeWeather(precip: string) {
+  console.log(precip)
 }
 
-export function decodeWeather() {
-
-}
-
-export function precipFormat(precip: string) {
-  let output = new Precipitation;
+export function precipFormat(precip: string): string | Array<string> {
+  let output = new Precipitation();
   if (precip.length % 2 == 0) {
-    decodeWeather()
+    decodeWeather(precip);
+    return precip
+  } else {
+    let weatherPreposition = precip.slice(0)
+    let raw_precip = precip.slice(1, precip.length)
+    return [weatherPreposition, raw_precip]
   }
-  
-  return output
 }
-
-/*
-
-
-
-*/
