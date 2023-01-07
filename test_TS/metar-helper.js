@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.precipFormat = exports.decodeWeather = exports.visFormat = exports.windVarFormat = exports.windFormat = exports.dateFormat = void 0;
+exports.precipFormat = exports.decodeWeather = exports.precipPreposition = exports.visFormat = exports.windVarFormat = exports.windFormat = exports.dateFormat = void 0;
 const metar_classes_js_1 = require("./metar-classes.js");
 function dateFormat(time) {
     let today = new Date();
@@ -10,7 +10,7 @@ function dateFormat(time) {
 exports.dateFormat = dateFormat;
 function windFormat(wind) {
     if (/^[0-9]{5}KT$/i.test(wind)) {
-        let output = {};
+        let output = new metar_classes_js_1.Wind;
         output = {
             direction: parseInt(wind.slice(0, 3)),
             speed: parseInt(wind.slice(3, 4)),
@@ -19,7 +19,7 @@ function windFormat(wind) {
         return output;
     }
     if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
-        let output = {};
+        let output = new metar_classes_js_1.Wind;
         output = {
             direction: parseInt(wind.slice(0, 3)),
             speed: parseInt(wind.slice(3, 5)),
@@ -44,6 +44,7 @@ function visFormat(vis) {
     }
 }
 exports.visFormat = visFormat;
+// ! remove if unneccessary
 // function precipPrepare(precip, preposition) {
 //   if (precip.length % 2 != 0) {
 //     if (precip[0] === '+') {
@@ -54,16 +55,27 @@ exports.visFormat = visFormat;
 //   }
 //   return [precip, preposition]
 // }
+function precipPreposition(precip) {
+    let formattedPrecip;
+    if (precip.length % 2 === 0) {
+        formattedPrecip = ['null', precip];
+        return formattedPrecip;
+    }
+    if (precip.length % 2 != 0) {
+        let weatherPreposition = precip.slice(0, 1);
+        let raw_precip = precip.slice(1, precip.length);
+        formattedPrecip = [weatherPreposition, raw_precip];
+        return formattedPrecip;
+    }
+}
+exports.precipPreposition = precipPreposition;
 function decodeWeather(precip) {
-    console.log(precip);
+    console.log('hi');
 }
 exports.decodeWeather = decodeWeather;
 function precipFormat(precip) {
     let output = new metar_classes_js_1.Precipitation();
-    console.log(precip);
-    if (precip.length % 2 == 0) {
-        decodeWeather(precip);
-    }
-    return output;
+    let newPrecip = precipPreposition(precip);
+    return newPrecip;
 }
 exports.precipFormat = precipFormat;

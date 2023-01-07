@@ -10,7 +10,7 @@ export function dateFormat(time: string) {
 
 export function windFormat(wind: string) {
   if (/^[0-9]{5}KT$/i.test(wind)) {
-    let output = {} as Wind;
+    let output = new Wind;
     output = {
       direction: parseInt(wind.slice(0, 3)),
       speed: parseInt(wind.slice(3, 4)),
@@ -19,7 +19,7 @@ export function windFormat(wind: string) {
     return output
   }
   if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
-    let output = {} as Wind;
+    let output = new Wind;
       output = {
       direction: parseInt(wind.slice(0, 3)),
       speed: parseInt(wind.slice(3, 5)),
@@ -44,6 +44,8 @@ export function visFormat(vis: string) {
   }
 }
 
+// ! remove if unneccessary
+
 // function precipPrepare(precip, preposition) {
 //   if (precip.length % 2 != 0) {
 //     if (precip[0] === '+') {
@@ -55,18 +57,28 @@ export function visFormat(vis: string) {
 //   return [precip, preposition]
 // }
 
-export function decodeWeather(precip: string) {
-  console.log(precip)
+export function precipPreposition(precip: string) {
+  let formattedPrecip
+  if (precip.length % 2 === 0) {
+    formattedPrecip = ['null', precip]
+    return formattedPrecip
+  }
+  if (precip.length % 2 != 0) {
+    let weatherPreposition = precip.slice(0, 1)
+    let raw_precip = precip.slice(1, precip.length)
+    formattedPrecip = [weatherPreposition, raw_precip]
+    return formattedPrecip
+  }
 }
 
-export function precipFormat(precip: string): string | Array<string> {
+export function decodeWeather(precip: string) {
+  console.log('hi')
+}
+
+export function precipFormat(precip: string) {
   let output = new Precipitation();
-  if (precip.length % 2 == 0) {
-    decodeWeather(precip);
-    return precip
-  } else {
-    let weatherPreposition = precip.slice(0)
-    let raw_precip = precip.slice(1, precip.length)
-    return [weatherPreposition, raw_precip]
-  }
+  let newPrecip = precipPreposition(precip)
+  return newPrecip
+
+  
 }
