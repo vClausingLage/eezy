@@ -21,4 +21,6 @@ export class Metar {
     Cloud_Layer!: Array<string>;
     TAF_Prognosis!: string;
     Wind_Variation?: Array<number>;
+
+    // PLACE FOR IFV VFR METHODS
 }
