@@ -1,4 +1,4 @@
-import { Wind, Precipitation } from './metar_test.js'
+import { Wind, Precipitation } from './metar-classes.js'
 
 export function dateFormat(time: string) {
   let today = new Date();
@@ -53,10 +53,15 @@ function precipPrepare(precip, preposition) {
   return [precip, preposition]
 }
 
+export function decodeWeather() {
+
+}
+
 export function precipFormat(precip: string) {
   let output = new Precipitation;
-  let preposition: string | any = ''
-  [precip, preposition] = precipPrepare(precip, preposition)
+  if (precip.length % 2 == 0) {
+    decodeWeather()
+  }
   
   return output
 }

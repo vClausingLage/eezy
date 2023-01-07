@@ -1,3 +1,4 @@
+import { Metar } from './metar-classes.js'
 import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper.js';
 
 let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
@@ -7,31 +8,6 @@ let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 B
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 
 // https://metar-taf.com/explanation
-
-export class Wind {
-  direction: number;
-  speed: number;
-  gusts?: number;
-  unit: string;
-}
-
-export class Precipitation {
-  intensity?: string;
-  firstElement: string;
-  secondElement?: string;
-  thridElement?: string;
-}
-
-class Metar {
-  ICAO: string;
-  Date: Date;
-  Wind_Variation?: Array<number>;
-  Winds: Wind | undefined // WHY UNDEFINED ???
-  Visibility: string | number | undefined; // WHY UNDEFINED ???
-  Precipitation: Precipitation;
-  Cloud_Layer: Array<string>;
-  TAF_Prognosis: string;
-}
 
 
 let metarList: Array<string> = metar.split(' ');
