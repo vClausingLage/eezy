@@ -42,19 +42,6 @@ export function visFormat(vis: string) {
   }
 }
 
-// ! remove if unneccessary
-
-// function precipPrepare(precip, preposition) {
-//   if (precip.length % 2 != 0) {
-//     if (precip[0] === '+') {
-//       preposition = 'heavy'
-//     } else if (precip[0] === '-') {
-//       preposition = 'light'
-//     }
-//   }
-//   return [precip, preposition]
-// }
-
 export function precipPreposition(precip: string) {
   let formattedPrecip: string[] = []
   if (precip.length % 2 === 0) {
@@ -68,7 +55,7 @@ export function precipPreposition(precip: string) {
 
 export function decodeWeather(precip: string[]) {
   let codes: WeatherCodes = weatherCodes as WeatherCodes
-  
+
 }
 
 export function precipFormat(precip: string) {
