@@ -78,8 +78,7 @@ function maptoMetarObj(metar: string[]) {
     // PRECIPITATION
   if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) {
     let output = precipFormat(el)
-    console.log(output)
-    // metarObj['Precipitation'] = output;
+    metarObj['Precipitation'] = output;
   }
     // CLOUDS
   if (/^\D{3}\d{3}$/i.test(el)) {

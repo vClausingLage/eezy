@@ -1,4 +1,4 @@
-import { Wind, Precipitation } from './metar-classes.js'
+import { Wind, Precipitation, WeatherCodes } from './metar-classes.js'
 
 import weatherCodes from './weatherCodes.json'
 
@@ -9,25 +9,23 @@ export function dateFormat(time: string) {
 }
 
 export function windFormat(wind: string) {
+  let output = new Wind;
   if (/^[0-9]{5}KT$/i.test(wind)) {
-    let output = new Wind;
     output = {
       direction: parseInt(wind.slice(0, 3)),
       speed: parseInt(wind.slice(3, 4)),
       unit: 'kts'
     }
-    return output
   }
-  if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
-    let output = new Wind;
+  else if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
       output = {
       direction: parseInt(wind.slice(0, 3)),
       speed: parseInt(wind.slice(3, 5)),
       gusts: parseInt(wind.slice(6, 8)),
       unit: 'kts'
     }
-    return output
   }
+  return output
 }
 
 export function windVarFormat(windVar: string) {
@@ -58,27 +56,28 @@ export function visFormat(vis: string) {
 // }
 
 export function precipPreposition(precip: string) {
-  let formattedPrecip
+  let formattedPrecip: string[] = []
   if (precip.length % 2 === 0) {
     formattedPrecip = ['null', precip]
-    return formattedPrecip
   }
-  if (precip.length % 2 != 0) {
-    let weatherPreposition = precip.slice(0, 1)
-    let raw_precip = precip.slice(1, precip.length)
-    formattedPrecip = [weatherPreposition, raw_precip]
-    return formattedPrecip
+  else if (precip.length % 2 != 0) {
+    formattedPrecip = [precip.slice(0, 1), precip.slice(1, precip.length)]
   }
+  return formattedPrecip
 }
 
-export function decodeWeather(precip: string) {
-  console.log('hi')
+export function decodeWeather(precip: string[]) {
+  let codes: WeatherCodes = weatherCodes as WeatherCodes
+  
 }
 
 export function precipFormat(precip: string) {
   let output = new Precipitation();
   let newPrecip = precipPreposition(precip)
-  return newPrecip
+  let weatherCode = decodeWeather(newPrecip)
+
+  output.intensity = newPrecip[0]
+  return output
 
   
 }

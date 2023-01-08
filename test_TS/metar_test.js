@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const metar_classes_js_1 = require("./metar-classes.js");
 const metar_helper_js_1 = require("./metar-helper.js");
-let metar = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
+let metar = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SN SCT012 BKN025 TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
 // 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
 // https://metar-taf.com/explanation
 let metarList = metar.split(' ');
@@ -73,8 +73,7 @@ function maptoMetarObj(metar) {
         // PRECIPITATION
         if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) {
             let output = (0, metar_helper_js_1.precipFormat)(el);
-            console.log(output);
-            // metarObj['Precipitation'] = output;
+            metarObj['Precipitation'] = output;
         }
         // CLOUDS
         if (/^\D{3}\d{3}$/i.test(el)) {

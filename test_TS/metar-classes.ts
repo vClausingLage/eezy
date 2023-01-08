@@ -6,10 +6,10 @@ export class Wind {
 }
 
 export class Precipitation {
+    intensity!: string;
     firstElement!: string;
     secondElement?: string;
     thridElement?: string;
-    intensity?: string;
 }
 
 export class Metar {
@@ -23,4 +23,49 @@ export class Metar {
     Wind_Variation?: Array<number>;
 
     // PLACE FOR IFV VFR METHODS
+}
+
+interface Intensity {
+    RE: string
+    VC: string
+}
+interface Characterisitc {
+    BC: string
+    DR: string
+    MI: string
+    PR: string
+    BL: string
+    FZ: string
+    SH: string
+    TS: string
+}
+interface Type {
+    BR: string
+    DS: string
+    DU: string
+    DZ: string
+    FC: string
+    FG: string
+    FU: string
+    GR: string
+    GS: string
+    HZ: string
+    IC: string
+    PE: string
+    PO: string
+    PY: string
+    RA: string
+    SA: string
+    SG: string
+    SN: string
+    SQ: string
+    SS: string
+    UP: string
+    VA: string
+}
+
+export interface WeatherCodes {
+    intensity: Intensity
+    characteristic: Characterisitc
+    type: Type
 }
