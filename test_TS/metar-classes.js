@@ -1,12 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Metar = exports.Precipitation = exports.Wind = void 0;
-class Wind {
+export class Wind {
 }
-exports.Wind = Wind;
-class Precipitation {
+export class Precipitation {
 }
-exports.Precipitation = Precipitation;
-class Metar {
+export class Metar {
 }
-exports.Metar = Metar;

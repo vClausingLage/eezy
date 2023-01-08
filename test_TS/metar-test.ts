@@ -90,6 +90,6 @@ function maptoMetarObj(metar: string[]) {
   }
   })
   // LOG
-  // console.log(metarObj);
+  console.log(metarObj);
 }
 maptoMetarObj(metarList)

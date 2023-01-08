@@ -1,6 +1,7 @@
+import { OutputFileType } from 'typescript';
 import { Wind, Precipitation } from './metar-classes.js'
 
-import * as weatherCodes from './weatherCodes.json'
+import * as weatherCodes from './weatherCodes.json' assert {type: 'json'}
 
 export function dateFormat(time: string) {
   let today = new Date();
@@ -56,17 +57,14 @@ export function precipPreposition(precip: string) {
 }
 
 export function decodeWeather(precip: string[]) {
+  let output: string[] = []
   // load JSON weather codes to VAR
   let codes = weatherCodes
-  let codeArr: string[] = []
-  for (const [k, v] of Object.entries(codes.characteristic)) {
-    codeArr.push(k, v)
-  }
-  for (const [k, v] of Object.entries(codes.intensity)) {
-    codeArr.push(k, v)
-  }
-  for (const [k, v] of Object.entries(codes.type)) {
-    codeArr.push(k, v)
+  let codeArr: Array<Array<string>> = []
+  for (const [k, v] of Object.entries(codes.default)) {
+    for (const [code, descr] of Object.entries(v)) {
+      codeArr.push([code, descr])
+    }
   }
   // use VAR to LOOP METAR input
   let result: string[] = []
@@ -77,15 +75,15 @@ export function decodeWeather(precip: string[]) {
   } else {
     result.push(precip[1])
   }
-  console.log(codeArr)
+  // check RPECIP for WEATHER CODES MATCH
   result.forEach((el) => {
     codeArr.forEach(x => {
-      // console.log(el, x[0])
       if (x[0] === el) {
-        // console.log(x, el)
+        output.push(x[1])
       }
     })
   })
+  return output
 }
 
 export function precipFormat(precip: string) {
@@ -93,6 +91,6 @@ export function precipFormat(precip: string) {
   let newPrecip = precipPreposition(precip);
   let weatherCode = decodeWeather(newPrecip);
   output.intensity = newPrecip[0];
-  // output.elements = weatherCode;
+  output.elements = weatherCode;
   return output;
 }
