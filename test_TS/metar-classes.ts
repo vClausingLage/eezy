@@ -7,9 +7,7 @@ export class Wind {
 
 export class Precipitation {
     intensity!: string;
-    firstElement!: string;
-    secondElement?: string;
-    thridElement?: string;
+    elements!: string[];
 }
 
 export class Metar {
@@ -18,11 +16,11 @@ export class Metar {
     Winds: Wind | undefined; // WHY UNDEFINED ???
     Visibility!: string | number | undefined; // WHY UNDEFINED ???
     Precipitation!: Precipitation;
-    Cloud_Layer!: Array<string>;
+    Cloud_Layer!: string[];
     TAF_Prognosis!: string;
-    Wind_Variation?: Array<number>;
+    Wind_Variation?: number[];
 
-    // PLACE FOR IFV VFR METHODS
+    // PLACE FOR IFR VFR METHODS
 }
 
 interface Intensity {

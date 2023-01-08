@@ -38,25 +38,16 @@ function windVarFormat(windVar) {
 }
 exports.windVarFormat = windVarFormat;
 function visFormat(vis) {
+    let output;
     if (/^CAVOK$/.test(vis)) {
-        return vis;
+        output = vis;
     }
     if (/^\d{4}$/i.test(vis)) {
-        return parseInt(vis);
+        output = parseInt(vis);
     }
+    return output;
 }
 exports.visFormat = visFormat;
-// ! remove if unneccessary
-// function precipPrepare(precip, preposition) {
-//   if (precip.length % 2 != 0) {
-//     if (precip[0] === '+') {
-//       preposition = 'heavy'
-//     } else if (precip[0] === '-') {
-//       preposition = 'light'
-//     }
-//   }
-//   return [precip, preposition]
-// }
 function precipPreposition(precip) {
     let formattedPrecip = [];
     if (precip.length % 2 === 0) {
@@ -69,16 +60,34 @@ function precipPreposition(precip) {
 }
 exports.precipPreposition = precipPreposition;
 function decodeWeather(precip) {
-    console.log(precip[1].length);
+    // load JSON weather codes to VAR
     let codes = weatherCodes_json_1.default;
-    console.log(codes);
+    let codeArr = [];
+    for (const [k, v] of Object.entries(codes)) {
+        for (const [code, descr] of Object.entries(v)) {
+            codeArr.push(code);
+        }
+    }
+    // use VAR to LOOP METAR input
+    let result = [];
+    if (precip[1].length > 2) {
+        for (let i = 0, charsLength = precip[1].length; i < charsLength; i += 2) {
+            result.push(precip[1].substring(i, i + 2));
+        }
+    }
+    else {
+        result.push(precip[1]);
+    }
+    return result;
 }
 exports.decodeWeather = decodeWeather;
 function precipFormat(precip) {
     let output = new metar_classes_js_1.Precipitation();
     let newPrecip = precipPreposition(precip);
     let weatherCode = decodeWeather(newPrecip);
+    console.log(weatherCode);
     output.intensity = newPrecip[0];
+    output.elements = weatherCode;
     return output;
 }
 exports.precipFormat = precipFormat;

@@ -33,38 +33,55 @@ export function windVarFormat(windVar: string) {
   return output
 }
 
-export function visFormat(vis: string) {
+export function visFormat(vis: string): string | number {
+  let output!: string | number
   if (/^CAVOK$/.test(vis)) {
-    return vis
+    output = vis
   }
   if (/^\d{4}$/i.test(vis)) {
-    return parseInt(vis)
+    output = parseInt(vis)
   }
+  return output
 }
 
 export function precipPreposition(precip: string) {
   let formattedPrecip: string[] = []
   if (precip.length % 2 === 0) {
-    formattedPrecip = ['null', precip]
+    formattedPrecip = ['null', precip];
   }
   else if (precip.length % 2 != 0) {
-    formattedPrecip = [precip.slice(0, 1), precip.slice(1, precip.length)]
+    formattedPrecip = [precip.slice(0, 1), precip.slice(1, precip.length)];
   }
-  return formattedPrecip
+  return formattedPrecip;
 }
 
 export function decodeWeather(precip: string[]) {
+  // load JSON weather codes to VAR
   let codes: WeatherCodes = weatherCodes as WeatherCodes
-
+  let codeArr: string[] = []
+  for (const [k, v] of Object.entries(codes)) {
+    for (const [code, descr] of Object.entries(v)) {
+      codeArr.push(code);
+    }
+  }
+  // use VAR to LOOP METAR input
+  let result: string[] = []
+  if (precip[1].length > 2) {
+    for (let i = 0, charsLength = precip[1].length; i < charsLength; i += 2) {
+      result.push(precip[1].substring(i, i + 2));
+    }
+  } else {
+    result.push(precip[1])
+  }
+  return result;
 }
 
 export function precipFormat(precip: string) {
   let output = new Precipitation();
-  let newPrecip = precipPreposition(precip)
-  let weatherCode = decodeWeather(newPrecip)
-
-  output.intensity = newPrecip[0]
-  return output
-
-  
+  let newPrecip = precipPreposition(precip);
+  let weatherCode = decodeWeather(newPrecip);
+  console.log(weatherCode)
+  output.intensity = newPrecip[0];
+  output.elements = weatherCode
+  return output;
 }
