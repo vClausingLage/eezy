@@ -85,7 +85,6 @@ function precipFormat(precip) {
     let output = new metar_classes_js_1.Precipitation();
     let newPrecip = precipPreposition(precip);
     let weatherCode = decodeWeather(newPrecip);
-    console.log(weatherCode);
     output.intensity = newPrecip[0];
     output.elements = weatherCode;
     return output;

@@ -80,8 +80,7 @@ export function precipFormat(precip: string) {
   let output = new Precipitation();
   let newPrecip = precipPreposition(precip);
   let weatherCode = decodeWeather(newPrecip);
-  console.log(weatherCode)
   output.intensity = newPrecip[0];
-  output.elements = weatherCode
+  output.elements = weatherCode;
   return output;
 }

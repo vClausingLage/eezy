@@ -101,7 +101,7 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "files": [
-    "metar_test.ts",
+    "metar-test.ts",
     "metar-helper.ts",
     "metar-classes.ts"
   ]
