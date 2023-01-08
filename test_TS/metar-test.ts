@@ -82,7 +82,6 @@ function maptoMetarObj(metar: string[]) {
   }
     // CLOUDS
   if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
-    console.log(el)
     metarObj['Cloud_Layer'].push(el);
   }
     // TAF PROGNOSIS
