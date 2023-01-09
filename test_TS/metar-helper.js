@@ -50,7 +50,7 @@ export function precipPreposition(precip) {
 }
 export function decodeWeather(precip) {
     let output = [];
-    // load JSON weather codes to VAR
+    // load JSON weather codes to [VAR]
     let codes = weatherCodes;
     let codeArr = [];
     for (const [k, v] of Object.entries(codes.default)) {
@@ -60,19 +60,20 @@ export function decodeWeather(precip) {
     }
     // use VAR to LOOP METAR input
     let result = [];
-    if (precip[1].length > 2) {
+    if (precip[1].length >= 2) {
         for (let i = 0, charsLength = precip[1].length; i < charsLength; i += 2) {
             result.push(precip[1].substring(i, i + 2));
         }
     }
     else {
-        result.push(precip[1]);
+        console.log('precipitation code not properly formatted');
+        // result.push(precip[1])
     }
     // check RPECIP for WEATHER CODES MATCH
     result.forEach((el) => {
         codeArr.forEach(x => {
-            if (x[0] === el) {
-                output.push(x[1]);
+            if (x[0] === el) { // check weather code match x[0]
+                output.push(x[1]); // push description of code x[1]
             }
         });
     });
