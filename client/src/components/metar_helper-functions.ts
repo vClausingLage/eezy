@@ -60,11 +60,12 @@ export function decodeWeather(precip: string[]) {
   // load JSON weather codes to [VAR]
   let codes = weatherCodes
   let codeArr: Array<Array<string>> = []
-  for (const [k, v] of Object.entries(codes.default)) {
-    for (const [code, descr] of Object.entries(v)) {
-      codeArr.push([code, descr])
-    }
-  }
+  console.log(codes)
+  // for (const [k, v] of Object.entries(codes.default)) {
+  //   for (const [code, descr] of Object.entries(v)) {
+  //     codeArr.push([code, descr])
+  //   }
+  // }
   // use VAR to LOOP METAR input
   let result: string[] = []
   if (precip[1].length >= 2) {
