@@ -1,5 +1,5 @@
 import { Metar } from './metar-classes.js';
-import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper.js';
+import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper-functions.js';
 
 let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SNRA SCT012 BKN025/// TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
 
