@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react'
+import { Box, TextField } from '@mui/material'
 
 function Metar() {
 
+  const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState('')
+  
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIcao(event.currentTarget.value)
+  }
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -17,6 +24,22 @@ function Metar() {
 
   return (
     <>
+      <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        id="outlined-name"
+        label="Name"
+        value={icao}
+        onChange={handleChange}
+      />
+    </Box>
+      {icao}
     </>
   )
 }
