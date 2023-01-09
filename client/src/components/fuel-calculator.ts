@@ -1,4 +1,4 @@
-function fuelCalculator(aircraft, length){
+export function fuelCalculator(aircraft: any, length: number){ //! remove any
   console.log('hello fuel')
   let taxi = 5
   // Contingency Fuel is the higher of:

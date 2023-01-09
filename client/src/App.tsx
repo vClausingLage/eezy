@@ -1,5 +1,6 @@
-import Metar from './components/metar'
+import Metar from './components/Metar'
 import Aircraft from './components/aircraft.js'
+import Map from './components/Map'
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
       <h1>EEzy Flight Planner</h1>
       {/* <Aircraft /> */}
       <Metar />
+      <Map />
     </>
   )
 }

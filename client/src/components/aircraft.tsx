@@ -19,12 +19,12 @@ const Aircraft = () => {
 
   const [aircraftSelect, setAircraftSelect] = useState('')
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {              // ! remove any
     setAircraftSelect(event.currentTarget.value)
   }
 
   return(
-    <div>
+    <>
       <h1>Input</h1>
       <Box sx={{ margin: 'auto' , minWidth: 120 , maxWidth: '80%'}}>
         <FormControl fullWidth>
@@ -42,7 +42,7 @@ const Aircraft = () => {
           </Select>
         </FormControl>
       </Box>
-    <div/>
+    </>
 )}
 
 export default Aircraft
