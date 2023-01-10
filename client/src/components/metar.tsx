@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Box, TextField, Button } from '@mui/material'
+import { Box, TextField, Button, LinearProgress } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
 
@@ -23,6 +23,8 @@ function Metar() {
     console.log(metarObj)
     setMetarCode(metarObj)
   }
+
+  const loading = <Box sx={{ width: '100%' }}><LinearProgress /></Box>
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -50,6 +52,7 @@ function Metar() {
         label="Name"
         value={icao}
         onChange={handleChange}
+        onSubmit={searchIcao}
       />
       <Button 
         // type='submit' 
@@ -60,6 +63,7 @@ function Metar() {
         {/* search ! Icon MUI */}
       </Button>
     </Box>
+    {loading}
     </>
   )
 }
