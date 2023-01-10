@@ -7,13 +7,14 @@ function Metar() {
 
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState({})
-  
+  let isLoading = false  
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value)
   }
 
   const searchIcao = async() => {
+    isLoading = true
     const fetchMetar = await fetch('https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + icao)
     const data = await fetchMetar.text()
     let metarList = prepareMetar(data)
@@ -63,7 +64,7 @@ function Metar() {
         {/* search ! Icon MUI */}
       </Button>
     </Box>
-    {loading}
+    {isLoading && loading}
     </>
   )
 }
