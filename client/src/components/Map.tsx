@@ -1,7 +1,7 @@
 
 import { calcLatLong } from './helper/distance-lat-long-calc';
 
-import './Map.css';
+import './CSS/Map.css';
 // import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 
 

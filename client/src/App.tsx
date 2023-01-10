@@ -1,5 +1,5 @@
 import Metar from './components/Metar'
-import Aircraft from './components/aircraft.js'
+import Aircraft from './components/Aircraft'
 import Map from './components/Map'
 
 function App() {

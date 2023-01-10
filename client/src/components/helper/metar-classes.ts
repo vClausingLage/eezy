@@ -15,10 +15,11 @@ export class Metar {
     Date!: Date;
     Winds: Wind | undefined; // WHY UNDEFINED ???
     Visibility!: string | number | undefined; // WHY UNDEFINED ???
-    Precipitation!: Precipitation;
+    Precipitation?: Precipitation;
     Cloud_Layer!: string[];
-    TAF_Prognosis!: string;
+    TAF_Prognosis?: string;
     Wind_Variation?: number[];
+    RawMetar!: string
 
     // PLACE FOR IFR VFR METHODS
 }

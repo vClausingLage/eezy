@@ -1,29 +1,26 @@
-import { Metar } from './metar-classes.js';
-import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper-functions.js';
+import { Metar } from './metar-classes';
+import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper-functions';
 
-let metar: string = 'ENGM 042300Z 0500/0524 21010G21KT 190V250 7000 +SNRA SCT012 BKN025/// TEMPO 0500/0509 4000 -SN BKN012 BECMG 0510/0512 03005KT=';
-
-// 'EDHK 041050Z 24017G28KT 4000 -RA BRBKN007 OVC014 10/10 Q1005 TEMPO 03005KT='
-
-// https://metar-taf.com/explanation
-
-
-let metarList: string[] = metar.split(' ');
-let tempo_metar: string[] = [];
-let becoming_metar: string[] = [];
+// PREPARE metar string
+export function prepareMetar(metar: string) {
+  let metarList: string[] = metar.split('\n')
+  metarList = metarList[0].split(' ');
+  return metarList
+}
 
 // the check function cheks if Metar ends with the = sign (and is therefore sanely formatted)
-function checkMetarIntegr(metar: string[]) {
-  if (metar[metar.length -1].slice(-1) == '=') {
+export function checkMetarIntegr(metar: string[]) {
+  if (metar[metar.length -1].slice(-1) === '=') {
     console.log('metar integrity checked');
   } else {
     console.log('metar not complete');
   }
 }
-checkMetarIntegr(metarList)
 
 // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
-function reduceTempo(metar: string[]) {
+export function reduceTempo(metar: string[]) {
+  let tempo_metar: string[] = [];
+  let becoming_metar: string[] = [];
   let length = metar.length;
   metar.forEach((el, idx) => {
        // !CHECK !!!! !!!! !!!! IF WORKS CORRECTLY
@@ -44,12 +41,14 @@ function reduceTempo(metar: string[]) {
       }
     }
   })
+  return [metar, tempo_metar, becoming_metar]
 }
-reduceTempo(metarList)
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
-function maptoMetarObj(metar: string[]) {
+export function maptoMetarObj(metar: string[]) {
   let metarObj = new Metar();
+    // RAW METAR
+  metarObj['RawMetar'] = metar.join(' ') 
     // ICAO
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
@@ -76,7 +75,7 @@ function maptoMetarObj(metar: string[]) {
     metarObj['Visibility'] = output;
   }
     // PRECIPITATION
-  if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) {
+  if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
     let output = precipFormat(el)
     metarObj['Precipitation'] = output;
   }
@@ -89,7 +88,5 @@ function maptoMetarObj(metar: string[]) {
     metarObj['TAF_Prognosis'] = el;
   }
   })
-  // LOG
-  console.log(metarObj);
+  return metarObj
 }
-maptoMetarObj(metarList)
