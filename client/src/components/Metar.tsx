@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, TextField, Button, LinearProgress } from '@mui/material'
+import { Box, TextField, Button, CircularProgress } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
 
@@ -23,9 +23,18 @@ function Metar() {
     let metarObj = maptoMetarObj(metarListReduced[0])
     console.log(metarObj)
     setMetarCode(metarObj)
+    isLoading = false
   }
 
-  const loading = <Box sx={{ width: '100%' }}><LinearProgress /></Box>
+  const loading = <Box sx={{ width: '100%' }}><CircularProgress color="secondary" /></Box>
+
+  interface MetarObj {
+    ICAO: string;
+    Date: Date;
+    Winds: object;
+    Visibility: string | number;
+    
+  }
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -56,7 +65,6 @@ function Metar() {
         onSubmit={searchIcao}
       />
       <Button 
-        // type='submit' 
         variant='outlined'
         onClick={searchIcao}
         >
@@ -64,7 +72,11 @@ function Metar() {
         {/* search ! Icon MUI */}
       </Button>
     </Box>
-    {isLoading && loading}
+    <Box>
+      {isLoading && loading}
+      {loading}
+      <p>QNH is {metarCode}</p>
+    </Box>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { Metar } from './metar-classes';
-import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat } from './metar-helper-functions';
+import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat, cloudFormat } from './metar-helper-functions';
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
@@ -52,7 +52,7 @@ export function maptoMetarObj(metar: string[]) {
     // ICAO
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
-  metarObj['Cloud_Layer'] = [];
+  metarObj['Cloud_Layer'] = []
   metar.forEach(el => {
     // DATE / TIME
   if (/^[0-9]{6}Z$/i.test(el)) {
@@ -81,7 +81,12 @@ export function maptoMetarObj(metar: string[]) {
   }
     // CLOUDS
   if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
-    metarObj['Cloud_Layer'].push(el);
+    let output = cloudFormat(el)
+    metarObj['Cloud_Layer'].push(output);
+  }
+    // QNH
+  if (/^Q\d{4}$/i.test(el)) {
+    metarObj['QNH'] = parseInt(el)
   }
     // TAF PROGNOSIS
   if (/^\d{4}\/\d{4}$/i.test(el)) {

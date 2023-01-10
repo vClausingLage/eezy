@@ -1,4 +1,4 @@
-import { Wind, Precipitation } from './metar-classes'
+import { Wind, Precipitation, Clouds } from './metar-classes'
 
 import * as weatherCodes from './assets/weatherCodes.json' // assert {type: 'json'} //! BABEL PLUGIN
 
@@ -94,4 +94,17 @@ export function precipFormat(precip: string) {
   output.intensity = newPrecip[0];
   output.elements = weatherCode;
   return output;
+}
+
+export function cloudFormat(clouds: string) {
+  let output = new Clouds()
+  let cloudLayer = clouds.slice(0, 3)
+  let height = clouds.slice(3, 6)
+  if (clouds.length >= 6) {
+    let cloud = clouds.slice(6, 9)
+    output['cloud'] = cloud
+  }
+  output['cloudLayer'] = cloudLayer
+  output['height'] = parseInt(height)
+  return output
 }
