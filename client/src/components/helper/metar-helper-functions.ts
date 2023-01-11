@@ -98,12 +98,12 @@ export function precipFormat(precip: string) {
 export function cloudFormat(clouds: string) {
   let output = new Clouds()
   let cloudLayer = clouds.slice(0, 3)
-  let height = clouds.slice(3, 6)
+  let cloudBase = clouds.slice(3, 6)
   if (clouds.length >= 6) {
     let cloud = clouds.slice(6, 9)
     output['cloud'] = cloud
   }
   output['cloudLayer'] = cloudLayer
-  output['height'] = parseInt(height)
+  output['cloudBase'] = parseInt(cloudBase)
   return output
 }

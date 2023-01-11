@@ -26,6 +26,6 @@ interface IPrecipitation {
 
 interface IClouds {
   cloudLayer: string;
-  height: number;
+  cloudBase: number;
   cloud?: string;
 }
