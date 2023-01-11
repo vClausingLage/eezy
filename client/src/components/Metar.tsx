@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
+import * as IMetar from './helper/assets/IMetar'
 
 function Metar() {
 
@@ -28,13 +29,7 @@ function Metar() {
 
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color="secondary" /></Box>
 
-  interface MetarObj {
-    ICAO: string;
-    Date: Date;
-    Winds: object;
-    Visibility: string | number;
-    
-  }
+
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -75,7 +70,7 @@ function Metar() {
     <Box>
       {isLoading && loading}
       {loading}
-      <p>QNH is {metarCode}</p>
+      <p>QNH is {metarCode.QNH}</p>
     </Box>
     </>
   )
