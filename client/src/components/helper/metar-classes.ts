@@ -1,5 +1,3 @@
-import { height } from "@mui/system";
-
 export class Wind {
     direction!: number;
     speed!: number;
