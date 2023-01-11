@@ -19,13 +19,13 @@ export class Clouds {
 export class Metar {
     ICAO!: string;
     Date!: Date;
-    Winds: Wind | undefined; // WHY UNDEFINED ???
-    Visibility!: string | number | undefined; // WHY UNDEFINED ???
+    Winds!: Wind; // WHY UNDEFINED ???
+    Visibility!: string | number; // WHY UNDEFINED ???
     Precipitation?: Precipitation;
     Cloud_Layer!: Clouds[];
     TAF_Prognosis?: string;
     Wind_Variation?: number[];
-    QNH?: number
+    QNH!: number
     RawMetar!: string
 
     // PLACE FOR IFR VFR METHODS

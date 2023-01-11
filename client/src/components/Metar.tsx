@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
-import * as IMetar from './helper/assets/IMetar'
+import { IMetar } from './helper/assets/IMetar'
 
 function Metar() {
 
   const [icao, setIcao] = useState('');
-  const [metarCode, setMetarCode] = useState({})
+  const [metarCode, setMetarCode] = useState<IMetar>()
   let isLoading = false  
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +22,8 @@ function Metar() {
     checkMetarIntegr(metarList)
     let metarListReduced: string[][] = reduceTempo(metarList)
     let metarObj = maptoMetarObj(metarListReduced[0])
-    console.log(metarObj)
     setMetarCode(metarObj)
+    console.log(metarCode)
     isLoading = false
   }
 
@@ -41,6 +41,7 @@ function Metar() {
   // })
 
 // https://mui.com/material-ui/api/form-control/
+console.log(metarCode)
 
   return (
     <>
@@ -70,7 +71,7 @@ function Metar() {
     <Box>
       {isLoading && loading}
       {loading}
-      <p>QNH is {metarCode.QNH}</p>
+      <p>QNH is {metarCode?.QNH}</p>
     </Box>
     </>
   )
