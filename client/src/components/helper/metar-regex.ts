@@ -81,7 +81,10 @@ export function maptoMetarObj(metar: string[]) {
     metarObj['Visibility'] = output;
   }
     // PRECIPITATION
-  if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
+  if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) {
+    if (el === 'NOSIG') {                     //! filter out NOSIG at start
+      {}
+    }
     let output = precipFormat(el)
     metarObj['Precipitation'] = output;
   }

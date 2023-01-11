@@ -34,23 +34,23 @@ export class Metar {
         const cloudBase = this.Cloud_Layer[0].cloudBase
         const clouds = this.Cloud_Layer[0].cloudLayer
         let flRul
-        if (clouds !== 'OVC') {
+        if (clouds !== 'OVC') {                     //! insert color codes
             if (visibility === 'CAVOK') {
-                flRul = 'C'
+                flRul = 'CHARLIE'
             } else if (visibility === 9999 || cloudBase > 5000) {
-                flRul = 'O'
+                flRul = 'OSKAR'
             } else if ((visibility >= 8000 && visibility < 9999) && (cloudBase >= 2000 && cloudBase <= 5000)) {
-                flRul = 'O'
+                flRul = 'OSKAR'
             } else if (visibility >= 8000 && (cloudBase >= 1000 && cloudBase <= 2000)) {
-                flRul = 'D'
+                flRul = 'DELTA'
             } else if ((visibility >= 5000 && visibility >= 8000) && (cloudBase >= 1000 && cloudBase <= 2000)) {
-                flRul = 'D'
+                flRul = 'DELTA'
             } else if ((visibility >= 5000 && visibility >= 8000) && cloudBase >= 2000) {
-                flRul = 'D'
+                flRul = 'DELTA'
             } else if (visibility >= 1500 && cloudBase >= 500) {
-                flRul = 'D'
+                flRul = 'DELTA'
             } else if (visibility < 1500 && cloudBase < 500) {
-                flRul = 'X'
+                flRul = 'X-RAY'
             } else {flRul = 'unknown'}
         } else {
             flRul = 'OVC -- X-Ray'

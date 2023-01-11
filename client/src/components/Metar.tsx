@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, TextField, Button, CircularProgress } from '@mui/material'
+import { Box, TextField, Button, CircularProgress, Typography } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
 import { IMetar } from './helper/assets/IMetar'
@@ -36,15 +36,19 @@ function Metar() {
     } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'FEW') {
       return '☁'
     } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'SCT') {
-      return '☁☁'
+      return '☁ ☁'
     } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'BKN') {
-      return '☁☁☁'
+      return '☁ ☁ ☁'
     } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'OVC') {
-      return '☁☁☁☁'
+      return '☁ ☁ ☁ ☁'
     } else {
-      return 'no cloud conclusion'
+      return ''
     }
   }
+
+  // const precipitation = () => {
+  //   if (metarCode?.Precipitation?.elements)
+  // }
 
   return (
     <>
@@ -75,9 +79,12 @@ function Metar() {
     </Box>
     <Box>
       {isLoading && loading}
-      <p>QNH is {metarCode?.QNH}</p>
-      <p>Flight Rules: {gafor}</p>
-      <p>Cloud Layer: {clouds()}</p>
+      <Typography>METAR submitted for {metarCode?.Date.toUTCString()}</Typography>
+      <Typography>QNH {metarCode?.QNH} hPa</Typography>
+      <h2>Flight Rules (GAFOR Code) {gafor}</h2>
+      <h2>Cloud Layer {clouds()}</h2>
+      <h2>Precipitation {metarCode?.Precipitation?.intensity} {metarCode?.Precipitation?.elements[0]} {metarCode?.Precipitation?.elements[1]} {metarCode?.Precipitation?.elements[2]}</h2>
+      <h2>Wind </h2>
     </Box>
     </>
   )
