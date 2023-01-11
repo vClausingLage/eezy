@@ -17,8 +17,14 @@ export function checkMetarIntegr(metar: string[]) {
   }
 }
 
-// the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
+  // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
+  // ALSO removes = at the END of metar
 export function reduceTempo(metar: string[]) {
+  if (metar[metar.length -1].slice(-1) === '=') {
+    metar[metar.length -1] = metar[metar.length -1].replace('=', '')
+  } else {
+    {}
+  }
   let tempo_metar: string[] = [];
   let becoming_metar: string[] = [];
   let length = metar.length;
@@ -85,7 +91,8 @@ export function maptoMetarObj(metar: string[]) {
     metarObj['Cloud_Layer'].push(output);
   }
     // QNH
-  if (/^Q\d{4}$/i.test(el)) {
+  if (/^Q\d{3,4}$/i.test(el)) {
+    el = el.replace('Q', '')
     metarObj['QNH'] = parseInt(el)
   }
     // TAF PROGNOSIS

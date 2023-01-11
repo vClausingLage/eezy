@@ -23,7 +23,6 @@ function Metar() {
     let metarListReduced: string[][] = reduceTempo(metarList)
     let metarObj = maptoMetarObj(metarListReduced[0])
     setMetarCode(metarObj)
-    console.log(metarCode)
     isLoading = false
   }
 
@@ -41,7 +40,6 @@ function Metar() {
   // })
 
 // https://mui.com/material-ui/api/form-control/
-console.log(metarCode)
 
   return (
     <>
@@ -58,9 +56,9 @@ console.log(metarCode)
         label="Name"
         value={icao}
         onChange={handleChange}
-        onSubmit={searchIcao}
       />
       <Button 
+        // type= 'submit'
         variant='outlined'
         onClick={searchIcao}
         >
@@ -70,7 +68,6 @@ console.log(metarCode)
     </Box>
     <Box>
       {isLoading && loading}
-      {loading}
       <p>QNH is {metarCode?.QNH}</p>
     </Box>
     </>
