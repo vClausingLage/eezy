@@ -1,6 +1,6 @@
 import { Wind, Precipitation, Clouds } from './metar-classes'
 
-import * as weatherCodes from './assets/weatherCodes.json' // assert {type: 'json'} //! BABEL PLUGIN
+import * as weatherCodes from './weatherCodes.json' // assert {type: 'json'} //! BABEL PLUGIN
 
 export function dateFormat(time: string) {
   let today = new Date();
@@ -47,16 +47,10 @@ export function visFormat(vis: string): string | number {
 export function precipPreposition(precip: string) {
   let formattedPrecip: string[] = []
   if (precip.length % 2 === 0) {
-    formattedPrecip = ['', precip];
+    formattedPrecip = ['null', precip];
   }
   else if (precip.length % 2 !== 0) {
-    let preposition: string
-    if (precip.slice(0, 1) === '-') {
-      preposition = 'light'
-    } else if (precip.slice(0, 1) === '+') {
-      preposition = 'heavy'
-    }
-    formattedPrecip = [preposition!, precip.slice(1, precip.length)];
+    formattedPrecip = [precip.slice(0, 1), precip.slice(1, precip.length)];
   }
   return formattedPrecip;
 }
@@ -66,11 +60,11 @@ export function decodeWeather(precip: string[]) {
   // load JSON weather codes to [VAR]
   let codes = weatherCodes
   let codeArr: Array<Array<string>> = []
-  for (const [k, v] of Object.entries(codes)) {
-    for (const [code, descr] of Object.entries(v)) {
-      codeArr.push([code, descr])
-    }
-  }
+  // for (const [k, v] of Object.entries(codes.default)) {
+  //   for (const [code, descr] of Object.entries(v)) {
+  //     codeArr.push([code, descr])
+  //   }
+  // }
   // use VAR to LOOP METAR input
   let result: string[] = []
   if (precip[1].length >= 2) {
