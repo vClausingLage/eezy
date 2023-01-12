@@ -4,7 +4,10 @@ import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat, cloudFo
 // PREPARE metar string
 export function prepareMetar(metar: string) {
   let metarList: string[] = metar.split('\n')
-  metarList = metarList[0].split(' ');
+  console.log('last',metarList[metarList.length -1])
+  console.log('second last',metarList[metarList.length -2])
+  console.log('third last',metarList[metarList.length -3])
+  metarList = metarList[metarList.length -3].split(' ');
   return metarList
 }
 
@@ -22,8 +25,6 @@ export function checkMetarIntegr(metar: string[]) {
 export function reduceTempo(metar: string[]) {
   if (metar[metar.length -1].slice(-1) === '=') {
     metar[metar.length -1] = metar[metar.length -1].replace('=', '')
-  } else {
-    {}
   }
   let tempo_metar: string[] = [];
   let becoming_metar: string[] = [];
@@ -54,7 +55,8 @@ export function reduceTempo(metar: string[]) {
 export function maptoMetarObj(metar: string[]) {
   let metarObj = new Metar();
     // RAW METAR
-  metarObj['RawMetar'] = metar.join(' ') 
+  metarObj['RawMetar'] = metar.join(' ')
+  metarObj['NOSIG'] = false 
     // ICAO
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
@@ -101,6 +103,10 @@ export function maptoMetarObj(metar: string[]) {
     // TAF PROGNOSIS
   if (/^\d{4}\/\d{4}$/i.test(el)) {
     metarObj['TAF_Prognosis'] = el;
+  }
+  // NOSIG
+  if (/^NOSIG$/i.test(el)) {
+    metarObj['NOSIG'] = true
   }
   })
   return metarObj

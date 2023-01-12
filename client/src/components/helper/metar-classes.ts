@@ -27,6 +27,7 @@ export class Metar {
     Wind_Variation?: number[];
     QNH!: number
     RawMetar!: string
+    NOSIG!: boolean
 
     // PLACE FOR IFR VFR METHODS
     get GAFOR() { 

@@ -81,10 +81,16 @@ function Metar() {
       {isLoading && loading}
       <Typography>METAR submitted for {metarCode?.Date.toUTCString()}</Typography>
       <Typography>QNH {metarCode?.QNH} hPa</Typography>
+      {metarCode?.NOSIG && <Typography>NO SIGnificant changes expected</Typography>}
       <h2>Flight Rules (GAFOR Code) {gafor}</h2>
       <h2>Cloud Layer {clouds()}</h2>
       <h2>Precipitation {metarCode?.Precipitation?.intensity} {metarCode?.Precipitation?.elements[0]} {metarCode?.Precipitation?.elements[1]} {metarCode?.Precipitation?.elements[2]}</h2>
       <h2>Wind </h2>
+    </Box>
+    <Box>
+      <Typography>
+        {metarCode?.RawMetar}
+      </Typography>
     </Box>
     </>
   )

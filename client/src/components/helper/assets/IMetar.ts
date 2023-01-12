@@ -10,6 +10,7 @@ export interface IMetar {
   Wind_Variation?: number[];
   QNH: number
   RawMetar: string
+  NOSIG: boolean
 }
 
 interface IWind {
