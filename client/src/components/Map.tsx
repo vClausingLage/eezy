@@ -1,3 +1,4 @@
+import { Card } from '@mui/material';
 
 import { calcLatLong } from './helper/distance-lat-long-calc';
 
@@ -18,14 +19,16 @@ function Map() {
 
   return (
     <>
-      {latLong}
-      {/* <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Polyline pathOptions={limeOptions} positions={polyline} />
-      </MapContainer> */}
+      <Card>
+        {latLong}
+        {/* <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Polyline pathOptions={limeOptions} positions={polyline} />
+        </MapContainer> */}
+      </Card>
     </>
   );
 }

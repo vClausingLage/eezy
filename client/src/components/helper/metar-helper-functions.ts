@@ -13,7 +13,7 @@ export function windFormat(wind: string) {
   if (/^[0-9]{5}KT$/i.test(wind)) {
     output = {
       direction: parseInt(wind.slice(0, 3)),
-      speed: parseInt(wind.slice(3, 4)),
+      speed: parseInt(wind.slice(3, 5)),
       unit: 'kts'
     }
   }

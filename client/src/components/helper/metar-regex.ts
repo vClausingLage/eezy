@@ -4,10 +4,8 @@ import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat, cloudFo
 // PREPARE metar string
 export function prepareMetar(metar: string) {
   let metarList: string[] = metar.split('\n')
-  console.log('last',metarList[metarList.length -1])
-  console.log('second last',metarList[metarList.length -2])
-  console.log('third last',metarList[metarList.length -3])
-  metarList = metarList[metarList.length -3].split(' ');
+  metarList = metarList.filter(item => item)
+  metarList = metarList[metarList.length -1].split(' ');
   return metarList
 }
 

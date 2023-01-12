@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, TextField, Button, CircularProgress, Typography } from '@mui/material'
+import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
 import { IMetar } from './helper/assets/IMetar'
@@ -9,10 +9,15 @@ function Metar() {
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
   const [gafor, setGafor] = useState('')
-  let isLoading = false  
+  const [isLoading, setIsLoading] = useState(false)
+
+  const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIcao(event.currentTarget.value)
+  }
 
   const searchIcao = async() => {
-    isLoading = true
+    setIsLoading(true)
     const fetchMetar = await fetch('https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + icao)
     const data = await fetchMetar.text()
     let metarList = prepareMetar(data)
@@ -21,14 +26,8 @@ function Metar() {
     let metarObj = maptoMetarObj(metarListReduced[0])
     setMetarCode(metarObj)
     setGafor(metarObj.GAFOR)
-    isLoading = false
+    setIsLoading(false)
   }
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIcao(event.currentTarget.value)
-  }
-
-  const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
 
   const clouds = () => {
     if (metarCode?.Visibility === 'CAVOK') {
@@ -77,21 +76,38 @@ function Metar() {
         {/* search ! Icon MUI */}
       </Button>
     </Box>
-    <Box>
+    <Card>
       {isLoading && loading}
-      <Typography>METAR submitted for {metarCode?.Date.toUTCString()}</Typography>
-      <Typography>QNH {metarCode?.QNH} hPa</Typography>
-      {metarCode?.NOSIG && <Typography>NO SIGnificant changes expected</Typography>}
-      <h2>Flight Rules (GAFOR Code) {gafor}</h2>
-      <h2>Cloud Layer {clouds()}</h2>
-      <h2>Precipitation {metarCode?.Precipitation?.intensity} {metarCode?.Precipitation?.elements[0]} {metarCode?.Precipitation?.elements[1]} {metarCode?.Precipitation?.elements[2]}</h2>
-      <h2>Wind </h2>
-    </Box>
-    <Box>
-      <Typography>
-        {metarCode?.RawMetar}
-      </Typography>
-    </Box>
+      {metarCode && 
+        <>
+          <Typography>
+            METAR submitted for {metarCode.Date.toUTCString()}</Typography>
+          <Typography>
+            Flight Rules (GAFOR Code) {gafor}
+          </Typography>
+          <Typography>
+            Cloud Layer {clouds()}
+          </Typography>
+          <Typography>
+            Precipitation {metarCode.Precipitation?.intensity} {metarCode.Precipitation?.elements[0]} {metarCode.Precipitation?.elements[1]} {metarCode.Precipitation?.elements[2]}
+          </Typography>
+          <Typography>
+            {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°
+          </Typography>
+          <Typography>
+            QNH {metarCode.QNH} hPa
+          </Typography>
+          
+
+          {metarCode.NOSIG && 
+            <Typography><span color='red'>NO SIG</span>nificant changes expected</Typography>
+          }
+          <Typography>
+            {metarCode?.RawMetar}
+          </Typography>
+        </>
+      }
+    </Card>
     </>
   )
 }
