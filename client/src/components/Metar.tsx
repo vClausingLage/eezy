@@ -6,22 +6,22 @@ import { IMetar } from './helper/assets/IMetar'
 
 function Metar() {
 
+// ! WHY IS HANDLESUBMIT WORKING?
+
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
   const [gafor, setGafor] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
 
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value)
   }
+  
   const handleSubmit = (e: any) => {
     e.preventDefault()
     console.log('submit')
-    const value: string = inputRef.current!.value
-    if (value === '') return
-    setIcao(value)
   }
 
   const sendLogs = () => {
@@ -76,8 +76,11 @@ function Metar() {
     <h1>Quick & EEzy Metar</h1>
     <Box>
       <form onSubmit={handleSubmit}>
-        <input type='search' ref={inputRef}></input>
-        <TextField type='text'></TextField>
+        <TextField 
+          type='search'
+          value={icao}
+          onChange={handleChange}
+        ></TextField>
         <Button 
           type='submit' 
           variant='outlined'

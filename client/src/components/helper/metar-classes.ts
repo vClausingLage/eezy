@@ -22,7 +22,7 @@ export class Metar {
     Winds!: Wind; // WHY UNDEFINED ???
     Visibility!: string | number; // WHY UNDEFINED ???
     Precipitation?: Precipitation;
-    Cloud_Layer!: Clouds[];
+    Cloud_Layer?: Clouds[];
     TAF_Prognosis?: string;
     Wind_Variation?: number[];
     QNH!: number
@@ -32,8 +32,8 @@ export class Metar {
     // PLACE FOR IFR VFR METHODS
     get GAFOR() { 
         const visibility = this.Visibility
-        const cloudBase = this.Cloud_Layer[0].cloudBase
-        const clouds = this.Cloud_Layer[0].cloudLayer
+        const cloudBase = this.Cloud_Layer![0].cloudBase
+        const clouds = this.Cloud_Layer![0].cloudLayer
         let flRul
         if (clouds !== 'OVC') {                     //! insert color codes
             if (visibility === 'CAVOK') {

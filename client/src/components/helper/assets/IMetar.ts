@@ -5,7 +5,7 @@ export interface IMetar {
   Winds: IWind;
   Visibility: string | number;
   Precipitation?: IPrecipitation;
-  Cloud_Layer: IClouds[];
+  Cloud_Layer?: IClouds[];
   TAF_Prognosis?: string;
   Wind_Variation?: number[];
   QNH: number
