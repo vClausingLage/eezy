@@ -3,9 +3,9 @@ import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat, cloudFo
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
-  let metarList: string[] = metar.split('\n')
-  metarList = metarList.filter(item => item)
-  metarList = metarList[metarList.length -1].split(' ');
+  let metarList: string[] = metar.split('\n')             // split the raw METAR strings 
+  metarList = metarList.filter(item => item)              // remove possible empty strings
+  metarList = metarList[metarList.length -1].split(' ');  // get latest METAR at the end of list
   return metarList
 }
 
@@ -19,10 +19,10 @@ export function checkMetarIntegr(metar: string[]) {
 }
 
   // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
-  // ALSO removes = at the END of metar
+  // ALSO 
 export function reduceTempo(metar: string[]) {
   if (metar[metar.length -1].slice(-1) === '=') {
-    metar[metar.length -1] = metar[metar.length -1].replace('=', '')
+    metar[metar.length -1] = metar[metar.length -1].replace('=', '') // remove = at the END of metar
   }
   let tempo_metar: string[] = [];
   let becoming_metar: string[] = [];

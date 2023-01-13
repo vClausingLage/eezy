@@ -1,11 +1,36 @@
 import { Request, Response, Router } from 'express'
+
 import { query } from '../services/controllers.js'
-import { Aircraft } from '../services/models.js';
+import { Aircraft } from '../services/models.js'
 
 export const router = Router();
 
 router.get('/aircraft', query)
 // router.post('/create', create)
+
+
+// for LOGGING ONLY
+
+import fs from 'fs'
+
+router.post('/logs', (req: Request, res: Response) => {
+  const content = JSON.stringify(req.body);
+ 
+  // fs.readFile('./log/logFile.json', (err, data) => {   //! refactor!
+  //   let json = JSON.parse(data.toString())
+  //   json.push(content)
+  
+  //   fs.writeFile('./log/logFile.json', JSON.stringify(json), err => {
+  //     if (err)
+  //       console.log(err);
+  //     else {
+  //       console.log("File written successfully\n");
+  //   }
+  //   })
+  // })
+
+  res.send(content)
+})
 
 
 

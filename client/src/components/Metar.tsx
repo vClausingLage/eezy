@@ -16,6 +16,19 @@ function Metar() {
     setIcao(event.currentTarget.value)
   }
 
+  const sendLogs = () => {
+    fetch('http://localhost:4000/api/logs', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        metarCode
+      )
+    })
+  }
+
   const searchIcao = async() => {
     setIsLoading(true)
     const fetchMetar = await fetch('https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=' + icao)
@@ -26,6 +39,7 @@ function Metar() {
     let metarObj = maptoMetarObj(metarListReduced[0])
     setMetarCode(metarObj)
     setGafor(metarObj.GAFOR)
+    sendLogs()
     setIsLoading(false)
   }
 
