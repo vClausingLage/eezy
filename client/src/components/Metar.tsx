@@ -10,6 +10,7 @@ function Metar() {
   const [metarCode, setMetarCode] = useState<IMetar>()
   const [gafor, setGafor] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +19,9 @@ function Metar() {
   const handleSubmit = (e: any) => {
     e.preventDefault()
     console.log('submit')
+    const value: string = inputRef.current!.value
+    if (value === '') return
+    setIcao(value)
   }
 
   const sendLogs = () => {
@@ -71,30 +75,15 @@ function Metar() {
     <>
     <h1>Quick & EEzy Metar</h1>
     <Box>
-      <form>
-        <TextField 
-        type='search'
-        onSubmit={handleSubmit}
-        // onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-      ></TextField>
-      <Button 
-        type='submit'
-        id='search icao code button'
-        variant='outlined'
-        onClick={searchIcao}
-        onSubmit={handleSubmit}
-        >
-        search
-        {/* search ! Icon MUI */}
-      </Button>
+      <form onSubmit={handleSubmit}>
+        <input type='search' ref={inputRef}></input>
+        <TextField type='text'></TextField>
+        <Button 
+          type='submit' 
+          variant='outlined'
+          onClick={searchIcao}
+        >search</Button>
       </form>
-      <TextField
-        id='icao code search field'
-        label='Airport'
-        value={icao}
-        onChange={handleChange}
-      />
-      
     </Box>
     <Card>
       {isLoading && loading}
