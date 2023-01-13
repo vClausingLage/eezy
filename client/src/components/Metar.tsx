@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
@@ -14,6 +14,10 @@ function Metar() {
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value)
+  }
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    console.log('submit')
   }
 
   const sendLogs = () => {
@@ -66,29 +70,31 @@ function Metar() {
   return (
     <>
     <h1>Quick & EEzy Metar</h1>
-      <Box
-      component='form'
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete='off'
-    >
+    <Box>
+      <form>
+        <TextField 
+        type='search'
+        onSubmit={handleSubmit}
+        // onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+      ></TextField>
+      <Button 
+        type='submit'
+        id='search icao code button'
+        variant='outlined'
+        onClick={searchIcao}
+        onSubmit={handleSubmit}
+        >
+        search
+        {/* search ! Icon MUI */}
+      </Button>
+      </form>
       <TextField
         id='icao code search field'
         label='Airport'
         value={icao}
         onChange={handleChange}
       />
-      <Button 
-        // type= 'submit'
-        id='search icao code button'
-        variant='outlined'
-        onClick={searchIcao}
-        >
-        search
-        {/* search ! Icon MUI */}
-      </Button>
+      
     </Box>
     <Card>
       {isLoading && loading}
