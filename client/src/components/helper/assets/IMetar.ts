@@ -4,13 +4,13 @@ export interface IMetar {
   Date: Date;
   Winds: IWind;
   Visibility: string | number;
-  Precipitation?: IPrecipitation;
-  Cloud_Layer?: IClouds[];
-  TAF_Prognosis?: string;
-  Wind_Variation?: number[];
+  Cloud_Layer: IClouds[];
   QNH: number
   RawMetar: string
   NOSIG: boolean
+  TAF_Prognosis?: string;
+  Wind_Variation?: number[];
+  Precipitation?: IPrecipitation;
 }
 
 interface IWind {
@@ -20,13 +20,18 @@ interface IWind {
   gusts?: number;
 }
 
-interface IPrecipitation {
+export interface IPrecipitation {
   intensity?: string;
   elements: string[];
 }
 
-interface IClouds {
+export interface IClouds {
   cloudLayer: string;
   cloudBase: number;
   cloud?: string;
+}
+
+export interface IGafor {
+  GaforCode: string;
+  ColorCode: string;
 }

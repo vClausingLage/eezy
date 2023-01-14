@@ -82,7 +82,7 @@ export function maptoMetarObj(metar: string[]) {
   }
     // PRECIPITATION
   if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-    if (el === 'NOSIG') {                     //! filter out NOSIG at start
+    if (el === 'NOSIG') {
       return
     }
     let output = precipFormat(el)

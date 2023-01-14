@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
-import { IMetar } from './helper/assets/IMetar'
+import { clouds, precipitation, getGafor } from './helper/metar-ui-helper'
+import { IMetar, IGafor } from './helper/assets/IMetar'
+
 
 function Metar() {
 
@@ -10,7 +12,7 @@ function Metar() {
 
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
-  const [gafor, setGafor] = useState('')
+  const [gafor, setGafor] = useState<IGafor>()
   const [isLoading, setIsLoading] = useState(false)
 
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
@@ -47,30 +49,9 @@ function Metar() {
     let metarObj = maptoMetarObj(metarListReduced[0])
     console.log(metarObj)
     setMetarCode(metarObj)
-    setGafor(metarObj.GAFOR)
-    sendLogs()
+    getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
+    // sendLogs()                           //! make working!
     setIsLoading(false)
-  }
-
-  const clouds = () => {
-    console.log('cloud layer',metarCode?.Cloud_Layer)
-    if (metarCode?.Visibility === 'CAVOK') {
-      return '☼'
-    } else if (metarCode?.Cloud_Layer !== undefined ) {
-      if (metarCode?.Cloud_Layer[0].cloudLayer === 'FEW') {
-          return '☁'
-        } else if (metarCode.Cloud_Layer[0].cloudLayer === 'SCT') {
-          return '☁ ☁'
-        } else if (metarCode.Cloud_Layer[0].cloudLayer === 'BKN') {
-          return '☁ ☁ ☁'
-        } else if (metarCode.Cloud_Layer[0].cloudLayer === 'OVC') {
-          return '☁ ☁ ☁ ☁'
-        }
-      }
-    return 'clouds'
-  }
-  const precipitation = () => {
-    return 'precipitation'
   }
 
   // const precipitation = () => {
@@ -101,10 +82,12 @@ function Metar() {
           <Typography>
             METAR submitted for {metarCode.Date.toString()}</Typography>
           <Typography>
-            Flight Rules (GAFOR Code) {gafor}
+            Flight Rules (GAFOR Code) {gafor?.GaforCode}
           </Typography>
           <Typography>
-            Cloud Layer {clouds()}
+            Cloud Layer {metarCode.Cloud_Layer?.map((el, idx) => {
+              return <p>{clouds(metarCode.Visibility, el.cloudLayer, idx)} at {String(el.cloudBase) + '00ft'}</p>
+            })}
           </Typography>
           <Typography>
             {precipitation()}
