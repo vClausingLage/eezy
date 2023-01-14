@@ -52,13 +52,13 @@ export function reduceTempo(metar: string[]) {
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 export function maptoMetarObj(metar: string[]) {
   let metarObj = new Metar();
+  metarObj['Cloud_Layer'] = []
+  metarObj['NOSIG'] = false 
     // RAW METAR
   metarObj['RawMetar'] = metar.join(' ')
-  metarObj['NOSIG'] = false 
     // ICAO
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
-  metarObj['Cloud_Layer'] = []
   metar.forEach(el => {
     // DATE / TIME
   if (/^[0-9]{6}Z$/i.test(el)) {
@@ -81,9 +81,9 @@ export function maptoMetarObj(metar: string[]) {
     metarObj['Visibility'] = output;
   }
     // PRECIPITATION
-  if (/^\+?\D{2,6}$/i.test(el) || /^\-?\D{2,6}$/i.test(el)) {
+  if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
     if (el === 'NOSIG') {                     //! filter out NOSIG at start
-      {}
+      return
     }
     let output = precipFormat(el)
     metarObj['Precipitation'] = output;

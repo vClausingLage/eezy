@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
@@ -45,6 +45,7 @@ function Metar() {
     checkMetarIntegr(metarList)
     let metarListReduced: string[][] = reduceTempo(metarList)
     let metarObj = maptoMetarObj(metarListReduced[0])
+    console.log(metarObj)
     setMetarCode(metarObj)
     setGafor(metarObj.GAFOR)
     sendLogs()
@@ -52,19 +53,24 @@ function Metar() {
   }
 
   const clouds = () => {
+    console.log('cloud layer',metarCode?.Cloud_Layer)
     if (metarCode?.Visibility === 'CAVOK') {
       return '☼'
-    } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'FEW') {
-      return '☁'
-    } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'SCT') {
-      return '☁ ☁'
-    } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'BKN') {
-      return '☁ ☁ ☁'
-    } else if (metarCode?.Cloud_Layer[0].cloudLayer === 'OVC') {
-      return '☁ ☁ ☁ ☁'
-    } else {
-      return ''
-    }
+    } else if (metarCode?.Cloud_Layer !== undefined ) {
+      if (metarCode?.Cloud_Layer[0].cloudLayer === 'FEW') {
+          return '☁'
+        } else if (metarCode.Cloud_Layer[0].cloudLayer === 'SCT') {
+          return '☁ ☁'
+        } else if (metarCode.Cloud_Layer[0].cloudLayer === 'BKN') {
+          return '☁ ☁ ☁'
+        } else if (metarCode.Cloud_Layer[0].cloudLayer === 'OVC') {
+          return '☁ ☁ ☁ ☁'
+        }
+      }
+    return 'clouds'
+  }
+  const precipitation = () => {
+    return 'precipitation'
   }
 
   // const precipitation = () => {
@@ -93,7 +99,7 @@ function Metar() {
       {metarCode && 
         <>
           <Typography>
-            METAR submitted for {metarCode.Date.toUTCString()}</Typography>
+            METAR submitted for {metarCode.Date.toString()}</Typography>
           <Typography>
             Flight Rules (GAFOR Code) {gafor}
           </Typography>
@@ -101,7 +107,7 @@ function Metar() {
             Cloud Layer {clouds()}
           </Typography>
           <Typography>
-            Precipitation {metarCode.Precipitation?.intensity} {metarCode.Precipitation?.elements[0]} {metarCode.Precipitation?.elements[1]} {metarCode.Precipitation?.elements[2]}
+            {precipitation()}
           </Typography>
           <Typography>
             {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°
