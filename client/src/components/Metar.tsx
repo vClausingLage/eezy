@@ -15,6 +15,7 @@ function Metar() {
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
   const [gafor, setGafor] = useState<IGafor>()
+  const [NOSIG, setNOSIG] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
@@ -22,12 +23,9 @@ function Metar() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value)
   }
-  
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    console.log('submit')
   }
-
   const sendLogs = () => {
     fetch('http://localhost:4000/api/logs', {
       method: 'POST',
@@ -53,7 +51,8 @@ function Metar() {
     setMetarCode(metarObj)
     let gafor = getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
     setGafor(gafor)
-    // sendLogs()                           //! make it !
+    setNOSIG(nosig())
+    // sendLogs()                           //! make it work!
     setIsLoading(false)
   }
 
@@ -64,11 +63,21 @@ function Metar() {
       })
     }
   }
+  const nosig = () => {                 //! not working
+    if (metarCode?.NOSIG === true) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <>
-    <h1>Quick & EEzy Metar</h1>
-    <Box>
+    <Box 
+      display="flex"
+      justifyContent="center"
+      alignItems="center">
+      <h1>Quick & EEzy Metar</h1>
       <form onSubmit={handleSubmit}>
         <TextField 
           type='search'
@@ -82,9 +91,6 @@ function Metar() {
         >search</Button>
       </form>
     </Box>
-
-   
-
     <Card>
       {isLoading && loading}
       {metarCode && 
@@ -105,20 +111,13 @@ function Metar() {
               return <span>{el}</span>
             })}
           </Typography>
-          <Typography>
-            {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°
-          </Typography>
+          <Typography>{metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°</Typography>
           <Typography>
             QNH {metarCode.QNH} hPa
           </Typography>
+          {NOSIG === true && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
+          <Typography>{metarCode?.RawMetar}</Typography>
           
-
-          {metarCode.NOSIG && 
-            <Typography><span color='red'>NO SIG</span>nificant changes expected</Typography>
-          }
-          <Typography>
-            {metarCode?.RawMetar}
-          </Typography>
         </>
       }
     </Card>
