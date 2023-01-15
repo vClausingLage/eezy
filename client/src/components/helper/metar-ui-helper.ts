@@ -1,20 +1,3 @@
-export const clouds = (visibility: string | number, el: string, idx: number) => {
-  if (visibility === 'CAVOK') {
-    return '☼'
-  } else if (el !== undefined ) {
-    if (el[idx] === 'FEW') {
-        return '☁'
-      } else if (el === 'SCT') {      // metarCode.Cloud_Layer[idx].cloudLayer
-        return '☁ ☁'
-      } else if (el === 'BKN') {
-        return '☁ ☁ ☁'
-      } else if (el === 'OVC') {
-        return '☁ ☁ ☁ ☁'
-      }
-    }
-  return 'clouds'
-}
-
 export const precipitation = () => {
   
   return 'precipitation'

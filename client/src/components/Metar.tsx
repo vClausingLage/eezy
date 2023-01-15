@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
-import { clouds, precipitation, getGafor } from './helper/metar-ui-helper'
+import { precipitation, getGafor } from './helper/metar-ui-helper'
 import { IMetar, IGafor } from './helper/assets/IMetar'
 
+import Cloud from './helper/assets/Cloud'
+import Sun from './helper/assets/Sun'
 
 function Metar() {
 
@@ -80,6 +82,9 @@ function Metar() {
         >search</Button>
       </form>
     </Box>
+
+   
+
     <Card>
       {isLoading && loading}
       {metarCode && 
@@ -89,11 +94,12 @@ function Metar() {
           <Typography>
             Flight Rules (GAFOR Code) {gafor?.GaforCode}
           </Typography>
-          <Typography>
-            Cloud Layer {metarCode.Cloud_Layer?.map((el, idx) => {
-              return <p>{clouds(metarCode.Visibility, el.cloudLayer, idx)} at {String(el.cloudBase) + '00ft'}</p>
+          <Box>
+            {metarCode.Visibility === 'CAVOK' && <Sun />}
+            {metarCode.Cloud_Layer !== undefined && metarCode.Cloud_Layer?.map((el) => {
+              return <Cloud visibility={metarCode.Visibility} cloudBase={el.cloudBase} cloudLayer={el.cloudLayer} />
             })}
-          </Typography>
+          </Box>
           <Typography>
             {metarCode?.Precipitation?.elements && metarCode?.Precipitation?.elements.map((el) => {
               return <span>{el}</span>
