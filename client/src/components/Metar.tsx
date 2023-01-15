@@ -49,14 +49,19 @@ function Metar() {
     let metarObj = maptoMetarObj(metarListReduced[0])
     console.log(metarObj)
     setMetarCode(metarObj)
-    getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
-    // sendLogs()                           //! make working!
+    let gafor = getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
+    setGafor(gafor)
+    // sendLogs()                           //! make it !
     setIsLoading(false)
   }
 
-  // const precipitation = () => {
-  //   if (metarCode?.Precipitation?.elements)
-  // }
+  const precipitation = () => {
+    if (metarCode?.Precipitation?.elements) {
+      metarCode?.Precipitation?.elements.map((el) => {
+        return <span>{el}</span>
+      })
+    }
+  }
 
   return (
     <>
@@ -90,7 +95,9 @@ function Metar() {
             })}
           </Typography>
           <Typography>
-            {precipitation()}
+            {metarCode?.Precipitation?.elements && metarCode?.Precipitation?.elements.map((el) => {
+              return <span>{el}</span>
+            })}
           </Typography>
           <Typography>
             {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°

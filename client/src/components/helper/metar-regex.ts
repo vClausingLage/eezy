@@ -26,17 +26,23 @@ export function reduceTempo(metar: string[]) {
   }
   let tempo_metar: string[] = [];
   let becoming_metar: string[] = [];
+  let recent_metar: string;
   let length = metar.length;
   metar.forEach((el, idx) => {
        // !CHECK !!!! !!!! !!!! IF WORKS CORRECTLY
-    // if (/BECMG/i.test(el)) {
-    //   for (let i = idx; i < length; i++) {
-    //     becoming_metar.push(metar[i]);
-    //   }
-    //   for (let i = idx; i < length; i++) {
-    //     metar.splice(i);
-    //   }
-    // }
+    if (/^RE\D{2}/i.test(el)) {
+      recent_metar = el
+      console.log('index RE',metar[idx])
+      metar.splice(idx)
+    }
+    if (/BECMG/i.test(el)) {
+      for (let i = idx; i < length; i++) {
+        becoming_metar.push(metar[i]);
+      }
+      for (let i = idx; i < length; i++) {
+        metar.splice(i);
+      }
+    }
     if (/TEMPO/i.test(el)) {
       for (let i = idx; i < length; i++) {
         tempo_metar.push(metar[i]);
@@ -46,6 +52,7 @@ export function reduceTempo(metar: string[]) {
       }
     }
   })
+  console.log('tempo', tempo_metar, 'bcm', becoming_metar, 'recent', )
   return [metar, tempo_metar, becoming_metar]
 }
 
@@ -84,9 +91,11 @@ export function maptoMetarObj(metar: string[]) {
   if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
     if (el === 'NOSIG') {
       return
+    } else {
+      console.log(el)
+      let output = precipFormat(el)
+      metarObj['Precipitation'] = output;
     }
-    let output = precipFormat(el)
-    metarObj['Precipitation'] = output;
   }
     // CLOUDS
   if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {

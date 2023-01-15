@@ -1,7 +1,4 @@
-import { IMetar } from "./assets/IMetar"
-
 export const clouds = (visibility: string | number, el: string, idx: number) => {
-  console.log('el', el)
   if (visibility === 'CAVOK') {
     return '☼'
   } else if (el !== undefined ) {
