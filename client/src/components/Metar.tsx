@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
 
-import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './helper/metar-regex'
-import { clouds, precipitation, getGafor } from './helper/metar-ui-helper'
-import { IMetar, IGafor } from './helper/assets/IMetar'
+import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Metar/metar-regex'
+import { clouds, precipitation, getGafor } from './Metar/metar-ui-helper'
+import { IMetar, IGafor } from './Metar/assets/IMetar'
 
 
 function Metar() {
