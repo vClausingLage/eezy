@@ -52,7 +52,6 @@ export function reduceTempo(metar: string[]) {
       }
     }
   })
-  console.log('tempo', tempo_metar, 'bcm', becoming_metar, 'recent', )
   return [metar, tempo_metar, becoming_metar]
 }
 
@@ -67,54 +66,52 @@ export function maptoMetarObj(metar: string[]) {
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
   metar.forEach(el => {
-    // DATE / TIME
-  if (/^[0-9]{6}Z$/i.test(el)) {
-    let output = dateFormat(el);
-    metarObj['Date'] = output;
-  }
-    // WINDS
-  if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
-    let output = windFormat(el);
-    metarObj['Winds'] = output;
-  }
-    // WINDVAR
-  if (/^\d{3}V\d{3}$/i.test(el)) {
-    let output = windVarFormat(el)
-    metarObj['Wind_Variation'] = output;
-  }
-    // VISBILIY
-  if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
-    let output = visFormat(el)
-    metarObj['Visibility'] = output;
-  }
-    // PRECIPITATION
-  if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-    if (el === 'NOSIG') {
-      return
-    } else {
-      console.log(el)
-      let output = precipFormat(el)
-      metarObj['Precipitation'] = output;
+      // DATE / TIME
+    if (/^[0-9]{6}Z$/i.test(el)) {
+      let output = dateFormat(el);
+      metarObj['Date'] = output;
     }
-  }
-    // CLOUDS
-  if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
-    let output = cloudFormat(el)
-    metarObj['Cloud_Layer'].push(output);
-  }
-    // QNH
-  if (/^Q\d{3,4}$/i.test(el)) {
-    el = el.replace('Q', '')
-    metarObj['QNH'] = parseInt(el)
-  }
-    // TAF PROGNOSIS
-  if (/^\d{4}\/\d{4}$/i.test(el)) {
-    metarObj['TAF_Prognosis'] = el;
-  }
-  // NOSIG
-  if (/^NOSIG$/i.test(el)) {
-    metarObj['NOSIG'] = true
-  }
-  })
+      // WINDS
+    if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
+      let output = windFormat(el);
+      metarObj['Winds'] = output;
+    }
+      // WINDVAR
+    if (/^\d{3}V\d{3}$/i.test(el)) {
+      let output = windVarFormat(el)
+      metarObj['Wind_Variation'] = output;
+    }
+      // VISBILIY
+    if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
+      let output = visFormat(el)
+      metarObj['Visibility'] = output;
+    }
+      // PRECIPITATION
+    if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
+      if (el !== 'NOSIG') {
+        let output = precipFormat(el)
+        metarObj['Precipitation'] = output;
+      }
+    }
+      // CLOUDS
+    if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
+      let output = cloudFormat(el)
+      metarObj['Cloud_Layer'].push(output);
+    }
+      // QNH
+    if (/^Q\d{3,4}$/i.test(el)) {
+      el = el.replace('Q', '')
+      metarObj['QNH'] = parseInt(el)
+    }
+      // TAF PROGNOSIS
+    if (/^\d{4}\/\d{4}$/i.test(el)) {
+      metarObj['TAF_Prognosis'] = el;
+    }
+    // NOSIG
+    if (/NOSIG/i.test(el)) {
+      console.log(el, metarObj['NOSIG'])
+      metarObj['NOSIG'] = true
+    }
+    })
   return metarObj
 }

@@ -5,6 +5,8 @@ import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Me
 import { clouds, precipitation, getGafor } from './Metar/metar-ui-helper'
 import { IMetar, IGafor } from './Metar/assets/IMetar'
 
+import Cloud from './helper/assets/Cloud'
+import Sun from './helper/assets/Sun'
 
 function Metar() {
 
@@ -13,6 +15,7 @@ function Metar() {
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
   const [gafor, setGafor] = useState<IGafor>()
+  const [NOSIG, setNOSIG] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const loading = <Box sx={{ width: '100%' }}><CircularProgress color='secondary' /></Box>
@@ -20,12 +23,9 @@ function Metar() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value)
   }
-  
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    console.log('submit')
   }
-
   const sendLogs = () => {
     fetch('http://localhost:4000/api/logs', {
       method: 'POST',
@@ -51,7 +51,8 @@ function Metar() {
     setMetarCode(metarObj)
     let gafor = getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
     setGafor(gafor)
-    // sendLogs()                           //! make it !
+    setNOSIG(nosig())
+    // sendLogs()                           //! make it work!
     setIsLoading(false)
   }
 
@@ -62,11 +63,21 @@ function Metar() {
       })
     }
   }
+  const nosig = () => {                 //! not working
+    if (metarCode?.NOSIG === true) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <>
-    <h1>Quick & EEzy Metar</h1>
-    <Box>
+    <Box 
+      display="flex"
+      justifyContent="center"
+      alignItems="center">
+      <h1>Quick & EEzy Metar</h1>
       <form onSubmit={handleSubmit}>
         <TextField 
           type='search'
@@ -89,30 +100,24 @@ function Metar() {
           <Typography>
             Flight Rules (GAFOR Code) {gafor?.GaforCode}
           </Typography>
-          <Typography>
-            Cloud Layer {metarCode.Cloud_Layer?.map((el, idx) => {
-              return <p>{clouds(metarCode.Visibility, el.cloudLayer, idx)} at {String(el.cloudBase) + '00ft'}</p>
+          <Box>
+            {metarCode.Visibility === 'CAVOK' && <Sun />}
+            {metarCode.Cloud_Layer !== undefined && metarCode.Cloud_Layer?.map((el) => {
+              return <Cloud visibility={metarCode.Visibility} cloudBase={el.cloudBase} cloudLayer={el.cloudLayer} />
             })}
-          </Typography>
+          </Box>
           <Typography>
             {metarCode?.Precipitation?.elements && metarCode?.Precipitation?.elements.map((el) => {
               return <span>{el}</span>
             })}
           </Typography>
-          <Typography>
-            {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°
-          </Typography>
+          <Typography>{metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°</Typography>
           <Typography>
             QNH {metarCode.QNH} hPa
           </Typography>
+          {NOSIG === true && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
+          <Typography>{metarCode?.RawMetar}</Typography>
           
-
-          {metarCode.NOSIG && 
-            <Typography><span color='red'>NO SIG</span>nificant changes expected</Typography>
-          }
-          <Typography>
-            {metarCode?.RawMetar}
-          </Typography>
         </>
       }
     </Card>
