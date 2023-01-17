@@ -14,7 +14,7 @@ export interface IMetar {
 }
 
 interface IWind {
-  direction: number;
+  direction: number | string;
   speed: number;
   unit: string;
   gusts?: number;

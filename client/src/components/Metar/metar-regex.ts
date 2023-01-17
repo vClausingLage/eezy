@@ -1,5 +1,5 @@
 import { Metar } from './metar-classes';
-import { dateFormat, windFormat, windVarFormat, visFormat, precipFormat, cloudFormat } from './metar-helper-functions';
+import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, cloudFormatSpec } from './metar-helper-functions';
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
@@ -76,6 +76,11 @@ export function maptoMetarObj(metar: string[]) {
       let output = windFormat(el);
       metarObj['Winds'] = output;
     }
+      // WINDS SPECIAL FORMATS
+    if (/^VRB\d{2,3}KT$/i.test(el)) {
+      let output = windFormatSpec(el);
+      metarObj['Winds'] = output;
+    }
       // WINDVAR
     if (/^\d{3}V\d{3}$/i.test(el)) {
       let output = windVarFormat(el)
@@ -98,6 +103,11 @@ export function maptoMetarObj(metar: string[]) {
       let output = cloudFormat(el)
       metarObj['Cloud_Layer'].push(output);
     }
+      // CLOUDS SPECIAL CODES
+      if (/^NCD$/i.test(el) || /^CLR$/i.test(el)) {
+        let output = cloudFormatSpec(el)
+        metarObj['Cloud_Layer'].push(output)
+      }
       // QNH
     if (/^Q\d{3,4}$/i.test(el)) {
       el = el.replace('Q', '')

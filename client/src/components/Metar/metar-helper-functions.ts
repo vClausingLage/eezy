@@ -28,6 +28,16 @@ export function windFormat(wind: string) {
   return output
 }
 
+export function windFormatSpec(wind: string) {
+  let output = new Wind()
+  output = {
+    direction: 'more than 30',
+    speed: parseInt(wind.slice(3, 5)),
+    unit: 'kts'
+  }
+  return output
+}
+
 export function windVarFormat(windVar: string) {
   let output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))]
   return output
@@ -112,4 +122,19 @@ export function cloudFormat(clouds: string) {
   output['cloudLayer'] = cloudLayer
   output['cloudBase'] = parseInt(cloudBase)
   return output
+}
+
+export function cloudFormatSpec(clouds: string) {
+  let output = new Clouds()
+  if (clouds === 'NCD') {
+    output.cloudLayer = 'NCD'
+    output.cloudBase = 0
+    return output
+  } else if (clouds === 'CLR') {
+    output.cloudLayer = 'CLR'
+    output.cloudBase = 0
+    return output
+  } else {
+    return output
+  }
 }

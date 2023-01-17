@@ -108,7 +108,7 @@ function Metar() {
             })}
           </Typography>
           <Typography>
-            {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°
+            {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}{typeof(metarCode.Winds.direction) === 'number'? '°' : '° variation'}
           </Typography>
           <Typography>
             QNH {metarCode.QNH} hPa

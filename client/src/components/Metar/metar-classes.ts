@@ -1,5 +1,5 @@
 export class Wind {
-    direction!: number;
+    direction!: number | string;
     speed!: number;
     unit!: string;
     gusts?: number;
