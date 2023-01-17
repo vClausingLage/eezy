@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, TextField, Button, CircularProgress, Typography, Card } from '@mui/material'
+import { Box, TextField, Button, CircularProgress, Typography, Card, Tooltip, Zoom } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Metar/metar-regex'
 import { precipitation, getGafor } from './Metar/metar-ui-helper'
@@ -47,12 +47,12 @@ function Metar() {
     checkMetarIntegr(metarList)
     let metarListReduced: string[][] = reduceTempo(metarList)
     let metarObj = maptoMetarObj(metarListReduced[0])
-    console.log(metarObj)
     setMetarCode(metarObj)
     let gafor = getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
     setGafor(gafor)
-    setNOSIG(nosig())
+    setNOSIG(metarObj.NOSIG)
     // sendLogs()                           //! make it work!
+    console.log(metarObj)
     setIsLoading(false)
   }
 
@@ -63,24 +63,19 @@ function Metar() {
       })
     }
   }
-  const nosig = () => {                 //! not working
-    if (metarCode?.NOSIG === true) {
-      return true
-    } else {
-      return false
-    }
-  }
 
   return (
     <>
     <Box 
-      display="flex"
-      justifyContent="center"
-      alignItems="center">
+      display='flex'
+      flexDirection='column'
+      justifyContent='center'
+      alignItems='center'>
       <h1>Quick & EEzy Metar</h1>
       <form onSubmit={handleSubmit}>
         <TextField 
           type='search'
+          label='enter ICAO Code'
           value={icao}
           onChange={handleChange}
         ></TextField>
@@ -94,28 +89,31 @@ function Metar() {
     <Card>
       {isLoading && loading}
       {metarCode && 
+        // ! needed nesting <></> ???
         <>
           <Typography>
             METAR submitted for {metarCode.Date.toString()}</Typography>
           <Typography>
-            Flight Rules (GAFOR Code) {gafor?.GaforCode}
+            Flight Rules (GAFOR Code) <Tooltip title='GAFOR Code, see description on bottom of page' arrow placement='right' TransitionComponent={Zoom}><span style={{ color: gafor?.ColorCode }}>{gafor?.GaforCode}</span></Tooltip>
           </Typography>
           <Box>
             {metarCode.Visibility === 'CAVOK' && <Sun />}
-            {metarCode.Cloud_Layer !== undefined && metarCode.Cloud_Layer?.map((el) => {
-              return <Cloud visibility={metarCode.Visibility} cloudBase={el.cloudBase} cloudLayer={el.cloudLayer} />
+            {metarCode.Cloud_Layer !== undefined && metarCode.Cloud_Layer?.map((el, key) => {
+              return <Cloud key={key} visibility={metarCode.Visibility} cloudBase={el.cloudBase} cloudLayer={el.cloudLayer} />
             })}
           </Box>
           <Typography>
-            {metarCode?.Precipitation?.elements && metarCode?.Precipitation?.elements.map((el) => {
-              return <span>{el}</span>
+            {metarCode?.Precipitation?.elements && metarCode?.Precipitation?.elements.map((el, key) => {
+              return <span key={key}>{el}</span>
             })}
           </Typography>
-          <Typography>{metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°</Typography>
+          <Typography>
+            {metarCode.Winds.speed} {metarCode.Winds.unit} from {metarCode.Winds.direction}°
+          </Typography>
           <Typography>
             QNH {metarCode.QNH} hPa
           </Typography>
-          {NOSIG === true && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
+          {NOSIG && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
           <Typography>{metarCode?.RawMetar}</Typography>
           
         </>

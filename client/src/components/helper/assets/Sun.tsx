@@ -1,7 +1,7 @@
 function Sun() {
   return(
     <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="Plugin icon - 1">
+      <g id="Sun">
       <circle id="Ellipse 1" cx="150" cy="100" r="41" fill="#E2CD0C"/>
       <rect id="Rectangle 1" x="148" y="32" width="5" height="25" fill="#E2CD0C"/>
       <rect id="Rectangle 2" x="148" y="143" width="5" height="25" fill="#E2CD0C"/>
