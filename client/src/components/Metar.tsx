@@ -7,6 +7,7 @@ import { IMetar, IGafor } from './Metar/assets/IMetar'
 
 import Cloud from './helper/assets/Cloud'
 import Sun from './helper/assets/Sun'
+import Compass from './helper/assets/Compass'
 
 function Metar() {
 
@@ -67,6 +68,7 @@ function Metar() {
 
   return (
     <>
+    <Compass />
     <Box 
       display='flex'
       flexDirection='column'
