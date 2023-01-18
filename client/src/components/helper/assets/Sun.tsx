@@ -11,7 +11,6 @@ function Sun() {
       <rect id="Rectangle 6" x="180" y="131.536" width="5" height="25" transform="rotate(-45 180 131.536)" fill="#E2CD0C"/>
       <path id="Rectangle 7" d="M183.536 72.2132L180 68.6777L197.678 51L201.213 54.5355L183.536 72.2132Z" fill="#E2CD0C"/>
       <rect id="Rectangle 8" x="102.536" y="149.213" width="5" height="25" transform="rotate(-135 102.536 149.213)" fill="#E2CD0C"/>
-      <text x="123" y="105" fill="#406377">CAVOK</text>
       </g>
     </svg>
 

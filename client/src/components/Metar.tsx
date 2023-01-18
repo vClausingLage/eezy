@@ -68,7 +68,6 @@ function Metar() {
 
   return (
     <>
-    <Compass />
     <Box 
       display='flex'
       flexDirection='column'
@@ -110,6 +109,9 @@ function Metar() {
               return <span key={key}>{el}</span>
             })}
           </Typography>
+          <Box style={{maxWidth: '250px', margin: 'auto'}}>
+            <Compass degrees={metarCode?.Winds.direction} />
+          </Box>
           <Typography>
             {metarCode.Winds && metarCode.Winds.speed} {metarCode.Winds && metarCode.Winds.unit} from {metarCode.Winds && metarCode.Winds.direction}{metarCode.Winds && typeof(metarCode.Winds.direction) === 'number'? '°' : '° variation'}
           </Typography>
