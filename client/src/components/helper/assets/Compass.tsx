@@ -1,5 +1,5 @@
 interface Props {
-  degrees: number | string | undefined
+  degrees: number | string
 }
 
 function Compass(props: Props) {

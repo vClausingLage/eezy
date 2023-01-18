@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, TextField, Button, CircularProgress, Typography, Card, Tooltip, Zoom } from '@mui/material'
+import { Box, TextField, Button, CircularProgress, Typography, Card, CardContent, Tooltip, Zoom } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Metar/metar-regex'
 import { precipitation, getGafor } from './Metar/metar-ui-helper'
@@ -88,11 +88,9 @@ function Metar() {
         >search</Button>
       </form>
     </Box>
-    <Card>
       {isLoading && loading}
       {metarCode && 
-        // ! needed nesting <></> ???
-        <>
+        <Box>
           <Typography>
             METAR submitted for {metarCode.Date.toString()}</Typography>
           <Typography>
@@ -109,7 +107,7 @@ function Metar() {
               return <span key={key}>{el}</span>
             })}
           </Typography>
-          <Box style={{maxWidth: '250px', margin: 'auto'}}>
+          <Box style={{maxWidth: '250px'}}>
             <Compass degrees={metarCode?.Winds.direction} />
           </Box>
           <Typography>
@@ -120,10 +118,8 @@ function Metar() {
           </Typography>
           {NOSIG && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
           <Typography>{metarCode?.RawMetar}</Typography>
-          
-        </>
+        </Box> 
       }
-    </Card>
     </>
   )
 }
