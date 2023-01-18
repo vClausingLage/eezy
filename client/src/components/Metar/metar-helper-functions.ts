@@ -138,3 +138,8 @@ export function cloudFormatSpec(clouds: string) {
     return output
   }
 }
+
+export function tempFormat(temperature: string) {
+  let output
+  return output
+}

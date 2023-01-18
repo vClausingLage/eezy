@@ -27,5 +27,6 @@ export class Metar {
     Wind_Variation!: number[];
     QNH!: number
     RawMetar!: string
+    RawMetarDone!: string
     NOSIG!: boolean
 }

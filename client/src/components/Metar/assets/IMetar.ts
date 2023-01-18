@@ -7,6 +7,7 @@ export interface IMetar {
   Cloud_Layer: IClouds[];
   QNH: number
   RawMetar: string
+  RawMetarDone: string;
   NOSIG: boolean
   TAF_Prognosis?: string;
   Wind_Variation?: number[];

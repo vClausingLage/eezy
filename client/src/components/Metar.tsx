@@ -53,6 +53,7 @@ function Metar() {
     setNOSIG(metarObj.NOSIG)
     // sendLogs()                           //! make it work!
     console.log(metarObj)
+    console.log('nosig', NOSIG)
     setIsLoading(false)
   }
 
