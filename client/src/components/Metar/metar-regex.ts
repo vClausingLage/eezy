@@ -70,26 +70,31 @@ export function maptoMetarObj(metar: string[]) {
     if (/^[0-9]{6}Z$/i.test(el)) {
       let output = dateFormat(el);
       metarObj['Date'] = output;
+      metar.splice(metar.findIndex(e => e === el),1);
     }
-      // WINDS
+      // WINDS //! not working
     if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
       let output = windFormat(el);
       metarObj['Winds'] = output;
+      metar.splice(metar.findIndex(e => e === el),1);
     }
       // WINDS SPECIAL FORMATS
     if (/^VRB\d{2,3}KT$/i.test(el)) {
       let output = windFormatSpec(el);
       metarObj['Winds'] = output;
+      metar.splice(metar.findIndex(e => e === el),1);
     }
       // WINDVAR
     if (/^\d{3}V\d{3}$/i.test(el)) {
       let output = windVarFormat(el)
       metarObj['Wind_Variation'] = output;
+      metar.splice(metar.findIndex(e => e === el),1);
     }
-      // VISBILIY
+      // VISBILIY   //! not working
     if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
       let output = visFormat(el)
       metarObj['Visibility'] = output;
+      metar.splice(metar.findIndex(e => e === el),1);
     }
       // PRECIPITATION
     if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
@@ -97,31 +102,38 @@ export function maptoMetarObj(metar: string[]) {
         let output = precipFormat(el)
         metarObj['Precipitation'] = output;
       }
+      metar.splice(metar.findIndex(e => e === el),1);
     }
-      // CLOUDS
+      // CLOUDS //! not working correctly
     if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
       let output = cloudFormat(el)
       metarObj['Cloud_Layer'].push(output);
+      metar.splice(metar.findIndex(e => e === el),1);
     }
       // CLOUDS SPECIAL CODES
-      if (/^NCD$/i.test(el) || /^CLR$/i.test(el)) {
-        let output = cloudFormatSpec(el)
-        metarObj['Cloud_Layer'].push(output)
-      }
+    if (/^NCD$/i.test(el) || /^CLR$/i.test(el)) {
+      let output = cloudFormatSpec(el)
+      metarObj['Cloud_Layer'].push(output)
+      metar.splice(metar.findIndex(e => e === el),1);
+    }
       // QNH
     if (/^Q\d{3,4}$/i.test(el)) {
       el = el.replace('Q', '')
       metarObj['QNH'] = parseInt(el)
+      metar.splice(metar.findIndex(e => e === el),1);
     }
       // TAF PROGNOSIS
     if (/^\d{4}\/\d{4}$/i.test(el)) {
       metarObj['TAF_Prognosis'] = el;
+      metar.splice(metar.findIndex(e => e === el),1);
     }
     // NOSIG
     if (/NOSIG/i.test(el)) {
       console.log(el, metarObj['NOSIG'])
       metarObj['NOSIG'] = true
+      metar.splice(metar.findIndex(e => e === el),1);
     }
     })
+  console.log(metar)
   return metarObj
 }
