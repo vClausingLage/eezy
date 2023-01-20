@@ -7,7 +7,7 @@ import { IMetar, IGafor } from './Metar/assets/IMetar'
 
 import Cloud from './helper/assets/Cloud'
 import Sun from './helper/assets/Sun'
-import Compass from './helper/assets/Compass'
+import Wind from './helper/assets/Wind'
 
 function Metar() {
 
@@ -67,6 +67,7 @@ function Metar() {
 
   return (
     <>
+    <Card>
     <Box
       id='Metar text input ICAO'
       display='flex'
@@ -91,7 +92,7 @@ function Metar() {
     <Box id='Metar Data'>
       {isLoading && loading}
       {metarCode && 
-        <Card>
+        <>
           <Typography variant='body1'>
             METAR submitted for {metarCode.Date.toUTCString()} 
           </Typography>
@@ -114,14 +115,15 @@ function Metar() {
             })}
           </Typography>
           <Box style={{maxWidth: '250px'}}>
-          <Compass {...metarCode?.Winds} />
+          <Wind {...metarCode?.Winds} />
             {/* <Compass degrees={metarCode?.Winds.direction} /> */}
           </Box>
           {NOSIG && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
           <Typography>{metarCode?.RawMetar}</Typography>
-        </Card> 
+          </>
       }
       </Box>
+      </Card> 
     </>
   )
 }

@@ -20,7 +20,6 @@ function Map() {
   return (
     <>
       <Card>
-        {latLong}
         {/* <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

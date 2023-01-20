@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material"
 import { IWind } from "../../Metar/assets/IMetar"
 
-function Compass(props: IWind) {
+function Wind(props: IWind) {
 
 const compassSVG = <>
   <svg viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,6 +38,6 @@ const compassSVG = <>
   )
 }
 
-export default Compass
+export default Wind
 
 // {metarCode.Winds && metarCode.Winds.speed} {metarCode.Winds && metarCode.Winds.unit} from {metarCode.Winds && metarCode.Winds.direction}{metarCode.Winds && typeof(metarCode.Winds.direction) === 'number'? '°' : '° variation'}
