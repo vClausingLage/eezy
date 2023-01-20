@@ -2,6 +2,8 @@ import { Card } from '@mui/material';
 
 import { calcLatLong } from './helper/distance-lat-long-calc';
 
+import placeholderMap from './Map/placeholderMap.jpg'
+
 import './CSS/Map.css';
 // import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 
@@ -20,6 +22,7 @@ function Map() {
   return (
     <>
       <Card>
+        <img src={placeholderMap} alt='map' />
         {/* <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

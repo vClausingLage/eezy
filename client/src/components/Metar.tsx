@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card, Tooltip, Zoom } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Metar/metar-regex'
-import { precipitation, getGafor, getFlightRules } from './Metar/metar-ui-helper'
-import { IMetar, IGafor, IFlightRule } from './Metar/assets/IMetar'
+import { precipitation, getFlightRules } from './Metar/metar-ui-helper'
+import { IMetar, IFlightRule } from './Metar/assets/IMetar'
 
-import Cloud from './helper/assets/Cloud'
-import Sun from './helper/assets/Sun'
-import Wind from './helper/assets/Wind'
+import Cloud from './Metar/assets/Cloud'
+import Sun from './Metar/assets/Sun'
+import Wind from './Metar/assets/Wind'
 
 function Metar() {
 
@@ -15,7 +15,6 @@ function Metar() {
 
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
-  const [gafor, setGafor] = useState<IGafor>()
   const [flightRule, setFlightRule] = useState<IFlightRule>()
   const [NOSIG, setNOSIG] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -50,8 +49,6 @@ function Metar() {
     let metarListReduced: string[][] = reduceTempo(metarList)
     let metarObj = maptoMetarObj(metarListReduced[0])
     setMetarCode(metarObj)
-    let gafor = getGafor(metarObj?.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
-    setGafor(gafor)
     let flightRules = getFlightRules(metarObj?.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
     setFlightRule(flightRules)
     setNOSIG(metarObj.NOSIG)
@@ -92,22 +89,29 @@ function Metar() {
         >search</Button>
       </form>
     </Box>
-    <Box id='Metar Data'>
       {isLoading && loading}
       {metarCode && 
-        <>
+        <Box 
+        id='Metar Data'
+        display='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        >
           <Typography variant='body1'>
             METAR submitted for {metarCode.Date.toUTCString()} 
           </Typography>
-          <Typography style={{ backgroundColor: flightRule?.colorCode }}>
-            {flightRule?.flightRule}
-          </Typography>
+          <Tooltip title='Color Codes for Flight Rules, see bottom of page' arrow placement='top' TransitionComponent={Zoom}>
+            <Typography style={{ backgroundColor: flightRule?.colorCode, textAlign: 'center', padding: '0.3rem' }}>
+              {flightRule?.flightRule}
+            </Typography>
+          </Tooltip>
           <Typography>
             QNH {metarCode.QNH} hPa
           </Typography>
-          <Typography>COLOR CODE <span style={{color: 'red'}}>to DO!!!</span></Typography>
           <Typography>
-            GAFOR <Tooltip title='GAFOR Code, see description on bottom of page' arrow placement='right' TransitionComponent={Zoom}><span style={{ color: gafor?.ColorCode }}>{gafor?.GaforCode}</span></Tooltip>
+            Temperature {metarCode.Temperature[0]} °C <br/>
+            Dewpoint {metarCode.Temperature[1]} °C
           </Typography>
           <Box>
             {metarCode.Visibility === 'CAVOK' && <Sun />}
@@ -121,14 +125,13 @@ function Metar() {
             })}
           </Typography>
           <Box style={{maxWidth: '250px'}}>
-          <Wind {...metarCode?.Winds} />
-            {/* <Compass degrees={metarCode?.Winds.direction} /> */}
+            <Wind {...metarCode?.Winds} />
           </Box>
+          {String(NOSIG)}
           {NOSIG && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
           <Typography>{metarCode?.RawMetar}</Typography>
-          </>
+          </Box>
       }
-      </Box>
       </Card> 
     </>
   )

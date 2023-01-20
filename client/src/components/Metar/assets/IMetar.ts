@@ -8,7 +8,8 @@ export interface IMetar {
   QNH: number
   RawMetar: string
   RawMetarDone: string;
-  NOSIG: boolean
+  NOSIG: boolean;
+  Temperature: number[];
   TAF_Prognosis?: string;
   Wind_Variation?: number[];
   Precipitation?: IPrecipitation;
@@ -30,11 +31,6 @@ export interface IClouds {
   cloudLayer: string;
   cloudBase: number;
   cloud?: string;
-}
-
-export interface IGafor {
-  GaforCode: string;
-  ColorCode: string;
 }
 
 export interface IFlightRule {

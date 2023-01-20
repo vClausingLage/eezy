@@ -104,7 +104,7 @@ export function maptoMetarObj(metar: string[]) {
       }
       metar = metar.filter(item => !item)
     }
-      // CLOUDS //! not working correctly
+      // CLOUDS
     else if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
       let output = cloudFormat(el)
       metarObj['Cloud_Layer'].push(output);
@@ -134,6 +134,7 @@ export function maptoMetarObj(metar: string[]) {
     }
     // NOSIG
     else if (/NOSIG/i.test(el)) {
+      console.log('test for NOSIG true')
       metarObj['NOSIG'] = true
       metar = metar.filter(item => !item)
     }

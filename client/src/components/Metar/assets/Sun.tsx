@@ -1,6 +1,9 @@
+import { Tooltip, Zoom } from "@mui/material"
+
 function Sun() {
   return(
-    <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Tooltip  title='CAVOK' arrow placement='right' TransitionComponent={Zoom}>
+    <svg width="250" height="200" viewBox="0 0 250 200" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="Sun">
       <circle id="Ellipse 1" cx="150" cy="100" r="41" fill="#E2CD0C"/>
       <rect id="Rectangle 1" x="148" y="32" width="5" height="25" fill="#E2CD0C"/>
@@ -13,7 +16,7 @@ function Sun() {
       <rect id="Rectangle 8" x="102.536" y="149.213" width="5" height="25" transform="rotate(-135 102.536 149.213)" fill="#E2CD0C"/>
       </g>
     </svg>
-
+    </Tooltip>
 
   )
 }

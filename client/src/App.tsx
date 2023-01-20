@@ -5,7 +5,7 @@ import Metar from './components/Metar'
 import Aircraft from './components/Aircraft'
 import Map from './components/Map'
 
-import { createTheme, ThemeProvider, Typography } from '@mui/material';
+import { createTheme, ThemeProvider, Typography, Grid, Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { getDesignTokens } from './components/CSS/theme'
@@ -32,10 +32,20 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Box sx={{ ml: '2rem', mr: '2rem' }}>
           <Typography variant='h1'>EEzy Flight Planner</Typography>
-          {/* <Aircraft /> */}
-          <Metar />
-          <Map />
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid item xs={2} sm={4} md={4}>
+              <Metar />
+            </Grid>
+            <Grid item xs={2} sm={4} md={4}>
+              {/* <Aircraft /> */}
+            </Grid>
+            <Grid item xs={2} sm={4} md={4}>
+              <Map />
+            </Grid>
+          </Grid>
+          </Box>
       </ThemeProvider>
     </>
   )
