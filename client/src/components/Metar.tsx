@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, TextField, Button, CircularProgress, Typography, Card, CardContent, Tooltip, Zoom } from '@mui/material'
+import { Box, TextField, Button, CircularProgress, Typography, Card, Tooltip, Zoom } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Metar/metar-regex'
 import { precipitation, getGafor } from './Metar/metar-ui-helper'
@@ -54,7 +54,6 @@ function Metar() {
     setNOSIG(metarObj.NOSIG)
     // sendLogs()                           //! make it work!
     console.log(metarObj)
-    console.log('nosig', NOSIG)
     setIsLoading(false)
   }
 
@@ -68,12 +67,13 @@ function Metar() {
 
   return (
     <>
-    <Box 
+    <Box
+      id='Metar text input ICAO'
       display='flex'
       flexDirection='column'
       justifyContent='center'
       alignItems='center'>
-      <h1>Quick & EEzy Metar</h1>
+      <Typography variant='h2'>Quick & EEzy Metar</Typography>
       <form onSubmit={handleSubmit}>
         <TextField 
           type='search'
@@ -88,13 +88,19 @@ function Metar() {
         >search</Button>
       </form>
     </Box>
+    <Box id='Metar Data'>
       {isLoading && loading}
       {metarCode && 
-        <Box>
+        <Card>
+          <Typography variant='body1'>
+            METAR submitted for {metarCode.Date.toUTCString()} 
+          </Typography>
           <Typography>
-            METAR submitted for {metarCode.Date.toString()}</Typography>
+            QNH {metarCode.QNH} hPa
+          </Typography>
+          <Typography>COLOR CODE <span style={{color: 'red'}}>to DO!!!</span></Typography>
           <Typography>
-            Flight Rules (GAFOR Code) <Tooltip title='GAFOR Code, see description on bottom of page' arrow placement='right' TransitionComponent={Zoom}><span style={{ color: gafor?.ColorCode }}>{gafor?.GaforCode}</span></Tooltip>
+            GAFOR <Tooltip title='GAFOR Code, see description on bottom of page' arrow placement='right' TransitionComponent={Zoom}><span style={{ color: gafor?.ColorCode }}>{gafor?.GaforCode}</span></Tooltip>
           </Typography>
           <Box>
             {metarCode.Visibility === 'CAVOK' && <Sun />}
@@ -108,18 +114,14 @@ function Metar() {
             })}
           </Typography>
           <Box style={{maxWidth: '250px'}}>
-            <Compass degrees={metarCode?.Winds.direction} />
+          <Compass {...metarCode?.Winds} />
+            {/* <Compass degrees={metarCode?.Winds.direction} /> */}
           </Box>
-          <Typography>
-            {metarCode.Winds && metarCode.Winds.speed} {metarCode.Winds && metarCode.Winds.unit} from {metarCode.Winds && metarCode.Winds.direction}{metarCode.Winds && typeof(metarCode.Winds.direction) === 'number'? '°' : '° variation'}
-          </Typography>
-          <Typography>
-            QNH {metarCode.QNH} hPa
-          </Typography>
           {NOSIG && <Typography><span style={{ color: 'red' }}>NO SIG</span>nificant changes expected</Typography>}
           <Typography>{metarCode?.RawMetar}</Typography>
-        </Box> 
+        </Card> 
       }
+      </Box>
     </>
   )
 }

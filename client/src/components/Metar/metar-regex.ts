@@ -119,6 +119,7 @@ export function maptoMetarObj(metar: string[]) {
       // TEMPERATURE
     else if (/^M?\d{2}\/M?\d{2}/i.test(el)) {
       let output = tempFormat(el)
+      metarObj['Temperature'] = output
     }
       // QNH
     else if (/^Q\d{3,4}$/i.test(el)) {

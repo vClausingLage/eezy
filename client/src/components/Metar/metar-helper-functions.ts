@@ -4,7 +4,7 @@ import * as weatherCodes from './assets/weatherCodes.json' // assert {type: 'jso
 
 export function dateFormat(time: string) {
   let today = new Date();
-  let date = new Date(today.getFullYear(), today.getMonth(), parseInt(time.slice(0, 2)), parseInt(time.slice(2, 4)), parseInt(time.slice(4, 6)))
+  let date = new Date(Date.UTC(today.getFullYear(), today.getMonth(), parseInt(time.slice(0, 2)), parseInt(time.slice(2, 4)), parseInt(time.slice(4, 6))))
   return date
 }
 
@@ -140,6 +140,17 @@ export function cloudFormatSpec(clouds: string) {
 }
 
 export function tempFormat(temperature: string) {
-  let output
+  let output: number[] = []
+  let tempArr = temperature.split('/')
+  tempArr.forEach(el => {
+    if (el === 'M00') {
+      output.push(0)
+    } else if (el[0] === 'M') {
+      el = el.replace('M', '-')
+      output.push(Number(el))
+    } else {
+      output.push(Number(el))
+    }
+  })
   return output
 }

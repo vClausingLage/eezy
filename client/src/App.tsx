@@ -3,7 +3,7 @@ import Metar from './components/Metar'
 import Aircraft from './components/Aircraft'
 import Map from './components/Map'
 
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { darkTheme } from './components/CSS/theme'
 // THEME https://mui.com/material-ui/customization/default-theme/
@@ -14,7 +14,7 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-          <h1>EEzy Flight Planner</h1>
+          <Typography variant='h1'>EEzy Flight Planner</Typography>
           {/* <Aircraft /> */}
           <Metar />
           <Map />

@@ -14,7 +14,7 @@ export interface IMetar {
   Precipitation?: IPrecipitation;
 }
 
-interface IWind {
+export interface IWind {
   direction: number | string;
   speed: number;
   unit: string;

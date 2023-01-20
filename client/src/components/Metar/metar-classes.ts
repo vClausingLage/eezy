@@ -29,4 +29,5 @@ export class Metar {
     RawMetar!: string
     RawMetarDone!: string
     NOSIG!: boolean
+    Temperature!: number[]
 }
