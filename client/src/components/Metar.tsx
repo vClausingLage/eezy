@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Box, TextField, Button, CircularProgress, Typography, Card, Tooltip, Zoom } from '@mui/material'
 
 import { prepareMetar, checkMetarIntegr, reduceTempo, maptoMetarObj } from './Metar/metar-regex'
-import { precipitation, getGafor } from './Metar/metar-ui-helper'
-import { IMetar, IGafor } from './Metar/assets/IMetar'
+import { precipitation, getGafor, getFlightRules } from './Metar/metar-ui-helper'
+import { IMetar, IGafor, IFlightRule } from './Metar/assets/IMetar'
 
 import Cloud from './helper/assets/Cloud'
 import Sun from './helper/assets/Sun'
@@ -16,6 +16,7 @@ function Metar() {
   const [icao, setIcao] = useState('');
   const [metarCode, setMetarCode] = useState<IMetar>()
   const [gafor, setGafor] = useState<IGafor>()
+  const [flightRule, setFlightRule] = useState<IFlightRule>()
   const [NOSIG, setNOSIG] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -49,8 +50,10 @@ function Metar() {
     let metarListReduced: string[][] = reduceTempo(metarList)
     let metarObj = maptoMetarObj(metarListReduced[0])
     setMetarCode(metarObj)
-    let gafor = getGafor(metarObj.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
+    let gafor = getGafor(metarObj?.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
     setGafor(gafor)
+    let flightRules = getFlightRules(metarObj?.Visibility, metarObj?.Cloud_Layer[0]?.cloudBase)
+    setFlightRule(flightRules)
     setNOSIG(metarObj.NOSIG)
     // sendLogs()                           //! make it work!
     console.log(metarObj)
@@ -95,6 +98,9 @@ function Metar() {
         <>
           <Typography variant='body1'>
             METAR submitted for {metarCode.Date.toUTCString()} 
+          </Typography>
+          <Typography style={{ backgroundColor: flightRule?.colorCode }}>
+            {flightRule?.flightRule}
           </Typography>
           <Typography>
             QNH {metarCode.QNH} hPa

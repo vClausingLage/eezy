@@ -1,0 +1,2 @@
+const metar = 'EDHK 201750Z AUTO 23004KT 6000 // OVC008/// 01/01 Q1021'
+

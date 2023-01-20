@@ -36,3 +36,8 @@ export interface IGafor {
   GaforCode: string;
   ColorCode: string;
 }
+
+export interface IFlightRule {
+  flightRule: string;
+  colorCode: string;
+}
