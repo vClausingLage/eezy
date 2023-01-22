@@ -46,7 +46,7 @@ function App() {
               <Metar />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
-              {/* <Aircraft /> */}
+              <Aircraft />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
               <Map />

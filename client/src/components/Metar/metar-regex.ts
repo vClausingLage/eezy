@@ -1,5 +1,5 @@
 import { Metar } from './metar-classes';
-import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, cloudFormatSpec, tempFormat } from './metar-helper-functions';
+import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions';
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
@@ -72,6 +72,16 @@ export function maptoMetarObj(metar: string[]) {
       metarObj['Date'] = output;
       metar = metar.filter(item => !item)
     }
+      // US FORMATS
+    else if (/^SLP\d{3}$/i.test(el)) {
+      metarObj['US_Formats']['SLP'] = el
+    }
+      // NOSIG
+    else if (/NOSIG/i.test(el)) {
+      console.log('test for NOSIG true') //! check !!
+      metarObj['NOSIG'] = true
+      metar = metar.filter(item => !item)
+    }
       // WINDS
     else if (/^\d{5}KT$/i.test(el) || /^\d{5}G\d{1,2}KT$/i.test(el)) {
       let output = windFormat(el);
@@ -110,12 +120,6 @@ export function maptoMetarObj(metar: string[]) {
       metarObj['Cloud_Layer'].push(output);
       metar = metar.filter(item => !item)
     }
-      // CLOUDS SPECIAL CODES
-    else if (/^NCD$/i.test(el) || /^CLR$/i.test(el)) {
-      let output = cloudFormatSpec(el)
-      metarObj['Cloud_Layer'].push(output)
-      metar = metar.filter(item => !item)
-    }
       // TEMPERATURE
     else if (/^M?\d{2}\/M?\d{2}/i.test(el)) {
       let output = tempFormat(el)
@@ -132,12 +136,7 @@ export function maptoMetarObj(metar: string[]) {
       metarObj['TAF_Prognosis'] = el;
       metar = metar.filter(item => !item)
     }
-    // NOSIG
-    else if (/NOSIG/i.test(el)) {
-      console.log('test for NOSIG true')
-      metarObj['NOSIG'] = true
-      metar = metar.filter(item => !item)
-    }
+    console.log(el)
     })
   metarObj['RawMetarDone'] = metar.join(' ')
   return metarObj

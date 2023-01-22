@@ -1,43 +1,69 @@
-import { Typography } from "@mui/material"
-import { IWind } from "../../Metar/assets/IMetar"
+import { Typography } from "@mui/material";
+import { IWind } from "../../Metar/assets/IMetar";
 
 function Wind(props: IWind) {
-
-const compassSVG = <>
-  <svg viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="175" cy="175" r="160" fill="#D9D9D9"/>
-  <g>
-  <path d="M175 0L198 126H152L175 0Z" fill="#182849"/>
-  <path d="M182.52 91.6V108.272L165.56 90.48V114H168.28V97.328L185.24 115.12V91.6H182.52Z" fill="#D9D9D9"/>
-  </g>
-  
-  <g style={{transformBox: 'fill-box', transformOrigin: 'center', transform: `rotate(${props.direction}deg)`}} >
-  <circle cx="175" cy="175" r="160"/>
-  <path d="M175 146.121C174.05 147.293 175.95 147.293 177.121 146.121L196.213 127.029C197.385 125.858 197.385 123.958 196.213 122.787C195.042 121.615 193.142 121.615 191.971 122.787L175 139.757L158.029 122.787C156.858 121.615 154.958 121.615 153.787 122.787C152.615 123.958 152.615 125.858 153.787 127.029L172.879 146.121ZM172 0V144H178V0L172 0Z" fill="#9C0303" fillOpacity='0.5' />
-  </g>
-  </svg>
-</>
+  const compassSVG = (
+    <>
+      <svg
+        width="250"
+        height="250"
+        viewBox="0 0 250 250"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <circle
+            cx="125"
+            cy="125"
+            r="122"
+            transform="rotate(1.13182 124.896 124.896)"
+            fill="#D9D9D9"
+          />
+          <path d="M125 -2L148 99H102L125 -2Z" fill="#182849" />
+          <path
+            d="M132.52 64.6V81.272L115.56 63.48V87H118.28V70.328L135.24 88.12V64.6H132.52Z"
+            fill="#D9D9D9"
+          />
+        </g>
+        <g
+          style={{
+            transformBox: "fill-box",
+            transformOrigin: "center",
+            transform: `rotate(${props.direction}deg)`,
+          }}
+        >
+          <circle cx="125" cy="125" r="122" />
+          <path
+            d="M122.71 66.1219C123.881 67.2934 125.781 67.2934 126.953 66.1219L146.044 47.03C147.216 45.8584 147.216 43.9589 146.044 42.7873C144.873 41.6158 142.973 41.6158 141.802 42.7873L124.831 59.7579L107.861 42.7873C106.689 41.6158 104.79 41.6158 103.618 42.7873C102.446 43.9589 102.446 45.8584 103.618 47.03L122.71 66.1219ZM121.831 10.0009V64.0005H127.831V10.0009H121.831Z"
+            fill="#9C0303"
+            fillOpacity="0.5"
+          />
+        </g>
+      </svg>
+    </>
+  );
 
   return (
     <>
-    {typeof(props.direction) === 'number' && 
-    <>
-      {compassSVG}
-      <Typography style={{textAlign: 'center'}}>{props.speed} {props.unit} from {props.direction}°</Typography>
+      {typeof props.direction === "number" && (
+        <>
+          {compassSVG}
+          <Typography style={{ textAlign: "center" }}>
+            {props.speed} {props.unit} from {props.direction}°
+          </Typography>
+        </>
+      )}
+      {typeof props.direction === "string" && (
+        <>
+          <Typography>
+            Winds from various directions (VRB) at {props.speed} {props.unit}
+          </Typography>
+        </>
+      )}
     </>
-    }
-    {typeof(props.direction) === 'string' && 
-      <>
-      <Typography>
-        Winds from various directions (VRB) at {props.speed} {props.unit}
-      </Typography>
-      </>
-    }
-      
-    </>
-  )
+  );
 }
 
-export default Wind
+export default Wind;
 
 // {metarCode.Winds && metarCode.Winds.speed} {metarCode.Winds && metarCode.Winds.unit} from {metarCode.Winds && metarCode.Winds.direction}{metarCode.Winds && typeof(metarCode.Winds.direction) === 'number'? '°' : '° variation'}

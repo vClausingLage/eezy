@@ -1,3 +1,4 @@
+import { IUS_Formats } from "../metar-classes";
 
 export interface IMetar {
   ICAO: string;
@@ -10,9 +11,10 @@ export interface IMetar {
   RawMetarDone: string;
   NOSIG: boolean;
   Temperature: number[];
-  TAF_Prognosis?: string;
-  Wind_Variation?: number[];
-  Precipitation?: IPrecipitation;
+  TAF_Prognosis: string;
+  Wind_Variation: number[];
+  Precipitation: IPrecipitation;
+  US_Formats: IUS_Formats;
 }
 
 export interface IWind {

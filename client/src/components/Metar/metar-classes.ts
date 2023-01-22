@@ -16,6 +16,11 @@ export class Clouds {
     cloud?: string;
 }
 
+export class IUS_Formats {
+    SLP!: string;
+    visibility!: string;
+}
+
 export class Metar {
     ICAO!: string;
     Date!: Date;
@@ -30,4 +35,5 @@ export class Metar {
     RawMetarDone!: string
     NOSIG!: boolean
     Temperature!: number[]
+    US_Formats!: IUS_Formats
 }

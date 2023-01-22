@@ -9,7 +9,10 @@ import {
   CardContent,
   Tooltip,
   Zoom,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 import {
   prepareMetar,
@@ -23,12 +26,12 @@ import { IMetar, IFlightRule } from "./Metar/assets/IMetar";
 import Cloud from "./Metar/assets/Cloud";
 import Sun from "./Metar/assets/Sun";
 import Wind from "./Metar/assets/Wind";
+import Search from "@mui/icons-material/Search";
 
 function Metar() {
   const [icao, setIcao] = useState("");
   const [metarCode, setMetarCode] = useState<IMetar>();
   const [flightRule, setFlightRule] = useState<IFlightRule>();
-  const [NOSIG, setNOSIG] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = (
@@ -41,7 +44,6 @@ function Metar() {
       <CircularProgress color="secondary" />
     </Box>
   );
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value);
   };
@@ -75,7 +77,6 @@ function Metar() {
       metarObj.Cloud_Layer[0]?.cloudBase
     );
     setFlightRule(flightRules);
-    setNOSIG(metarObj.NOSIG);
     // sendLogs()                           //! make it work!
     console.log(metarObj);
     setIsLoading(false);
@@ -107,10 +108,14 @@ function Metar() {
                 label="enter ICAO Code"
                 value={icao}
                 onChange={handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton type="submit" onClick={searchIcao}>
+                      <Search />
+                    </IconButton>
+                  ),
+                }}
               ></TextField>
-              <Button type="submit" variant="outlined" onClick={searchIcao}>
-                search
-              </Button>
             </form>
           </Box>
           {isLoading && loading}
@@ -126,9 +131,12 @@ function Metar() {
                 METAR submitted for {metarCode.Date.toUTCString()}
               </Typography>
               <Tooltip
-                title="Color Codes for Flight Rules, see bottom of page"
+                title=<div>
+                  Color Codes for Flight Rules,
+                  <br /> see bottom of page
+                </div>
                 arrow
-                placement="top"
+                placement="right"
                 TransitionComponent={Zoom}
               >
                 <Typography
@@ -146,8 +154,10 @@ function Metar() {
                 Temperature {metarCode.Temperature[0]} °C <br />
                 Dewpoint {metarCode.Temperature[1]} °C
               </Typography>
-              <Box>
-                {metarCode.Visibility === "CAVOK" && <Sun />}
+              <Box display="flex" flexDirection="column">
+                {metarCode.Visibility === "CAVOK" ||
+                  (metarCode.Visibility === 9999 &&
+                    metarCode.Cloud_Layer[0].cloudLayer === "NCD" && <Sun />)}
                 {metarCode.Cloud_Layer !== undefined &&
                   metarCode.Cloud_Layer.map((el, key) => {
                     return (
@@ -164,8 +174,7 @@ function Metar() {
               <Box style={{ maxWidth: "250px" }}>
                 <Wind {...metarCode?.Winds} />
               </Box>
-              {String(NOSIG)}
-              {NOSIG && (
+              {metarCode.NOSIG && (
                 <Typography>
                   <span style={{ color: "red" }}>NO SIG</span>nificant changes
                   expected

@@ -124,21 +124,6 @@ export function cloudFormat(clouds: string) {
   return output
 }
 
-export function cloudFormatSpec(clouds: string) {
-  let output = new Clouds()
-  if (clouds === 'NCD') {
-    output.cloudLayer = 'NCD'
-    output.cloudBase = 0
-    return output
-  } else if (clouds === 'CLR') {
-    output.cloudLayer = 'CLR'
-    output.cloudBase = 0
-    return output
-  } else {
-    return output
-  }
-}
-
 export function tempFormat(temperature: string) {
   let output: number[] = []
   let tempArr = temperature.split('/')
