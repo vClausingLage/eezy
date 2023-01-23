@@ -136,7 +136,6 @@ export function maptoMetarObj(metar: string[]) {
       metarObj['TAF_Prognosis'] = el;
       metar = metar.filter(item => !item)
     }
-    console.log(el)
     })
   metarObj['RawMetarDone'] = metar.join(' ')
   return metarObj

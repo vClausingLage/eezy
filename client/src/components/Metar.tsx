@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Box,
   TextField,
-  Button,
   CircularProgress,
   Typography,
   Card,
@@ -10,9 +9,8 @@ import {
   Tooltip,
   Zoom,
   IconButton,
-  InputAdornment,
+  Alert,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 import {
   prepareMetar,
@@ -32,23 +30,27 @@ function Metar() {
   const [icao, setIcao] = useState("");
   const [metarCode, setMetarCode] = useState<IMetar>();
   const [flightRule, setFlightRule] = useState<IFlightRule>();
+  const [disabled, toggleDisabled] = useState(true);
+  const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
-    >
+    <Box display="flex" justifyContent="center" alignItems="center">
       <CircularProgress color="secondary" />
     </Box>
   );
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIcao(event.currentTarget.value);
+    if (event.currentTarget.value.length === 4) toggleDisabled(false);
+    else {
+      toggleDisabled(true);
+    }
+    setAlertIcao(false);
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (icao.length === 4) searchIcao();
+    if (icao.length !== 4) setAlertIcao(true);
   };
   const sendLogs = () => {
     fetch("http://localhost:4000/api/logs", {
@@ -67,6 +69,15 @@ function Metar() {
       "https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=" + icao
     );
     const data = await fetchMetar.text();
+    const response = fetchMetar.headers;
+    if (
+      response.get("content-length") === null ||
+      response.get("content-length") === "0"
+    ) {
+      setAlertIcao(true);
+      setIsLoading(false);
+      return;
+    }
     let metarList = prepareMetar(data);
     checkMetarIntegr(metarList);
     let metarListReduced: string[][] = reduceTempo(metarList);
@@ -110,12 +121,20 @@ function Metar() {
                 onChange={handleChange}
                 InputProps={{
                   endAdornment: (
-                    <IconButton type="submit" onClick={searchIcao}>
+                    <IconButton
+                      id="searchButton"
+                      type="submit"
+                      onClick={handleSubmit}
+                      disabled={disabled}
+                    >
                       <Search />
                     </IconButton>
                   ),
                 }}
               ></TextField>
+              {alertIcao && (
+                <Alert severity="error">Please provide ICAO Code</Alert>
+              )}
             </form>
           </Box>
           {isLoading && loading}
@@ -180,7 +199,7 @@ function Metar() {
                   expected
                 </Typography>
               )}
-              <Typography>{metarCode?.RawMetar}</Typography>
+              <Typography>{metarCode.RawMetar}</Typography>
             </Box>
           )}
         </CardContent>
