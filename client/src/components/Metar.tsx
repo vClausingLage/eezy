@@ -176,7 +176,7 @@ function Metar() {
               <Box display="flex" flexDirection="column">
                 {metarCode.Visibility === "CAVOK" ||
                   (metarCode.Visibility === 9999 &&
-                    metarCode.Cloud_Layer[0].cloudLayer === "NCD" && <Sun />)}
+                    metarCode.Cloud_Layer[0]?.cloudLayer === "NCD" && <Sun />)}
                 {metarCode.Cloud_Layer !== undefined &&
                   metarCode.Cloud_Layer.map((el, key) => {
                     return (

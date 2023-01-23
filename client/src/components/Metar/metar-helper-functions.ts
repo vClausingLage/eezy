@@ -103,6 +103,7 @@ export function decodeWeather(precip: string[]) {
 }
 
 export function precipFormat(precip: string) {
+  precip = precip.replaceAll(' ', '')
   let output = new Precipitation();
   let newPrecip = precipPreposition(precip);
   let weatherCode = decodeWeather(newPrecip);

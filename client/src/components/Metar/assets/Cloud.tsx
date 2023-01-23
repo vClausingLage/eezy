@@ -60,7 +60,7 @@ function Cloud(props: Props) {
         </text>
       </Tooltip>
       <text x="100" y="145" fill="#406377">
-        {props.cloudBase !== 0
+        {typeof props.cloudBase === "number"
           ? String(props.cloudBase) + "00 ft GND"
           : props.cloudLayer}
       </text>

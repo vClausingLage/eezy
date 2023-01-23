@@ -78,7 +78,6 @@ export function maptoMetarObj(metar: string[]) {
     }
       // NOSIG
     else if (/NOSIG/i.test(el)) {
-      console.log('test for NOSIG true') //! check !!
       metarObj['NOSIG'] = true
       metar = metar.filter(item => !item)
     }
@@ -106,24 +105,26 @@ export function maptoMetarObj(metar: string[]) {
       metarObj['Visibility'] = output;
       metar = metar.filter(item => !item)
     }
-      // PRECIPITATION
-    else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-      if (el !== 'NOSIG') {
-        let output = precipFormat(el)
-        metarObj['Precipitation'] = output;
-      }
-      metar = metar.filter(item => !item)
-    }
       // CLOUDS
     else if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
       let output = cloudFormat(el)
       metarObj['Cloud_Layer'].push(output);
       metar = metar.filter(item => !item)
     }
+      // PRECIPITATION
+    else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
+      console.log(el)
+      if (el !== 'NOSIG' && el!== 'NCD' && el!== 'CLR') {
+        let output = precipFormat(el)
+        metarObj['Precipitation'] = output;
+        metar = metar.filter(item => !item)
+      }
+    }
       // TEMPERATURE
     else if (/^M?\d{2}\/M?\d{2}/i.test(el)) {
       let output = tempFormat(el)
       metarObj['Temperature'] = output
+      metar = metar.filter(item => !item)
     }
       // QNH
     else if (/^Q\d{3,4}$/i.test(el)) {
