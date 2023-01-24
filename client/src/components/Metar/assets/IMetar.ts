@@ -31,7 +31,7 @@ export interface IPrecipitation {
 
 export interface IClouds {
   cloudLayer: string;
-  cloudBase: number;
+  cloudBase: number | null;
   cloud?: string;
 }
 

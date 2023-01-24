@@ -106,7 +106,7 @@ export function maptoMetarObj(metar: string[]) {
       metar = metar.filter(item => !item)
     }
       // CLOUDS
-    else if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el)) {
+    else if (/^\D{3}\d{3}$/i.test(el) || /^\D{3}\d{3}\D$/i.test(el) || /^\D{3}\d{3}\/\/\/$/i.test(el) || /^NCD$/i.test(el) || /^CLR$/i.test(el)) {
       let output = cloudFormat(el)
       metarObj['Cloud_Layer'].push(output);
       metar = metar.filter(item => !item)

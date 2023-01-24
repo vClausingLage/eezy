@@ -12,7 +12,7 @@ export class Precipitation {
 
 export class Clouds {
     cloudLayer!: string;
-    cloudBase!: number;
+    cloudBase!: number | null;
     cloud?: string;
 }
 

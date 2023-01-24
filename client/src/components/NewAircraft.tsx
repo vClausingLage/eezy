@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Card, CardContent, Typography } from "@mui/material";
 
-const Aircraft = () => {
+function Aircraft() {
   fetch("/api/aircraft", {
     method: "GET",
     headers: {
@@ -66,6 +66,6 @@ const Aircraft = () => {
       </CardContent>
     </Card>
   );
-};
+}
 
 export default Aircraft;

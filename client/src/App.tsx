@@ -2,16 +2,10 @@ import { useState, useMemo } from "react";
 
 import AppHeader from "./components/AppHeader";
 import Metar from "./components/Metar";
-import Aircraft from "./components/Aircraft";
+import Aircraft from "./components/NewAircraft";
 import Map from "./components/Map";
 
-import {
-  createTheme,
-  ThemeProvider,
-  Typography,
-  Grid,
-  Box,
-} from "@mui/material";
+import { createTheme, ThemeProvider, Grid, Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";

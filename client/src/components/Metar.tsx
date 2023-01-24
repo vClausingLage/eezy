@@ -85,7 +85,9 @@ function Metar() {
     setMetarCode(metarObj);
     let flightRules = getFlightRules(
       metarObj.Visibility,
-      metarObj.Cloud_Layer[0]?.cloudBase
+      metarObj.Cloud_Layer[0]?.cloudBase !== null
+        ? metarObj.Cloud_Layer[0]?.cloudBase
+        : 9999
     );
     setFlightRule(flightRules);
     // sendLogs()                           //! make it work!
@@ -174,9 +176,10 @@ function Metar() {
                 Dewpoint {metarCode.Temperature[1]} °C
               </Typography>
               <Box display="flex" flexDirection="column">
-                {metarCode.Visibility === "CAVOK" ||
-                  (metarCode.Visibility === 9999 &&
-                    metarCode.Cloud_Layer[0]?.cloudLayer === "NCD" && <Sun />)}
+                {(metarCode.Visibility === "CAVOK" ||
+                  metarCode.Visibility === 9999) &&
+                  (metarCode.Cloud_Layer[0]?.cloudLayer === "NCD" ||
+                    metarCode.Cloud_Layer[0]?.cloudLayer === "CLR") && <Sun />}
                 {metarCode.Cloud_Layer !== undefined &&
                   metarCode.Cloud_Layer.map((el, key) => {
                     return (
