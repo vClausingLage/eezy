@@ -14,6 +14,10 @@ app.use(
 );
 app.use(cors())
 
+fetch('https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=csv&hoursBeforeNow=3&mostRecent=true&stationString=edds')
+	.then((response) => response.text())
+  .then((data) => console.log(data));
+
 app.use("/api", router);
 
 app.listen(port, () => {
