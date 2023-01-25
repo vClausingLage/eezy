@@ -63,7 +63,7 @@ function Metar() {
     });
   };
 
-  const searchIcao = async () => {
+  async function searchIcao() {
     setIsLoading(true);
     const fetchMetar = await fetch(
       "https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=" + icao
@@ -93,7 +93,7 @@ function Metar() {
     // sendLogs()                           //! make it work!
     console.log(metarObj);
     setIsLoading(false);
-  };
+  }
 
   const precipitation = () => {
     if (metarCode?.Precipitation?.elements) {
