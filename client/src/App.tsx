@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 
 import AppHeader from "./components/AppHeader";
-import Metar from "./components/Metar";
+import CustomMetar from "./components/CustomMetar";
 import Aircraft from "./components/NewAircraft";
 import Map from "./components/Map";
 
@@ -37,7 +37,7 @@ function App() {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             <Grid item xs={2} sm={4} md={4}>
-              <Metar />
+              <CustomMetar />
             </Grid>
             <Grid item xs={2} sm={4} md={4}>
               <Aircraft />
