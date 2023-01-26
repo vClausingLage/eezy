@@ -1,5 +1,5 @@
 import { Aircraft } from './models.js';
-export async function query(req, res) {
+export async function queryAircrafts(req, res) {
     const result = await Aircraft.findAll();
     try {
         res.send(result);

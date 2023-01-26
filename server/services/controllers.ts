@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { Aircraft } from './models.js'
 
 
-export async function query(req: Request, res: Response) {
+export async function queryAircrafts(req: Request, res: Response) {
   const result = await Aircraft.findAll()
   try {
     res.send(result)

@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
 
-import { query } from '../services/controllers.js'
+import { queryAircrafts } from '../services/controllers.js'
 import { Aircraft } from '../services/models.js'
 
-export const router = Router();
+export const ac_router = Router();
 
-router.get('/aircraft', query)
+ac_router.get('/aircraft', queryAircrafts)
 // router.post('/create', create)
 
 
@@ -13,7 +13,7 @@ router.get('/aircraft', query)
 
 import fs from 'fs'
 
-router.post('/logs', (req: Request, res: Response) => {
+ac_router.post('/logs', (req: Request, res: Response) => {
   const content = JSON.stringify(req.body);
  
   // fs.readFile('./log/logFile.json', (err, data) => {   //! refactor!

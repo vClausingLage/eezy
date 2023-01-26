@@ -39,20 +39,20 @@ function Metar() {
       <CircularProgress color="secondary" />
     </Box>
   );
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setIcao(event.currentTarget.value);
     if (event.currentTarget.value.length === 4) toggleDisabled(false);
     else {
       toggleDisabled(true);
     }
     setAlertIcao(false);
-  };
-  const handleSubmit = (e: any) => {
+  }
+  function handleSubmit(e: any) {
     e.preventDefault();
     if (icao.length === 4) searchIcao();
     if (icao.length !== 4) setAlertIcao(true);
-  };
-  const sendLogs = () => {
+  }
+  function sendLogs() {
     fetch("http://localhost:4000/api/logs", {
       method: "POST",
       headers: {
@@ -61,7 +61,7 @@ function Metar() {
       },
       body: JSON.stringify(metarCode),
     });
-  };
+  }
 
   async function searchIcao() {
     setIsLoading(true);
@@ -95,13 +95,13 @@ function Metar() {
     setIsLoading(false);
   }
 
-  const precipitation = () => {
+  function precipitation() {
     if (metarCode?.Precipitation?.elements) {
       metarCode?.Precipitation?.elements.map((el) => {
         return <span>{el}</span>;
       });
     }
-  };
+  }
 
   return (
     <>

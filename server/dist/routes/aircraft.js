@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { query } from '../services/controllers.js';
-export const router = Router();
-router.get('/aircraft', query);
-router.post('/logs', (req, res) => {
+import { queryAircrafts } from '../services/controllers.js';
+export const ac_router = Router();
+ac_router.get('/aircraft', queryAircrafts);
+ac_router.post('/logs', (req, res) => {
     const content = JSON.stringify(req.body);
     // fs.readFile('./log/logFile.json', (err, data) => {   //! refactor!
     //   let json = JSON.parse(data.toString())

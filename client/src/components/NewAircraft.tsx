@@ -7,15 +7,15 @@ import Select from "@mui/material/Select";
 import { Card, CardContent, Typography } from "@mui/material";
 
 function Aircraft() {
-  fetch("/api/aircraft", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+  // fetch("/aircraft/aircraft", {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json",
+  //   },
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data));
 
   const [aircraftSelect, setAircraftSelect] = useState("");
   const [aircraftModelSelect, setAircraftModelSelect] = useState("");
