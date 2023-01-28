@@ -11,7 +11,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 
-import { IMetarApi } from "./Metar/assets/IMetar";
+import { getFlightRules } from "./Metar/metar-ui-helper";
+import { IMetarApi, IFlightRule } from "./Metar/assets/IMetar";
 
 import Cloud from "./Metar/assets/Cloud";
 import Sun from "./Metar/assets/Sun";
@@ -21,6 +22,7 @@ import Search from "@mui/icons-material/Search";
 function Metar() {
   const [icao, setIcao] = useState("");
   const [metar, setMetar] = useState<any>([]); //! make interface
+  const [flightRule, setFlightRule] = useState<IFlightRule>();
   const [disabled, toggleDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,15 +44,20 @@ function Metar() {
 
   async function searchMetar(e: any) {
     e.preventDefault();
-    fetch(`/api/${icao}`, {
+    const response = await fetch(`/api/${icao}`, {
       //! to async/await
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => res.json())
-      .then((data) => setMetar(data));
+    });
+    const data = await response.json();
+    let flightRules = getFlightRules(
+      //! make working!
+      metar[0].obs[0].visib,
+      metar[0].obs[0].cldBas1 !== null ? metar[0].obs[0].cldBas1 : 9999
+    );
+    console.log(flightRules);
     if (icao.length !== 4) setAlertIcao(true);
   }
 
@@ -97,9 +104,47 @@ function Metar() {
               <>
                 <Typography>{metar[0].name}</Typography>{" "}
                 <Typography>{metar[0].obs[0].obsTime}</Typography>
+                <Typography
+                  style={{
+                    backgroundColor: flightRule?.colorCode,
+                    textAlign: "center",
+                    padding: "0.3rem",
+                  }}
+                >
+                  {flightRule?.flightRule}
+                </Typography>
+                {metar[0].obs[0].cldBas1 && (
+                  <Cloud
+                    visibility={metar[0].obs[0].visib}
+                    cloudBase={metar[0].obs[0].cldBas1}
+                    cloudLayer={metar[0].obs[0].cldCvg1}
+                  ></Cloud>
+                )}
+                {metar[0].obs[0].cldBas2 && (
+                  <Cloud
+                    visibility={metar[0].obs[0].visib}
+                    cloudBase={metar[0].obs[0].cldBas2}
+                    cloudLayer={metar[0].obs[0].cldCvg2}
+                  ></Cloud>
+                )}
+                {metar[0].obs[0].cldBas3 && (
+                  <Cloud
+                    visibility={metar[0].obs[0].visib}
+                    cloudBase={metar[0].obs[0].cldBas3}
+                    cloudLayer={metar[0].obs[0].cldCvg3}
+                  ></Cloud>
+                )}
+                {metar[0].obs[0].cldBas4 && (
+                  <Cloud
+                    visibility={metar[0].obs[0].visib}
+                    cloudBase={metar[0].obs[0].cldBas4}
+                    cloudLayer={metar[0].obs[0].cldCvg4}
+                  ></Cloud>
+                )}
+                <Typography>Winds</Typography>
+                <Typography>Visibility {metar[0].obs[0].visib}</Typography>
                 <Typography>Temperature {metar[0].obs[0].temp}</Typography>
                 <Typography>Dewpoint {metar[0].obs[0].dewp}</Typography>
-                <Typography>Visibility {metar[0].obs[0].visib}</Typography>
               </>
             )}
           </Box>

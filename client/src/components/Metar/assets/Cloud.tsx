@@ -61,7 +61,7 @@ function Cloud(props: Props) {
       </Tooltip>
       <text x="100" y="145" fill="#406377">
         {typeof props.cloudBase === "number"
-          ? String(props.cloudBase) + "00 ft GND"
+          ? String(props.cloudBase) + "00 ft AGL"
           : props.cloudLayer}
       </text>
     </svg>
