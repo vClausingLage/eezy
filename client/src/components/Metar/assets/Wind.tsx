@@ -45,7 +45,7 @@ function Wind(props: IWind) {
 
   return (
     <>
-      {typeof props.direction === "number" && (
+      {typeof props.direction === "number" && props.direction > 0 && (
         <>
           {compassSVG}
           <Typography style={{ textAlign: "center" }}>
@@ -53,7 +53,7 @@ function Wind(props: IWind) {
           </Typography>
         </>
       )}
-      {typeof props.direction === "string" && (
+      {props.direction === 0 && (
         <>
           <Typography>
             Winds from various directions (VRB) at {props.speed} {props.unit}
@@ -65,5 +65,3 @@ function Wind(props: IWind) {
 }
 
 export default Wind;
-
-// {metarCode.Winds && metarCode.Winds.speed} {metarCode.Winds && metarCode.Winds.unit} from {metarCode.Winds && metarCode.Winds.direction}{metarCode.Winds && typeof(metarCode.Winds.direction) === 'number'? '°' : '° variation'}

@@ -44,6 +44,7 @@ function Metar() {
 
   async function searchMetar(e: any) {
     e.preventDefault();
+    setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
       //! to async/await
       method: "GET",
@@ -53,6 +54,7 @@ function Metar() {
     });
     const data = await response.json();
     setMetar(data);
+    setIsLoading(false);
     let flightRules = getFlightRules(
       //! make working!
       metar[0].obs[0].visib,
@@ -101,6 +103,7 @@ function Metar() {
             </form>
           </Box>
           <Box>
+            {isLoading && loading}
             {metar[0] && (
               <>
                 <Typography>{metar[0].name}</Typography>{" "}
@@ -114,6 +117,7 @@ function Metar() {
                 >
                   {flightRule?.flightRule}
                 </Typography>
+                {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
                 {metar[0].obs[0].cldBas1 && (
                   <Cloud
                     visibility={metar[0].obs[0].visib}
@@ -142,10 +146,17 @@ function Metar() {
                     cloudLayer={metar[0].obs[0].cldCvg4}
                   ></Cloud>
                 )}
-                <Typography>Winds</Typography>
+                {metar[0].obs[0].wdir && (
+                  <Wind
+                    direction={parseInt(metar[0].obs[0].wdir)}
+                    speed={parseInt(metar[0].obs[0].wspd)}
+                    unit="kts"
+                  />
+                )}
                 <Typography>Visibility {metar[0].obs[0].visib}</Typography>
                 <Typography>Temperature {metar[0].obs[0].temp}</Typography>
                 <Typography>Dewpoint {metar[0].obs[0].dewp}</Typography>
+                <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
               </>
             )}
           </Box>
