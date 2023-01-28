@@ -52,6 +52,7 @@ function Metar() {
       },
     });
     const data = await response.json();
+    setMetar(data);
     let flightRules = getFlightRules(
       //! make working!
       metar[0].obs[0].visib,
