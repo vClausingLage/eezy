@@ -18,6 +18,7 @@ import Cloud from "./Metar/assets/Cloud";
 import Sun from "./Metar/assets/Sun";
 import Wind from "./Metar/assets/Wind";
 import Search from "@mui/icons-material/Search";
+import DataView from "./DataView";
 
 function Metar() {
   const [icao, setIcao] = useState("");
@@ -102,7 +103,13 @@ function Metar() {
               )}
             </form>
           </Box>
-          <Box>
+          <Box
+            id="Metar Data"
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
             {isLoading && loading}
             {metar[0] && (
               <>
@@ -153,9 +160,12 @@ function Metar() {
                     unit="kts"
                   />
                 )}
-                <Typography>Visibility {metar[0].obs[0].visib}</Typography>
-                <Typography>Temperature {metar[0].obs[0].temp}</Typography>
-                <Typography>Dewpoint {metar[0].obs[0].dewp}</Typography>
+                <DataView
+                  description="Visibility"
+                  data={metar[0].obs[0].visib}
+                ></DataView>
+                <Typography>Temperature {metar[0].obs[0].temp / 10}</Typography>
+                <Typography>Dewpoint {metar[0].obs[0].dewp / 10}</Typography>
                 <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
               </>
             )}
