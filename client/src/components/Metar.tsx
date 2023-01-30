@@ -9,6 +9,7 @@ import {
   TextField,
   IconButton,
   CircularProgress,
+  ToggleButton,
 } from "@mui/material";
 
 import { getFlightRules } from "./Metar/metar-ui-helper";
@@ -26,6 +27,7 @@ function Metar() {
   const [flightRule, setFlightRule] = useState<IFlightRule>();
   const [disabled, toggleDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
+  const [tempUnit, setTempUnit] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = (
@@ -164,8 +166,37 @@ function Metar() {
                   description="Visibility"
                   data={metar[0].obs[0].visib}
                 ></DataView>
-                <Typography>Temperature {metar[0].obs[0].temp / 10}</Typography>
-                <Typography>Dewpoint {metar[0].obs[0].dewp / 10}</Typography>
+                {tempUnit ? (
+                  <>
+                    <DataView
+                      description="Temperature"
+                      data={metar[0].obs[0].temp / 10}
+                    ></DataView>
+                    <DataView
+                      description="Dewpoint"
+                      data={metar[0].obs[0].dewp / 10}
+                    ></DataView>
+                  </>
+                ) : (
+                  <>
+                    <Typography>
+                      Temperature {((metar[0].obs[0].temp / 10) * 9) / 5 + 32}
+                    </Typography>
+                    <Typography>
+                      Dewpoint {((metar[0].obs[0].dewp / 10) * 9) / 5 + 32}
+                    </Typography>
+                  </>
+                )}
+                <ToggleButton
+                  value="check"
+                  selected={tempUnit}
+                  onChange={() => {
+                    setTempUnit(!tempUnit);
+                  }}
+                >
+                  °F / °C
+                </ToggleButton>
+                <hr />
                 <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
               </>
             )}
