@@ -127,6 +127,8 @@ function Metar() {
                   {flightRule?.flightRule}
                 </Typography>
                 {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
+                {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
+                {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
                 {metar[0].obs[0].cldBas1 && (
                   <Cloud
                     visibility={metar[0].obs[0].visib}
@@ -170,25 +172,27 @@ function Metar() {
                   <>
                     <DataView
                       description="Temperature"
-                      data={metar[0].obs[0].temp / 10}
+                      data={metar[0].obs[0].temp / 10 + "°C"}
                     ></DataView>
                     <DataView
                       description="Dewpoint"
-                      data={metar[0].obs[0].dewp / 10}
+                      data={metar[0].obs[0].dewp / 10 + "°C"}
                     ></DataView>
                   </>
                 ) : (
                   <>
-                    <Typography>
-                      Temperature {((metar[0].obs[0].temp / 10) * 9) / 5 + 32}
-                    </Typography>
-                    <Typography>
-                      Dewpoint {((metar[0].obs[0].dewp / 10) * 9) / 5 + 32}
-                    </Typography>
+                    <DataView
+                      description="Temperature"
+                      data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
+                    ></DataView>
+                    <DataView
+                      description="Dewpoint"
+                      data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
+                    ></DataView>
                   </>
                 )}
                 <ToggleButton
-                  value="check"
+                  value="toggle calsius fahrenheit"
                   selected={tempUnit}
                   onChange={() => {
                     setTempUnit(!tempUnit);
