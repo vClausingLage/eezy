@@ -13,15 +13,6 @@ import { getDesignTokens } from "./components/CSS/theme";
 
 function App() {
   const [mode, setMode] = useState("dark");
-  const colorMode = useMemo(
-    () => ({
-      // The dark mode switch would invoke this method
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 

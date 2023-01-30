@@ -4,13 +4,13 @@ function Sun() {
   return (
     <Tooltip title="CAVOK" arrow placement="right" TransitionComponent={Zoom}>
       <svg
-        width="136"
-        height="136"
+        width="250"
+        height="250"
         viewBox="0 0 136 136"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="Sun" clip-path="url(#clip0_0_1)">
+        <g id="Sun">
           <circle id="Ellipse 1" cx="68" cy="68" r="41" fill="#E2CD0C" />
           <rect id="Rectangle 1" x="66" width="5" height="25" fill="#E2CD0C" />
           <rect

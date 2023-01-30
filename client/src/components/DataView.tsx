@@ -9,11 +9,13 @@ function DataView(props: DataProps) {
         sx={{
           textAlign: "center",
           border: 1,
-          borderColor: "#6985a7",
+          borderColor: "primary.main",
           borderRadius: 2,
         }}
       >
-        <Typography sx={{ color: "#6985a7" }}>{props.description}</Typography>
+        <Typography sx={{ color: "primary.main" }}>
+          {props.description}
+        </Typography>
         <hr />
         <Typography>{props.data}</Typography>
       </Box>

@@ -115,7 +115,7 @@ function Metar() {
             {isLoading && loading}
             {metar[0] && (
               <>
-                <Typography>{metar[0].name}</Typography>{" "}
+                <Typography>{metar[0].name}</Typography>
                 <Typography>{metar[0].obs[0].obsTime}</Typography>
                 <Typography
                   style={{
@@ -198,9 +198,8 @@ function Metar() {
                     setTempUnit(!tempUnit);
                   }}
                 >
-                  °F / °C
+                  {tempUnit ? "°F" : "°C"}
                 </ToggleButton>
-                <hr />
                 <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
               </>
             )}
