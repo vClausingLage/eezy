@@ -4,7 +4,6 @@ import AppHeader from "./components/AppHeader";
 import Metar from "./components/Metar";
 import Aircraft from "./components/NewAircraft";
 import Map from "./components/Map";
-import MuiTest from "./components/MuiTest";
 
 import { createTheme, ThemeProvider, Grid, Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,21 +23,7 @@ function App() {
         <CssBaseline />
         <Box sx={{ ml: "2rem", mr: "2rem" }}>
           <AppHeader></AppHeader>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-          >
-            <Grid item xs={2} sm={4} md={4}>
-              <Metar />
-            </Grid>
-            <Grid item xs={2} sm={4} md={4}>
-              <MuiTest />
-            </Grid>
-            <Grid item xs={2} sm={4} md={4}>
-              <Map />
-            </Grid>
-          </Grid>
+          <Metar />
         </Box>
       </ThemeProvider>
     </>

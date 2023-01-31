@@ -11,6 +11,8 @@ function DataView(props: DataProps) {
           border: 1,
           borderColor: "primary.main",
           borderRadius: 2,
+          pl: 1,
+          pr: 1,
         }}
       >
         <Typography sx={{ color: "primary.main" }}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Typography,
@@ -13,11 +13,11 @@ import {
 } from "@mui/material";
 
 import { getFlightRules } from "./Metar/metar-ui-helper";
-import { IMetarApi, IFlightRule } from "./Metar/assets/IMetar";
+import { IMetarApi, IFlightRule } from "./Metar/IMetar";
 
-import Cloud from "./Metar/assets/Cloud";
-import Sun from "./Metar/assets/Sun";
-import Wind from "./Metar/assets/Wind";
+import Cloud from "./Metar/Cloud";
+import Sun from "./Metar/Sun";
+import Wind from "./Metar/Wind";
 import Search from "@mui/icons-material/Search";
 import DataView from "./DataView";
 
@@ -49,7 +49,6 @@ function Metar() {
     e.preventDefault();
     setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
-      //! to async/await
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -58,14 +57,20 @@ function Metar() {
     const data = await response.json();
     setMetar(data);
     setIsLoading(false);
-    let flightRules = getFlightRules(
-      //! make working!
-      metar[0].obs[0].visib,
-      metar[0].obs[0].cldBas1 !== null ? metar[0].obs[0].cldBas1 : 9999
-    );
-    console.log(flightRules);
     if (icao.length !== 4) setAlertIcao(true);
   }
+
+  useEffect(() => {
+    if (metar[0] !== undefined) {
+      const flightRuleColor = getFlightRules(
+        Math.round(metar[0].obs[0].visib * 16.101),
+        metar[0].obs[0].cldBas1 !== null
+          ? parseInt(metar[0].obs[0].cldBas1 + "00")
+          : 9999
+      );
+      setFlightRule(flightRuleColor);
+    }
+  }, [metar[0]]);
 
   console.log(metar[0]);
 
@@ -129,77 +134,91 @@ function Metar() {
                 {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
                 {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
                 {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
-                {metar[0].obs[0].cldBas1 && (
-                  <Cloud
-                    visibility={metar[0].obs[0].visib}
-                    cloudBase={metar[0].obs[0].cldBas1}
-                    cloudLayer={metar[0].obs[0].cldCvg1}
-                  ></Cloud>
-                )}
-                {metar[0].obs[0].cldBas2 && (
-                  <Cloud
-                    visibility={metar[0].obs[0].visib}
-                    cloudBase={metar[0].obs[0].cldBas2}
-                    cloudLayer={metar[0].obs[0].cldCvg2}
-                  ></Cloud>
-                )}
-                {metar[0].obs[0].cldBas3 && (
-                  <Cloud
-                    visibility={metar[0].obs[0].visib}
-                    cloudBase={metar[0].obs[0].cldBas3}
-                    cloudLayer={metar[0].obs[0].cldCvg3}
-                  ></Cloud>
-                )}
-                {metar[0].obs[0].cldBas4 && (
-                  <Cloud
-                    visibility={metar[0].obs[0].visib}
-                    cloudBase={metar[0].obs[0].cldBas4}
-                    cloudLayer={metar[0].obs[0].cldCvg4}
-                  ></Cloud>
-                )}
+                <Box id="clouds" sx={{ display: "flex", flexDirection: "row" }}>
+                  {metar[0].obs[0].cldBas1 && (
+                    <Cloud
+                      visibility={metar[0].obs[0].visib}
+                      cloudBase={parseInt(metar[0].obs[0].cldBas1)}
+                      cloudLayer={metar[0].obs[0].cldCvg1}
+                    ></Cloud>
+                  )}
+                  {metar[0].obs[0].cldBas2 && (
+                    <Cloud
+                      visibility={metar[0].obs[0].visib}
+                      cloudBase={parseInt(metar[0].obs[0].cldBas2)}
+                      cloudLayer={metar[0].obs[0].cldCvg2}
+                    ></Cloud>
+                  )}
+                  {metar[0].obs[0].cldBas3 && (
+                    <Cloud
+                      visibility={metar[0].obs[0].visib}
+                      cloudBase={parseInt(metar[0].obs[0].cldBas3)}
+                      cloudLayer={metar[0].obs[0].cldCvg3}
+                    ></Cloud>
+                  )}
+                  {metar[0].obs[0].cldBas4 && (
+                    <Cloud
+                      visibility={metar[0].obs[0].visib}
+                      cloudBase={parseInt(metar[0].obs[0].cldBas4)}
+                      cloudLayer={metar[0].obs[0].cldCvg4}
+                    ></Cloud>
+                  )}
+                </Box>
                 {metar[0].obs[0].wdir && (
                   <Wind
                     direction={parseInt(metar[0].obs[0].wdir)}
                     speed={parseInt(metar[0].obs[0].wspd)}
                     unit="kts"
+                    gusts={parseInt(metar[0].obs[0].wgst)}
                   />
                 )}
-                <DataView
-                  description="Visibility"
-                  data={metar[0].obs[0].visib}
-                ></DataView>
-                {tempUnit ? (
-                  <>
-                    <DataView
-                      description="Temperature"
-                      data={metar[0].obs[0].temp / 10 + "°C"}
-                    ></DataView>
-                    <DataView
-                      description="Dewpoint"
-                      data={metar[0].obs[0].dewp / 10 + "°C"}
-                    ></DataView>
-                  </>
-                ) : (
-                  <>
-                    <DataView
-                      description="Temperature"
-                      data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
-                    ></DataView>
-                    <DataView
-                      description="Dewpoint"
-                      data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
-                    ></DataView>
-                  </>
-                )}
-                <ToggleButton
-                  value="toggle calsius fahrenheit"
-                  selected={tempUnit}
-                  onChange={() => {
-                    setTempUnit(!tempUnit);
+                <Box
+                  id="Weather Data"
+                  sx={{
+                    display: "flex",
+                    flexFlow: "row wrap",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "1rem",
                   }}
                 >
-                  {tempUnit ? "°F" : "°C"}
-                </ToggleButton>
+                  <DataView
+                    description="Visibility"
+                    data={Math.round(metar[0].obs[0].visib * 16.101)} //! check unit integrity
+                  ></DataView>
+                  {tempUnit ? (
+                    <>
+                      <DataView
+                        description="Temperature"
+                        data={metar[0].obs[0].temp / 10 + "°C"}
+                      ></DataView>
+                      <DataView
+                        description="Dewpoint"
+                        data={metar[0].obs[0].dewp / 10 + "°C"}
+                      ></DataView>
+                    </>
+                  ) : (
+                    <>
+                      <DataView
+                        description="Temperature"
+                        data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
+                      ></DataView>
+                      <DataView
+                        description="Dewpoint"
+                        data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
+                      ></DataView>
+                    </>
+                  )}
+                  <ToggleButton
+                    value="toggle calsius fahrenheit"
+                    selected={tempUnit}
+                    onChange={() => {
+                      setTempUnit(!tempUnit);
+                    }}
+                  >
+                    {tempUnit ? "°F" : "°C"}
+                  </ToggleButton>
+                </Box>
                 <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
               </>
             )}

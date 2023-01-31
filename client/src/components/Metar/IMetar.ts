@@ -1,4 +1,4 @@
-import { IUS_Formats } from "../metar-classes";
+import { IUS_Formats } from "./metar-classes";
 
 export interface IMetarApi {
   "metar": Array<string>
