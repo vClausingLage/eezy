@@ -28,6 +28,7 @@ function Metar() {
   const [disabled, toggleDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
   const [tempUnit, setTempUnit] = useState(true);
+  const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = (
@@ -72,10 +73,11 @@ function Metar() {
       const flightRuleColor = getFlightRules(
         Math.round(metar[0].obs[0].visib * 16.101),
         metar[0].obs[0].cldBas1 !== null
-          ? parseInt(metar[0].obs[0].cldBas1 + "00")
+          ? parseInt(metar[0].obs[0].cldBas1)
           : 9999
       );
       setFlightRule(flightRuleColor);
+      if (/NOSIG/i.test(metar[0].obs[0].rawOb)) setNosig(true);
     }
   }, [metar[0]]);
 
@@ -126,13 +128,18 @@ function Metar() {
       >
         {metar[0] && (
           <>
+            <Typography>wxString {metar[0].obs[0].wxString}</Typography>
+            <Typography>precip {metar[0].obs[0].precip}</Typography>
             <Typography>{metar[0].name}</Typography>
             <Typography>{metar[0].obs[0].obsTime}</Typography>
             <Typography
               style={{
                 backgroundColor: flightRule?.colorCode,
                 textAlign: "center",
-                padding: "0.3rem",
+                paddingTop: ".7rem",
+                paddingBottom: ".7rem",
+                paddingLeft: "4rem",
+                paddingRight: "4rem",
               }}
             >
               {flightRule?.flightRule}
@@ -190,7 +197,7 @@ function Metar() {
             >
               <DataView
                 description="Visibility"
-                data={Math.round(metar[0].obs[0].visib * 16.101)} //! check unit integrity
+                data={Math.round(metar[0].obs[0].visib * 16.101)}
               ></DataView>
               {tempUnit ? (
                 <>
@@ -225,6 +232,7 @@ function Metar() {
                 {tempUnit ? "°F" : "°C"}
               </ToggleButton>
             </Box>
+            {nosig && <Typography>NOSIG</Typography>}
             <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
           </>
         )}

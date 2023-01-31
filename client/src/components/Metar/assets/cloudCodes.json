@@ -1,8 +1,8 @@
 {
-  "FEW": "",
-  "SCT": "",
-  "BKN": "",
-  "OVC": "",
-  "CB": "",
-  "TCU": ""
+  "FEW": "few",
+  "SCT": "scattered",
+  "BKN": "broken",
+  "OVC": "overcast",
+  "CB": "cumulonimbus",
+  "TCU": "turbocumulus"
 }
