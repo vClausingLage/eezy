@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import {
   Typography,
   Box,
-  Card,
-  CardContent,
   Alert,
   TextField,
   IconButton,
@@ -128,10 +126,13 @@ function Metar() {
       >
         {metar[0] && (
           <>
-            <Typography>wxString {metar[0].obs[0].wxString}</Typography>
-            <Typography>precip {metar[0].obs[0].precip}</Typography>
-            <Typography>{metar[0].name}</Typography>
+            <Typography color="red">
+              wxString {metar[0].obs[0].wxString}
+            </Typography>
+            <Typography color="red">precip {metar[0].obs[0].precip}</Typography>
+            <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
             <Typography>{metar[0].obs[0].obsTime}</Typography>
+            <Typography>QNH {metar[0].obs[0].altim / 10}</Typography>
             <Typography
               style={{
                 backgroundColor: flightRule?.colorCode,
