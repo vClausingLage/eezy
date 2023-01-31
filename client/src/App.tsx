@@ -22,7 +22,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box sx={{ ml: "2rem", mr: "2rem" }}>
-          <AppHeader></AppHeader>
+          <AppHeader />
           <Metar />
         </Box>
       </ThemeProvider>

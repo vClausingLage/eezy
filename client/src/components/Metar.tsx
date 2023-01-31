@@ -31,8 +31,15 @@ function Metar() {
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = (
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <CircularProgress color="secondary" />
+    <Box
+      style={{
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }}
+    >
+      <CircularProgress color="primary" />
     </Box>
   );
 
@@ -76,155 +83,152 @@ function Metar() {
 
   return (
     <>
-      <Card>
-        <CardContent>
-          <Box
-            id="Metar text input ICAO"
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Typography variant="h2">Metar</Typography>
-            <form onSubmit={searchMetar}>
-              <TextField
-                type="search"
-                label="enter ICAO Code"
-                value={icao}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      id="searchButton"
-                      type="submit"
-                      onClick={searchMetar}
-                      disabled={disabled}
-                    >
-                      <Search />
-                    </IconButton>
-                  ),
-                }}
-              ></TextField>
-              {alertIcao && (
-                <Alert severity="error">Please provide ICAO Code</Alert>
+      <Box
+        id="Metar text input ICAO"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vdh"
+      >
+        <Typography variant="h2">Metar</Typography>
+        <form onSubmit={searchMetar}>
+          <TextField
+            type="search"
+            label="enter ICAO Code"
+            value={icao}
+            onChange={handleChange}
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  id="searchButton"
+                  type="submit"
+                  onClick={searchMetar}
+                  disabled={disabled}
+                >
+                  <Search />
+                </IconButton>
+              ),
+            }}
+          ></TextField>
+          {isLoading && loading}
+          {alertIcao && (
+            <Alert severity="error">Please provide ICAO Code</Alert>
+          )}
+        </form>
+      </Box>
+      <Box
+        id="Metar Data"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {metar[0] && (
+          <>
+            <Typography>{metar[0].name}</Typography>
+            <Typography>{metar[0].obs[0].obsTime}</Typography>
+            <Typography
+              style={{
+                backgroundColor: flightRule?.colorCode,
+                textAlign: "center",
+                padding: "0.3rem",
+              }}
+            >
+              {flightRule?.flightRule}
+            </Typography>
+            {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
+            {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
+            {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
+            <Box id="clouds" sx={{ display: "flex", flexDirection: "row" }}>
+              {metar[0].obs[0].cldBas1 && (
+                <Cloud
+                  visibility={metar[0].obs[0].visib}
+                  cloudBase={parseInt(metar[0].obs[0].cldBas1)}
+                  cloudLayer={metar[0].obs[0].cldCvg1}
+                ></Cloud>
               )}
-            </form>
-          </Box>
-          <Box
-            id="Metar Data"
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {isLoading && loading}
-            {metar[0] && (
-              <>
-                <Typography>{metar[0].name}</Typography>
-                <Typography>{metar[0].obs[0].obsTime}</Typography>
-                <Typography
-                  style={{
-                    backgroundColor: flightRule?.colorCode,
-                    textAlign: "center",
-                    padding: "0.3rem",
-                  }}
-                >
-                  {flightRule?.flightRule}
-                </Typography>
-                {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
-                {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
-                {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
-                <Box id="clouds" sx={{ display: "flex", flexDirection: "row" }}>
-                  {metar[0].obs[0].cldBas1 && (
-                    <Cloud
-                      visibility={metar[0].obs[0].visib}
-                      cloudBase={parseInt(metar[0].obs[0].cldBas1)}
-                      cloudLayer={metar[0].obs[0].cldCvg1}
-                    ></Cloud>
-                  )}
-                  {metar[0].obs[0].cldBas2 && (
-                    <Cloud
-                      visibility={metar[0].obs[0].visib}
-                      cloudBase={parseInt(metar[0].obs[0].cldBas2)}
-                      cloudLayer={metar[0].obs[0].cldCvg2}
-                    ></Cloud>
-                  )}
-                  {metar[0].obs[0].cldBas3 && (
-                    <Cloud
-                      visibility={metar[0].obs[0].visib}
-                      cloudBase={parseInt(metar[0].obs[0].cldBas3)}
-                      cloudLayer={metar[0].obs[0].cldCvg3}
-                    ></Cloud>
-                  )}
-                  {metar[0].obs[0].cldBas4 && (
-                    <Cloud
-                      visibility={metar[0].obs[0].visib}
-                      cloudBase={parseInt(metar[0].obs[0].cldBas4)}
-                      cloudLayer={metar[0].obs[0].cldCvg4}
-                    ></Cloud>
-                  )}
-                </Box>
-                {metar[0].obs[0].wdir && (
-                  <Wind
-                    direction={parseInt(metar[0].obs[0].wdir)}
-                    speed={parseInt(metar[0].obs[0].wspd)}
-                    unit="kts"
-                    gusts={parseInt(metar[0].obs[0].wgst)}
-                  />
-                )}
-                <Box
-                  id="Weather Data"
-                  sx={{
-                    display: "flex",
-                    flexFlow: "row wrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "1rem",
-                  }}
-                >
-                  <DataView
-                    description="Visibility"
-                    data={Math.round(metar[0].obs[0].visib * 16.101)} //! check unit integrity
-                  ></DataView>
-                  {tempUnit ? (
-                    <>
-                      <DataView
-                        description="Temperature"
-                        data={metar[0].obs[0].temp / 10 + "°C"}
-                      ></DataView>
-                      <DataView
-                        description="Dewpoint"
-                        data={metar[0].obs[0].dewp / 10 + "°C"}
-                      ></DataView>
-                    </>
-                  ) : (
-                    <>
-                      <DataView
-                        description="Temperature"
-                        data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
-                      ></DataView>
-                      <DataView
-                        description="Dewpoint"
-                        data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
-                      ></DataView>
-                    </>
-                  )}
-                  <ToggleButton
-                    value="toggle calsius fahrenheit"
-                    selected={tempUnit}
-                    onChange={() => {
-                      setTempUnit(!tempUnit);
-                    }}
-                  >
-                    {tempUnit ? "°F" : "°C"}
-                  </ToggleButton>
-                </Box>
-                <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
-              </>
+              {metar[0].obs[0].cldBas2 && (
+                <Cloud
+                  visibility={metar[0].obs[0].visib}
+                  cloudBase={parseInt(metar[0].obs[0].cldBas2)}
+                  cloudLayer={metar[0].obs[0].cldCvg2}
+                ></Cloud>
+              )}
+              {metar[0].obs[0].cldBas3 && (
+                <Cloud
+                  visibility={metar[0].obs[0].visib}
+                  cloudBase={parseInt(metar[0].obs[0].cldBas3)}
+                  cloudLayer={metar[0].obs[0].cldCvg3}
+                ></Cloud>
+              )}
+              {metar[0].obs[0].cldBas4 && (
+                <Cloud
+                  visibility={metar[0].obs[0].visib}
+                  cloudBase={parseInt(metar[0].obs[0].cldBas4)}
+                  cloudLayer={metar[0].obs[0].cldCvg4}
+                ></Cloud>
+              )}
+            </Box>
+            {metar[0].obs[0].wdir && (
+              <Wind
+                direction={parseInt(metar[0].obs[0].wdir)}
+                speed={parseInt(metar[0].obs[0].wspd)}
+                unit="kts"
+                gusts={parseInt(metar[0].obs[0].wgst)}
+              />
             )}
-          </Box>
-        </CardContent>
-      </Card>
+            <Box
+              id="Weather Data"
+              sx={{
+                display: "flex",
+                flexFlow: "row wrap",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              <DataView
+                description="Visibility"
+                data={Math.round(metar[0].obs[0].visib * 16.101)} //! check unit integrity
+              ></DataView>
+              {tempUnit ? (
+                <>
+                  <DataView
+                    description="Temperature"
+                    data={metar[0].obs[0].temp / 10 + "°C"}
+                  ></DataView>
+                  <DataView
+                    description="Dewpoint"
+                    data={metar[0].obs[0].dewp / 10 + "°C"}
+                  ></DataView>
+                </>
+              ) : (
+                <>
+                  <DataView
+                    description="Temperature"
+                    data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
+                  ></DataView>
+                  <DataView
+                    description="Dewpoint"
+                    data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
+                  ></DataView>
+                </>
+              )}
+              <ToggleButton
+                value="toggle calsius fahrenheit"
+                selected={tempUnit}
+                onChange={() => {
+                  setTempUnit(!tempUnit);
+                }}
+              >
+                {tempUnit ? "°F" : "°C"}
+              </ToggleButton>
+            </Box>
+            <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
+          </>
+        )}
+      </Box>
     </>
   );
 }
