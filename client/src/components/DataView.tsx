@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-type DataProps = { description: string; data: string | number };
+type DataProps = { description: string; data: string | number | JSX.Element };
 
 function DataView(props: DataProps) {
   return (

@@ -51,6 +51,16 @@ function Metar() {
     setAlertIcao(false);
   }
 
+  function convertDate(dateString: string) {
+    const date = new Date(parseInt(dateString));
+    const local = date.toLocaleString(navigator.language, {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return local;
+  }
+
   async function searchMetar(e: any) {
     e.preventDefault();
     setIsLoading(true);
@@ -131,19 +141,9 @@ function Metar() {
             </Typography>
             <Typography color="red">precip {metar[0].obs[0].precip}</Typography>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
-            <Typography>{metar[0].obs[0].obsTime}</Typography>
-            {metar[0].obs[0].slp !== null && metar[0].obs[0].altim === null && (
-              <Typography>SLP {metar[0].obs[0].slp / 10} hPa</Typography>
-            )}
-            {metar[0].obs[0].altim !== null && metar[0].obs[0].slp === null && (
-              <Typography>QNH {metar[0].obs[0].altim / 10} hPa</Typography>
-            )}
-            {metar[0].obs[0].slp !== null && metar[0].obs[0].altim !== null && (
-              <Typography>
-                QNH {metar[0].obs[0].altim / 10} hPa | SLP{" "}
-                {metar[0].obs[0].slp / 10} hPa
-              </Typography>
-            )}
+            <Typography>
+              Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
+            </Typography>
             <Typography
               style={{
                 backgroundColor: flightRule?.colorCode,
@@ -156,6 +156,81 @@ function Metar() {
             >
               {flightRule?.flightRule}
             </Typography>
+
+            <Box
+              id="Weather Data"
+              sx={{
+                display: "flex",
+                flexFlow: "row wrap",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              {metar[0].obs[0].slp !== null &&
+                metar[0].obs[0].altim === null && (
+                  <DataView
+                    description="SLP"
+                    data={metar[0].obs[0].slp / 10}
+                  ></DataView>
+                )}
+              {metar[0].obs[0].altim !== null &&
+                metar[0].obs[0].slp === null && (
+                  <DataView
+                    description="QNH"
+                    data={metar[0].obs[0].altim / 10}
+                  ></DataView>
+                )}
+              {metar[0].obs[0].slp !== null &&
+                metar[0].obs[0].altim !== null && (
+                  <DataView
+                    description="QNH | SLP"
+                    data={
+                      <>
+                        {metar[0].obs[0].altim / 10} hPa | SLP{" "}
+                        {metar[0].obs[0].slp / 10}{" "}
+                      </>
+                    }
+                  ></DataView>
+                )}
+              <DataView
+                description="Visibility"
+                data={Math.round(metar[0].obs[0].visib * 16.101)}
+              ></DataView>
+              {tempUnit ? (
+                <>
+                  <DataView
+                    description="Temperature"
+                    data={metar[0].obs[0].temp / 10 + "°C"}
+                  ></DataView>
+                  <DataView
+                    description="Dewpoint"
+                    data={metar[0].obs[0].dewp / 10 + "°C"}
+                  ></DataView>
+                </>
+              ) : (
+                <>
+                  <DataView
+                    description="Temperature"
+                    data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
+                  ></DataView>
+                  <DataView
+                    description="Dewpoint"
+                    data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
+                  ></DataView>
+                </>
+              )}
+              <ToggleButton
+                value="toggle calsius fahrenheit"
+                selected={tempUnit}
+                onChange={() => {
+                  setTempUnit(!tempUnit);
+                }}
+              >
+                {tempUnit ? "°F" : "°C"}
+              </ToggleButton>
+            </Box>
+
             {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
             {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
             {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
@@ -197,53 +272,7 @@ function Metar() {
                 gusts={parseInt(metar[0].obs[0].wgst)}
               />
             )}
-            <Box
-              id="Weather Data"
-              sx={{
-                display: "flex",
-                flexFlow: "row wrap",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "1rem",
-              }}
-            >
-              <DataView
-                description="Visibility"
-                data={Math.round(metar[0].obs[0].visib * 16.101)}
-              ></DataView>
-              {tempUnit ? (
-                <>
-                  <DataView
-                    description="Temperature"
-                    data={metar[0].obs[0].temp / 10 + "°C"}
-                  ></DataView>
-                  <DataView
-                    description="Dewpoint"
-                    data={metar[0].obs[0].dewp / 10 + "°C"}
-                  ></DataView>
-                </>
-              ) : (
-                <>
-                  <DataView
-                    description="Temperature"
-                    data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
-                  ></DataView>
-                  <DataView
-                    description="Dewpoint"
-                    data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
-                  ></DataView>
-                </>
-              )}
-              <ToggleButton
-                value="toggle calsius fahrenheit"
-                selected={tempUnit}
-                onChange={() => {
-                  setTempUnit(!tempUnit);
-                }}
-              >
-                {tempUnit ? "°F" : "°C"}
-              </ToggleButton>
-            </Box>
+
             {nosig && <Typography>NOSIG</Typography>}
             <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
           </>
