@@ -132,7 +132,18 @@ function Metar() {
             <Typography color="red">precip {metar[0].obs[0].precip}</Typography>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
             <Typography>{metar[0].obs[0].obsTime}</Typography>
-            <Typography>QNH {metar[0].obs[0].altim / 10}</Typography>
+            {metar[0].obs[0].slp !== null && metar[0].obs[0].altim === null && (
+              <Typography>SLP {metar[0].obs[0].slp / 10} hPa</Typography>
+            )}
+            {metar[0].obs[0].altim !== null && metar[0].obs[0].slp === null && (
+              <Typography>QNH {metar[0].obs[0].altim / 10} hPa</Typography>
+            )}
+            {metar[0].obs[0].slp !== null && metar[0].obs[0].altim !== null && (
+              <Typography>
+                QNH {metar[0].obs[0].altim / 10} hPa | SLP{" "}
+                {metar[0].obs[0].slp / 10} hPa
+              </Typography>
+            )}
             <Typography
               style={{
                 backgroundColor: flightRule?.colorCode,
