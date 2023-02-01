@@ -63,6 +63,7 @@ function Metar() {
 
   async function searchMetar(e: any) {
     e.preventDefault();
+    if (icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
       method: "GET",
@@ -73,7 +74,6 @@ function Metar() {
     const data = await response.json();
     setMetar(data);
     setIsLoading(false);
-    if (icao.length !== 4) setAlertIcao(true);
   }
 
   useEffect(() => {
@@ -85,7 +85,11 @@ function Metar() {
           : 9999
       );
       setFlightRule(flightRuleColor);
-      if (/NOSIG/i.test(metar[0].obs[0].rawOb)) setNosig(true);
+      if (/NOSIG/i.test(metar[0].obs[0].rawOb)) {
+        setNosig(true);
+      } else {
+        setNosig(false);
+      }
     }
   }, [metar[0]]);
 
@@ -269,11 +273,16 @@ function Metar() {
                 direction={parseInt(metar[0].obs[0].wdir)}
                 speed={parseInt(metar[0].obs[0].wspd)}
                 unit="kts"
-                gusts={parseInt(metar[0].obs[0].wgst)}
+                gusts={metar[0].obs[0].wgst}
               />
             )}
 
-            {nosig && <Typography>NOSIG</Typography>}
+            {nosig && (
+              <Typography>
+                <span style={{ color: "red" }}>NO SIG</span>nificant changes
+                expected
+              </Typography>
+            )}
             <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
           </>
         )}
