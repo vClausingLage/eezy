@@ -52,7 +52,13 @@ function Wind(props: IWind) {
         <>
           {compassSVG}
           <Typography style={{ textAlign: "center" }}>
-            {props.speed} {props.unit} from {props.direction}°
+            {props.speed} {props.unit} from {props.direction}°{" "}
+            {props.gusts && (
+              <span style={{ color: "red" }}>
+                {" "}
+                gusts with {props.gusts} kts.
+              </span>
+            )}
           </Typography>
         </>
       )}
