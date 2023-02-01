@@ -144,6 +144,7 @@ function Metar() {
               wxString {metar[0].obs[0].wxString}
             </Typography>
             <Typography color="red">precip {metar[0].obs[0].precip}</Typography>
+            <Typography>-------------------------------</Typography>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
             <Typography>
               Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
@@ -192,7 +193,7 @@ function Metar() {
                     data={
                       <>
                         {metar[0].obs[0].altim / 10} hPa | SLP{" "}
-                        {metar[0].obs[0].slp / 10}{" "}
+                        {metar[0].obs[0].slp / 10}
                       </>
                     }
                   ></DataView>
@@ -205,22 +206,28 @@ function Metar() {
                 <>
                   <DataView
                     description="Temperature"
-                    data={metar[0].obs[0].temp / 10 + "°C"}
+                    data={Math.round(metar[0].obs[0].temp / 10) + "°C"}
                   ></DataView>
                   <DataView
                     description="Dewpoint"
-                    data={metar[0].obs[0].dewp / 10 + "°C"}
+                    data={Math.round(metar[0].obs[0].dewp / 10) + "°C"}
                   ></DataView>
                 </>
               ) : (
                 <>
                   <DataView
                     description="Temperature"
-                    data={((metar[0].obs[0].temp / 10) * 9) / 5 + 32 + "°F"}
+                    data={
+                      Math.round(((metar[0].obs[0].temp / 10) * 9) / 5 + 32) +
+                      "°F"
+                    }
                   ></DataView>
                   <DataView
                     description="Dewpoint"
-                    data={((metar[0].obs[0].dewp / 10) * 9) / 5 + 32 + "°F"}
+                    data={
+                      Math.round(((metar[0].obs[0].dewp / 10) * 9) / 5 + 32) +
+                      "°F"
+                    }
                   ></DataView>
                 </>
               )}
@@ -238,7 +245,10 @@ function Metar() {
             {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
             {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
             {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
-            <Box id="clouds" sx={{ display: "flex", flexDirection: "row" }}>
+            <Box
+              id="clouds"
+              sx={{ display: "flex", flexDirection: "row", mt: 1, mb: 1 }}
+            >
               {metar[0].obs[0].cldBas1 && (
                 <Cloud
                   visibility={metar[0].obs[0].visib}
@@ -278,12 +288,15 @@ function Metar() {
             )}
 
             {nosig && (
-              <Typography>
+              <Typography sx={{ mt: 1, mb: 1 }}>
                 <span style={{ color: "red" }}>NO SIG</span>nificant changes
                 expected
               </Typography>
             )}
-            <Typography>Raw Metar {metar[0].obs[0].rawOb}</Typography>
+            <Typography sx={{ mt: 1, mb: 1 }}>
+              <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
+              {metar[0].obs[0].rawOb}
+            </Typography>
           </>
         )}
       </Box>

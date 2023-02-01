@@ -13,6 +13,8 @@ function DataView(props: DataProps) {
           borderRadius: 2,
           pl: 1,
           pr: 1,
+          mt: 2,
+          mb: 2,
         }}
       >
         <Typography sx={{ color: "primary.main" }}>
