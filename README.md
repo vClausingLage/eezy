@@ -1,5 +1,9 @@
 # EEzy Flight Planner
 
+# Metar
+
+The TAF/Metar app provides the pilot a **quick** and **comprehensive** overview of all the relevant data for his/her departure or aerodrome approach. Most relevant information is **visually** represented on top, and more detailed information follows beneath. The pilot can concentrate on flying and navigating the aircraft while the most important weather reports are available at a glance.
+
 ## Installation
 
 - `cd client && npm install`
