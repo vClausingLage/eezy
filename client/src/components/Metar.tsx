@@ -60,6 +60,9 @@ function Metar() {
     });
     return local;
   }
+  function formatVisibility() {
+    return metar[0].obs[0].visib;
+  }
 
   async function searchMetar(e: any) {
     e.preventDefault();
@@ -200,7 +203,7 @@ function Metar() {
                 )}
               <DataView
                 description="Visibility"
-                data={Math.round(metar[0].obs[0].visib * 16.101)}
+                data={formatVisibility()}
               ></DataView>
               {tempUnit ? (
                 <>
@@ -240,6 +243,12 @@ function Metar() {
               >
                 {tempUnit ? "°F" : "°C"}
               </ToggleButton>
+              {metar[0].obs[0].wxString && (
+                <DataView
+                  description="Precipitation"
+                  data={metar[0].obs[0].wxString}
+                ></DataView>
+              )}
             </Box>
 
             {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
