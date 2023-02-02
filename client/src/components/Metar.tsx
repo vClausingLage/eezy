@@ -82,7 +82,7 @@ function Metar() {
   useEffect(() => {
     if (metar[0] !== undefined) {
       const flightRuleColor = getFlightRules(
-        Math.round(metar[0].obs[0].visib * 16.101),
+        Math.round(metar[0].obs[0].visib * 16.101), //! if >= 9999 -> 9999
         metar[0].obs[0].cldBas1 !== null
           ? parseInt(metar[0].obs[0].cldBas1)
           : 9999
@@ -260,28 +260,28 @@ function Metar() {
             >
               {metar[0].obs[0].cldBas1 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib}
+                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas1)}
                   cloudLayer={metar[0].obs[0].cldCvg1}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas2 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib}
+                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas2)}
                   cloudLayer={metar[0].obs[0].cldCvg2}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas3 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib}
+                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas3)}
                   cloudLayer={metar[0].obs[0].cldCvg3}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas4 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib}
+                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas4)}
                   cloudLayer={metar[0].obs[0].cldCvg4}
                 ></Cloud>

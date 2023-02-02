@@ -21,11 +21,6 @@ EDHK 040750Z 22015KT 190V250 3700 RA BKN006 OVC011 08/08 Q1006=
 [10] QNH
 [11] = for end of metar
 
-## Tech
-
-1. convert JS to TS
-2. CORS
-
 ## Inhalt
 
 METAR / GAFOR API -> Email Benachrichtigung
@@ -35,7 +30,6 @@ DWD Flug Wetterberichte als Vorhersage
 
 - Map fertig
 - METAR departure / destination -> Warnings / CAVOK
-- Wind
 - Fuel
 - Airports (lat long)
 - WARNING EXCEED FUEL CAPACITY
@@ -43,10 +37,8 @@ DWD Flug Wetterberichte als Vorhersage
 
 # Node
 
-- NODE ROUTES
-
-* TABLE FOR CUSTOM AIRCRAFT
-* LOGIN
+- TABLE FOR CUSTOM AIRCRAFT
+- LOGIN
 
 ## Server
 
