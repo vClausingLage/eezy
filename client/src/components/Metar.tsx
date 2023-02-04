@@ -78,7 +78,7 @@ function Metar() {
     // setAlertIcao(false);
     setMetarObject({
       ...metarObject,
-      icao: event.currentTarget.value,
+      icao: event.target.value,
     });
 
     // if (event.currentTarget.value.length === 4) {
