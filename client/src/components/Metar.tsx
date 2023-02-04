@@ -28,6 +28,22 @@ function Metar() {
   const [tempUnit, setTempUnit] = useState(true);
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  //! use State object
+  // setState({
+  //   ...state,
+  //   ip: data.ip,
+  //   countryName: data.country_name,
+  //   countryCode: data.country_calling_code,
+  //   city: data.city,
+  //   timezone: data.timezone
+  // });
+  // const [state, setState] = useState({
+  //   ip: "",
+  //   countryName: "",
+  //   countryCode: "",
+  //   city: "",
+  //   timezone: ""
+  // });
 
   const loading = (
     <Box
@@ -60,16 +76,11 @@ function Metar() {
     });
     return local;
   }
-  function formatVisibility() {
+  async function formatVisibility(): Promise<string | number | Element> {
     let locationCheck = false;
-    fetch("https://ipapi.co/json/")
-      .then((res) => res.json())
-      .then((response) => {
-        console.log("Country: ", response.country);
-      })
-      .catch((error) => {
-        console.log("Request failed", error);
-      });
+    const response = await fetch("https://ipapi.co/json/");
+    const location = await response.json();
+    console.log(location);
     //! check for CAN | US | EN -> Statute Miles : -> Meters
 
     //! return Miles && Meters --> check in JSX
