@@ -1,5 +1,5 @@
-import { Metar } from './metar-classes';
-import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions';
+import { Metar } from './metar-classes.js';
+import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions.js';
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {

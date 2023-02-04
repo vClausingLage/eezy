@@ -1,6 +1,6 @@
-import { Wind, Precipitation, Clouds } from './metar-classes'
+import { Wind, Precipitation, Clouds } from './metar-classes.js'
 
-import * as weatherCodes from './assets/weatherCodes.json' // assert {type: 'json'} //! BABEL PLUGIN
+import * as weatherCodes from '../assets/weatherCodes.json'
 
 export function dateFormat(time: string) {
   let today = new Date();
