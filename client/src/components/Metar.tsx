@@ -76,19 +76,17 @@ function Metar() {
     //   toggleDisabled(true);
     // }
     // setAlertIcao(false);
-    console.log(metarObject.icao);
-    setMetarObject((metarObject) => ({
+    setMetarObject({
       ...metarObject,
       icao: event.currentTarget.value,
-    }));
-    console.log(metarObject.icao);
+    });
 
-    if (event.currentTarget.value.length === 4) {
-      setMetarObject({ ...metarObject, disabled: false });
-    } else {
-      setMetarObject({ ...metarObject, disabled: true });
-    }
-    setMetarObject({ ...metarObject, alertIcao: false });
+    // if (event.currentTarget.value.length === 4) {
+    //   setMetarObject({ ...metarObject, disabled: false });
+    // } else {
+    //   setMetarObject({ ...metarObject, disabled: true });
+    // }
+    // setMetarObject({ ...metarObject, alertIcao: false });
   }
 
   function convertDate(dateString: string) {
@@ -145,7 +143,7 @@ function Metar() {
     }
   }, [metar[0]]);
 
-  console.log(metar[0]);
+  console.log("fetched Metar", metar[0]);
 
   return (
     <>
