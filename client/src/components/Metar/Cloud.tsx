@@ -1,7 +1,6 @@
 import { Tooltip, Zoom } from "@mui/material";
 
 interface Props {
-  visibility: string | number; //! remove vis
   cloudBase: number | null;
   cloudLayer: string;
 }

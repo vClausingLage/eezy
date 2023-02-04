@@ -28,6 +28,33 @@ function Metar() {
   const [tempUnit, setTempUnit] = useState(true);
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [metarObject, setMetarObject] = useState({
+    icao: "",
+    metar: {},
+    flightRule: {},
+    tempUnit: true, //! to 'celsius'/'fahrenheit'
+    location: "",
+    nosig: false,
+    isLoading: false,
+    disabled: true,
+    alertIcao: false,
+  });
+  //! use State object
+  // setState({
+  //   ...state,
+  //   ip: data.ip,
+  //   countryName: data.country_name,
+  //   countryCode: data.country_calling_code,
+  //   city: data.city,
+  //   timezone: data.timezone
+  // });
+  // const [state, setState] = useState({
+  //   ip: "",
+  //   countryName: "",
+  //   countryCode: "",
+  //   city: "",
+  //   timezone: ""
+  // });
 
   const loading = (
     <Box
@@ -43,12 +70,25 @@ function Metar() {
   );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setIcao(event.currentTarget.value);
-    if (event.currentTarget.value.length === 4) toggleDisabled(false);
-    else {
-      toggleDisabled(true);
+    // setIcao(event.currentTarget.value);
+    // if (event.currentTarget.value.length === 4) toggleDisabled(false);
+    // else {
+    //   toggleDisabled(true);
+    // }
+    // setAlertIcao(false);
+    console.log(metarObject.icao);
+    setMetarObject((metarObject) => ({
+      ...metarObject,
+      icao: event.currentTarget.value,
+    }));
+    console.log(metarObject.icao);
+
+    if (event.currentTarget.value.length === 4) {
+      setMetarObject({ ...metarObject, disabled: false });
+    } else {
+      setMetarObject({ ...metarObject, disabled: true });
     }
-    setAlertIcao(false);
+    setMetarObject({ ...metarObject, alertIcao: false });
   }
 
   function convertDate(dateString: string) {
@@ -62,6 +102,15 @@ function Metar() {
   }
   function formatVisibility() {
     return metar[0].obs[0].visib;
+  }
+  async function checkLocation() {
+    let locationCheck = false;
+    const response = await fetch("https://ipapi.co/json/");
+    const location = await response.json();
+    console.log(location);
+    //! check for CAN | US | EN -> Statute Miles : -> Meters
+
+    //! return Miles && Meters --> check in JSX
   }
 
   async function searchMetar(e: any) {
@@ -113,7 +162,7 @@ function Metar() {
           <TextField
             type="search"
             label="enter ICAO Code"
-            value={icao}
+            value={metarObject.icao}
             onChange={handleChange}
             InputProps={{
               endAdornment: (
@@ -179,14 +228,14 @@ function Metar() {
                 metar[0].obs[0].altim === null && (
                   <DataView
                     description="SLP"
-                    data={metar[0].obs[0].slp / 10}
+                    data={Math.round(metar[0].obs[0].slp / 10)}
                   ></DataView>
                 )}
               {metar[0].obs[0].altim !== null &&
                 metar[0].obs[0].slp === null && (
                   <DataView
                     description="QNH"
-                    data={metar[0].obs[0].altim / 10}
+                    data={Math.round(metar[0].obs[0].altim / 10)}
                   ></DataView>
                 )}
               {metar[0].obs[0].slp !== null &&
@@ -195,8 +244,8 @@ function Metar() {
                     description="QNH | SLP"
                     data={
                       <>
-                        {metar[0].obs[0].altim / 10} hPa | SLP{" "}
-                        {metar[0].obs[0].slp / 10}
+                        {Math.round(metar[0].obs[0].altim / 10)} hPa |{" "}
+                        {Math.round(metar[0].obs[0].slp / 10)} hPa
                       </>
                     }
                   ></DataView>
@@ -260,28 +309,24 @@ function Metar() {
             >
               {metar[0].obs[0].cldBas1 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas1)}
                   cloudLayer={metar[0].obs[0].cldCvg1}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas2 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas2)}
                   cloudLayer={metar[0].obs[0].cldCvg2}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas3 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas3)}
                   cloudLayer={metar[0].obs[0].cldCvg3}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas4 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas4)}
                   cloudLayer={metar[0].obs[0].cldCvg4}
                 ></Cloud>
