@@ -28,6 +28,17 @@ function Metar() {
   const [tempUnit, setTempUnit] = useState(true);
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [metarObject, setMetarObject] = useState({
+    icao: "",
+    metar: {},
+    flightRule: {},
+    tempUnit: true, //! to 'celsius'/'fahrenheit'
+    location: "",
+    nosig: false,
+    isLoading: false,
+    disabled: true,
+    alertIcao: false,
+  });
   //! use State object
   // setState({
   //   ...state,
@@ -59,12 +70,25 @@ function Metar() {
   );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setIcao(event.currentTarget.value);
-    if (event.currentTarget.value.length === 4) toggleDisabled(false);
-    else {
-      toggleDisabled(true);
+    // setIcao(event.currentTarget.value);
+    // if (event.currentTarget.value.length === 4) toggleDisabled(false);
+    // else {
+    //   toggleDisabled(true);
+    // }
+    // setAlertIcao(false);
+    console.log(metarObject.icao);
+    setMetarObject((metarObject) => ({
+      ...metarObject,
+      icao: event.currentTarget.value,
+    }));
+    console.log(metarObject.icao);
+
+    if (event.currentTarget.value.length === 4) {
+      setMetarObject({ ...metarObject, disabled: false });
+    } else {
+      setMetarObject({ ...metarObject, disabled: true });
     }
-    setAlertIcao(false);
+    setMetarObject({ ...metarObject, alertIcao: false });
   }
 
   function convertDate(dateString: string) {
@@ -76,7 +100,10 @@ function Metar() {
     });
     return local;
   }
-  async function formatVisibility(): Promise<string | number | Element> {
+  function formatVisibility() {
+    return metar[0].obs[0].visib;
+  }
+  async function checkLocation() {
     let locationCheck = false;
     const response = await fetch("https://ipapi.co/json/");
     const location = await response.json();
@@ -84,7 +111,6 @@ function Metar() {
     //! check for CAN | US | EN -> Statute Miles : -> Meters
 
     //! return Miles && Meters --> check in JSX
-    return metar[0].obs[0].visib;
   }
 
   async function searchMetar(e: any) {
@@ -136,7 +162,7 @@ function Metar() {
           <TextField
             type="search"
             label="enter ICAO Code"
-            value={icao}
+            value={metarObject.icao}
             onChange={handleChange}
             InputProps={{
               endAdornment: (
