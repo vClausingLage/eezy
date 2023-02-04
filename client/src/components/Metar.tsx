@@ -61,6 +61,9 @@ function Metar() {
     return local;
   }
   function formatVisibility() {
+    //! check for CAN | US | EN -> Statute Miles : -> Meters
+
+    //! return Miles && Meters --> check in JSX
     return metar[0].obs[0].visib;
   }
 
@@ -179,14 +182,14 @@ function Metar() {
                 metar[0].obs[0].altim === null && (
                   <DataView
                     description="SLP"
-                    data={metar[0].obs[0].slp / 10}
+                    data={Math.round(metar[0].obs[0].slp / 10)}
                   ></DataView>
                 )}
               {metar[0].obs[0].altim !== null &&
                 metar[0].obs[0].slp === null && (
                   <DataView
                     description="QNH"
-                    data={metar[0].obs[0].altim / 10}
+                    data={Math.round(metar[0].obs[0].altim / 10)}
                   ></DataView>
                 )}
               {metar[0].obs[0].slp !== null &&
@@ -195,8 +198,8 @@ function Metar() {
                     description="QNH | SLP"
                     data={
                       <>
-                        {metar[0].obs[0].altim / 10} hPa | SLP{" "}
-                        {metar[0].obs[0].slp / 10}
+                        {Math.round(metar[0].obs[0].altim / 10)} hPa |{" "}
+                        {Math.round(metar[0].obs[0].slp / 10)} hPa
                       </>
                     }
                   ></DataView>
@@ -260,28 +263,24 @@ function Metar() {
             >
               {metar[0].obs[0].cldBas1 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas1)}
                   cloudLayer={metar[0].obs[0].cldCvg1}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas2 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas2)}
                   cloudLayer={metar[0].obs[0].cldCvg2}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas3 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas3)}
                   cloudLayer={metar[0].obs[0].cldCvg3}
                 ></Cloud>
               )}
               {metar[0].obs[0].cldBas4 && (
                 <Cloud
-                  visibility={metar[0].obs[0].visib} //! remove vis
                   cloudBase={parseInt(metar[0].obs[0].cldBas4)}
                   cloudLayer={metar[0].obs[0].cldCvg4}
                 ></Cloud>
