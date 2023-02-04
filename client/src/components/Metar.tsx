@@ -61,6 +61,15 @@ function Metar() {
     return local;
   }
   function formatVisibility() {
+    let locationCheck = false;
+    fetch("https://ipapi.co/json/")
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("Country: ", response.country);
+      })
+      .catch((error) => {
+        console.log("Request failed", error);
+      });
     //! check for CAN | US | EN -> Statute Miles : -> Meters
 
     //! return Miles && Meters --> check in JSX
