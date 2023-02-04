@@ -1,8 +1,10 @@
 \server\node_modules
 \server\.env
 \server\dist
+server/dist/MetarAPI/
 
 \client\node_modules
 node_modules
 
 mobile_app\node_modules
+
