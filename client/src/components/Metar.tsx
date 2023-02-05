@@ -31,7 +31,7 @@ function Metar() {
   const [metarObject, setMetarObject] = useState<IMetarObject>({
     icao: "",
     flightRule: { flightRule: "", colorCode: "" },
-    tempUnit: "celsius", //! to 'celsius'/'fahrenheit'
+    tempUnit: "°C",
     nosig: false,
     userLocation: "",
   });
@@ -80,7 +80,7 @@ function Metar() {
     }
   }
   function formatVisibility(visibility: number) {
-    //! Button for unit Change
+    //! Button for unit Change OR make dependent on location
     if (visibility >= 621) return 9999;
     else {
       return visibility * 16.101;
@@ -101,6 +101,7 @@ function Metar() {
   }
 
   async function searchMetar(e: any) {
+    //! remove any
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
@@ -112,12 +113,12 @@ function Metar() {
     });
     const data = await response.json();
     setMetar(data);
-    // setMetarObject({ ...metarObject, metar: data[0] });
+    //! setMetarObject({ ...metarObject, metar: data[0] });
     setIsLoading(false);
   }
 
   useEffect(() => {
-    if (metar[0] !== undefined) {
+    if (metar[0] !== undefined && metar[0].obs[0] !== undefined) {
       const flightRuleColor = getFlightRules(
         Math.round(formatVisibility(metar[0].obs[0].visib)),
         metar[0].obs[0].cldBas1 !== null
@@ -167,7 +168,9 @@ function Metar() {
           ></TextField>
           {isLoading && loading}
           {alertIcao && (
-            <Alert severity="error">Please provide ICAO Code</Alert>
+            <Alert severity="error" sx={{ mt: 3 }}>
+              Please provide ICAO Code
+            </Alert>
           )}
         </form>
       </Box>
@@ -178,7 +181,12 @@ function Metar() {
         justifyContent="center"
         alignItems="center"
       >
-        {metar[0] && (
+        {/* {metar[0]?.obs[0] === undefined && (
+          <Alert severity="error" sx={{ mt: 3 }}>
+            no metar data available
+          </Alert>
+        )} */}
+        {metar[0] && metar[0].obs[0] && (
           <>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
             <Typography>

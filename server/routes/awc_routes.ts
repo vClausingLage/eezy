@@ -11,5 +11,6 @@ awc_router.get('/:metarID', async (req: Request, res: Response) => {
   );
   const data = await fetchMetar.json();
   // const response = fetchMetar.headers;
-  res.send(data)
+  if (data[0] !== undefined && data[0].obs[0] !== undefined) res.send(data)
+  else res.send({message: 'no data'})
 })
