@@ -23,38 +23,20 @@ function Metar() {
   const [icao, setIcao] = useState("");
   const [metar, setMetar] = useState<any>([]); //! make interface
   const [flightRule, setFlightRule] = useState<IFlightRule>();
-  const [disabled, toggleDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
   const [tempUnit, setTempUnit] = useState(true);
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState({
     icao: "",
-    metar: {},
+    metar: [],
     flightRule: {},
     tempUnit: true, //! to 'celsius'/'fahrenheit'
     location: "",
     nosig: false,
-    isLoading: false,
-    disabled: true,
-    alertIcao: false,
+    userLocation: "",
   });
-  //! use State object
-  // setState({
-  //   ...state,
-  //   ip: data.ip,
-  //   countryName: data.country_name,
-  //   countryCode: data.country_calling_code,
-  //   city: data.city,
-  //   timezone: data.timezone
-  // });
-  // const [state, setState] = useState({
-  //   ip: "",
-  //   countryName: "",
-  //   countryCode: "",
-  //   city: "",
-  //   timezone: ""
-  // });
 
   const loading = (
     <Box
@@ -70,23 +52,16 @@ function Metar() {
   );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    // setIcao(event.currentTarget.value);
-    // if (event.currentTarget.value.length === 4) toggleDisabled(false);
-    // else {
-    //   toggleDisabled(true);
-    // }
-    // setAlertIcao(false);
     setMetarObject({
       ...metarObject,
       icao: event.target.value,
     });
-
-    // if (event.currentTarget.value.length === 4) {
-    //   setMetarObject({ ...metarObject, disabled: false });
-    // } else {
-    //   setMetarObject({ ...metarObject, disabled: true });
-    // }
-    // setMetarObject({ ...metarObject, alertIcao: false });
+    if (event.target.value.length === 4) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+    setAlertIcao(false);
   }
 
   function convertDate(dateString: string) {
@@ -105,15 +80,17 @@ function Metar() {
     let locationCheck = false;
     const response = await fetch("https://ipapi.co/json/");
     const location = await response.json();
-    console.log(location);
+    metarObject.userLocation = location;
     //! check for CAN | US | EN -> Statute Miles : -> Meters
+    console.log(metarObject.userLocation);
 
     //! return Miles && Meters --> check in JSX
   }
 
   async function searchMetar(e: any) {
     e.preventDefault();
-    if (icao.length !== 4) setAlertIcao(true);
+    if (metarObject.icao.length !== 4) setAlertIcao(true);
+    // if (icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
       method: "GET",
@@ -122,7 +99,8 @@ function Metar() {
       },
     });
     const data = await response.json();
-    setMetar(data);
+    // setMetar(data);
+    setMetarObject({ ...metarObject, metar: data });
     setIsLoading(false);
   }
 
