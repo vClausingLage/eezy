@@ -80,10 +80,10 @@ function Metar() {
     }
   }
   function formatVisibility(visibility: number) {
-    if (visibility === 621) return 9999;
-    else if (visibility === 1000) return 9999;
+    //! Button for unit Change
+    if (visibility >= 621) return 9999;
     else {
-      return visibility;
+      return visibility * 16.101;
     }
   }
   function formatWeatherString(weatherString: string) {
@@ -119,7 +119,7 @@ function Metar() {
   useEffect(() => {
     if (metar[0] !== undefined) {
       const flightRuleColor = getFlightRules(
-        Math.round(metar[0].obs[0].visib * 16.101), //! if >= 9999 -> 9999
+        Math.round(formatVisibility(metar[0].obs[0].visib)),
         metar[0].obs[0].cldBas1 !== null
           ? parseInt(metar[0].obs[0].cldBas1)
           : 9999
