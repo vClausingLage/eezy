@@ -1,5 +1,13 @@
 import { IUS_Formats } from "./metar-classes";
 
+export interface IMetarObject {
+  icao: string,
+  flightRule: IFlightRule,
+  tempUnit: string,
+  nosig: boolean,
+  userLocation: string,
+}
+
 export interface IMetarApi {
   "metar": Array<string>
 }

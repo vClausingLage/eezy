@@ -1,8 +1,3 @@
-export const precipitation = () => {
-  
-  return 'precipitation'
-}
-
 export function getFlightRules(visibility: string | number, cloudBaseInput: number) {
     let flRul = {
         flightRule: '',

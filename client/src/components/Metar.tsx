@@ -7,11 +7,11 @@ import {
   TextField,
   IconButton,
   CircularProgress,
-  ToggleButton,
+  Button,
 } from "@mui/material";
 
 import { getFlightRules } from "./Metar/metar-ui-helper";
-import { IMetarApi, IFlightRule } from "./Metar/IMetar";
+import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 
 import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
@@ -25,15 +25,13 @@ function Metar() {
   const [flightRule, setFlightRule] = useState<IFlightRule>();
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
-  const [tempUnit, setTempUnit] = useState(true);
+  const [tempUnit, setTempUnit] = useState("°C");
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [metarObject, setMetarObject] = useState({
+  const [metarObject, setMetarObject] = useState<IMetarObject>({
     icao: "",
-    metar: [],
-    flightRule: {},
-    tempUnit: true, //! to 'celsius'/'fahrenheit'
-    location: "",
+    flightRule: { flightRule: "", colorCode: "" },
+    tempUnit: "celsius", //! to 'celsius'/'fahrenheit'
     nosig: false,
     userLocation: "",
   });
@@ -56,6 +54,7 @@ function Metar() {
       ...metarObject,
       icao: event.target.value,
     });
+    setIcao(event.currentTarget.value);
     if (event.target.value.length === 4) {
       setDisabled(false);
     } else {
@@ -73,8 +72,22 @@ function Metar() {
     });
     return local;
   }
-  function formatVisibility() {
-    return metar[0].obs[0].visib;
+  function tempUnitToggle() {
+    if (tempUnit === "°C") {
+      setTempUnit("°F");
+    } else {
+      setTempUnit("°C");
+    }
+  }
+  function formatVisibility(visibility: number) {
+    if (visibility === 621) return 9999;
+    else if (visibility === 1000) return 9999;
+    else {
+      return visibility;
+    }
+  }
+  function formatWeatherString(weatherString: string) {
+    return weatherString;
   }
   async function checkLocation() {
     let locationCheck = false;
@@ -90,7 +103,6 @@ function Metar() {
   async function searchMetar(e: any) {
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
-    // if (icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
       method: "GET",
@@ -99,8 +111,8 @@ function Metar() {
       },
     });
     const data = await response.json();
-    // setMetar(data);
-    setMetarObject({ ...metarObject, metar: data });
+    setMetar(data);
+    // setMetarObject({ ...metarObject, metar: data[0] });
     setIsLoading(false);
   }
 
@@ -168,11 +180,6 @@ function Metar() {
       >
         {metar[0] && (
           <>
-            <Typography color="red">
-              wxString {metar[0].obs[0].wxString}
-            </Typography>
-            <Typography color="red">precip {metar[0].obs[0].precip}</Typography>
-            <Typography>-------------------------------</Typography>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
             <Typography>
               Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
@@ -228,9 +235,9 @@ function Metar() {
                 )}
               <DataView
                 description="Visibility"
-                data={formatVisibility()}
+                data={formatVisibility(parseInt(metar[0].obs[0].visib))}
               ></DataView>
-              {tempUnit ? (
+              {tempUnit === "°F" ? (
                 <>
                   <DataView
                     description="Temperature"
@@ -259,19 +266,14 @@ function Metar() {
                   ></DataView>
                 </>
               )}
-              <ToggleButton
-                value="toggle calsius fahrenheit"
-                selected={tempUnit}
-                onChange={() => {
-                  setTempUnit(!tempUnit);
-                }}
-              >
-                {tempUnit ? "°F" : "°C"}
-              </ToggleButton>
+              <Button onClick={tempUnitToggle} variant="outlined">
+                {tempUnit}
+              </Button>
+
               {metar[0].obs[0].wxString && (
                 <DataView
                   description="Precipitation"
-                  data={metar[0].obs[0].wxString}
+                  data={formatWeatherString(metar[0].obs[0].wxString)}
                 ></DataView>
               )}
             </Box>

@@ -25,7 +25,6 @@ function App() {
         <Box sx={{ ml: "2rem", mr: "2rem" }}>
           <AppHeader />
           <Metar />
-          <Test />
         </Box>
       </ThemeProvider>
     </>
