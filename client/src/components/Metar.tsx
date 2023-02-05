@@ -19,6 +19,8 @@ import Wind from "./Metar/Wind";
 import Search from "@mui/icons-material/Search";
 import DataView from "./DataView";
 
+import weatherCodes from "./Metar/assets/weatherCodes.json";
+
 function Metar() {
   const [icao, setIcao] = useState("");
   const [metar, setMetar] = useState<any>([]); //! make interface
@@ -83,12 +85,38 @@ function Metar() {
     //! Button for unit Change OR make dependent on location
     if (visibility >= 621) return 9999;
     else {
-      return visibility * 16.101;
+      return Math.round(visibility * 16.101);
     }
   }
   function formatWeatherString(weatherString: string) {
-    return weatherString;
+    console.log(weatherCodes);
+
+    if (weatherString.length === 0) return "no precipitation";
+    else {
+      let strArr = weatherString.split(" ");
+      let precipArr = [];
+      let output = [];
+      for (const el of strArr) {
+        if (el[0] === "-") {
+          precipArr.push({ intensity: "light", precip: el.slice(1) });
+        } else if (el[0] === "+") {
+          precipArr.push({ intensity: "heavy", precip: el.slice(1) });
+        } else {
+          precipArr.push({ intensity: "", precip: el });
+        }
+      }
+      console.log("output", precipArr);
+      for (const el of precipArr) {
+        for (const [key, value] of Object.entries(weatherCodes.type)) {
+          if (key === el.precip) {
+            output.push(el.intensity + " " + value);
+          }
+        }
+      }
+      return output.join(" and ");
+    }
   }
+
   async function checkLocation() {
     let locationCheck = false;
     const response = await fetch("https://ipapi.co/json/");
@@ -345,54 +373,3 @@ function Metar() {
 }
 
 export default Metar;
-
-const object = {
-  icaoId: "EDDS",
-  lat: "48.69",
-  lon: "9.222",
-  elev: "374",
-  priority: "3",
-  name: "Stuttgart Arpt, BW, DE",
-  obs: [
-    {
-      metar_id: "605298366",
-      icaoId: "EDDS",
-      receiptTime: "2023-01-26 20:06:06",
-      obsTime: "1674762600",
-      reportTime: "2023-01-26 20:00:00",
-      temp: "-20",
-      dewp: "-30",
-      wdir: "330",
-      wspd: "9",
-      wgst: null,
-      visib: "373",
-      altim: "10190",
-      slp: null,
-      qcField: "2",
-      wxString: null,
-      cldCvg1: "BKN",
-      cldCvg2: "OVC",
-      cldCvg3: null,
-      cldCvg4: null,
-      cldBas1: "6",
-      cldBas2: "9",
-      cldBas3: null,
-      cldBas4: null,
-      presTend: null,
-      maxT: null,
-      minT: null,
-      maxT24: null,
-      minT24: null,
-      precip: null,
-      pcp3hr: null,
-      pcp6hr: null,
-      pcp24hr: null,
-      snow: null,
-      vertVis: null,
-      metarType: "METAR",
-      rawOb:
-        "EDDS 261950Z AUTO 33009KT 6000 BKN006 OVC009 M02/M03 Q1019 REFZDZ TEMPO 4000 -FZDZ",
-      mostRecent: "1",
-    },
-  ],
-};
