@@ -351,34 +351,33 @@ function Metar() {
     //! Button for unit Change OR make dependent on location
     if (visibility >= 621) return 9999;
     else {
-      return Math.round(visibility * 16.101); //! UNIT
+      return Math.round((visibility * 16.0934) / 100) * 100; //! UNIT
     }
   }
   function formatWeatherString(weatherString: string) {
-    // if (precip[1].length >= 2) {
-    //   for (let i = 0, charsLength = precip[1].length; i < charsLength; i += 2) {
-    //     result.push(precip[1].substring(i, i + 2));
-    //   }
-    // }
-    console.log(weatherCodes);
-    let strArr = weatherString.split(" ");
-    let precipArr = [];
+    let result: any = [];
     let output = [];
-    for (const el of strArr) {
-      if (el[0] === "-") {
-        precipArr.push({ intensity: "light", precip: el.slice(1) });
-      } else if (el[0] === "+") {
-        precipArr.push({ intensity: "heavy", precip: el.slice(1) });
-      } else {
-        precipArr.push({ intensity: "", precip: el });
+    weatherString = weatherString.replace(/\s/gi, "");
+    while (weatherString.length > 0) {
+      if (weatherString[0] === "-" || weatherString[0] === "+") {
+        weatherString[0] === "-"
+          ? (result = [
+              ...result,
+              ["light", weatherString[1] + weatherString[2]],
+            ])
+          : (result = [
+              ...result,
+              ["heavy", weatherString[1] + weatherString[2]],
+            ]);
+        weatherString = weatherString.slice(3);
+      } else if (weatherString[0] !== "-" && weatherString[0] !== "+") {
+        result = [...result, ["", weatherString[0] + weatherString[1]]];
+        weatherString = weatherString.slice(2);
       }
     }
-    console.log("output", precipArr);
-    for (const el of precipArr) {
+    for (let el of result) {
       for (const [key, value] of Object.entries(weatherCodes.type)) {
-        if (key === el.precip) {
-          output.push(el.intensity + " " + value);
-        }
+        if (el[1] === key) output.push(el[0] + " " + value);
       }
     }
     return output.join(" and ");
