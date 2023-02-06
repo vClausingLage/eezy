@@ -315,6 +315,8 @@ function Metar() {
               <Alert severity="info">
                 <Typography>
                   Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
+                  {"h "}
+                  (local time)
                 </Typography>
                 <Typography sx={{ mt: 1, mb: 1 }}>
                   <span style={{ color: "red" }}>NO SIG</span>nificant changes
