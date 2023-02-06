@@ -90,31 +90,27 @@ function Metar() {
   }
   function formatWeatherString(weatherString: string) {
     console.log(weatherCodes);
-
-    if (weatherString.length === 0) return "no precipitation";
-    else {
-      let strArr = weatherString.split(" ");
-      let precipArr = [];
-      let output = [];
-      for (const el of strArr) {
-        if (el[0] === "-") {
-          precipArr.push({ intensity: "light", precip: el.slice(1) });
-        } else if (el[0] === "+") {
-          precipArr.push({ intensity: "heavy", precip: el.slice(1) });
-        } else {
-          precipArr.push({ intensity: "", precip: el });
-        }
+    let strArr = weatherString.split(" ");
+    let precipArr = [];
+    let output = [];
+    for (const el of strArr) {
+      if (el[0] === "-") {
+        precipArr.push({ intensity: "light", precip: el.slice(1) });
+      } else if (el[0] === "+") {
+        precipArr.push({ intensity: "heavy", precip: el.slice(1) });
+      } else {
+        precipArr.push({ intensity: "", precip: el });
       }
-      console.log("output", precipArr);
-      for (const el of precipArr) {
-        for (const [key, value] of Object.entries(weatherCodes.type)) {
-          if (key === el.precip) {
-            output.push(el.intensity + " " + value);
-          }
-        }
-      }
-      return output.join(" and ");
     }
+    console.log("output", precipArr);
+    for (const el of precipArr) {
+      for (const [key, value] of Object.entries(weatherCodes.type)) {
+        if (key === el.precip) {
+          output.push(el.intensity + " " + value);
+        }
+      }
+    }
+    return output.join(" and ");
   }
 
   async function checkLocation() {

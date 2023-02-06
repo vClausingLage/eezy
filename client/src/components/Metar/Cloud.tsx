@@ -6,6 +6,8 @@ interface Props {
 }
 
 function Cloud(props: Props) {
+  //! if CldCvg1 = OVX and CldBas1 = 0 => CLOUDBASW NJUMBer
+
   const cloudIcons = (cloudLayer: string) => {
     let cloudIconArray!: string[];
     if (cloudLayer === "FEW") {
@@ -18,6 +20,8 @@ function Cloud(props: Props) {
       cloudIconArray = ["☁ ☁ ☁ ☁", ""];
     } else if (cloudLayer === "NCD" || cloudLayer === "CLR") {
       cloudIconArray = ["", "☁ ☁ ☁ ☁"];
+    } else if (cloudLayer === "OVX") {
+      cloudIconArray = ["☁ ☁ ☁ ☁", "(OVX)"];
     }
     return cloudIconArray;
   };
