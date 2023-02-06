@@ -21,7 +21,7 @@ function Cloud(props: Props) {
     } else if (cloudLayer === "NCD" || cloudLayer === "CLR") {
       cloudIconArray = ["", "☁ ☁ ☁ ☁"];
     } else if (cloudLayer === "OVX") {
-      cloudIconArray = ["☁ ☁ ☁ ☁", "(OVX)"];
+      cloudIconArray = ["OVX", ""];
     }
     return cloudIconArray;
   };
@@ -54,7 +54,7 @@ function Cloud(props: Props) {
           </div>
         }
         arrow
-        placement="right"
+        placement="left"
         TransitionComponent={Zoom}
       >
         <text x="110" y="105">

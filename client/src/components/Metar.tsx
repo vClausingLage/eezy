@@ -119,7 +119,7 @@ function Metar() {
           <TextField
             type="search"
             label="enter ICAO Code"
-            value={metarObject.icao}
+            value={metarObject.icao.toUpperCase()}
             onChange={handleChange}
             InputProps={{
               endAdornment: (
