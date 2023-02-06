@@ -65,65 +65,6 @@ function Metar() {
     setAlertIcao(false);
   }
 
-  function convertDate(dateString: string) {
-    const date = new Date(parseInt(dateString));
-    const local = date.toLocaleString(navigator.language, {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    return local;
-  }
-  function tempUnitToggle() {
-    if (tempUnit === "°C") {
-      setTempUnit("°F");
-    } else {
-      setTempUnit("°C");
-    }
-  }
-  function formatVisibility(visibility: number) {
-    //! Button for unit Change OR make dependent on location
-    if (visibility >= 621) return 9999;
-    else {
-      return Math.round(visibility * 16.101);
-    }
-  }
-  function formatWeatherString(weatherString: string) {
-    console.log(weatherCodes);
-    let strArr = weatherString.split(" ");
-    let precipArr = [];
-    let output = [];
-    for (const el of strArr) {
-      if (el[0] === "-") {
-        precipArr.push({ intensity: "light", precip: el.slice(1) });
-      } else if (el[0] === "+") {
-        precipArr.push({ intensity: "heavy", precip: el.slice(1) });
-      } else {
-        precipArr.push({ intensity: "", precip: el });
-      }
-    }
-    console.log("output", precipArr);
-    for (const el of precipArr) {
-      for (const [key, value] of Object.entries(weatherCodes.type)) {
-        if (key === el.precip) {
-          output.push(el.intensity + " " + value);
-        }
-      }
-    }
-    return output.join(" and ");
-  }
-
-  async function checkLocation() {
-    let locationCheck = false;
-    const response = await fetch("https://ipapi.co/json/");
-    const location = await response.json();
-    metarObject.userLocation = location;
-    //! check for CAN | US | EN -> Statute Miles : -> Meters
-    console.log(metarObject.userLocation);
-
-    //! return Miles && Meters --> check in JSX
-  }
-
   async function searchMetar(e: any) {
     //! remove any
     e.preventDefault();
@@ -367,6 +308,63 @@ function Metar() {
       </Box>
     </>
   );
+  function convertDate(dateString: string) {
+    const date = new Date(parseInt(dateString));
+    const local = date.toLocaleString(navigator.language, {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return local;
+  }
+  function tempUnitToggle() {
+    if (tempUnit === "°C") {
+      setTempUnit("°F");
+    } else {
+      setTempUnit("°C");
+    }
+  }
+  function formatVisibility(visibility: number) {
+    //! Button for unit Change OR make dependent on location
+    if (visibility >= 621) return 9999;
+    else {
+      return Math.round(visibility * 16.101); //! UNIT
+    }
+  }
+  function formatWeatherString(weatherString: string) {
+    console.log(weatherCodes);
+    let strArr = weatherString.split(" ");
+    let precipArr = [];
+    let output = [];
+    for (const el of strArr) {
+      if (el[0] === "-") {
+        precipArr.push({ intensity: "light", precip: el.slice(1) });
+      } else if (el[0] === "+") {
+        precipArr.push({ intensity: "heavy", precip: el.slice(1) });
+      } else {
+        precipArr.push({ intensity: "", precip: el });
+      }
+    }
+    console.log("output", precipArr);
+    for (const el of precipArr) {
+      for (const [key, value] of Object.entries(weatherCodes.type)) {
+        if (key === el.precip) {
+          output.push(el.intensity + " " + value);
+        }
+      }
+    }
+    return output.join(" and ");
+  }
+  async function checkLocation() {
+    let locationCheck = false;
+    const response = await fetch("https://ipapi.co/json/");
+    const location = await response.json();
+    metarObject.userLocation = location;
+    //! check for CAN | US | EN -> Statute Miles : -> Meters
+    console.log(metarObject.userLocation);
+
+    //! return Miles && Meters --> check in JSX
+  }
 }
 
 export default Metar;

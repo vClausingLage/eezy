@@ -16,7 +16,7 @@ export class Clouds {
     cloud?: string;
 }
 
-export class IUS_Formats {
+export class US_Formats {
     SLP!: string;
     visibility!: string;
 }
@@ -35,5 +35,5 @@ export class Metar {
     RawMetarDone!: string
     NOSIG!: boolean
     Temperature!: number[]
-    US_Formats!: IUS_Formats
+    US_Formats!: US_Formats
 }

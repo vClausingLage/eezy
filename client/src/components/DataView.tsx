@@ -11,17 +11,25 @@ function DataView(props: DataProps) {
           border: 1,
           borderColor: "primary.main",
           borderRadius: 2,
-          pl: 1,
-          pr: 1,
           mt: 2,
           mb: 2,
+          overflow: "hidden",
         }}
       >
-        <Typography sx={{ color: "primary.main" }}>
-          {props.description}
-        </Typography>
-        <hr />
-        <Typography>{props.data}</Typography>
+        <Box
+          sx={{
+            backgroundColor: "primary.main",
+            pl: 2,
+            pr: 2,
+            pt: 0.4,
+            pb: 0.4,
+          }}
+        >
+          <Typography sx={{ color: "white" }}>{props.description}</Typography>
+        </Box>
+        <Box>
+          <Typography>{props.data}</Typography>
+        </Box>
       </Box>
     </>
   );
