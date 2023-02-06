@@ -27,7 +27,14 @@ function DataView(props: DataProps) {
         >
           <Typography sx={{ color: "white" }}>{props.description}</Typography>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            pl: 2,
+            pr: 2,
+            pt: 0.4,
+            pb: 0.4,
+          }}
+        >
           <Typography>{props.data}</Typography>
         </Box>
       </Box>

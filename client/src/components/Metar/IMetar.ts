@@ -1,5 +1,3 @@
-import { IUS_Formats } from "./metar-classes";
-
 export interface IMetarObject {
   icao: string,
   flightRule: IFlightRule,
@@ -76,7 +74,7 @@ export interface IMetar {
   TAF_Prognosis: string;
   Wind_Variation: number[];
   Precipitation: IPrecipitation;
-  US_Formats: IUS_Formats;
+  // US_Formats: IUS_Formats;
 }
 
 export interface IWind {
@@ -100,4 +98,5 @@ export interface IClouds {
 export interface IFlightRule {
   flightRule: string;
   colorCode: string;
+  color: string;
 }

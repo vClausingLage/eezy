@@ -32,7 +32,7 @@ function Metar() {
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
     icao: "",
-    flightRule: { flightRule: "", colorCode: "" },
+    flightRule: { flightRule: "", colorCode: "", color: "" },
     tempUnit: "°C",
     nosig: false,
     userLocation: "",
@@ -161,6 +161,7 @@ function Metar() {
             <Typography
               style={{
                 backgroundColor: flightRule?.colorCode,
+                color: flightRule?.color,
                 textAlign: "center",
                 paddingTop: ".7rem",
                 paddingBottom: ".7rem",
