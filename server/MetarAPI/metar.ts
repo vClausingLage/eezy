@@ -13,3 +13,6 @@ import { IMetar, IFlightRule } from "./assets/IMetar.js";
 
 
 // send logs
+
+
+//! Precipitation can be in seperate Strings OR one
