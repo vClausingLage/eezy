@@ -2,7 +2,7 @@ import { Tooltip, Zoom } from "@mui/material";
 
 function Sun() {
   return (
-    <Tooltip title="CAVOK" arrow placement="right" TransitionComponent={Zoom}>
+    <Tooltip title="CAVOK" arrow placement="left" TransitionComponent={Zoom}>
       <svg
         width="250"
         height="250"

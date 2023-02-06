@@ -1,6 +1,9 @@
 import {  } from '@mui/material/colors';
 
 export const getDesignTokens = (mode: any) => ({
+  typography: {
+    fontSize: 16
+  },
   palette: {
     primary: {
       main: '#20788d',

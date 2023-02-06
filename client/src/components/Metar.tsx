@@ -157,9 +157,6 @@ function Metar() {
         {metar[0] && metar[0].obs[0] && (
           <>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
-            <Typography>
-              Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
-            </Typography>
             <Typography
               style={{
                 backgroundColor: flightRule?.colorCode,
@@ -256,7 +253,7 @@ function Metar() {
             </Box>
 
             <Box sx={{ justifyContent: "center", alignItems: "center" }}>
-              <Grid container>
+              <Grid container spacing={4}>
                 <Grid item>
                   {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
                   {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
@@ -315,10 +312,15 @@ function Metar() {
             </Box>
 
             {nosig && (
-              <Typography sx={{ mt: 1, mb: 1 }}>
-                <span style={{ color: "red" }}>NO SIG</span>nificant changes
-                expected
-              </Typography>
+              <Alert severity="info">
+                <Typography>
+                  Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
+                </Typography>
+                <Typography sx={{ mt: 1, mb: 1 }}>
+                  <span style={{ color: "red" }}>NO SIG</span>nificant changes
+                  expected
+                </Typography>
+              </Alert>
             )}
             <Typography sx={{ mt: 1, mb: 1 }}>
               <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}

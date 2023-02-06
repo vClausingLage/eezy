@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { IWind } from "./IMetar";
 
 function Wind(props: IWind) {
@@ -51,22 +51,80 @@ function Wind(props: IWind) {
       {typeof props.direction === "number" && props.direction > 0 && (
         <>
           {compassSVG}
-          <Typography style={{ textAlign: "center" }}>
-            {props.speed} {props.unit} from {props.direction}°{" "}
+          <Box
+            sx={{
+              textAlign: "center",
+              color: "white",
+              border: 1,
+              borderColor: "primary.main",
+              borderRadius: 2,
+              ml: -2.5,
+              overflow: "hidden",
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: "primary.main",
+                opacity: "60%",
+                pl: 2,
+                pr: 2,
+                pt: 0.4,
+                pb: 0.4,
+              }}
+            >
+              <Typography sx={{ fontWeight: "bold" }}>
+                {props.speed} {props.unit}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: "primary.main",
+                opacity: "60%",
+                pl: 2,
+                pr: 2,
+                pt: 0.4,
+                pb: 0.4,
+              }}
+            >
+              <Typography sx={{ fontWeight: "bold" }}>
+                {props.direction}°
+              </Typography>
+            </Box>
             {props.gusts && (
-              <span style={{ color: "red" }}>
-                gusts with {props.gusts} kts.
-              </span>
+              <Box
+                sx={{
+                  backgroundColor: "warnign.main",
+                  opacity: "60%",
+                  pl: 2,
+                  pr: 2,
+                  pt: 0.4,
+                  pb: 0.4,
+                }}
+              >
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {props.gusts} kts.
+                </Typography>
+              </Box>
             )}
-          </Typography>
+          </Box>
         </>
       )}
       {props.direction === 0 && (
-        <>
+        <Box
+          sx={{
+            textAlign: "center",
+            border: 1,
+            borderColor: "primary.main",
+            borderRadius: 2,
+            mt: 2,
+            mb: 2,
+            overflow: "hidden",
+          }}
+        >
           <Typography>
             Winds from various directions (VRB) at {props.speed} {props.unit}
           </Typography>
-        </>
+        </Box>
       )}
     </>
   );
