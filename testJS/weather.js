@@ -23,7 +23,7 @@ function formatWeatherString(weatherString) {
   }
   for (let el of result) {
     for (const [key, value] of Object.entries(weatherCodes.type)) {
-      if (el[1] === key) output.push(el[0] + ' ' + value)
+      if (el[1] === key) output.push(el[0] + ' ' + value) //! add weatherCodes.characteristics
     }
   }
   return output
