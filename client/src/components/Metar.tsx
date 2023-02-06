@@ -27,7 +27,7 @@ function Metar() {
   const [flightRule, setFlightRule] = useState<IFlightRule>();
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
-  const [tempUnit, setTempUnit] = useState("°C");
+  const [tempUnit, setTempUnit] = useState("°F"); //! not really as intended °C <-> °F make it a real toggle
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
@@ -128,6 +128,7 @@ function Metar() {
     //! remove any
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
+    setMetar({});
     setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
       method: "GET",
@@ -147,7 +148,7 @@ function Metar() {
         Math.round(formatVisibility(metar[0].obs[0].visib)),
         metar[0].obs[0].cldBas1 !== null
           ? parseInt(metar[0].obs[0].cldBas1)
-          : 9999
+          : 9999 //! vis format
       );
       setFlightRule(flightRuleColor);
       if (/NOSIG/i.test(metar[0].obs[0].rawOb)) {
