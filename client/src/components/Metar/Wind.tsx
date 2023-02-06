@@ -53,7 +53,7 @@ function Wind(props: IWind) {
           {compassSVG}
           <Box
             sx={{
-              textAlign: "center",
+              textAlign: "right",
               color: "white",
               border: 1,
               borderColor: "primary.main",
@@ -93,7 +93,7 @@ function Wind(props: IWind) {
             {props.gusts && (
               <Box
                 sx={{
-                  backgroundColor: "warnign.main",
+                  backgroundColor: "warning.main",
                   opacity: "60%",
                   pl: 2,
                   pr: 2,
@@ -102,7 +102,7 @@ function Wind(props: IWind) {
                 }}
               >
                 <Typography sx={{ fontWeight: "bold" }}>
-                  {props.gusts} kts.
+                  G {props.gusts} kts.
                 </Typography>
               </Box>
             )}

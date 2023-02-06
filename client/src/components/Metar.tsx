@@ -10,6 +10,7 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
+import Search from "@mui/icons-material/Search";
 
 import { getFlightRules } from "./Metar/metar-ui-helper";
 import { IMetarObject, IFlightRule } from "./Metar/IMetar";
@@ -18,8 +19,6 @@ import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
 import DataView from "./DataView";
-
-import Search from "@mui/icons-material/Search";
 
 import weatherCodes from "./Metar/assets/weatherCodes.json";
 
