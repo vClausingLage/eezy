@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import {
   Typography,
   Box,
-  Alert,
+  Grid,
   TextField,
+  Button,
   IconButton,
   CircularProgress,
-  Button,
+  Alert,
 } from "@mui/material";
 
 import { getFlightRules } from "./Metar/metar-ui-helper";
@@ -16,8 +17,9 @@ import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
-import Search from "@mui/icons-material/Search";
 import DataView from "./DataView";
+
+import Search from "@mui/icons-material/Search";
 
 import weatherCodes from "./Metar/assets/weatherCodes.json";
 
@@ -253,46 +255,64 @@ function Metar() {
               )}
             </Box>
 
-            {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
-            {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
-            {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
-            <Box
-              id="clouds"
-              sx={{ display: "flex", flexDirection: "row", mt: 1, mb: 1 }}
-            >
-              {metar[0].obs[0].cldBas1 && (
-                <Cloud
-                  cloudBase={parseInt(metar[0].obs[0].cldBas1)}
-                  cloudLayer={metar[0].obs[0].cldCvg1}
-                ></Cloud>
-              )}
-              {metar[0].obs[0].cldBas2 && (
-                <Cloud
-                  cloudBase={parseInt(metar[0].obs[0].cldBas2)}
-                  cloudLayer={metar[0].obs[0].cldCvg2}
-                ></Cloud>
-              )}
-              {metar[0].obs[0].cldBas3 && (
-                <Cloud
-                  cloudBase={parseInt(metar[0].obs[0].cldBas3)}
-                  cloudLayer={metar[0].obs[0].cldCvg3}
-                ></Cloud>
-              )}
-              {metar[0].obs[0].cldBas4 && (
-                <Cloud
-                  cloudBase={parseInt(metar[0].obs[0].cldBas4)}
-                  cloudLayer={metar[0].obs[0].cldCvg4}
-                ></Cloud>
-              )}
+            <Box sx={{ justifyContent: "center", alignItems: "center" }}>
+              <Grid container>
+                <Grid item>
+                  {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
+                  {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
+                  {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
+
+                  <Box
+                    id="clouds"
+                    sx={{ display: "flex", flexDirection: "row", mt: 1, mb: 1 }}
+                  >
+                    {metar[0].obs[0].cldBas1 && (
+                      <Cloud
+                        cloudBase={parseInt(metar[0].obs[0].cldBas1)}
+                        cloudLayer={metar[0].obs[0].cldCvg1}
+                      ></Cloud>
+                    )}
+                    {metar[0].obs[0].cldBas2 && (
+                      <Cloud
+                        cloudBase={parseInt(metar[0].obs[0].cldBas2)}
+                        cloudLayer={metar[0].obs[0].cldCvg2}
+                      ></Cloud>
+                    )}
+                    {metar[0].obs[0].cldBas3 && (
+                      <Cloud
+                        cloudBase={parseInt(metar[0].obs[0].cldBas3)}
+                        cloudLayer={metar[0].obs[0].cldCvg3}
+                      ></Cloud>
+                    )}
+                    {metar[0].obs[0].cldBas4 && (
+                      <Cloud
+                        cloudBase={parseInt(metar[0].obs[0].cldBas4)}
+                        cloudLayer={metar[0].obs[0].cldCvg4}
+                      ></Cloud>
+                    )}
+                  </Box>
+                </Grid>
+                <Grid item sx={{ alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      mt: 1,
+                      mb: 1,
+                    }}
+                  >
+                    {metar[0].obs[0].wdir && (
+                      <Wind
+                        direction={parseInt(metar[0].obs[0].wdir)}
+                        speed={parseInt(metar[0].obs[0].wspd)}
+                        unit="kts"
+                        gusts={metar[0].obs[0].wgst}
+                      />
+                    )}
+                  </Box>
+                </Grid>
+              </Grid>
             </Box>
-            {metar[0].obs[0].wdir && (
-              <Wind
-                direction={parseInt(metar[0].obs[0].wdir)}
-                speed={parseInt(metar[0].obs[0].wspd)}
-                unit="kts"
-                gusts={metar[0].obs[0].wgst}
-              />
-            )}
 
             {nosig && (
               <Typography sx={{ mt: 1, mb: 1 }}>

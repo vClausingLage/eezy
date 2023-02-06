@@ -1,5 +1,12 @@
 # React App
 
+## important
+
+### check METAR codes
+
+- R26/1000D
+- VV///
+
 ## METAR
 
 https://api.met.no/weatherapi/tafmetar/1.0/documentation#!/data/get_metar
