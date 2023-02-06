@@ -10,7 +10,7 @@ export function getFlightRules(visibility: string | number, cloudBaseInput: numb
     if (typeof(visibility) === 'string' && visibility === 'CAVOK') {
         flRul['flightRule'] = 'VFR'
         flRul['colorCode'] = 'green'
-        flRul['color'] = 'black'
+        flRul['color'] = 'white'
     } else if ((typeof(visibility) === 'number' && visibility <= 1500) || cloudBase <= 500) {
         flRul['flightRule'] = 'LIFR'
         flRul['colorCode'] = 'purple'
@@ -26,7 +26,7 @@ export function getFlightRules(visibility: string | number, cloudBaseInput: numb
     } else if ((typeof(visibility) === 'number' && visibility > 8000) || cloudBase > 3000) {
         flRul['flightRule'] = 'VFR'
         flRul['colorCode'] = 'green'
-        flRul['color'] = 'black'
+        flRul['color'] = 'white'
     } else {
         flRul['flightRule'] = 'incomplete data'
         flRul['colorCode'] = 'black'
