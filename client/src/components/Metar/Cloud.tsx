@@ -64,11 +64,17 @@ function Cloud(props: Props) {
       </Tooltip>
       <text x="100" y="145" fill="#406377">
         {typeof props.cloudBase === "number"
-          ? String(props.cloudBase) + "00 ft AGL"
+          ? props.cloudLayer !== "OVX"
+            ? String(props.cloudBase) + "00 ft AGL"
+            : "sky obscured"
           : props.cloudLayer}
       </text>
     </svg>
   );
 }
+
+// {typeof props.cloudBase === "number"
+//           ? String(props.cloudBase) + "00 ft AGL"
+//           : props.cloudLayer}
 
 export default Cloud;
