@@ -210,6 +210,12 @@ function Metar() {
                 description="Visibility"
                 data={formatVisibility(parseInt(metar[0].obs[0].visib))}
               ></DataView>
+              {metar[0].obs[0].wxString && (
+                <DataView
+                  description="Precipitation"
+                  data={formatWeatherString(metar[0].obs[0].wxString)}
+                ></DataView>
+              )}
               {tempUnit === "°F" ? (
                 <>
                   <DataView
@@ -242,13 +248,6 @@ function Metar() {
               <Button onClick={tempUnitToggle} variant="outlined">
                 {tempUnit}
               </Button>
-
-              {metar[0].obs[0].wxString && (
-                <DataView
-                  description="Precipitation"
-                  data={formatWeatherString(metar[0].obs[0].wxString)}
-                ></DataView>
-              )}
             </Box>
 
             <Box sx={{ justifyContent: "center", alignItems: "center" }}>
@@ -356,6 +355,11 @@ function Metar() {
     }
   }
   function formatWeatherString(weatherString: string) {
+    // if (precip[1].length >= 2) {
+    //   for (let i = 0, charsLength = precip[1].length; i < charsLength; i += 2) {
+    //     result.push(precip[1].substring(i, i + 2));
+    //   }
+    // }
     console.log(weatherCodes);
     let strArr = weatherString.split(" ");
     let precipArr = [];
