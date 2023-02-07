@@ -4,20 +4,23 @@ import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, preci
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
-  let metarList: string[] = metar.split('\n')             // split the raw METAR strings 
+  /*let metarList: string[] = metar.split('\n')             // split the raw METAR strings FOR MET NO
   metarList = metarList.filter(item => item)              // remove possible empty strings
-  metarList = metarList[metarList.length -1].split(' ');  // get latest METAR at the end of list
+  metarList = metarList[metarList.length -1].split(' ');  // get latest METAR at the end of list */
+  metar = metar.replace('$', '').replace('=', '')
+  let metarList = metar.split(' ')
+  // if (metarList[-1] === '\n') metarList.pop()
   return metarList
 }
 
 // the check function cheks if Metar ends with the = sign (and is therefore sanely formatted)
-export function checkMetarIntegr(metar: string[]) {
-  if (metar[metar.length -1].slice(-1) === '=') {
-    console.log('metar integrity checked');
-  } else {
-    console.log('metar not complete');
-  }
-}
+// export function checkMetarIntegr(metar: string[]) {
+//   if (metar[metar.length -1].slice(-1) === '=') {
+//     console.log('metar integrity checked');
+//   } else {
+//     console.log('metar not complete');
+//   }
+// }
 
   // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
   // ALSO for BECOMING

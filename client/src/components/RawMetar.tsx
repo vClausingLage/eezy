@@ -3,12 +3,7 @@ import { useState, useEffect } from "react";
 import { Box, Typography, TextField, IconButton } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 
-import {
-  prepareMetar,
-  checkMetarIntegr,
-  reduceTempo,
-  maptoMetarObj,
-} from "./Metar/metar-regex";
+import { prepareMetar, reduceTempo, maptoMetarObj } from "./Metar/metar-regex";
 
 import { IMetar } from "./Metar/IMetar";
 
@@ -33,12 +28,16 @@ function RawMetar() {
     });
     const data = await response.text();
     setMetarObject({ ...metarObject, RawMetar: data });
-    setMetarObject({
-      ...metarObject,
-      PreparedMetar: prepareMetar(metarObject.RawMetar),
-    });
-    console.log(metarObject);
   }
+
+  useEffect(() => {
+    if (metarObject.RawMetar !== undefined) {
+      setMetarObject({
+        ...metarObject,
+        PreparedMetar: prepareMetar(metarObject.RawMetar),
+      });
+    }
+  }, [metarObject]);
 
   return (
     <>
@@ -71,6 +70,12 @@ function RawMetar() {
             }}
           ></TextField>
         </form>
+      </Box>
+      <Box>
+        {metarObject.PreparedMetar &&
+          metarObject.PreparedMetar.map((el, idx) => {
+            return <p key={idx}>{el}</p>;
+          })}
       </Box>
     </>
   );
