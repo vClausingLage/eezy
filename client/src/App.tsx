@@ -10,7 +10,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";
 
-import Test from "./components/Test";
+import RawMetar from "./components/RawMetar";
+
 // THEME https://mui.com/material-ui/customization/default-theme/
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Box>
           <AppHeader />
           <Metar />
+          <RawMetar />
         </Box>
       </ThemeProvider>
     </>

@@ -6,10 +6,6 @@ export interface IMetarObject {
   userLocation: string,
 }
 
-export interface IMetarApi {
-  "metar": Array<string>
-}
-
 export interface IMetarApiObject{
   "icaoId": string,
   "lat": string,
@@ -63,17 +59,18 @@ export interface IMetarApiObject{
 export interface IMetar {
   ICAO: string;
   Date: Date;
-  Winds: IWind;
+  QNH: number
+  Temperature: number[];
+  Precipitation: IPrecipitation;
   Visibility: string | number;
   Cloud_Layer: IClouds[];
-  QNH: number
+  flightRule: IFlightRule,
+  Winds: IWind;
+  Wind_Variation: number[];
+  TAF_Prognosis: string;
+  NOSIG: boolean;
   RawMetar: string
   RawMetarDone: string;
-  NOSIG: boolean;
-  Temperature: number[];
-  TAF_Prognosis: string;
-  Wind_Variation: number[];
-  Precipitation: IPrecipitation;
   // US_Formats: IUS_Formats;
 }
 
