@@ -23,4 +23,3 @@ The API can convert Raw Metar String input to an output in JSON format. Addition
 ## Issues Beta API
 
 1. Temp and Dewpoint in °C but a decimal too high (x / 10)
-2. check unit conversion: 621 & **1000** must evaluate 9999
