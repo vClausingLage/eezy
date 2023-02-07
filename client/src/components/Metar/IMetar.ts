@@ -59,7 +59,8 @@ export interface IMetarApiObject{
 export interface IMetar {
   ICAO: string;
   Date: Date;
-  QNH: number
+  QNH: number;
+  SLP: number;
   Temperature: number[];
   Precipitation: IPrecipitation;
   Visibility: string | number;
@@ -69,7 +70,8 @@ export interface IMetar {
   Wind_Variation: number[];
   TAF_Prognosis: string;
   NOSIG: boolean;
-  RawMetar: string
+  RawMetar: string;
+  PreparedMetar: string[];
   RawMetarDone: string;
   // US_Formats: IUS_Formats;
 }

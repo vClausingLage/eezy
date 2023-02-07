@@ -1,5 +1,6 @@
-import { Metar } from './metar-classes.js';
-import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions.js';
+import { IFlightRule, IMetar } from './IMetar';
+import { Metar } from './metar-classes';
+import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions';
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
@@ -20,6 +21,7 @@ export function checkMetarIntegr(metar: string[]) {
 
   // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
   // ALSO for BECOMING
+  //! ADD RMK (remarks)
 export function reduceTempo(metar: string[]) {
   if (metar[metar.length -1].slice(-1) === '=') {
     metar[metar.length -1] = metar[metar.length -1].replace('=', '') // remove = at the END of metar
@@ -30,6 +32,7 @@ export function reduceTempo(metar: string[]) {
   let length = metar.length;
   metar.forEach((el, idx) => {
        // !CHECK !!!! !!!! !!!! IF WORKS CORRECTLY
+       //! USE DIFFERENT FOREACH to get INDICES right
     if (/^RE\D{2}/i.test(el)) {
       recent_metar = el
       console.log('index RE',metar[idx])
@@ -56,8 +59,9 @@ export function reduceTempo(metar: string[]) {
 }
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
-export function maptoMetarObj(metar: string[]) {
-  let metarObj = new Metar();
+export function maptoMetarObj(metarObj: IMetar) {
+  let metar = metarObj.PreparedMetar
+  metarObj['flightRule'] = {} as IFlightRule
   metarObj['Cloud_Layer'] = []
   metarObj['NOSIG'] = false 
     // RAW METAR
@@ -74,7 +78,9 @@ export function maptoMetarObj(metar: string[]) {
     }
       // US FORMATS
     else if (/^SLP\d{3}$/i.test(el)) {
-      metarObj['US_Formats']['SLP'] = el
+      el = el.replace('SLP', '')
+      metarObj['SLP'] = parseInt(el)
+      metar = metar.filter(item => !item)
     }
       // NOSIG
     else if (/NOSIG/i.test(el)) {
@@ -100,9 +106,12 @@ export function maptoMetarObj(metar: string[]) {
       metar = metar.filter(item => !item)
     }
       // VISBILIY
-    else if (/^CAVOK$/.test(el) || /^\d{4}$/i.test(el)) {
-      let output = visFormat(el)
-      metarObj['Visibility'] = output;
+    else if (/^CAVOK$/i.test(el) || /^\d{4}$/i.test(el)) {
+      let outputVis = visFormat(el)
+      console.log('el',el) //! not working now
+      let outputCld = cloudFormat(el)
+      metarObj['Visibility'] = outputVis;
+      metarObj['Cloud_Layer'].push(outputCld)
       metar = metar.filter(item => !item)
     }
       // CLOUDS

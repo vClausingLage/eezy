@@ -1,4 +1,4 @@
-import { Wind, Precipitation, Clouds } from './metar-classes.js'
+import { Wind, Precipitation, Clouds } from './metar-classes'
 
 import * as weatherCodes from './assets/weatherCodes.json'
 
@@ -114,7 +114,7 @@ export function precipFormat(precip: string) {
 
 export function cloudFormat(clouds: string) {
   let output = new Clouds()
-  if (clouds !== 'NCD' && clouds !== 'CLR') {
+  if (clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK') {
     let cloudLayer = clouds.slice(0, 3)
     let cloudBase = clouds.slice(3, 6)
     if (clouds.length >= 6) {
@@ -123,7 +123,7 @@ export function cloudFormat(clouds: string) {
     }
     output['cloudLayer'] = cloudLayer
     output['cloudBase'] = parseInt(cloudBase)
-  } else if (clouds === 'NCD' || clouds === 'CLR') {
+  } else if (clouds === 'NCD' || clouds === 'CLR' || clouds === 'CAVOK') {
     output['cloudLayer'] = clouds
     output['cloudBase'] = null
   }

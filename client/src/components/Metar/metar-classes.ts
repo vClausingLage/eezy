@@ -1,3 +1,5 @@
+import { IFlightRule } from "./IMetar";
+
 export class Wind {
     direction!: number | string;
     speed!: number;
@@ -16,11 +18,6 @@ export class Clouds {
     cloud?: string;
 }
 
-export class US_Formats {
-    SLP!: string;
-    visibility!: string;
-}
-
 export class Metar {
     ICAO!: string;
     Date!: Date;
@@ -30,10 +27,12 @@ export class Metar {
     Cloud_Layer!: Clouds[];
     TAF_Prognosis!: string;
     Wind_Variation!: number[];
-    QNH!: number
-    RawMetar!: string
-    RawMetarDone!: string
-    NOSIG!: boolean
-    Temperature!: number[]
-    US_Formats!: US_Formats
+    QNH!: number;
+    SLP!: number;
+    flightRule!: IFlightRule;
+    RawMetar!: string;
+    PreparedMetar!: string[];
+    RawMetarDone!: string;
+    NOSIG!: boolean;
+    Temperature!: number[];
 }

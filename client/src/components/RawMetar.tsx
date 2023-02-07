@@ -3,10 +3,17 @@ import { useState, useEffect } from "react";
 import { Box, Typography, TextField, IconButton } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 
+import {
+  prepareMetar,
+  checkMetarIntegr,
+  reduceTempo,
+  maptoMetarObj,
+} from "./Metar/metar-regex";
+
 import { IMetar } from "./Metar/IMetar";
 
 function RawMetar() {
-  const [metarObject, setMetarObject] = useState({} as IMetar);
+  const [metarObject, setMetarObject] = useState({ ICAO: "" } as IMetar);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setMetarObject({
@@ -18,14 +25,19 @@ function RawMetar() {
   async function searchMetar(e: any) {
     //! remove any
     e.preventDefault();
-    const response = await fetch(`/api/${metarObject.ICAO}`, {
+    const response = await fetch(`/api/raw/${metarObject.ICAO}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/text",
       },
     });
-    const data = await response.json();
-    setMetarObject({ ...metarObject, RawMetar: data[0].obs[0].rawOb });
+    const data = await response.text();
+    setMetarObject({ ...metarObject, RawMetar: data });
+    setMetarObject({
+      ...metarObject,
+      PreparedMetar: prepareMetar(metarObject.RawMetar),
+    });
+    console.log(metarObject);
   }
 
   return (

@@ -25,7 +25,7 @@ import weatherCodes from "./Metar/assets/weatherCodes.json";
 function Metar() {
   const [icao, setIcao] = useState("");
   const [metar, setMetar] = useState<any>([]); //! make interface
-  const [flightRule, setFlightRule] = useState<IFlightRule>();
+  const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
   const [tempUnit, setTempUnit] = useState("°F"); //! not really as intended °C <-> °F make it a real toggle
