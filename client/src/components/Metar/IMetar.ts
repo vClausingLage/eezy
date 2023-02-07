@@ -61,6 +61,7 @@ export interface IMetar {
   Date: Date;
   QNH: number;
   SLP: number;
+  CAVOK: boolean;
   Temperature: number[];
   Precipitation: IPrecipitation;
   Visibility: string | number;

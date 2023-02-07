@@ -1,6 +1,6 @@
 import { IFlightRule, IMetar } from './IMetar';
 import { Metar } from './metar-classes';
-import { dateFormat, windFormat, windFormatSpec, windVarFormat, visFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions';
+import { dateFormat, windFormat, windFormatSpec, windVarFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions';
 
 // PREPARE metar string
 export function prepareMetar(metar: string) {
@@ -9,7 +9,7 @@ export function prepareMetar(metar: string) {
   metarList = metarList[metarList.length -1].split(' ');  // get latest METAR at the end of list */
   metar = metar.replace('$', '').replace('=', '')
   let metarList = metar.split(' ')
-  // if (metarList[-1] === '\n') metarList.pop()
+  if (metarList[metarList.length -1] === '\n') metarList.pop()
   return metarList
 }
 
@@ -31,11 +31,20 @@ export function reduceTempo(metar: string[]) {
   }
   let tempo_metar: string[] = [];
   let becoming_metar: string[] = [];
+  let remarks: string[] = []
   let recent_metar: string;
   let length = metar.length;
   metar.forEach((el, idx) => {
        // !CHECK !!!! !!!! !!!! IF WORKS CORRECTLY
        //! USE DIFFERENT FOREACH to get INDICES right
+    if (/RMK/i.test(el)) {
+      for (let i = idx; i < length; i++) {
+        remarks.push(metar[i]);
+      }
+      for (let i = idx; i < length; i++) {
+        metar.splice(i);
+      }
+    }
     if (/^RE\D{2}/i.test(el)) {
       recent_metar = el
       console.log('index RE',metar[idx])
@@ -62,8 +71,8 @@ export function reduceTempo(metar: string[]) {
 }
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
-export function maptoMetarObj(metarObj: IMetar) {
-  let metar = metarObj.PreparedMetar
+export function maptoMetarObj(metar: string[]) {
+  let metarObj = new Metar()
   metarObj['flightRule'] = {} as IFlightRule
   metarObj['Cloud_Layer'] = []
   metarObj['NOSIG'] = false 
@@ -73,21 +82,28 @@ export function maptoMetarObj(metarObj: IMetar) {
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
   metar.forEach(el => {
+    console.log('forEach:', el)
       // DATE / TIME
     if (/^\d{6}Z$/i.test(el)) {
       let output = dateFormat(el);
       metarObj['Date'] = output;
       metar = metar.filter(item => !item)
     }
-      // US FORMATS
-    else if (/^SLP\d{3}$/i.test(el)) {
-      el = el.replace('SLP', '')
-      metarObj['SLP'] = parseInt(el)
-      metar = metar.filter(item => !item)
-    }
       // NOSIG
     else if (/NOSIG/i.test(el)) {
       metarObj['NOSIG'] = true
+      metar = metar.filter(item => !item)
+    }
+      // CAVOK
+    else if (/^CAVOK$/i.test(el)) {
+      metarObj['CAVOK'] = true
+      metar = metar.filter(item => !item)
+    }
+      // SLP /* must be before CLOUDS */
+    else if (/^SLP\d{3}$/i.test(el)) {
+      console.log('SLP', el)
+      el = el.replace('SLP', '')
+      metarObj['SLP'] = parseInt(el)
       metar = metar.filter(item => !item)
     }
       // WINDS
@@ -109,12 +125,16 @@ export function maptoMetarObj(metarObj: IMetar) {
       metar = metar.filter(item => !item)
     }
       // VISBILIY
-    else if (/^CAVOK$/i.test(el) || /^\d{4}$/i.test(el)) {
-      let outputVis = visFormat(el)
-      console.log('el',el) //! not working now
-      let outputCld = cloudFormat(el)
-      metarObj['Visibility'] = outputVis;
-      metarObj['Cloud_Layer'].push(outputCld)
+    else if (/^\d{4}$/i.test(el)) {
+      let output = {value: parseInt(el), unit: 'meters'}
+      console.log('visib',el) //! not working now
+      metarObj['Visibility'] = output;
+      metar = metar.filter(item => !item)
+    }
+    else if (/^d{1,2}SM$/i.test(el)) {
+      console.log('visSM', el)
+      el = el.replace('SM', '')
+      metarObj['Visibility'] = {value: parseInt(el), unit: 'SM'}
       metar = metar.filter(item => !item)
     }
       // CLOUDS
@@ -125,7 +145,7 @@ export function maptoMetarObj(metarObj: IMetar) {
     }
       // PRECIPITATION
     else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-      console.log(el)
+      console.log('precip', el)
       if (el !== 'NOSIG' && el!== 'NCD' && el!== 'CLR') {
         let output = precipFormat(el)
         metarObj['Precipitation'] = output;

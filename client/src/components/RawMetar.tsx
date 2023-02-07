@@ -5,39 +5,35 @@ import Search from "@mui/icons-material/Search";
 
 import { prepareMetar, reduceTempo, maptoMetarObj } from "./Metar/metar-regex";
 
-import { IMetar } from "./Metar/IMetar";
-
 function RawMetar() {
-  const [metarObject, setMetarObject] = useState({ ICAO: "" } as IMetar);
+  const [metarObject, setMetarObject] = useState({});
+  const [icao, setIcao] = useState("");
+  const [rawMetar, setRawMetar] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setMetarObject({
-      ...metarObject,
-      ICAO: event.target.value,
-    });
+    setIcao(event.target.value);
   }
 
   async function searchMetar(e: any) {
     //! remove any
     e.preventDefault();
-    const response = await fetch(`/api/raw/${metarObject.ICAO}`, {
+    const response = await fetch(`/api/raw/${icao}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/text",
       },
     });
     const data = await response.text();
-    setMetarObject({ ...metarObject, RawMetar: data });
+    setRawMetar(data);
   }
 
   useEffect(() => {
-    if (metarObject.RawMetar !== undefined) {
-      setMetarObject({
-        ...metarObject,
-        PreparedMetar: prepareMetar(metarObject.RawMetar),
-      });
-    }
-  }, [metarObject]);
+    const metarList = prepareMetar(rawMetar);
+    setMetarObject(maptoMetarObj(metarList));
+  }, [rawMetar]);
+
+  console.log(metarObject);
+  console.log("rawMetar:", rawMetar);
 
   return (
     <>
@@ -54,7 +50,7 @@ function RawMetar() {
           <TextField
             type="search"
             label="enter ICAO Code"
-            value={metarObject.ICAO.toUpperCase()}
+            value={icao.toUpperCase()}
             onChange={handleChange}
             InputProps={{
               endAdornment: (
@@ -71,12 +67,7 @@ function RawMetar() {
           ></TextField>
         </form>
       </Box>
-      <Box>
-        {metarObject.PreparedMetar &&
-          metarObject.PreparedMetar.map((el, idx) => {
-            return <p key={idx}>{el}</p>;
-          })}
-      </Box>
+      <Box></Box>
     </>
   );
 }

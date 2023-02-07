@@ -43,17 +43,6 @@ export function windVarFormat(windVar: string) {
   return output
 }
 
-export function visFormat(vis: string): string | number {
-  let output!: string | number
-  if (/^CAVOK$/.test(vis)) {
-    output = vis
-  }
-  if (/^\d{4}$/i.test(vis)) {
-    output = parseInt(vis)
-  }
-  return output
-}
-
 export function precipPreposition(precip: string) {
   let formattedPrecip: string[] = []
   if (precip.length % 2 === 0) {
@@ -123,9 +112,9 @@ export function cloudFormat(clouds: string) {
     }
     output['cloudLayer'] = cloudLayer
     output['cloudBase'] = parseInt(cloudBase)
-  } else if (clouds === 'NCD' || clouds === 'CLR' || clouds === 'CAVOK') {
+  } else if (clouds === 'NCD' || clouds === 'CLR') {
     output['cloudLayer'] = clouds
-    output['cloudBase'] = null
+    output['cloudBase'] = undefined
   }
   return output
 }
