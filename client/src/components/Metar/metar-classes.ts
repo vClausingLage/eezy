@@ -36,4 +36,8 @@ export class Metar {
     RawMetarDone!: string;
     NOSIG!: boolean;
     Temperature!: number[];
+    recent!: string;
+    remarks!: string[];
+    becoming!: string[];
+    tempo!: string[];
 }

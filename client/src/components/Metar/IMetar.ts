@@ -74,6 +74,10 @@ export interface IMetar {
   RawMetar: string;
   PreparedMetar: string[];
   RawMetarDone: string;
+  recent: string;
+  remarks: string[];
+  becoming: string[];
+  tempo: string[];
   // US_Formats: IUS_Formats;
 }
 

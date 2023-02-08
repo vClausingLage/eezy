@@ -13,18 +13,16 @@ export function prepareMetar(metar: string) {
   // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
   // ALSO for BECOMING
   //! ADD RMK (remarks)
-export function reduceTempo(metar: string[]) {
+function reduceTempo(metar: string[]) {
   if (metar[metar.length -1].slice(-1) === '=') {
     metar[metar.length -1] = metar[metar.length -1].replace('=', '') // remove = at the END of metar
   }
-  let tempo_metar: string[] = [];
-  let becoming_metar: string[] = [];
+  let tempoMetar: string[] = [];
+  let becomingMetar: string[] = [];
   let remarks: string[] = []
-  let recent_metar: string;
-  let length = metar.length;
+  let recentMetar: string;
   metar.forEach((el, idx) => {
-       // !CHECK !!!! !!!! !!!! IF WORKS CORRECTLY
-       //! USE DIFFERENT FOREACH to get INDICES right
+    let length = metar.length
     if (/RMK/i.test(el)) {
       for (let i = idx; i < length; i++) {
         remarks.push(metar[i]);
@@ -33,34 +31,39 @@ export function reduceTempo(metar: string[]) {
         metar.splice(i);
       }
     }
-    if (/^RE\D{2}/i.test(el)) {
-      recent_metar = el
-      console.log('index RE',metar[idx])
-      metar.splice(idx)
-    }
+  })
+  metar.forEach((el, idx) => {
+    let length = metar.length
     if (/BECMG/i.test(el)) {
       for (let i = idx; i < length; i++) {
-        becoming_metar.push(metar[i]);
-      }
-      for (let i = idx; i < length; i++) {
-        metar.splice(i);
-      }
-    }
-    if (/TEMPO/i.test(el)) {
-      for (let i = idx; i < length; i++) {
-        tempo_metar.push(metar[i]);
+        becomingMetar.push(metar[i]);
       }
       for (let i = idx; i < length; i++) {
         metar.splice(i);
       }
     }
   })
-  return [metar, tempo_metar, becoming_metar]
+  metar.forEach((el, idx) => {
+    let length = metar.length
+    if (/TEMPO/i.test(el)) {
+      for (let i = idx; i < length; i++) {
+        tempoMetar.push(metar[i]);
+      }
+      for (let i = idx; i < length; i++) {
+        metar.splice(i);
+      }
+    }
+  })
+  return [metar, remarks, tempoMetar, becomingMetar]
 }
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
-export function maptoMetarObj(metar: string[]) {
+export function maptoMetarObj(metarInput: string[]) {
+  let [metar, remarks, tempoMetar, becomingMetar] = reduceTempo(metarInput)
   let metarObj = new Metar()
+  metarObj['remarks'] = remarks
+  metarObj['tempo'] = tempoMetar
+  metarObj['becoming'] = becomingMetar
   metarObj['flightRule'] = {} as IFlightRule
   metarObj['Cloud_Layer'] = []
   metarObj['NOSIG'] = false 
@@ -70,7 +73,6 @@ export function maptoMetarObj(metar: string[]) {
   metarObj['ICAO'] = metar[0]
   metar.shift()                     // remove ICAO code to avoid conflict with PRECIPITATION codes
   metar.forEach(el => {
-    console.log('forEach:', el)
       // DATE / TIME
     if (/^\d{6}Z$/i.test(el)) {
       let output = dateFormat(el);
@@ -87,9 +89,12 @@ export function maptoMetarObj(metar: string[]) {
       metarObj['CAVOK'] = true
       metar = metar.filter(item => !item)
     }
+    else if (/^RE\D{2}/i.test(el)) {
+      metarObj['recent'] = el
+      metar = metar.filter(item => !item)
+    }
       // SLP /* must be before CLOUDS */
     else if (/^SLP\d{3}$/i.test(el)) {
-      console.log('SLP', el)
       el = el.replace('SLP', '')
       metarObj['SLP'] = parseInt(el)
       metar = metar.filter(item => !item)
@@ -115,12 +120,10 @@ export function maptoMetarObj(metar: string[]) {
       // VISBILIY
     else if (/^\d{4}$/i.test(el)) {
       let output = {value: parseInt(el), unit: 'meters'}
-      console.log('visib',el) //! not working now
       metarObj['Visibility'] = output;
       metar = metar.filter(item => !item)
     }
     else if (/^d{1,2}SM$/i.test(el)) {
-      console.log('visSM', el)
       el = el.replace('SM', '')
       metarObj['Visibility'] = {value: parseInt(el), unit: 'SM'}
       metar = metar.filter(item => !item)
@@ -133,7 +136,6 @@ export function maptoMetarObj(metar: string[]) {
     }
       // PRECIPITATION
     else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-      console.log('precip', el)
       if (el !== 'NOSIG' && el!== 'NCD' && el!== 'CLR') {
         let output = precipFormat(el)
         metarObj['Precipitation'] = output;

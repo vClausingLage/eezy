@@ -11,10 +11,7 @@ function AppHeader() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit">show Airport Information</Button>
-          {/* <Button color="inherit">Login</Button> */}
-        </Toolbar>
+        <Toolbar></Toolbar>
       </AppBar>
     </Box>
   );
