@@ -61,7 +61,6 @@ function DataView(props: DataProps) {
           <Button
             onClick={() => {
               props.tempUnitToggle && props.tempUnitToggle(props.unit);
-              console.log("unit child", props.unit);
             }}
             variant="outlined"
           >

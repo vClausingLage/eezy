@@ -5,7 +5,6 @@ import {
   Box,
   Grid,
   TextField,
-  Button,
   IconButton,
   CircularProgress,
   Alert,
@@ -28,7 +27,7 @@ function Metar() {
   const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
-  const [tempUnit, setTempUnit] = useState("°F"); //! not really as intended °C <-> °F make it a real toggle
+  const [tempUnit, setTempUnit] = useState("°F");
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
@@ -102,7 +101,6 @@ function Metar() {
   }, [metar[0]]);
 
   console.log("fetched Metar", metar[0]);
-  console.log("state unit", tempUnit);
 
   return (
     <>
@@ -149,11 +147,11 @@ function Metar() {
         justifyContent="center"
         alignItems="center"
       >
-        {/* {metar[0]?.obs[0] === undefined && (
+        {metar[0]?.obs[0] === undefined && isLoading === false && (
           <Alert severity="error" sx={{ mt: 3 }}>
             no metar data available
           </Alert>
-        )} */}
+        )}
         {metar[0] && metar[0].obs[0] && (
           <>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
@@ -372,7 +370,6 @@ function Metar() {
     return local;
   }
   function tempUnitToggle(unit: string) {
-    console.log("par funct enabled");
     if (unit === "°C") {
       setTempUnit("°F");
     } else if (unit === "°F") {
