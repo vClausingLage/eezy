@@ -27,7 +27,7 @@ function Metar() {
   const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
-  const [tempUnit, setTempUnit] = useState("°F");
+  const [tempUnit, setTempUnit] = useState("°C");
   const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
@@ -147,11 +147,13 @@ function Metar() {
         justifyContent="center"
         alignItems="center"
       >
-        {metar[0]?.obs[0] === undefined && isLoading === false && (
-          <Alert severity="error" sx={{ mt: 3 }}>
-            no metar data available
-          </Alert>
-        )}
+        {metar[0]?.obs[0] === undefined &&
+          isLoading === false &&
+          icao.length! > 0 && (
+            <Alert severity="error" sx={{ mt: 3 }}>
+              no metar data available
+            </Alert>
+          )}
         {metar[0] && metar[0].obs[0] && (
           <>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
@@ -226,7 +228,7 @@ function Metar() {
                     value: formatVisibility(parseInt(metar[0].obs[0].visib)),
                   },
                 ]}
-                unit={"meters"}
+                unit={"m"}
               ></DataView>
               {metar[0].obs[0].wxString && (
                 <DataView
@@ -238,7 +240,7 @@ function Metar() {
                   ]}
                 ></DataView>
               )}
-              {tempUnit === "°F" ? (
+              {tempUnit === "°C" ? (
                 <>
                   <DataView
                     data={[

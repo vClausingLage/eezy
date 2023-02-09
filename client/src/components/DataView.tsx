@@ -52,20 +52,31 @@ function DataView(props: DataProps) {
                   pb: 0.4,
                 }}
               >
-                <Typography>{el.value}</Typography>
+                <Typography display="inline" sx={{ fontWeight: "bold" }}>
+                  {el.value}
+                </Typography>
+                <Typography display="inline">{props.unit}</Typography>
               </Box>
             </Box>
           ))}
 
         {props.tempUnitToggle && (
-          <Button
-            onClick={() => {
-              props.tempUnitToggle && props.tempUnitToggle(props.unit);
+          <Box
+            sx={{
+              ml: 0.3,
+              mr: 0.3,
+              alignSelf: "center",
             }}
-            variant="outlined"
           >
-            {props.unit}
-          </Button>
+            <Button
+              onClick={() => {
+                props.tempUnitToggle && props.tempUnitToggle(props.unit);
+              }}
+              variant="outlined"
+            >
+              {props.unit === "°C" ? "°F" : "°C"}
+            </Button>
+          </Box>
         )}
       </Box>
     </>
