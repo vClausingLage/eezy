@@ -184,26 +184,25 @@ function Metar() {
                 metar[0].obs[0].altim === null && (
                   <DataView
                     description="SLP"
-                    data={Math.round(metar[0].obs[0].slp / 10)}
+                    data={Math.round(metar[0].obs[0].slp / 10) + "hPa"}
                   ></DataView>
                 )}
               {metar[0].obs[0].altim !== null &&
                 metar[0].obs[0].slp === null && (
                   <DataView
                     description="QNH"
-                    data={Math.round(metar[0].obs[0].altim / 10)}
+                    data={Math.round(metar[0].obs[0].altim / 10) + "hpa"}
                   ></DataView>
                 )}
               {metar[0].obs[0].slp !== null &&
                 metar[0].obs[0].altim !== null && (
                   <DataView
                     description="QNH | SLP"
-                    data={
-                      <>
-                        {Math.round(metar[0].obs[0].altim / 10)} hPa |{" "}
-                        {Math.round(metar[0].obs[0].slp / 10)} hPa
-                      </>
-                    }
+                    value={[
+                      Math.round(metar[0].obs[0].altim / 10) + "hPa | ",
+                      Math.round(metar[0].obs[0].slp / 10) + "hPa",
+                    ]}
+                    unit={}
                   ></DataView>
                 )}
               <DataView
@@ -220,18 +219,20 @@ function Metar() {
                 <DataView
                   description="test"
                   data={tempUnit}
-                  unitSet={setTempUnit}
+                  tempUnitToggle={setTempUnit}
                 ></DataView>
               )}
-              {/* {tempUnit === "°F" ? (
+              {tempUnit === "°F" ? (
                 <>
                   <DataView
                     description="Temperature"
                     data={Math.round(metar[0].obs[0].temp / 10) + "°C"}
+                    tempUnitToggle={setTempUnit}
                   ></DataView>
                   <DataView
                     description="Dewpoint"
                     data={Math.round(metar[0].obs[0].dewp / 10) + "°C"}
+                    tempUnitToggle={setTempUnit}
                   ></DataView>
                 </>
               ) : (
@@ -242,6 +243,7 @@ function Metar() {
                       Math.round(((metar[0].obs[0].temp / 10) * 9) / 5 + 32) +
                       "°F"
                     }
+                    tempUnitToggle={tempUnitToggle}
                   ></DataView>
                   <DataView
                     description="Dewpoint"
@@ -249,9 +251,10 @@ function Metar() {
                       Math.round(((metar[0].obs[0].dewp / 10) * 9) / 5 + 32) +
                       "°F"
                     }
+                    tempUnitToggle={tempUnitToggle}
                   ></DataView>
                 </>
-              )} */}
+              )}
               <Button onClick={tempUnitToggle} variant="outlined">
                 {tempUnit}
               </Button>

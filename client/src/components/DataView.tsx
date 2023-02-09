@@ -2,8 +2,9 @@ import { Box, Typography, Button } from "@mui/material";
 
 type DataProps = {
   description: string;
-  data: string | number | JSX.Element;
-  unitSet?: Function;
+  value: string | number | number[];
+  unit: string;
+  tempUnitToggle?: Function;
 };
 
 function DataView(props: DataProps) {
@@ -39,16 +40,16 @@ function DataView(props: DataProps) {
             pb: 0.4,
           }}
         >
-          <Typography>{props.data}</Typography>
+          <Typography>{props.value}</Typography>
         </Box>
-        {props.unitSet && (
+        {props.tempUnitToggle && (
           <Button
             onClick={() => {
-              props.unitSet && props.unitSet("changed");
+              props.tempUnitToggle && props.tempUnitToggle();
             }}
             variant="outlined"
           >
-            {props.data}
+            °F / °C
           </Button>
         )}
       </Box>
