@@ -89,7 +89,7 @@ export function maptoMetarObj(metarInput: string[]) {
       metarObj['CAVOK'] = true
       metar = metar.filter(item => !item)
     }
-    else if (/^RE\D{2}/i.test(el)) {
+    else if (/^RE\D{2,4}/i.test(el)) {
       metarObj['recent'] = el
       metar = metar.filter(item => !item)
     }
