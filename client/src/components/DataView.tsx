@@ -1,9 +1,8 @@
 import { Box, Typography, Button } from "@mui/material";
 
 type DataProps = {
-  description: string;
-  value: string | number | number[];
-  unit: string;
+  data: { description: string; value: number | string }[];
+  unit?: string;
   tempUnitToggle?: Function;
 };
 
@@ -12,6 +11,8 @@ function DataView(props: DataProps) {
     <>
       <Box
         sx={{
+          display: "flex",
+          flexDirection: "row",
           textAlign: "center",
           border: 1,
           borderColor: "primary.main",
@@ -21,35 +22,50 @@ function DataView(props: DataProps) {
           overflow: "hidden",
         }}
       >
-        <Box
-          sx={{
-            backgroundColor: "primary.main",
-            pl: 2,
-            pr: 2,
-            pt: 0.4,
-            pb: 0.4,
-          }}
-        >
-          <Typography sx={{ color: "white" }}>{props.description}</Typography>
-        </Box>
-        <Box
-          sx={{
-            pl: 2,
-            pr: 2,
-            pt: 0.4,
-            pb: 0.4,
-          }}
-        >
-          <Typography>{props.value}</Typography>
-        </Box>
+        {props.data &&
+          props.data.map((el, key) => (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+              key={key}
+            >
+              <Box
+                sx={{
+                  backgroundColor: "primary.main",
+                  pl: 2,
+                  pr: 2,
+                  pt: 0.4,
+                  pb: 0.4,
+                }}
+              >
+                <Typography sx={{ color: "white" }}>
+                  {el.description}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  pl: 2,
+                  pr: 2,
+                  pt: 0.4,
+                  pb: 0.4,
+                }}
+              >
+                <Typography>{el.value}</Typography>
+              </Box>
+            </Box>
+          ))}
+
         {props.tempUnitToggle && (
           <Button
             onClick={() => {
-              props.tempUnitToggle && props.tempUnitToggle();
+              props.tempUnitToggle && props.tempUnitToggle(props.unit);
+              console.log("unit child", props.unit);
             }}
             variant="outlined"
           >
-            °F / °C
+            {props.unit}
           </Button>
         )}
       </Box>

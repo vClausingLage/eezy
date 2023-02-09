@@ -102,6 +102,7 @@ function Metar() {
   }, [metar[0]]);
 
   console.log("fetched Metar", metar[0]);
+  console.log("state unit", tempUnit);
 
   return (
     <>
@@ -183,81 +184,101 @@ function Metar() {
               {metar[0].obs[0].slp !== null &&
                 metar[0].obs[0].altim === null && (
                   <DataView
-                    description="SLP"
-                    data={Math.round(metar[0].obs[0].slp / 10) + "hPa"}
+                    data={[
+                      {
+                        description: "SLP",
+                        value: Math.round(metar[0].obs[0].slp / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
                   ></DataView>
                 )}
               {metar[0].obs[0].altim !== null &&
                 metar[0].obs[0].slp === null && (
                   <DataView
-                    description="QNH"
-                    data={Math.round(metar[0].obs[0].altim / 10) + "hpa"}
+                    data={[
+                      {
+                        description: "QNH",
+                        value: Math.round(metar[0].obs[0].altim / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
                   ></DataView>
                 )}
               {metar[0].obs[0].slp !== null &&
                 metar[0].obs[0].altim !== null && (
                   <DataView
-                    description="QNH | SLP"
-                    value={[
-                      Math.round(metar[0].obs[0].altim / 10) + "hPa | ",
-                      Math.round(metar[0].obs[0].slp / 10) + "hPa",
+                    data={[
+                      {
+                        description: "QNH",
+                        value: Math.round(metar[0].obs[0].altim / 10),
+                      },
+                      {
+                        description: "SLP",
+                        value: Math.round(metar[0].obs[0].slp / 10),
+                      },
                     ]}
-                    unit={}
+                    unit={"hPa"}
                   ></DataView>
                 )}
               <DataView
-                description="Visibility"
-                data={formatVisibility(parseInt(metar[0].obs[0].visib))}
+                data={[
+                  {
+                    description: "Visibility",
+                    value: formatVisibility(parseInt(metar[0].obs[0].visib)),
+                  },
+                ]}
+                unit={"meters"}
               ></DataView>
               {metar[0].obs[0].wxString && (
                 <DataView
-                  description="Precipitation"
-                  data={formatWeatherString(metar[0].obs[0].wxString)}
-                ></DataView>
-              )}
-              {metar[0].obs[0] && (
-                <DataView
-                  description="test"
-                  data={tempUnit}
-                  tempUnitToggle={setTempUnit}
+                  data={[
+                    {
+                      description: "Precipitation",
+                      value: formatWeatherString(metar[0].obs[0].wxString),
+                    },
+                  ]}
                 ></DataView>
               )}
               {tempUnit === "°F" ? (
                 <>
                   <DataView
-                    description="Temperature"
-                    data={Math.round(metar[0].obs[0].temp / 10) + "°C"}
-                    tempUnitToggle={setTempUnit}
-                  ></DataView>
-                  <DataView
-                    description="Dewpoint"
-                    data={Math.round(metar[0].obs[0].dewp / 10) + "°C"}
-                    tempUnitToggle={setTempUnit}
+                    data={[
+                      {
+                        description: "Temperature",
+                        value: Math.round(metar[0].obs[0].temp / 10),
+                      },
+                      {
+                        description: "Dewpoint",
+                        value: Math.round(metar[0].obs[0].dewp / 10),
+                      },
+                    ]}
+                    unit={tempUnit}
+                    tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
                   ></DataView>
                 </>
               ) : (
                 <>
                   <DataView
-                    description="Temperature"
-                    data={
-                      Math.round(((metar[0].obs[0].temp / 10) * 9) / 5 + 32) +
-                      "°F"
-                    }
-                    tempUnitToggle={tempUnitToggle}
-                  ></DataView>
-                  <DataView
-                    description="Dewpoint"
-                    data={
-                      Math.round(((metar[0].obs[0].dewp / 10) * 9) / 5 + 32) +
-                      "°F"
-                    }
-                    tempUnitToggle={tempUnitToggle}
+                    data={[
+                      {
+                        description: "Temperature",
+                        value: Math.round(
+                          ((metar[0].obs[0].temp / 10) * 9) / 5 + 32
+                        ),
+                      },
+                      {
+                        description: "Dewpoint",
+                        value: Math.round(
+                          ((metar[0].obs[0].dewp / 10) * 9) / 5 + 32
+                        ),
+                      },
+                    ]}
+                    unit={tempUnit}
+                    tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
                   ></DataView>
                 </>
               )}
-              <Button onClick={tempUnitToggle} variant="outlined">
-                {tempUnit}
-              </Button>
             </Box>
 
             <Box sx={{ justifyContent: "center", alignItems: "center" }}>
@@ -350,10 +371,11 @@ function Metar() {
     });
     return local;
   }
-  function tempUnitToggle() {
-    if (tempUnit === "°C") {
+  function tempUnitToggle(unit: string) {
+    console.log("par funct enabled");
+    if (unit === "°C") {
       setTempUnit("°F");
-    } else {
+    } else if (unit === "°F") {
       setTempUnit("°C");
     }
   }
