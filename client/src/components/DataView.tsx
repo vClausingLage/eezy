@@ -1,6 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 
-type DataProps = { description: string; data: string | number | JSX.Element };
+type DataProps = {
+  description: string;
+  data: string | number | JSX.Element;
+  unitSet?: Function;
+};
 
 function DataView(props: DataProps) {
   return (
@@ -37,6 +41,16 @@ function DataView(props: DataProps) {
         >
           <Typography>{props.data}</Typography>
         </Box>
+        {props.unitSet && (
+          <Button
+            onClick={() => {
+              props.unitSet && props.unitSet("changed");
+            }}
+            variant="outlined"
+          >
+            {props.data}
+          </Button>
+        )}
       </Box>
     </>
   );

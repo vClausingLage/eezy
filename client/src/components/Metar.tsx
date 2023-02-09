@@ -216,7 +216,14 @@ function Metar() {
                   data={formatWeatherString(metar[0].obs[0].wxString)}
                 ></DataView>
               )}
-              {tempUnit === "°F" ? (
+              {metar[0].obs[0] && (
+                <DataView
+                  description="test"
+                  data={tempUnit}
+                  unitSet={setTempUnit}
+                ></DataView>
+              )}
+              {/* {tempUnit === "°F" ? (
                 <>
                   <DataView
                     description="Temperature"
@@ -244,7 +251,7 @@ function Metar() {
                     }
                   ></DataView>
                 </>
-              )}
+              )} */}
               <Button onClick={tempUnitToggle} variant="outlined">
                 {tempUnit}
               </Button>
