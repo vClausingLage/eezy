@@ -27,8 +27,6 @@ function Metar() {
   const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
-  const [tempUnit, setTempUnit] = useState("°C");
-  const [nosig, setNosig] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
     icao: "",
@@ -236,7 +234,7 @@ function Metar() {
                   ]}
                 ></DataView>
               )}
-              {tempUnit === "°C" ? (
+              {metarObject.tempUnit === "°C" ? (
                 <>
                   <DataView
                     data={[
@@ -249,7 +247,7 @@ function Metar() {
                         value: Math.round(metar[0].obs[0].dewp / 10),
                       },
                     ]}
-                    unit={tempUnit}
+                    unit={metarObject.tempUnit}
                     tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
                   ></DataView>
                 </>
@@ -270,7 +268,7 @@ function Metar() {
                         ),
                       },
                     ]}
-                    unit={tempUnit}
+                    unit={metarObject.tempUnit}
                     tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
                   ></DataView>
                 </>
@@ -370,9 +368,9 @@ function Metar() {
   }
   function tempUnitToggle(unit: string) {
     if (unit === "°C") {
-      setTempUnit("°F");
+      setMetarObject({ ...metarObject, tempUnit: "°F" });
     } else if (unit === "°F") {
-      setTempUnit("°C");
+      setMetarObject({ ...metarObject, tempUnit: "°C" });
     }
   }
   function formatVisibility(visibility: number) {
