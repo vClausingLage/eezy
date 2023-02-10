@@ -93,9 +93,12 @@ function Metar() {
       );
       setFlightRule(flightRuleColor);
       if (/NOSIG/i.test(metar[0].obs[0].rawOb)) {
-        setNosig(true);
+        setMetarObject({
+          ...metarObject,
+          nosig: true,
+        });
       } else {
-        setNosig(false);
+        setMetarObject({ ...metarObject, nosig: false });
       }
     }
   }, [metar[0]]);
@@ -333,19 +336,20 @@ function Metar() {
               </Grid>
             </Box>
 
-            {nosig && (
-              <Alert severity="info">
-                <Typography>
-                  Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
-                  {"h "}
-                  (local time)
-                </Typography>
+            <Alert severity="info">
+              <Typography>
+                Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
+                {"h "}
+                (local time)
+              </Typography>
+              {metarObject.nosig && (
                 <Typography sx={{ mt: 1, mb: 1 }}>
                   <span style={{ color: "red" }}>NO SIG</span>nificant changes
                   expected
                 </Typography>
-              </Alert>
-            )}
+              )}
+            </Alert>
+
             <Typography sx={{ mt: 1, mb: 1 }}>
               <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
               {metar[0].obs[0].rawOb}
