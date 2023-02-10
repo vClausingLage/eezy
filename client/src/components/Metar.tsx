@@ -114,7 +114,7 @@ function Metar() {
       >
         <Typography variant="h2">Metar</Typography>
         <form onSubmit={searchMetar}>
-          <TextField
+          <TextField //! error handling here => https://mui.com/material-ui/react-text-field/#validation
             type="search"
             label="enter ICAO Code"
             value={metarObject.icao.toUpperCase()}
@@ -147,13 +147,6 @@ function Metar() {
         justifyContent="center"
         alignItems="center"
       >
-        {metar[0]?.obs[0] === undefined &&
-          isLoading === false &&
-          icao.length! > 0 && (
-            <Alert severity="error" sx={{ mt: 3 }}>
-              no metar data available
-            </Alert>
-          )}
         {metar[0] && metar[0].obs[0] && (
           <>
             <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
