@@ -34,6 +34,7 @@ function Metar() {
     tempUnit: "°C",
     nosig: false,
     userLocation: "",
+    visibility: { meters: 0, miles: 0 },
   });
 
   const loading = (
@@ -77,31 +78,60 @@ function Metar() {
     });
     const data = await response.json();
     setMetar(data);
-    //! setMetarObject({ ...metarObject, metar: data[0] });
     setIsLoading(false);
   }
 
   useEffect(() => {
-    if (metar[0] !== undefined && metar[0].obs[0] !== undefined) {
+    if (metar[0] !== undefined) {
+      setMetarObject({
+        ...metarObject,
+        visibility: {
+          ...metarObject.visibility,
+          meters:
+            Math.round((parseInt(metar[0].obs[0].visib) * 16.0934) / 100) * 100,
+          miles: parseInt(metar[0].obs[0].visib),
+        },
+        nosig: /NOSIG/i.test(metar[0].obs[0].rawOb) ? true : false,
+      });
       const flightRuleColor = getFlightRules(
-        Math.round(formatVisibility(metar[0].obs[0].visib)),
+        metarObject.visibility.meters,
         metar[0].obs[0].cldBas1 !== null
           ? parseInt(metar[0].obs[0].cldBas1)
           : 9999 //! vis format
       );
       setFlightRule(flightRuleColor);
-      if (/NOSIG/i.test(metar[0].obs[0].rawOb)) {
-        setMetarObject({
-          ...metarObject,
-          nosig: true,
-        });
-      } else {
-        setMetarObject({ ...metarObject, nosig: false });
-      }
+      console.log("fetched Metar", metar[0]);
+      console.log("obj", metarObject);
     }
-  }, [metar[0]]);
+  }, [metar]);
 
-  console.log("fetched Metar", metar[0]);
+  // useEffect(() => {
+  //   if (metar[0] !== undefined && metar[0].obs[0] !== undefined) {
+  //     const flightRuleColor = getFlightRules(
+  //       metarObject.visibility.meters,
+  //       metar[0].obs[0].cldBas1 !== null
+  //         ? parseInt(metar[0].obs[0].cldBas1)
+  //         : 9999 //! vis format
+  //     );
+  //     setFlightRule(flightRuleColor);
+  //     if (/NOSIG/i.test(metar[0].obs[0].rawOb)) {
+  //       setMetarObject({
+  //         ...metarObject,
+  //         nosig: true,
+  //       });
+  //     } else if (!/NOSIG/i.test(metar[0].obs[0].rawOb)) {
+  //       setMetarObject({ ...metarObject, nosig: false });
+  //     }
+  //   }
+  // }, [metar]);
+
+  // function formatVisibility(visibility: number) {
+  //   //! Button for unit Change OR make dependent on location
+  //   if (visibility >= 621) return 9999;
+  //   else {
+  //     return Math.round((visibility * 16.0934) / 100) * 100; //! UNIT
+  //   }
+  // }
 
   return (
     <>
@@ -219,7 +249,7 @@ function Metar() {
                 data={[
                   {
                     description: "Visibility",
-                    value: formatVisibility(parseInt(metar[0].obs[0].visib)),
+                    value: metarObject.visibility.meters,
                   },
                 ]}
                 unit={"m"}
@@ -371,13 +401,6 @@ function Metar() {
       setMetarObject({ ...metarObject, tempUnit: "°F" });
     } else if (unit === "°F") {
       setMetarObject({ ...metarObject, tempUnit: "°C" });
-    }
-  }
-  function formatVisibility(visibility: number) {
-    //! Button for unit Change OR make dependent on location
-    if (visibility >= 621) return 9999;
-    else {
-      return Math.round((visibility * 16.0934) / 100) * 100; //! UNIT
     }
   }
   function formatWeatherString(weatherString: string) {

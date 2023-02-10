@@ -4,6 +4,12 @@ export interface IMetarObject {
   tempUnit: string,
   nosig: boolean,
   userLocation: string,
+  visibility: IVisibility;
+}
+
+interface IVisibility {
+  meters: number;
+  miles: number;
 }
 
 export interface IMetarApiObject{
