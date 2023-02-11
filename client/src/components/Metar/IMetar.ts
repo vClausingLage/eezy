@@ -1,5 +1,6 @@
 export interface IMetarObject {
   icao: string,
+  date: string;
   flightRule: IFlightRule,
   tempUnit: string,
   nosig: boolean,

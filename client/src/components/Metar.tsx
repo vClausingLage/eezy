@@ -30,6 +30,7 @@ function Metar() {
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
     icao: "",
+    date: "",
     flightRule: { flightRule: "", colorCode: "", color: "" },
     tempUnit: "°C",
     nosig: false,
@@ -96,7 +97,14 @@ function Metar() {
           miles: parseInt(metar[0].obs[0].visib),
         },
         nosig: /NOSIG/gi.test(metar[0].obs[0].rawOb) ? true : false,
-        CAVOK: /CAVOK/gi.test(metar[0].obs[0].rawOb) ? true : false,
+        CAVOK: /CAVOK/gi.test(metar[0].obs[0].rawOb)
+          ? true
+          : /CLR/gi.test(metar[0].obs[0].rawOb)
+          ? true
+          : /NCD/gi.test(metar[0].obs[0].rawOb)
+          ? true
+          : false,
+        date: convertDate(metar[0].obs[0].obsTime + "000"),
       });
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
@@ -283,9 +291,15 @@ function Metar() {
             <Box sx={{ justifyContent: "center", alignItems: "center" }}>
               <Grid container spacing={4}>
                 <Grid item>
-                  {metar[0].obs[0].cldCvg1 === "CAVOK" && <Sun />}
-                  {metar[0].obs[0].cldCvg1 === "NCD" && <Sun />}
-                  {metar[0].obs[0].cldCvg1 === "CLR" && <Sun />}
+                  {metar[0].obs[0].cldCvg1 === "CAVOK" && (
+                    <Sun date={metarObject.date} />
+                  )}
+                  {metar[0].obs[0].cldCvg1 === "NCD" && (
+                    <Sun date={metarObject.date} />
+                  )}
+                  {metar[0].obs[0].cldCvg1 === "CLR" && (
+                    <Sun date={metarObject.date} />
+                  )}
 
                   <Box
                     id="clouds"
@@ -319,6 +333,7 @@ function Metar() {
                 </Grid>
                 <Grid item sx={{ alignItems: "center" }}>
                   <Box
+                    id="Wind"
                     sx={{
                       display: "flex",
                       alignItems: "center",
@@ -341,19 +356,17 @@ function Metar() {
 
             <Alert severity="info">
               <Typography>
-                Metar issued at {convertDate(metar[0].obs[0].obsTime + "000")}
-                {"h "}
-                (local time)
+                Metar issued at {metarObject.date}h (local time)
               </Typography>
               {metarObject.nosig && (
-                <Typography sx={{ mt: 1, mb: 1 }}>
+                <Typography id="NOSIG" sx={{ mt: 1, mb: 1 }}>
                   <span style={{ color: "red" }}>NO SIG</span>nificant changes
                   expected
                 </Typography>
               )}
             </Alert>
 
-            <Typography sx={{ mt: 1, mb: 1 }}>
+            <Typography id="Raw Metar" sx={{ mt: 1, mb: 1 }}>
               <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
               {metar[0].obs[0].rawOb}
             </Typography>
