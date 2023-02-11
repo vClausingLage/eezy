@@ -5,6 +5,7 @@ export interface IMetarObject {
   nosig: boolean,
   userLocation: string,
   visibility: IVisibility;
+  CAVOK: boolean;
 }
 
 interface IVisibility {

@@ -35,6 +35,7 @@ function Metar() {
     nosig: false,
     userLocation: "",
     visibility: { meters: 0, miles: 0 },
+    CAVOK: false,
   });
 
   const loading = (
@@ -88,50 +89,24 @@ function Metar() {
         visibility: {
           ...metarObject.visibility,
           meters:
-            Math.round((parseInt(metar[0].obs[0].visib) * 16.0934) / 100) * 100,
+            parseInt(metar[0].obs[0].visib) >= 621
+              ? 9999
+              : Math.round((parseInt(metar[0].obs[0].visib) * 16.0934) / 100) *
+                100,
           miles: parseInt(metar[0].obs[0].visib),
         },
-        nosig: /NOSIG/i.test(metar[0].obs[0].rawOb) ? true : false,
+        nosig: /NOSIG/gi.test(metar[0].obs[0].rawOb) ? true : false,
+        CAVOK: /CAVOK/gi.test(metar[0].obs[0].rawOb) ? true : false,
       });
       const flightRuleColor = getFlightRules(
-        metarObject.visibility.meters,
-        metar[0].obs[0].cldBas1 !== null
-          ? parseInt(metar[0].obs[0].cldBas1)
-          : 9999 //! vis format
+        metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
+        parseInt(metar[0].obs[0].cldBas1)
       );
       setFlightRule(flightRuleColor);
       console.log("fetched Metar", metar[0]);
       console.log("obj", metarObject);
     }
   }, [metar]);
-
-  // useEffect(() => {
-  //   if (metar[0] !== undefined && metar[0].obs[0] !== undefined) {
-  //     const flightRuleColor = getFlightRules(
-  //       metarObject.visibility.meters,
-  //       metar[0].obs[0].cldBas1 !== null
-  //         ? parseInt(metar[0].obs[0].cldBas1)
-  //         : 9999 //! vis format
-  //     );
-  //     setFlightRule(flightRuleColor);
-  //     if (/NOSIG/i.test(metar[0].obs[0].rawOb)) {
-  //       setMetarObject({
-  //         ...metarObject,
-  //         nosig: true,
-  //       });
-  //     } else if (!/NOSIG/i.test(metar[0].obs[0].rawOb)) {
-  //       setMetarObject({ ...metarObject, nosig: false });
-  //     }
-  //   }
-  // }, [metar]);
-
-  // function formatVisibility(visibility: number) {
-  //   //! Button for unit Change OR make dependent on location
-  //   if (visibility >= 621) return 9999;
-  //   else {
-  //     return Math.round((visibility * 16.0934) / 100) * 100; //! UNIT
-  //   }
-  // }
 
   return (
     <>
