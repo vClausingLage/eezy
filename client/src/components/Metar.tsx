@@ -70,7 +70,18 @@ function Metar() {
     //! remove any
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
-    setMetar({});
+    setMetar([]);
+    setMetarObject({
+      //! alternative empty IMetarObject ???
+      icao: "",
+      time: { local: "", utc: "" },
+      flightRule: { flightRule: "", colorCode: "", color: "" },
+      tempUnit: "°C",
+      nosig: false,
+      userLocation: "",
+      visibility: { meters: 0, miles: 0 },
+      CAVOK: false,
+    });
     setIsLoading(true);
     const response = await fetch(`/api/${icao}`, {
       method: "GET",
@@ -113,7 +124,6 @@ function Metar() {
       setFlightRule(flightRuleColor);
       console.log("fetched Metar", metar[0]);
       console.log("obj", metarObject);
-      console.log("utc", metarObject.time.utc);
     }
   }, [metar]);
 
@@ -383,7 +393,8 @@ function Metar() {
       hour: "2-digit",
       minute: "2-digit",
     });
-    const utcTime = date.toUTCString();
+    const utcTime =
+      String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
     return { local: localTime, utc: utcTime };
   }
   function tempUnitToggle(unit: string) {
