@@ -1,17 +1,12 @@
 export interface IMetarObject {
   icao: string,
-  date: string;
+  time: {local: string, utc: string};
   flightRule: IFlightRule,
   tempUnit: string,
   nosig: boolean,
   userLocation: string,
-  visibility: IVisibility;
+  visibility: {meters: number, miles: number};
   CAVOK: boolean;
-}
-
-interface IVisibility {
-  meters: number;
-  miles: number;
 }
 
 export interface IMetarApiObject{

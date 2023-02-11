@@ -30,7 +30,7 @@ function Metar() {
   const [isLoading, setIsLoading] = useState(false);
   const [metarObject, setMetarObject] = useState<IMetarObject>({
     icao: "",
-    date: "",
+    time: { local: "", utc: "" },
     flightRule: { flightRule: "", colorCode: "", color: "" },
     tempUnit: "°C",
     nosig: false,
@@ -104,7 +104,7 @@ function Metar() {
           : /NCD/gi.test(metar[0].obs[0].rawOb)
           ? true
           : false,
-        date: convertDate(metar[0].obs[0].obsTime + "000"),
+        time: convertDate(metar[0].obs[0].obsTime + "000"),
       });
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
@@ -292,13 +292,13 @@ function Metar() {
               <Grid container spacing={4}>
                 <Grid item>
                   {metar[0].obs[0].cldCvg1 === "CAVOK" && (
-                    <Sun date={metarObject.date} />
+                    <Sun date={metarObject.time.utc} />
                   )}
                   {metar[0].obs[0].cldCvg1 === "NCD" && (
-                    <Sun date={metarObject.date} />
+                    <Sun date={metarObject.time.utc} />
                   )}
                   {metar[0].obs[0].cldCvg1 === "CLR" && (
-                    <Sun date={metarObject.date} />
+                    <Sun date={metarObject.time.utc} />
                   )}
 
                   <Box
@@ -356,7 +356,7 @@ function Metar() {
 
             <Alert severity="info">
               <Typography>
-                Metar issued at {metarObject.date}h (local time)
+                Metar issued at {metarObject.time.local}h (local time)
               </Typography>
               {metarObject.nosig && (
                 <Typography id="NOSIG" sx={{ mt: 1, mb: 1 }}>
@@ -377,12 +377,13 @@ function Metar() {
   );
   function convertDate(dateString: string) {
     const date = new Date(parseInt(dateString));
-    const local = date.toLocaleString(navigator.language, {
+    const localTime = date.toLocaleString(navigator.language, {
       hour12: false,
       hour: "2-digit",
       minute: "2-digit",
     });
-    return local;
+    const utcTime = date.toUTCString();
+    return { local: localTime, utc: utcTime };
   }
   function tempUnitToggle(unit: string) {
     if (unit === "°C") {
