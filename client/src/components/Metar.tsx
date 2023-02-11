@@ -55,7 +55,7 @@ function Metar() {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setMetarObject({
       ...metarObject,
-      icao: event.target.value,
+      icao: event.target.value.toUpperCase(),
     });
     setIcao(event.currentTarget.value);
     if (event.target.value.length === 4) {
@@ -131,7 +131,7 @@ function Metar() {
           <TextField //! error handling here => https://mui.com/material-ui/react-text-field/#validation
             type="search"
             label="enter ICAO Code"
-            value={metarObject.icao.toUpperCase()}
+            value={metarObject.icao}
             onChange={handleChange}
             InputProps={{
               endAdornment: (
