@@ -113,6 +113,7 @@ function Metar() {
       setFlightRule(flightRuleColor);
       console.log("fetched Metar", metar[0]);
       console.log("obj", metarObject);
+      console.log("utc", metarObject.time.utc);
     }
   }, [metar]);
 
