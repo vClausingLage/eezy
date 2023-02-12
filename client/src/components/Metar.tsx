@@ -21,6 +21,8 @@ import DataView from "./DataView";
 
 import weatherCodes from "./Metar/assets/weatherCodes.json";
 
+import { airportDBKey } from "../config";
+
 function Metar() {
   const [icao, setIcao] = useState("");
   const [metar, setMetar] = useState<any>([]); //! make interface
@@ -28,7 +30,8 @@ function Metar() {
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [metarObject, setMetarObject] = useState<IMetarObject>({
+  const [airportDB, setAirportData] = useState<any>();
+  const [metarObject, setMetarObject] = useState({
     icao: "",
     time: { local: "", utc: "" },
     flightRule: { flightRule: "", colorCode: "", color: "" },
@@ -37,7 +40,7 @@ function Metar() {
     userLocation: "",
     visibility: { meters: 0, miles: 0 },
     CAVOK: false,
-  });
+  } as IMetarObject);
 
   const loading = (
     <Box
@@ -90,6 +93,11 @@ function Metar() {
       },
     });
     const data = await response.json();
+    const airportDBresponse = await fetch(
+      `https://airportdb.io/api/v1/airport/${icao}?apiToken=${airportDBKey}`
+    );
+    const airportDBData = await airportDBresponse.json();
+    setAirportData(airportDBData);
     setMetar(data);
     setIsLoading(false);
   }
@@ -124,6 +132,7 @@ function Metar() {
       setFlightRule(flightRuleColor);
       console.log("fetched Metar", metar[0]);
       console.log("obj", metarObject);
+      console.log("airportDB", airportDB.freqs);
     }
   }, [metar]);
 
