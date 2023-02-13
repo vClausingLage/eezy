@@ -60,6 +60,12 @@ export function formatWeatherString(weatherString: string) {
     return output.join(" and ");
   }
 
+export function setVisibility(visibility: string) {
+  const meters = parseInt(visibility) >= 621 ? 9999 : Math.round((parseInt(visibility) * 16.0934) / 100) * 100
+  const miles = parseInt(visibility)
+  return {meters: meters, miles: miles}
+}
+
   export function convertDate(dateString: string) {
     const date = new Date(parseInt(dateString));
     const localTime = date.toLocaleString(navigator.language, {

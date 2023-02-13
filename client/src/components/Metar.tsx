@@ -16,6 +16,7 @@ import {
   formatWeatherString,
   convertDate,
   checkLocation,
+  setVisibility,
 } from "./Metar/metar-ui-helper";
 import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 
@@ -27,7 +28,6 @@ import DataView from "./DataView";
 import { airportDBKey } from "../config";
 
 function Metar() {
-  const [icao, setIcao] = useState("");
   const [metar, setMetar] = useState<any>({}); //! make interface
   // const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
@@ -93,25 +93,19 @@ function Metar() {
     });
     const data = await response.json();
     setMetar(data);
+    console.log(data.visib);
     setMetarObject({
       ...metarObject,
-      visibility: {
-        ...metarObject.visibility,
-        meters:
-          parseInt(metar.visib) >= 621
-            ? 9999
-            : Math.round((metar.visib * 16.0934) / 100) * 100,
-        miles: parseInt(metar.visib),
-      },
-      nosig: /NOSIG/gi.test(metar.rawOb) ? true : false,
-      CAVOK: /CAVOK/gi.test(metar.rawOb)
+      visibility: setVisibility(data.visib),
+      nosig: /NOSIG/gi.test(data.rawOb) ? true : false,
+      CAVOK: /CAVOK/gi.test(data.rawOb)
         ? true
-        : /CLR/gi.test(metar.rawOb)
+        : /CLR/gi.test(data.rawOb)
         ? true
-        : /NCD/gi.test(metar.rawOb)
+        : /NCD/gi.test(data.rawOb)
         ? true
         : false,
-      time: convertDate(metar.obsTime + "000"),
+      time: convertDate(data.obsTime + "000"),
     });
     const airportDBresponse = await fetch(
       `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
