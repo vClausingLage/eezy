@@ -105,5 +105,4 @@ export interface IClouds {
 export interface IFlightRule {
   flightRule: string;
   colorCode: string;
-  color: string;
 }

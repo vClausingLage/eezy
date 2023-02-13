@@ -11,12 +11,7 @@ import {
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 
-import {
-  getFlightRules,
-  formatWeatherString,
-  convertDate,
-  checkLocation,
-} from "./Metar/metar-ui-helper";
+import { getFlightRules } from "./Metar/metar-ui-helper";
 import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 
 import Cloud from "./Metar/Cloud";
@@ -24,12 +19,14 @@ import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
 import DataView from "./DataView";
 
+import weatherCodes from "./Metar/assets/weatherCodes.json";
+
 import { airportDBKey } from "../config";
 
 function Metar() {
   const [icao, setIcao] = useState("");
-  const [metar, setMetar] = useState<any>({}); //! make interface
-  // const [flightRule, setFlightRule] = useState({} as IFlightRule);
+  const [metar, setMetar] = useState<any>([]); //! make interface
+  const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,22 +34,13 @@ function Metar() {
   const [metarObject, setMetarObject] = useState({
     icao: "",
     time: { local: "", utc: "" },
-    flightRule: {} as IFlightRule,
+    flightRule: { flightRule: "", colorCode: "", color: "" },
     tempUnit: "°C",
     nosig: false,
     userLocation: "",
     visibility: { meters: 0, miles: 0 },
     CAVOK: false,
   } as IMetarObject);
-
-  function tempUnitToggle(unit: string) {
-    // ! add return
-    if (unit === "°C") {
-      setMetarObject({ ...metarObject, tempUnit: "°F" });
-    } else if (unit === "°F") {
-      setMetarObject({ ...metarObject, tempUnit: "°C" });
-    }
-  }
 
   const loading = (
     <Box
@@ -72,6 +60,7 @@ function Metar() {
       ...metarObject,
       icao: event.target.value.toUpperCase(),
     });
+    setIcao(event.currentTarget.value);
     if (event.target.value.length === 4) {
       setDisabled(false);
     } else {
@@ -84,52 +73,66 @@ function Metar() {
     //! remove any
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
+    setMetar([]);
+    setMetarObject({
+      //! alternative empty IMetarObject ???
+      icao: "",
+      time: { local: "", utc: "" },
+      flightRule: {} as IFlightRule,
+      tempUnit: "°C",
+      nosig: false,
+      userLocation: "",
+      visibility: { meters: 0, miles: 0 },
+      CAVOK: false,
+    });
     setIsLoading(true);
-    const response = await fetch(`/api/${metarObject.icao}`, {
+    const response = await fetch(`/api/${icao}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     const data = await response.json();
-    setMetar(data);
-    setMetarObject({
-      ...metarObject,
-      visibility: {
-        ...metarObject.visibility,
-        meters:
-          parseInt(metar.visib) >= 621
-            ? 9999
-            : Math.round((metar.visib * 16.0934) / 100) * 100,
-        miles: parseInt(metar.visib),
-      },
-      nosig: /NOSIG/gi.test(metar.rawOb) ? true : false,
-      CAVOK: /CAVOK/gi.test(metar.rawOb)
-        ? true
-        : /CLR/gi.test(metar.rawOb)
-        ? true
-        : /NCD/gi.test(metar.rawOb)
-        ? true
-        : false,
-      time: convertDate(metar.obsTime + "000"),
-    });
     const airportDBresponse = await fetch(
-      `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
+      `https://airportdb.io/api/v1/airport/${icao}?apiToken=${airportDBKey}`
     );
     const airportDBData = await airportDBresponse.json();
     setAirportData(airportDBData);
+    setMetar(data);
     setIsLoading(false);
   }
 
   useEffect(() => {
-    if (metar !== undefined) {
+    if (metar[0] !== undefined) {
+      setMetarObject({
+        ...metarObject,
+        visibility: {
+          ...metarObject.visibility,
+          meters:
+            parseInt(metar[0].obs[0].visib) >= 621
+              ? 9999
+              : Math.round((parseInt(metar[0].obs[0].visib) * 16.0934) / 100) *
+                100,
+          miles: parseInt(metar[0].obs[0].visib),
+        },
+        nosig: /NOSIG/gi.test(metar[0].obs[0].rawOb) ? true : false,
+        CAVOK: /CAVOK/gi.test(metar[0].obs[0].rawOb)
+          ? true
+          : /CLR/gi.test(metar[0].obs[0].rawOb)
+          ? true
+          : /NCD/gi.test(metar[0].obs[0].rawOb)
+          ? true
+          : false,
+        time: convertDate(metar[0].obs[0].obsTime + "000"),
+      });
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
-        parseInt(metar.cldBas1)
+        parseInt(metar[0].obs[0].cldBas1)
       );
-      setMetarObject({ ...metarObject, flightRule: flightRuleColor });
-      console.log("fetched Metar", metar);
+      setFlightRule(flightRuleColor);
+      console.log("fetched Metar", metar[0]);
       console.log("obj", metarObject);
+      console.log("airportDB", airportDB.freqs);
     }
   }, [metar]);
 
@@ -178,12 +181,12 @@ function Metar() {
         justifyContent="center"
         alignItems="center"
       >
-        {metar.name && metar !== undefined && (
+        {metar[0] && metar[0].obs[0] && (
           <>
-            <Typography variant="h3">{metar.name.split(",")[0]}</Typography>
+            <Typography variant="h3">{metar[0].name.split(",")[0]}</Typography>
             <Typography
               style={{
-                backgroundColor: metarObject.flightRule?.colorCode,
+                backgroundColor: flightRule?.colorCode,
                 color: "white",
                 textAlign: "center",
                 paddingTop: ".7rem",
@@ -192,7 +195,7 @@ function Metar() {
                 paddingRight: "4rem",
               }}
             >
-              {metarObject.flightRule?.flightRule}
+              {flightRule?.flightRule}
             </Typography>
 
             <Box
@@ -205,43 +208,46 @@ function Metar() {
                 gap: "1rem",
               }}
             >
-              {metar.slp !== null && metar.altim === null && (
-                <DataView
-                  data={[
-                    {
-                      description: "SLP",
-                      value: Math.round(metar.slp / 10),
-                    },
-                  ]}
-                  unit={"hPa"}
-                ></DataView>
-              )}
-              {metar.altim !== null && metar.slp === null && (
-                <DataView
-                  data={[
-                    {
-                      description: "QNH",
-                      value: Math.round(metar.altim / 10),
-                    },
-                  ]}
-                  unit={"hPa"}
-                ></DataView>
-              )}
-              {metar.slp !== null && metar.altim !== null && (
-                <DataView
-                  data={[
-                    {
-                      description: "QNH",
-                      value: Math.round(metar.altim / 10),
-                    },
-                    {
-                      description: "SLP",
-                      value: Math.round(metar.slp / 10),
-                    },
-                  ]}
-                  unit={"hPa"}
-                ></DataView>
-              )}
+              {metar[0].obs[0].slp !== null &&
+                metar[0].obs[0].altim === null && (
+                  <DataView
+                    data={[
+                      {
+                        description: "SLP",
+                        value: Math.round(metar[0].obs[0].slp / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
+                  ></DataView>
+                )}
+              {metar[0].obs[0].altim !== null &&
+                metar[0].obs[0].slp === null && (
+                  <DataView
+                    data={[
+                      {
+                        description: "QNH",
+                        value: Math.round(metar[0].obs[0].altim / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
+                  ></DataView>
+                )}
+              {metar[0].obs[0].slp !== null &&
+                metar[0].obs[0].altim !== null && (
+                  <DataView
+                    data={[
+                      {
+                        description: "QNH",
+                        value: Math.round(metar[0].obs[0].altim / 10),
+                      },
+                      {
+                        description: "SLP",
+                        value: Math.round(metar[0].obs[0].slp / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
+                  ></DataView>
+                )}
               <DataView
                 data={[
                   {
@@ -251,12 +257,12 @@ function Metar() {
                 ]}
                 unit={"m"}
               ></DataView>
-              {metar.wxString && (
+              {metar[0].obs[0].wxString && (
                 <DataView
                   data={[
                     {
                       description: "Precipitation",
-                      value: formatWeatherString(metar.wxString),
+                      value: formatWeatherString(metar[0].obs[0].wxString),
                     },
                   ]}
                 ></DataView>
@@ -267,11 +273,11 @@ function Metar() {
                     data={[
                       {
                         description: "Temperature",
-                        value: Math.round(metar.temp / 10),
+                        value: Math.round(metar[0].obs[0].temp / 10),
                       },
                       {
                         description: "Dewpoint",
-                        value: Math.round(metar.dewp / 10),
+                        value: Math.round(metar[0].obs[0].dewp / 10),
                       },
                     ]}
                     unit={metarObject.tempUnit}
@@ -284,11 +290,15 @@ function Metar() {
                     data={[
                       {
                         description: "Temperature",
-                        value: Math.round(((metar.temp / 10) * 9) / 5 + 32),
+                        value: Math.round(
+                          ((metar[0].obs[0].temp / 10) * 9) / 5 + 32
+                        ),
                       },
                       {
                         description: "Dewpoint",
-                        value: Math.round(((metar.dewp / 10) * 9) / 5 + 32),
+                        value: Math.round(
+                          ((metar[0].obs[0].dewp / 10) * 9) / 5 + 32
+                        ),
                       },
                     ]}
                     unit={metarObject.tempUnit}
@@ -301,13 +311,13 @@ function Metar() {
             <Box sx={{ justifyContent: "center", alignItems: "center" }}>
               <Grid container spacing={4}>
                 <Grid item>
-                  {metar.cldCvg1 === "CAVOK" && (
+                  {metar[0].obs[0].cldCvg1 === "CAVOK" && (
                     <Sun date={metarObject.time.utc} />
                   )}
-                  {metar.cldCvg1 === "NCD" && (
+                  {metar[0].obs[0].cldCvg1 === "NCD" && (
                     <Sun date={metarObject.time.utc} />
                   )}
-                  {metar.cldCvg1 === "CLR" && (
+                  {metar[0].obs[0].cldCvg1 === "CLR" && (
                     <Sun date={metarObject.time.utc} />
                   )}
 
@@ -315,28 +325,28 @@ function Metar() {
                     id="clouds"
                     sx={{ display: "flex", flexDirection: "row", mt: 1, mb: 1 }}
                   >
-                    {metar.cldBas1 && (
+                    {metar[0].obs[0].cldBas1 && (
                       <Cloud
-                        cloudBase={parseInt(metar.cldBas1)}
-                        cloudLayer={metar.cldCvg1}
+                        cloudBase={parseInt(metar[0].obs[0].cldBas1)}
+                        cloudLayer={metar[0].obs[0].cldCvg1}
                       ></Cloud>
                     )}
-                    {metar.cldBas2 && (
+                    {metar[0].obs[0].cldBas2 && (
                       <Cloud
-                        cloudBase={parseInt(metar.cldBas2)}
-                        cloudLayer={metar.cldCvg2}
+                        cloudBase={parseInt(metar[0].obs[0].cldBas2)}
+                        cloudLayer={metar[0].obs[0].cldCvg2}
                       ></Cloud>
                     )}
-                    {metar.cldBas3 && (
+                    {metar[0].obs[0].cldBas3 && (
                       <Cloud
-                        cloudBase={parseInt(metar.cldBas3)}
-                        cloudLayer={metar.cldCvg3}
+                        cloudBase={parseInt(metar[0].obs[0].cldBas3)}
+                        cloudLayer={metar[0].obs[0].cldCvg3}
                       ></Cloud>
                     )}
-                    {metar.cldBas4 && (
+                    {metar[0].obs[0].cldBas4 && (
                       <Cloud
-                        cloudBase={parseInt(metar.cldBas4)}
-                        cloudLayer={metar.cldCvg4}
+                        cloudBase={parseInt(metar[0].obs[0].cldBas4)}
+                        cloudLayer={metar[0].obs[0].cldCvg4}
                       ></Cloud>
                     )}
                   </Box>
@@ -351,12 +361,12 @@ function Metar() {
                       mb: 1,
                     }}
                   >
-                    {metar.wdir && (
+                    {metar[0].obs[0].wdir && (
                       <Wind
-                        direction={parseInt(metar.wdir)}
-                        speed={parseInt(metar.wspd)}
+                        direction={parseInt(metar[0].obs[0].wdir)}
+                        speed={parseInt(metar[0].obs[0].wspd)}
                         unit="kts"
-                        gusts={metar.wgst}
+                        gusts={metar[0].obs[0].wgst}
                       />
                     )}
                   </Box>
@@ -378,13 +388,69 @@ function Metar() {
 
             <Typography id="Raw Metar" sx={{ mt: 1, mb: 1 }}>
               <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
-              {metar.rawOb}
+              {metar[0].obs[0].rawOb}
             </Typography>
           </>
         )}
       </Box>
     </>
   );
+  function convertDate(dateString: string) {
+    const date = new Date(parseInt(dateString));
+    const localTime = date.toLocaleString(navigator.language, {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const utcTime =
+      String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
+    return { local: localTime, utc: utcTime };
+  }
+  function tempUnitToggle(unit: string) {
+    if (unit === "°C") {
+      setMetarObject({ ...metarObject, tempUnit: "°F" });
+    } else if (unit === "°F") {
+      setMetarObject({ ...metarObject, tempUnit: "°C" });
+    }
+  }
+  function formatWeatherString(weatherString: string) {
+    let result: any = [];
+    let output = [];
+    weatherString = weatherString.replace(/\s/gi, "");
+    while (weatherString.length > 0) {
+      if (weatherString[0] === "-" || weatherString[0] === "+") {
+        weatherString[0] === "-"
+          ? (result = [
+              ...result,
+              ["light", weatherString[1] + weatherString[2]],
+            ])
+          : (result = [
+              ...result,
+              ["heavy", weatherString[1] + weatherString[2]],
+            ]);
+        weatherString = weatherString.slice(3);
+      } else if (weatherString[0] !== "-" && weatherString[0] !== "+") {
+        result = [...result, ["", weatherString[0] + weatherString[1]]];
+        weatherString = weatherString.slice(2);
+      }
+    }
+    for (let el of result) {
+      for (const [key, value] of Object.entries(weatherCodes.type)) {
+        if (el[1] === key) output.push(el[0] + " " + value);
+      }
+    }
+    return output.join(" and ");
+  }
+  async function checkLocation() {
+    let locationCheck = false;
+    const response = await fetch("https://ipapi.co/json/");
+    const location = await response.json();
+    metarObject.userLocation = location;
+    //! check for CAN | US | EN -> Statute Miles : -> Meters
+    console.log(metarObject.userLocation);
+
+    //! return Miles && Meters --> check in JSX
+  }
 }
 
 export default Metar;

@@ -11,18 +11,15 @@ import {
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 
-import {
-  getFlightRules,
-  formatWeatherString,
-  convertDate,
-  checkLocation,
-} from "./Metar/metar-ui-helper";
+import { getFlightRules } from "./Metar/metar-ui-helper";
 import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 
 import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
 import DataView from "./DataView";
+
+import weatherCodes from "./Metar/assets/weatherCodes.json";
 
 import { airportDBKey } from "../config";
 
@@ -44,15 +41,6 @@ function Metar() {
     visibility: { meters: 0, miles: 0 },
     CAVOK: false,
   } as IMetarObject);
-
-  function tempUnitToggle(unit: string) {
-    // ! add return
-    if (unit === "°C") {
-      setMetarObject({ ...metarObject, tempUnit: "°F" });
-    } else if (unit === "°F") {
-      setMetarObject({ ...metarObject, tempUnit: "°C" });
-    }
-  }
 
   const loading = (
     <Box
@@ -84,6 +72,7 @@ function Metar() {
     //! remove any
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
+
     setIsLoading(true);
     const response = await fetch(`/api/${metarObject.icao}`, {
       method: "GET",
@@ -92,6 +81,8 @@ function Metar() {
       },
     });
     const data = await response.json();
+    // setMetar([]);
+    // setMetarObject({} as IMetarObject);
     setMetar(data);
     setMetarObject({
       ...metarObject,
@@ -123,14 +114,39 @@ function Metar() {
 
   useEffect(() => {
     if (metar !== undefined) {
-      const flightRuleColor = getFlightRules(
-        metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
-        parseInt(metar.cldBas1)
-      );
-      setMetarObject({ ...metarObject, flightRule: flightRuleColor });
+      //   setMetarObject({
+      //     ...metarObject,
+      //     visibility: {
+      //       ...metarObject.visibility,
+      //       meters:
+      //         parseInt(metar.visib) >= 621
+      //           ? 9999
+      //           : Math.round((parseInt(metar.visib) * 16.0934) / 100) * 100,
+      //       miles: parseInt(metar.visib),
+      //     },
+      //     nosig: /NOSIG/gi.test(metar.rawOb) ? true : false,
+      //     CAVOK: /CAVOK/gi.test(metar.rawOb)
+      //       ? true
+      //       : /CLR/gi.test(metar.rawOb)
+      //       ? true
+      //       : /NCD/gi.test(metar.rawOb)
+      //       ? true
+      //       : false,
+      //     time: convertDate(metar.obsTime + "000"),
+      //   });
       console.log("fetched Metar", metar);
       console.log("obj", metarObject);
+      // console.log("airportDB", airportDB.freqs);
     }
+  }, [metar]);
+
+  useEffect(() => {
+    const flightRuleColor = getFlightRules(
+      metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
+      parseInt(metar.cldBas1)
+    );
+    setMetarObject({ ...metarObject, flightRule: flightRuleColor });
+    // setFlightRule(flightRuleColor);
   }, [metar]);
 
   return (
@@ -385,6 +401,64 @@ function Metar() {
       </Box>
     </>
   );
+  function convertDate(dateString: string) {
+    const date = new Date(parseInt(dateString));
+    const localTime = date.toLocaleString(navigator.language, {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const utcTime =
+      String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
+    return { local: localTime, utc: utcTime };
+  }
+  function tempUnitToggle(unit: string) {
+    // ! add return
+    if (unit === "°C") {
+      setMetarObject({ ...metarObject, tempUnit: "°F" });
+    } else if (unit === "°F") {
+      setMetarObject({ ...metarObject, tempUnit: "°C" });
+    }
+  }
+  function formatWeatherString(weatherString: string) {
+    let result: any = [];
+    let output = [];
+    weatherString = weatherString.replace(/\s/gi, "");
+    while (weatherString.length > 0) {
+      if (weatherString[0] === "-" || weatherString[0] === "+") {
+        weatherString[0] === "-"
+          ? (result = [
+              ...result,
+              ["light", weatherString[1] + weatherString[2]],
+            ])
+          : (result = [
+              ...result,
+              ["heavy", weatherString[1] + weatherString[2]],
+            ]);
+        weatherString = weatherString.slice(3);
+      } else if (weatherString[0] !== "-" && weatherString[0] !== "+") {
+        result = [...result, ["", weatherString[0] + weatherString[1]]];
+        weatherString = weatherString.slice(2);
+      }
+    }
+    for (let el of result) {
+      for (const [key, value] of Object.entries(weatherCodes.type)) {
+        if (el[1] === key) output.push(el[0] + " " + value);
+      }
+    }
+    return output.join(" and ");
+  }
+  async function checkLocation() {
+    //! add return
+    let locationCheck = false;
+    const response = await fetch("https://ipapi.co/json/");
+    const location = await response.json();
+    metarObject.userLocation = location;
+    //! check for CAN | US | EN -> Statute Miles : -> Meters
+    console.log(metarObject.userLocation);
+
+    //! return Miles && Meters --> check in JSX
+  }
 }
 
 export default Metar;

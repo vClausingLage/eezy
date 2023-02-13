@@ -32,8 +32,6 @@ function RawMetar() {
     setMetarObject(maptoMetarObj(metarList));
   }, [rawMetar]);
 
-  console.log(metarObject);
-
   return (
     <>
       <Box
