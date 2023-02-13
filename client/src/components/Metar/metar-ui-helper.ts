@@ -60,12 +60,6 @@ export function formatWeatherString(weatherString: string) {
     return output.join(" and ");
   }
 
-export function setVisibility(visibility: string) {
-  const meters = parseInt(visibility) >= 621 ? 9999 : Math.round((parseInt(visibility) * 16.0934) / 100) * 100
-  const miles = parseInt(visibility)
-  return {meters: meters, miles: miles}
-}
-
   export function convertDate(dateString: string) {
     const date = new Date(parseInt(dateString));
     const localTime = date.toLocaleString(navigator.language, {
@@ -86,4 +80,30 @@ export function setVisibility(visibility: string) {
     //! check for CAN | US | EN -> Statute Miles : -> Meters
 
     //! return Miles && Meters --> check in JSX
+  }
+
+  export function tempoGusts(rawMetar: string) {
+    let metar = rawMetar.split(' ')
+    let tempoMetar: string[] = []
+    metar.forEach((el, idx) => {
+      let length = metar.length
+      if (/TEMPO/i.test(el)) {
+        for (let i = idx; i < length; i++) {
+          tempoMetar.push(metar[i]);
+        }
+        for (let i = idx; i < length; i++) {
+          metar.splice(i);
+        }
+      }
+    })
+    tempoMetar.forEach(el => {
+      let output: string[] | null = []
+      if (/^\d{5}G\d{1,2}KT$/ig.test(el)) {
+          output = (el.match(/G\d{1,2}/ig))
+        return output
+      } else {
+        output.push('no gusts')
+        return output
+      }
+    })
   }

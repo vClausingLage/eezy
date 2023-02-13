@@ -16,7 +16,7 @@ import {
   formatWeatherString,
   convertDate,
   checkLocation,
-  setVisibility,
+  tempoGusts,
 } from "./Metar/metar-ui-helper";
 import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 
@@ -96,7 +96,15 @@ function Metar() {
     console.log(data.visib);
     setMetarObject({
       ...metarObject,
-      visibility: setVisibility(data.visib),
+      // visibility: setVisibility(data.visib),
+      visibility: {
+        ...metarObject.visibility,
+        meters:
+          parseInt(data.visib) >= 621
+            ? 9999
+            : Math.round((parseInt(data.visib) * 16.0934) / 100) * 100,
+        miles: parseInt(data.visib),
+      },
       nosig: /NOSIG/gi.test(data.rawOb) ? true : false,
       CAVOK: /CAVOK/gi.test(data.rawOb)
         ? true
@@ -124,6 +132,7 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
       console.log("fetched Metar", metar);
       console.log("obj", metarObject);
+      if (metar.rawOb !== undefined) console.log(tempoGusts(metar.rawOb));
     }
   }, [metar]);
 
