@@ -9,10 +9,10 @@ import Paper from "@mui/material/Paper";
 function FlightRuleTable() {
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table aria-label="flight rule table">
         <TableHead>
           <TableRow>
-            <TableCell>Flight Rule Code</TableCell>
+            <TableCell>Flight Rule Code & Color</TableCell>
             <TableCell align="center">Ceiling</TableCell>
             <TableCell align="center">Visibility</TableCell>
           </TableRow>

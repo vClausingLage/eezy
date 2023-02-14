@@ -8,6 +8,7 @@ import {
   IconButton,
   CircularProgress,
   Alert,
+  Button,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 
@@ -32,6 +33,7 @@ function Metar() {
   const [metar, setMetar] = useState<any>({}); //! make interface
   // const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
+  const [showTable, setShowTable] = useState(false);
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [airportDB, setAirportData] = useState<any>();
@@ -380,19 +382,24 @@ function Metar() {
               <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
               {metar.rawOb}
             </Typography>
+            <Button onClick={() => setShowTable(!showTable)} variant="outlined">
+              show flight rule table
+            </Button>
+            {showTable && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: "auto",
+                  maxWidth: "50%",
+                  mt: 10,
+                }}
+              >
+                <FlightRuleTable />
+              </Box>
+            )}
           </>
         )}
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "auto",
-          maxWidth: "50%",
-          mt: 10,
-        }}
-      >
-        <FlightRuleTable />
       </Box>
     </>
   );
