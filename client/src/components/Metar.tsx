@@ -25,7 +25,7 @@ import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
 import DataView from "./DataView";
 
-import { airportDBKey } from "../config";
+import { airportDBKey } from "./Metar/config/config";
 
 function Metar() {
   const [metar, setMetar] = useState<any>({}); //! make interface
