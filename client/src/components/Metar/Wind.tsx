@@ -137,7 +137,7 @@ function Wind(props: IWind) {
               border: 1,
               borderColor: "primary.main",
               borderRadius: 2,
-              ml: -2.5,
+              ml: -1.3,
               overflow: "hidden",
             }}
           >
@@ -152,7 +152,7 @@ function Wind(props: IWind) {
               }}
             >
               <Typography sx={{ fontWeight: "bold" }}>
-                {props.speed} {props.unit}
+                {props.direction}°
               </Typography>
             </Box>
             <Box
@@ -166,7 +166,7 @@ function Wind(props: IWind) {
               }}
             >
               <Typography sx={{ fontWeight: "bold" }}>
-                {props.direction}°
+                {props.speed} {props.unit}
               </Typography>
             </Box>
             {props.gusts && (

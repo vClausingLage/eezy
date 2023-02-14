@@ -11,6 +11,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";
 
 import RawMetar from "./components/RawMetar";
+import AppFooter from "./AppFooter";
 
 // THEME https://mui.com/material-ui/customization/default-theme/
 
@@ -27,6 +28,7 @@ function App() {
           <AppHeader />
           <Metar />
           {/* <RawMetar /> */}
+          <AppFooter />
         </Box>
       </ThemeProvider>
     </>
