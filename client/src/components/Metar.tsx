@@ -382,7 +382,11 @@ function Metar() {
               <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
               {metar.rawOb}
             </Typography>
-            <Button onClick={() => setShowTable(!showTable)} variant="outlined">
+            <Button
+              sx={{ mt: 10 }}
+              onClick={() => setShowTable(!showTable)}
+              variant="outlined"
+            >
               show flight rule table
             </Button>
             {showTable && (
@@ -392,7 +396,7 @@ function Metar() {
                   justifyContent: "center",
                   margin: "auto",
                   maxWidth: "50%",
-                  mt: 10,
+                  mt: 2,
                 }}
               >
                 <FlightRuleTable />
