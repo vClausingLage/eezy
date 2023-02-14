@@ -3,8 +3,10 @@ import path from 'path'
 import {fileURLToPath} from 'url';
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { ac_router } from './routes/aircraft.js'
-import { awc_router } from './routes/awc_routes.js'
+
+import { ac_router } from './routes/aircraft.js';
+import { awc_router } from './routes/awc_routes.js';
+
 const app = express();
 dotenv.config()
 const port =  4000; // process.env.PORT ||
