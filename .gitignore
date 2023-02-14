@@ -1,13 +1,7 @@
-\server\node_modules
-\server\.env
-\server\dist
-server/dist/MetarAPI
-server/dist/MetarAPI/
-
-\client\node_modules
 node_modules
-
-mobile_app\node_modules
-
 client/src/components/Metar/config/
 client/build/
+
+mobile_app/node_modules
+
+server/dist/
