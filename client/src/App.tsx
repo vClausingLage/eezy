@@ -26,7 +26,7 @@ function App() {
         <Box>
           <AppHeader />
           <Metar />
-          <RawMetar />
+          {/* <RawMetar /> */}
         </Box>
       </ThemeProvider>
     </>

@@ -301,71 +301,67 @@ function Metar() {
               )}
             </Box>
 
-            <Box sx={{ justifyContent: "center", alignItems: "center" }}>
-              <Grid container spacing={4}>
-                <Grid item>
-                  {metar.cldCvg1 === "CAVOK" && (
-                    <Sun date={metarObject.time.utc} />
-                  )}
-                  {metar.cldCvg1 === "NCD" && (
-                    <Sun date={metarObject.time.utc} />
-                  )}
-                  {metar.cldCvg1 === "CLR" && (
-                    <Sun date={metarObject.time.utc} />
-                  )}
+            <Grid
+              container
+              spacing={4}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item>
+                {metar.cldCvg1 === "CAVOK" && (
+                  <Sun date={metarObject.time.utc} />
+                )}
+                {metar.cldCvg1 === "NCD" && <Sun date={metarObject.time.utc} />}
+                {metar.cldCvg1 === "CLR" && <Sun date={metarObject.time.utc} />}
 
-                  <Box
-                    id="clouds"
-                    sx={{ display: "flex", flexDirection: "row", mt: 1, mb: 1 }}
-                  >
-                    {metar.cldBas1 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas1)}
-                        cloudLayer={metar.cldCvg1}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas2 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas2)}
-                        cloudLayer={metar.cldCvg2}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas3 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas3)}
-                        cloudLayer={metar.cldCvg3}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas4 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas4)}
-                        cloudLayer={metar.cldCvg4}
-                      ></Cloud>
-                    )}
-                  </Box>
-                </Grid>
-                <Grid item sx={{ alignItems: "center" }}>
-                  <Box
-                    id="Wind"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      mt: 1,
-                      mb: 1,
-                    }}
-                  >
-                    {metar.wdir && (
-                      <Wind
-                        direction={parseInt(metar.wdir)}
-                        speed={parseInt(metar.wspd)}
-                        unit="kts"
-                        gusts={metar.wgst}
-                      />
-                    )}
-                  </Box>
-                </Grid>
+                {metar.cldBas1 && (
+                  <Cloud
+                    cloudBase={parseInt(metar.cldBas1)}
+                    cloudLayer={metar.cldCvg1}
+                  ></Cloud>
+                )}
+                {metar.cldBas2 && (
+                  <Cloud
+                    cloudBase={parseInt(metar.cldBas2)}
+                    cloudLayer={metar.cldCvg2}
+                  ></Cloud>
+                )}
+                {metar.cldBas3 && (
+                  <Cloud
+                    cloudBase={parseInt(metar.cldBas3)}
+                    cloudLayer={metar.cldCvg3}
+                  ></Cloud>
+                )}
+                {metar.cldBas4 && (
+                  <Cloud
+                    cloudBase={parseInt(metar.cldBas4)}
+                    cloudLayer={metar.cldCvg4}
+                  ></Cloud>
+                )}
               </Grid>
-            </Box>
+              <Grid item>
+                <Box
+                  id="Wind"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mt: 1,
+                    mb: 1,
+                  }}
+                >
+                  {metar.wdir && (
+                    <Wind
+                      direction={parseInt(metar.wdir)}
+                      speed={parseInt(metar.wspd)}
+                      unit="kts"
+                      gusts={metar.wgst}
+                    />
+                  )}
+                </Box>
+              </Grid>
+            </Grid>
 
             <Alert severity="info">
               <Typography>

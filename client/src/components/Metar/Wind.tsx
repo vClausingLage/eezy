@@ -43,13 +43,17 @@ function Wind(props: IWind) {
           <text
             transform="matrix(0 -1 1 0 133 50)"
             fill="#660000"
-            fontSize="18"
+            fontSize="17"
           >
             <tspan x="0" y="14.4545">
               {props.speed} kts
             </tspan>
           </text>
-          <text transform="matrix(0 -1 1 0 99 48)" fill="#660000" fontSize="18">
+          <text
+            transform="matrix(0 -1 1 0 100 48)"
+            fill="#660000"
+            fontSize="17"
+          >
             <tspan x="0" y="14.4545">
               {props.direction}°
             </tspan>
@@ -97,18 +101,18 @@ function Wind(props: IWind) {
             fill="#660000"
           />
           <text
-            transform="matrix(0 1 -1 0 153 17)"
+            transform="matrix(0 1 -1 0 150 15)"
             fill="#660000"
-            fontSize="18"
+            fontSize="17"
           >
             <tspan x="0" y="14.4545">
               {props.direction}°
             </tspan>
           </text>
           <text
-            transform="matrix(0 1 -1 0 116 12)"
+            transform="matrix(0 1 -1 0 115 12)"
             fill="#660000"
-            fontSize="18"
+            fontSize="17"
           >
             <tspan x="0" y="14.4545">
               {props.speed} kts
