@@ -24,6 +24,7 @@ import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
 import DataView from "./DataView";
+import FlightRuleTable from "./Metar/FlightRuleTable";
 
 import { airportDBKey } from "./Metar/config/config";
 
@@ -381,6 +382,17 @@ function Metar() {
             </Typography>
           </>
         )}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "auto",
+          maxWidth: "50%",
+          mt: 10,
+        }}
+      >
+        <FlightRuleTable />
       </Box>
     </>
   );
