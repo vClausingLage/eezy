@@ -9,5 +9,5 @@ node_modules
 
 mobile_app\node_modules
 
-client/src/components/Metar/config/config.ts
+client/src/components/Metar/config/
 client/build/
