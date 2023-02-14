@@ -10,3 +10,4 @@ node_modules
 mobile_app\node_modules
 
 client/src/components/Metar/config/config.ts
+client/build/
