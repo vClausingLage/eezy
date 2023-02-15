@@ -2,7 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { IWind } from "./IMetar";
 
 function Wind(props: IWind) {
-  const opacityNorth = "lalal";
+  const opacityNorth =
+    typeof props.direction === "number" &&
+    (props.direction > 330 || props.direction < 30)
+      ? "50%"
+      : "100%";
   const compassSVGfirst = (
     <>
       <svg
