@@ -186,7 +186,9 @@ function Metar() {
       >
         {metar.name && metar !== undefined && (
           <>
-            <Typography variant="h3">{metar.name.split(",")[0]}</Typography>
+            <Typography variant="h3">
+              {metar.name.split(",")[0].replace("/", " ")}
+            </Typography>
             <Typography
               style={{
                 backgroundColor: metarObject.flightRule?.colorCode,
