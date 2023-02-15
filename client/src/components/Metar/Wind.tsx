@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { IWind } from "./IMetar";
 
 function Wind(props: IWind) {
+  const opacityNorth = "lalal";
   const compassSVGfirst = (
     <>
       <svg
@@ -22,7 +23,13 @@ function Wind(props: IWind) {
           <circle cx="10" cy="125" r="5" fill="#182849" />
           <circle cx="239" cy="125" r="5" fill="#182849" />
           <circle cx="125" cy="239" r="5" fill="#182849" />
-          <circle cx="125" cy="28" r="20" fill="#182849" />
+          <circle
+            cx="125"
+            cy="28"
+            r="20"
+            fill="#182849"
+            fillOpacity={opacityNorth}
+          />
           <path
             d="M130.682 19.2V31.704L117.962 18.36V36H120.002V23.496L132.722 36.84V19.2H130.682Z"
             fill="#D9D9D9"
@@ -82,7 +89,13 @@ function Wind(props: IWind) {
           <circle cx="10" cy="125" r="5" fill="#182849" />
           <circle cx="239" cy="125" r="5" fill="#182849" />
           <circle cx="125" cy="239" r="5" fill="#182849" />
-          <circle cx="125" cy="28" r="20" fill="#182849" />
+          <circle
+            cx="125"
+            cy="28"
+            r="20"
+            fill="#182849"
+            fillOpacity={opacityNorth}
+          />
           <path
             d="M130.682 19.2V31.704L117.962 18.36V36H120.002V23.496L132.722 36.84V19.2H130.682Z"
             fill="#D9D9D9"
