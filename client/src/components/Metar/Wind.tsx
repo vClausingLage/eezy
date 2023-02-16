@@ -7,7 +7,7 @@ function Wind(props: IWind) {
     (props.direction > 330 || props.direction < 30)
       ? "50%"
       : "100%";
-  const compassSVGfirst = (
+  const compassSVG180 = (
     <>
       <svg
         width="250"
@@ -48,32 +48,34 @@ function Wind(props: IWind) {
         >
           <circle cx="125" cy="125" r="122" />
           <path
-            d="M122.879 78.1213C124.05 79.2929 125.95 79.2929 127.121 78.1213L146.213 59.0294C147.385 57.8579 147.385 55.9584 146.213 54.7868C145.042 53.6152 143.142 53.6152 141.971 54.7868L125 71.7574L108.029 54.7868C106.858 53.6152 104.958 53.6152 103.787 54.7868C102.615 55.9584 102.615 57.8579 103.787 59.0294L122.879 78.1213ZM122 0V76H128V0L122 0Z"
+            d="M122.879 84.1213C124.05 85.2929 125.95 85.2929 127.121 84.1213L146.213 65.0294C147.385 63.8579 147.385 61.9584 146.213 60.7868C145.042 59.6152 143.142 59.6152 141.971 60.7868L125 77.7574L108.029 60.7868C106.858 59.6152 104.958 59.6152 103.787 60.7868C102.615 61.9584 102.615 63.8579 103.787 65.0294L122.879 84.1213ZM122 0V82H128V0L122 0Z"
             fill="#660000"
           />
           <text
-            transform="matrix(0 -1 1 0 133 50)"
+            transform="matrix(0 -1 1 0 133 56)"
             fill="#660000"
-            fontSize="17"
+            fontFamily="Roboto"
+            fontSize="18"
           >
-            <tspan x="0" y="14.4545">
-              {props.speed} kts
+            <tspan x="0.487305" y="16.1523">
+              20 kts
             </tspan>
           </text>
           <text
-            transform="matrix(0 -1 1 0 100 48)"
+            transform="matrix(0 -1 1 0 97 56)"
             fill="#660000"
-            fontSize="17"
+            fontFamily="Roboto"
+            fontSize="18"
           >
-            <tspan x="0" y="14.4545">
-              {props.direction}°
+            <tspan x="6.44629" y="16.1523">
+              360&#xb0;
             </tspan>
           </text>
         </g>
       </svg>
     </>
   );
-  const compassSVGsecond = (
+  const compassSVG360 = (
     <>
       <svg
         width="250"
@@ -114,25 +116,27 @@ function Wind(props: IWind) {
         >
           <circle cx="125" cy="125" r="122" />
           <path
-            d="M122.879 78.1213C124.05 79.2929 125.95 79.2929 127.121 78.1213L146.213 59.0294C147.385 57.8579 147.385 55.9584 146.213 54.7868C145.042 53.6152 143.142 53.6152 141.971 54.7868L125 71.7574L108.029 54.7868C106.858 53.6152 104.958 53.6152 103.787 54.7868C102.615 55.9584 102.615 57.8579 103.787 59.0294L122.879 78.1213ZM122 0V76H128V0L122 0Z"
+            d="M122.879 84.1213C124.05 85.2929 125.95 85.2929 127.121 84.1213L146.213 65.0294C147.385 63.8579 147.385 61.9584 146.213 60.7868C145.042 59.6152 143.142 59.6152 141.971 60.7868L125 77.7574L108.029 60.7868C106.858 59.6152 104.958 59.6152 103.787 60.7868C102.615 61.9584 102.615 63.8579 103.787 65.0294L122.879 84.1213ZM122 0V82H128V0L122 0Z"
             fill="#660000"
           />
           <text
-            transform="matrix(0 1 -1 0 150 15)"
+            transform="matrix(0 1 -1 0 117 7)"
             fill="#660000"
-            fontSize="17"
+            fontFamily="Roboto"
+            fontSize="18"
           >
-            <tspan x="0" y="14.4545">
-              {props.direction}°
+            <tspan x="0.487305" y="16.1523">
+              20 kts
             </tspan>
           </text>
           <text
-            transform="matrix(0 1 -1 0 115 12)"
+            transform="matrix(0 1 -1 0 153 7)"
             fill="#660000"
-            fontSize="17"
+            fontFamily="Roboto"
+            fontSize="18"
           >
-            <tspan x="0" y="14.4545">
-              {props.speed} kts
+            <tspan x="6.44629" y="16.1523">
+              360&#xb0;
             </tspan>
           </text>
         </g>
@@ -145,8 +149,8 @@ function Wind(props: IWind) {
       {typeof props.direction === "number" && props.direction > 0 && (
         <>
           {props.direction > 0 && props.direction <= 180
-            ? compassSVGfirst
-            : compassSVGsecond}
+            ? compassSVG180
+            : compassSVG360}
           <Box
             sx={{
               textAlign: "right",
