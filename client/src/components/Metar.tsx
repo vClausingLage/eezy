@@ -152,7 +152,6 @@ function Metar() {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        minHeight="100vdh"
       >
         <Typography variant="h2">Metar</Typography>
         <form onSubmit={searchMetar}>
