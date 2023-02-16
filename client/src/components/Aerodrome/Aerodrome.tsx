@@ -24,18 +24,43 @@ function Aerodrome({ props }: Props) {
       alignItems="center"
     >
       <Typography variant="h2">Airport</Typography>
-      <CellTowerIcon />
+      <CellTowerIcon fontSize="large" />
       {props.map((el, key) => {
         if (el.type === "GND")
-          return <p key={key}>Ground {el.frequency_mhz} MHz</p>;
+          return (
+            <p key={key}>
+              Ground{" "}
+              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
+            </p>
+          );
         if (el.type === "TWR")
-          return <p key={key}>Tower {el.frequency_mhz} MHz</p>;
+          return (
+            <p key={key}>
+              Tower{" "}
+              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
+            </p>
+          );
         if (el.type === "ATIS")
-          return <p key={key}>ATIS {el.frequency_mhz} MHz</p>;
+          return (
+            <p key={key}>
+              ATIS{" "}
+              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
+            </p>
+          );
         if (el.type === "RDR")
-          return <p key={key}>Radar {el.frequency_mhz} MHz</p>;
+          return (
+            <p key={key}>
+              Radar{" "}
+              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
+            </p>
+          );
         if (el.type === "INFO")
-          return <p key={key}>Info {el.frequency_mhz} MHz</p>;
+          return (
+            <p key={key}>
+              Info{" "}
+              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
+            </p>
+          );
       })}
     </Box>
   );
