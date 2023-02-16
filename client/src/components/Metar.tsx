@@ -24,7 +24,7 @@ import { IMetarObject, IFlightRule } from "./Metar/IMetar";
 import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
 import Wind from "./Metar/Wind";
-import DataView from "./DataView";
+import DataView from "./Metar/DataView";
 import FlightRuleTable from "./Metar/FlightRuleTable";
 
 import { airportDBKey } from "./Metar/config/config";

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Box, Typography, TextField, IconButton } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 
-import { prepareMetar, maptoMetarObj } from "./Metar/metar-regex";
+import { prepareMetar, maptoMetarObj } from "./metar-regex";
 
 function RawMetar() {
   const [metarObject, setMetarObject] = useState({});

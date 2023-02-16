@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 
-import AppHeader from "./components/AppHeader";
+import AppHeader from "./AppHeader";
 import Metar from "./components/Metar";
 import Aircraft from "./components/NewAircraft";
 import Map from "./components/Map";
@@ -10,7 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";
 
-import RawMetar from "./components/RawMetar";
+import RawMetar from "./components/Metar/RawMetar";
 import AppFooter from "./AppFooter";
 
 // THEME https://mui.com/material-ui/customization/default-theme/
