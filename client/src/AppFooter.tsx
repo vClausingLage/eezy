@@ -5,7 +5,7 @@ function AppFooter() {
   const year = today.getFullYear();
 
   return (
-    <Box sx={{ position: "absolute", bottom: 0, height: "20px" }}>
+    <Box>
       <Typography>© {year} Vincent Clausing-Lage </Typography>
     </Box>
   );
