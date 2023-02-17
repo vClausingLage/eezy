@@ -9,7 +9,7 @@ import { awc_router } from './routes/awc_routes.js';
 
 const app = express();
 dotenv.config()
-const port =  process.env.PORT || 4000
+const port =  process.env.PORT
 
 app.use(express.json());
 app.use(
