@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { IWind } from "./IMetar";
 
 function Wind(props: IWind) {
@@ -226,6 +226,15 @@ function Wind(props: IWind) {
           </Typography>
         </Box>
       )}
+      <Box>
+        {props.runways.map((el, key) => {
+          return (
+            <Button key={key}>
+              {el.he_ident}/{el.le_ident}
+            </Button>
+          );
+        })}
+      </Box>
     </>
   );
 }

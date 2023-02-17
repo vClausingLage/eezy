@@ -58,6 +58,7 @@ export interface IWind {
   direction: number | string;
   speed: number;
   unit: string;
+  runways: IRwy[];
   gusts?: number;
 }
 

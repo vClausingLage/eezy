@@ -377,6 +377,7 @@ function Metar() {
                           speed={parseInt(metar.wspd)}
                           unit="kts"
                           gusts={metar.wgst}
+                          runways={airportObject.runways}
                         />
                       )}
                     </Box>
