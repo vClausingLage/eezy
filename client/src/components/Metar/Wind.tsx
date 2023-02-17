@@ -1,156 +1,154 @@
+import { useState, useEffect } from "react";
+
 import { Box, Typography, Button } from "@mui/material";
 import { IWind } from "./IMetar";
 
 function Wind(props: IWind) {
+  const [runwayDir, setRunwayDir] = useState(0);
+
+  useEffect(() => {
+    setRunwayDir(parseInt(props.runways[0].he_ident.slice(0, 2)));
+  }, []);
+
+  const arrow180 = (
+    <g
+      id="Arrow Wind"
+      style={{
+        transformBox: "fill-box",
+        transformOrigin: "center",
+        transform: `rotate(${props.direction}deg)`,
+      }}
+    >
+      <circle cx="200" cy="200" r="200" />
+      <path
+        d="M197.879 88.1213C199.05 89.2929 200.95 89.2929 202.121 88.1213L221.213 69.0294C222.385 67.8579 222.385 65.9584 221.213 64.7868C220.042 63.6152 218.142 63.6152 216.971 64.7868L200 81.7574L183.029 64.7868C181.858 63.6152 179.958 63.6152 178.787 64.7868C177.615 65.9584 177.615 67.8579 178.787 69.0294L197.879 88.1213ZM197 1V86H203V1L197 1Z"
+        fill="#660000"
+      />
+      <text
+        transform="matrix(0 -1 1 0 208 59)"
+        fill="#660000"
+        fontFamily="Roboto"
+        fontSize="18"
+      >
+        <tspan x="1.40194" y="16.1523">
+          {props.speed} kts
+        </tspan>
+      </text>
+      <text
+        transform="matrix(0 -1 1 0 172 59)"
+        fill="#660000"
+        fontFamily="Roboto"
+        fontSize="18"
+      >
+        <tspan x="7.36092" y="16.1523">
+          {props.direction}°
+        </tspan>
+      </text>
+    </g>
+  );
+  const arrow360 = (
+    <g
+      id="Arrow Wind"
+      style={{
+        transformBox: "fill-box",
+        transformOrigin: "center",
+        transform: `rotate(${props.direction}deg)`,
+      }}
+    >
+      <circle cx="200" cy="200" r="200" />
+      <path
+        d="M197.879 88.1213C199.05 89.2929 200.95 89.2929 202.121 88.1213L221.213 69.0294C222.385 67.8579 222.385 65.9584 221.213 64.7868C220.042 63.6152 218.142 63.6152 216.971 64.7868L200 81.7574L183.029 64.7868C181.858 63.6152 179.958 63.6152 178.787 64.7868C177.615 65.9584 177.615 67.8579 178.787 69.0294L197.879 88.1213ZM197 1V86H203V1L197 1Z"
+        fill="#660000"
+      />
+      <text
+        transform="matrix(0 1 -1 0 225 8)"
+        fill="#660000"
+        fontFamily="Roboto"
+        fontSize="18"
+      >
+        <tspan x="1.40194" y="16.1523">
+          {props.speed} kts
+        </tspan>
+      </text>
+      <text
+        transform="matrix(0 1 -1 0 193 8)"
+        fill="#660000"
+        fontFamily="Roboto"
+        fontSize="18"
+      >
+        <tspan x="7.36092" y="16.1523">
+          {props.direction}°
+        </tspan>
+      </text>
+    </g>
+  );
+
+  function setRunwayDirection(input: string) {
+    let degrees = parseInt(input.slice(0, 2));
+    setRunwayDir(degrees);
+  }
   const opacityNorth =
     typeof props.direction === "number" &&
     (props.direction > 330 || props.direction < 30)
       ? "50%"
       : "100%";
-  const compassSVG180 = (
-    <>
-      <svg
-        width="250"
-        height="250"
-        viewBox="0 0 250 250"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+  const compass = (
+    <svg
+      width="400"
+      height="400"
+      viewBox="0 0 400 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="400" height="400" fill="white" />
+      <g id="Compass">
+        <path
+          d="M323 199.5C323 267.155 268.155 322 200.5 322C132.845 322 78 267.155 78 199.5C78 131.845 132.845 77 200.5 77C268.155 77 323 131.845 323 199.5Z"
+          fill="#D9D9D9"
+        />
+        <circle cx="83" cy="200" r="5" fill="#182849" />
+        <circle cx="318" cy="200" r="5" fill="#182849" />
+        <circle cx="200" cy="317" r="5" fill="#182849" />
+        <circle cx="200" cy="97" r="20" fill="#182849" id="north" />
+        <text fill="white" fontFamily="Jost" fontSize="24">
+          <tspan x="191.042" y="105.334">
+            N
+          </tspan>
+        </text>
+      </g>
+      {typeof props.direction === "number" &&
+      props.direction > 0 &&
+      props.direction <= 180
+        ? arrow180
+        : arrow360}
+      <g
+        id="Runway"
+        style={{
+          transformBox: "fill-box",
+          transformOrigin: "center",
+          transform: `rotate(${runwayDir}deg)`,
+        }}
       >
-        <g>
-          <circle
-            cx="125"
-            cy="125"
-            r="122"
-            transform="rotate(1.13182 124.896 124.896)"
-            fill="#D9D9D9"
-          />
-          <circle cx="10" cy="125" r="5" fill="#182849" />
-          <circle cx="239" cy="125" r="5" fill="#182849" />
-          <circle cx="125" cy="239" r="5" fill="#182849" />
-          <circle
-            cx="125"
-            cy="28"
-            r="20"
-            fill="#182849"
-            fillOpacity={opacityNorth}
-          />
-          <path
-            d="M130.682 19.2V31.704L117.962 18.36V36H120.002V23.496L132.722 36.84V19.2H130.682Z"
-            fill="#D9D9D9"
-          />
-        </g>
-        <g
-          style={{
-            transformBox: "fill-box",
-            transformOrigin: "center",
-            transform: `rotate(${props.direction}deg)`,
-          }}
-        >
-          <circle cx="125" cy="125" r="122" />
-          <path
-            d="M122.879 84.1213C124.05 85.2929 125.95 85.2929 127.121 84.1213L146.213 65.0294C147.385 63.8579 147.385 61.9584 146.213 60.7868C145.042 59.6152 143.142 59.6152 141.971 60.7868L125 77.7574L108.029 60.7868C106.858 59.6152 104.958 59.6152 103.787 60.7868C102.615 61.9584 102.615 63.8579 103.787 65.0294L122.879 84.1213ZM122 0V82H128V0L122 0Z"
-            fill="#660000"
-          />
-          <text
-            transform="matrix(0 -1 1 0 133 56)"
-            fill="#660000"
-            fontFamily="Roboto"
-            fontSize="18"
-          >
-            <tspan x="0.487305" y="16.1523">
-              20 kts
-            </tspan>
-          </text>
-          <text
-            transform="matrix(0 -1 1 0 97 56)"
-            fill="#660000"
-            fontFamily="Roboto"
-            fontSize="18"
-          >
-            <tspan x="6.44629" y="16.1523">
-              360&#xb0;
-            </tspan>
-          </text>
-        </g>
-      </svg>
-    </>
-  );
-  const compassSVG360 = (
-    <>
-      <svg
-        width="250"
-        height="250"
-        viewBox="0 0 250 250"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g>
-          <circle
-            cx="125"
-            cy="125"
-            r="122"
-            transform="rotate(1.13182 124.896 124.896)"
-            fill="#D9D9D9"
-          />
-          <circle cx="10" cy="125" r="5" fill="#182849" />
-          <circle cx="239" cy="125" r="5" fill="#182849" />
-          <circle cx="125" cy="239" r="5" fill="#182849" />
-          <circle
-            cx="125"
-            cy="28"
-            r="20"
-            fill="#182849"
-            fillOpacity={opacityNorth}
-          />
-          <path
-            d="M130.682 19.2V31.704L117.962 18.36V36H120.002V23.496L132.722 36.84V19.2H130.682Z"
-            fill="#D9D9D9"
-          />
-        </g>
-        <g
-          style={{
-            transformBox: "fill-box",
-            transformOrigin: "center",
-            transform: `rotate(${props.direction}deg)`,
-          }}
-        >
-          <circle cx="125" cy="125" r="122" />
-          <path
-            d="M122.879 84.1213C124.05 85.2929 125.95 85.2929 127.121 84.1213L146.213 65.0294C147.385 63.8579 147.385 61.9584 146.213 60.7868C145.042 59.6152 143.142 59.6152 141.971 60.7868L125 77.7574L108.029 60.7868C106.858 59.6152 104.958 59.6152 103.787 60.7868C102.615 61.9584 102.615 63.8579 103.787 65.0294L122.879 84.1213ZM122 0V82H128V0L122 0Z"
-            fill="#660000"
-          />
-          <text
-            transform="matrix(0 1 -1 0 117 7)"
-            fill="#660000"
-            fontFamily="Roboto"
-            fontSize="18"
-          >
-            <tspan x="0.487305" y="16.1523">
-              20 kts
-            </tspan>
-          </text>
-          <text
-            transform="matrix(0 1 -1 0 153 7)"
-            fill="#660000"
-            fontFamily="Roboto"
-            fontSize="18"
-          >
-            <tspan x="6.44629" y="16.1523">
-              360&#xb0;
-            </tspan>
-          </text>
-        </g>
-      </svg>
-    </>
+        <rect x="100" y="182" width="200" height="35" fill="#1E1E1E" />
+        <rect x="105" y="197" width="20" height="5" fill="white" />
+        <rect x="190" y="197" width="20" height="5" fill="white" />
+        <rect x="232" y="197" width="20" height="5" fill="white" />
+        <rect x="232" y="197" width="20" height="5" fill="white" />
+        <rect x="147" y="197" width="20" height="5" fill="white" />
+        <rect x="105" y="187" width="20" height="5" fill="white" />
+        <rect x="105" y="207" width="20" height="5" fill="white" />
+        <rect x="275" y="197" width="20" height="5" fill="white" />
+        <rect x="275" y="187" width="20" height="5" fill="white" />
+        <rect x="275" y="207" width="20" height="5" fill="white" />
+      </g>
+    </svg>
   );
 
   return (
     <>
       {typeof props.direction === "number" && props.direction > 0 && (
         <>
-          {props.direction > 0 && props.direction <= 180
-            ? compassSVG180
-            : compassSVG360}
+          {compass}
           <Box
             sx={{
               textAlign: "right",
@@ -226,11 +224,16 @@ function Wind(props: IWind) {
           </Typography>
         </Box>
       )}
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {props.runways.map((el, key) => {
           return (
-            <Button key={key}>
-              {el.he_ident}/{el.le_ident}
+            <Button key={key} onClick={() => setRunwayDirection(el.he_ident)}>
+              RWY {el.he_ident}/{el.le_ident}
             </Button>
           );
         })}
