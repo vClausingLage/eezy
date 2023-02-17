@@ -1,4 +1,4 @@
-import { config } from '../config.js'
+import { config } from '../config/config.js'
 import { Sequelize } from 'sequelize';
 
 export const sequelize = new Sequelize(config.db.database, config.db.user , config.db.password, {
