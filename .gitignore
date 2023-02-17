@@ -1,7 +1,8 @@
 node_modules
+dist/
+
 client/src/components/Metar/config/
 client/build/
 
 mobile_app/node_modules
 
-server/dist/
