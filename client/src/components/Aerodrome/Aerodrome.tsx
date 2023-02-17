@@ -1,17 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import CellTowerIcon from "@mui/icons-material/CellTower";
 
+import { IFreq } from "../Metar/IMetar";
+
 type Props = {
-  props: [
-    {
-      id: string;
-      airport_ref: string;
-      airport_ident: string;
-      type: string;
-      description: string;
-      frequency_mhz: string;
-    }
-  ];
+  props: IFreq[];
 };
 
 function Aerodrome({ props }: Props) {

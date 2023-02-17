@@ -1,3 +1,24 @@
+
+
+export interface IAirportObject {
+  frequencies: IFreq[]
+  runways: IRwy[]
+}
+
+export interface IFreq {
+  id?: string;
+  airport_ref?: string;
+  airport_ident?: string;
+  type: string;
+  description?: string;
+  frequency_mhz: string;
+}
+
+interface IRwy {
+  he_ident: string;
+  le_ident: string
+}
+
 export interface IMetarObject {
   icao: string,
   time: {local: string, utc: string};
@@ -7,56 +28,6 @@ export interface IMetarObject {
   userLocation: string,
   visibility: {meters: number, miles: number};
   CAVOK: boolean;
-}
-
-export interface IMetarApiObject{
-  "icaoId": string,
-  "lat": string,
-  "lon": string,
-  "elev": string,
-  "priority": string,
-  "name": string,
-  "obs": [
-    {
-      "metar_id": string,
-      "icaoId": string,
-      "receiptTime": string,
-      "obsTime": string,
-      "reportTime": string,
-      "temp": string,
-      "dewp": string,
-      "wdir": string,
-      "wspd": string,
-      "wgst": string | null,
-      "visib": string,
-      "altim": string,
-      "slp": string | null,
-      "qcField": string,
-      "wxString": string | null,
-      "cldCvg1": string | null,
-      "cldCvg2": string | null,
-      "cldCvg3": string | null,
-      "cldCvg4": string | null,
-      "cldBas1": string | null,
-      "cldBas2": string | null,
-      "cldBas3": string | null,
-      "cldBas4": string | null,
-      "presTend": string | null,
-      "maxT": string | null,
-      "minT": string | null,
-      "maxT24": string | null,
-      "minT24": string | null,
-      "precip": string | null,
-      "pcp3hr": string | null,
-      "pcp6hr": string | null,
-      "pcp24hr": string | null,
-      "snow": string | null,
-      "vertVis": string | null,
-      "metarType": string,
-      "rawOb": string,
-      "mostRecent": string
-    }
-  ]
 }
 
 export interface IMetar {
@@ -81,7 +52,6 @@ export interface IMetar {
   remarks: string[];
   becoming: string[];
   tempo: string[];
-  // US_Formats: IUS_Formats;
 }
 
 export interface IWind {

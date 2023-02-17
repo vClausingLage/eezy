@@ -16,10 +16,10 @@ import {
   getFlightRules,
   formatWeatherString,
   convertDate,
-  checkLocation,
+  // checkLocation,
   tempoGusts,
 } from "./Metar/metar-ui-helper";
-import { IMetarObject, IFlightRule } from "./Metar/IMetar";
+import { IMetarObject, IAirportObject } from "./Metar/IMetar";
 
 import Cloud from "./Metar/Cloud";
 import Sun from "./Metar/Sun";
@@ -33,22 +33,12 @@ import { airportDBKey } from "./Metar/config/config";
 function Metar() {
   const [responseError, setResponse] = useState(false);
   const [metar, setMetar] = useState<any>({}); //! make interface
-  // const [flightRule, setFlightRule] = useState({} as IFlightRule);
   const [disabled, setDisabled] = useState(true);
   const [showTable, setShowTable] = useState(false);
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [airportDB, setAirportData] = useState<any>();
-  const [metarObject, setMetarObject] = useState({
-    icao: "",
-    time: { local: "", utc: "" },
-    flightRule: {} as IFlightRule,
-    tempUnit: "°C",
-    nosig: false,
-    userLocation: "",
-    visibility: { meters: 0, miles: 0 },
-    CAVOK: false,
-  } as IMetarObject);
+  const [airportObject, setAirportObject] = useState({} as IAirportObject);
+  const [metarObject, setMetarObject] = useState({ icao: "" } as IMetarObject);
 
   function tempUnitToggle(unit: string) {
     // ! add return
@@ -85,8 +75,7 @@ function Metar() {
     setAlertIcao(false);
   }
 
-  async function searchMetar(e: any) {
-    //! remove any
+  async function searchMetar(e: React.SyntheticEvent) {
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
@@ -127,13 +116,16 @@ function Metar() {
         `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
       );
       const airportDBData = await airportDBresponse.json();
-      setAirportData(airportDBData);
+      setAirportObject({
+        frequencies: airportDBData.freqs,
+        runways: airportDBData.runways,
+      });
       setIsLoading(false);
     }
   }
 
   useEffect(() => {
-    if (metar !== undefined) {
+    if (metar !== undefined && metarObject.visibility !== undefined) {
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
         parseInt(metar.cldBas1)
@@ -141,10 +133,13 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
       // console.log("fetched Metar", metar);
       // console.log("obj", metarObject);
-      // console.log("airportDB", airportDB.freqs);
       if (metar.rawOb !== undefined) console.log(tempoGusts(metar.rawOb));
     }
   }, [metar]);
+
+  useEffect(() => {
+    console.log("airportDB rwy", airportObject);
+  }, [airportObject]);
 
   return (
     <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -429,7 +424,9 @@ function Metar() {
         </Box>
       </Grid>
       <Grid item xs={4} sm={8} md={3}>
-        {airportDB && <Aerodrome props={airportDB.freqs} />}
+        {airportObject.frequencies && (
+          <Aerodrome props={airportObject.frequencies} />
+        )}
       </Grid>
     </Grid>
   );
