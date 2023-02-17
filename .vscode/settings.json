@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/cc3ec92a-6a3f-4226-99cd-2ab87dcf9075/appservices/subscriptions/cc3ec92a-6a3f-4226-99cd-2ab87dcf9075/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/MetarApp",
+  "appService.deploySubpath": "."
+}
