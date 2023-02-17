@@ -1,6 +1,8 @@
 node_modules
 config
 dist/
+.vscode/
+.vscode/settings.json
 
 client/src/components/Metar/config/
 client/build/
