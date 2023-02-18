@@ -38,7 +38,10 @@ function Metar() {
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [airportObject, setAirportObject] = useState({} as IAirportObject);
-  const [metarObject, setMetarObject] = useState({ icao: "" } as IMetarObject);
+  const [metarObject, setMetarObject] = useState({
+    icao: "",
+    tempUnit: "°C",
+  } as IMetarObject);
 
   function tempUnitToggle(unit: string) {
     // ! add return
@@ -133,13 +136,14 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
       // console.log("fetched Metar", metar);
       // console.log("obj", metarObject);
-      if (metar.rawOb !== undefined) console.log(tempoGusts(metar.rawOb));
+      if (metar.rawOb !== undefined)
+        console.log("tempo Gusts Warning", tempoGusts(metar.rawOb));
     }
   }, [metar]);
 
-  useEffect(() => {
-    console.log("airportDB rwy", airportObject);
-  }, [airportObject]);
+  // useEffect(() => {
+  //   console.log("airportDB rwy", airportObject);
+  // }, [airportObject]);
 
   return (
     <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>

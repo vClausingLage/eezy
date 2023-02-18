@@ -7,7 +7,7 @@ function Wind(props: IWind) {
   const [runwayDir, setRunwayDir] = useState(0);
 
   useEffect(() => {
-    setRunwayDir(parseInt(props.runways[0].he_ident.slice(0, 2)));
+    setRunwayDir((parseInt(props.runways[0].he_ident.slice(0, 2)) - 90) * 100); // ! change SVG
   }, []);
 
   const arrow180 = (
@@ -84,7 +84,7 @@ function Wind(props: IWind) {
   );
 
   function setRunwayDirection(input: string) {
-    let degrees = parseInt(input.slice(0, 2));
+    let degrees = parseInt(input.slice(0, 2)) * 10 - 90; // ! change SVG
     setRunwayDir(degrees);
   }
   const opacityNorth =
@@ -109,7 +109,14 @@ function Wind(props: IWind) {
         <circle cx="83" cy="200" r="5" fill="#182849" />
         <circle cx="318" cy="200" r="5" fill="#182849" />
         <circle cx="200" cy="317" r="5" fill="#182849" />
-        <circle cx="200" cy="97" r="20" fill="#182849" id="north" />
+        <circle
+          cx="200"
+          cy="97"
+          r="20"
+          fill="#182849"
+          id="north"
+          opacity={opacityNorth}
+        />
         <text fill="white" fontFamily="Jost" fontSize="24">
           <tspan x="191.042" y="105.334">
             N
