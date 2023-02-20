@@ -33,3 +33,9 @@ The API can convert Raw Metar String input to an output in JSON format. Addition
 ## Issues Beta API
 
 1. Temp and Dewpoint in °C with **one decimal** ("10" => 1.0°C)
+
+# Mobile App
+
+## Install
+
+`npm install && npm run start`
