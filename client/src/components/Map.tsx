@@ -1,4 +1,6 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 import { calcLatLong } from "./helper/distance-lat-long-calc";
 

@@ -7,9 +7,9 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { convertDate } from "./Metar/metar-ui-helper";
+import { convertDate, getFlightRules } from "./Metar/metar-ui-helper";
 import { IAirportObject, IMetarObject } from "./Metar/IMetar";
 
 export default function App() {

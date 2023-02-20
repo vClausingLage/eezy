@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
-import { Box, Typography, TextField, IconButton } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
 import Search from "@mui/icons-material/Search";
 
 import { prepareMetar, maptoMetarObj } from "./metar-regex";

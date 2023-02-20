@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { Box, Grid, Typography, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+
 import { IWind } from "./IMetar";
 
 function Wind(props: IWind) {

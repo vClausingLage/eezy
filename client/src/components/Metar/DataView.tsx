@@ -1,4 +1,6 @@
-import { Box, Typography, Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 type DataProps = {
   data: { description: string; value: number | string }[];
