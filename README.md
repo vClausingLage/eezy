@@ -18,12 +18,14 @@ The App uses the [**AWC API**](https://www.aviationweather.gov/dataserver) _beta
 
 # API
 
+**not yet implemented**
+
 The API can convert Raw Metar String input to an output in JSON format. Additionally it provides some default layout suggestions for simplyfied further use in an app.
 
 ## Installation
 
 - `cd client && npm install`
-- `cd .. && cd server && npm install`
+- `cd .. && npm install`
 - `npm run dev`
 
 ## To Do
