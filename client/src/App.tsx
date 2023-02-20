@@ -5,7 +5,9 @@ import Metar from "./components/Metar";
 import Aircraft from "./components/NewAircraft";
 import Map from "./components/Map";
 
-import { createTheme, ThemeProvider, Grid, Box } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import Box from "@mui/material/Box";
+import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";
