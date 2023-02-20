@@ -1,5 +1,5 @@
 import Tooltip from "@mui/material/Tooltip";
-import { Zoom } from "@mui/material";
+import Zoom from "@mui/material/Zoom";
 
 type Props = {
   date: string;

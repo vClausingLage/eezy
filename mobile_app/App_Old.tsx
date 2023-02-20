@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useState } from "react";
 
-/* import { checkMetarIntegr } from './helpers/metar-regex'; */
 import {
   prepareMetar,
   reduceTempo,

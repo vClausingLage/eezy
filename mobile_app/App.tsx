@@ -9,8 +9,16 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 
-import { convertDate, getFlightRules } from "./Metar/metar-ui-helper";
+import { ActivityIndicator } from "react-native";
+
+import {
+  convertDate,
+  getFlightRules,
+  tempoGusts,
+} from "./Metar/metar-ui-helper";
 import { IAirportObject, IMetarObject } from "./Metar/IMetar";
+
+import { airportDBKey } from "./Metar/config/config";
 
 export default function App() {
   const [responseError, setResponse] = useState(false);
@@ -35,7 +43,7 @@ export default function App() {
   }
 
   const loading = (
-    <Box
+    <div
       style={{
         position: "fixed",
         top: "50%",
@@ -43,11 +51,11 @@ export default function App() {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <CircularProgress color="primary" />
-    </Box>
+      <ActivityIndicator color="#20788d" />
+    </div>
   );
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: any) {
     setMetarObject({
       ...metarObject,
       icao: event.target.value.toUpperCase(),
@@ -60,7 +68,7 @@ export default function App() {
     setAlertIcao(false);
   }
 
-  async function searchMetar(e: React.SyntheticEvent) {
+  async function searchMetar(e: any) {
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
@@ -128,13 +136,13 @@ export default function App() {
       <StatusBar />
       <TextInput
         style={styles.input}
-        onChangeText={() => console.log("moin")}
-        value={}
+        onChangeText={handleChange}
+        value={metarObject.icao}
         placeholder="Airport ICAO Code"
         keyboardType="default"
       />
       <Button
-        onPress={}
+        onPress={searchMetar}
         title="search"
         color="#841584"
         accessibilityLabel="button search ICAO Code"
