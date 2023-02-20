@@ -1,10 +1,10 @@
 import { Wind, Precipitation, Clouds } from './metar-classes'
 
-import * as weatherCodes from './weatherCodes.json' // assert {type: 'json'} //! BABEL PLUGIN
+import * as weatherCodes from './assets/weatherCodes.json'
 
 export function dateFormat(time: string) {
   let today = new Date();
-  let date = new Date(today.getFullYear(), today.getMonth(), parseInt(time.slice(0, 2)), parseInt(time.slice(2, 4)), parseInt(time.slice(4, 6)))
+  let date = new Date(Date.UTC(today.getFullYear(), today.getMonth(), parseInt(time.slice(0, 2)), parseInt(time.slice(2, 4)), parseInt(time.slice(4, 6))))
   return date
 }
 
@@ -13,7 +13,7 @@ export function windFormat(wind: string) {
   if (/^[0-9]{5}KT$/i.test(wind)) {
     output = {
       direction: parseInt(wind.slice(0, 3)),
-      speed: parseInt(wind.slice(3, 4)),
+      speed: parseInt(wind.slice(3, 5)),
       unit: 'kts'
     }
   }
@@ -28,29 +28,34 @@ export function windFormat(wind: string) {
   return output
 }
 
-export function windVarFormat(windVar: string) {
-  let output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))]
+export function windFormatSpec(wind: string) {
+  let output = new Wind()
+  output = {
+    direction: 'more than 30',
+    speed: parseInt(wind.slice(3, 5)),
+    unit: 'kts'
+  }
   return output
 }
 
-export function visFormat(vis: string): string | number {
-  let output!: string | number
-  if (/^CAVOK$/.test(vis)) {
-    output = vis
-  }
-  if (/^\d{4}$/i.test(vis)) {
-    output = parseInt(vis)
-  }
+export function windVarFormat(windVar: string) {
+  let output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))]
   return output
 }
 
 export function precipPreposition(precip: string) {
   let formattedPrecip: string[] = []
   if (precip.length % 2 === 0) {
-    formattedPrecip = ['null', precip];
+    formattedPrecip = ['', precip];
   }
   else if (precip.length % 2 !== 0) {
-    formattedPrecip = [precip.slice(0, 1), precip.slice(1, precip.length)];
+    let preposition: string
+    if (precip.slice(0, 1) === '-') {
+      preposition = 'light'
+    } else if (precip.slice(0, 1) === '+') {
+      preposition = 'heavy'
+    }
+    formattedPrecip = [preposition!, precip.slice(1, precip.length)];
   }
   return formattedPrecip;
 }
@@ -60,11 +65,11 @@ export function decodeWeather(precip: string[]) {
   // load JSON weather codes to [VAR]
   let codes = weatherCodes
   let codeArr: Array<Array<string>> = []
-  // for (const [k, v] of Object.entries(codes.default)) {
-  //   for (const [code, descr] of Object.entries(v)) {
-  //     codeArr.push([code, descr])
-  //   }
-  // }
+  for (const [k, v] of Object.entries(codes)) {
+    for (const [code, descr] of Object.entries(v)) {
+      codeArr.push([code, descr])
+    }
+  }
   // use VAR to LOOP METAR input
   let result: string[] = []
   if (precip[1].length >= 2) {
@@ -87,6 +92,7 @@ export function decodeWeather(precip: string[]) {
 }
 
 export function precipFormat(precip: string) {
+  precip = precip.replaceAll(' ', '')
   let output = new Precipitation();
   let newPrecip = precipPreposition(precip);
   let weatherCode = decodeWeather(newPrecip);
@@ -97,13 +103,34 @@ export function precipFormat(precip: string) {
 
 export function cloudFormat(clouds: string) {
   let output = new Clouds()
-  let cloudLayer = clouds.slice(0, 3)
-  let cloudBase = clouds.slice(3, 6)
-  if (clouds.length >= 6) {
-    let cloud = clouds.slice(6, 9)
-    output['cloud'] = cloud
+  if (clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK') {
+    let cloudLayer = clouds.slice(0, 3)
+    let cloudBase = clouds.slice(3, 6)
+    if (clouds.length >= 6) {
+      let cloud = clouds.slice(6, 9)
+      output['cloud'] = cloud
+    }
+    output['cloudLayer'] = cloudLayer
+    output['cloudBase'] = parseInt(cloudBase)
+  } else if (clouds === 'NCD' || clouds === 'CLR') {
+    output['cloudLayer'] = clouds
+    output['cloudBase'] = undefined
   }
-  output['cloudLayer'] = cloudLayer
-  output['cloudBase'] = parseInt(cloudBase)
+  return output
+}
+
+export function tempFormat(temperature: string) {
+  let output: number[] = []
+  let tempArr = temperature.split('/')
+  tempArr.forEach(el => {
+    if (el === 'M00') {
+      output.push(0)
+    } else if (el[0] === 'M') {
+      el = el.replace('M', '-')
+      output.push(Number(el))
+    } else {
+      output.push(Number(el))
+    }
+  })
   return output
 }
