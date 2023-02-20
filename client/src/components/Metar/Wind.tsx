@@ -46,6 +46,11 @@ function Wind(props: IWind) {
         <tspan x="9.71973" y="36.6523">
           {props.speed}kts
         </tspan>
+        {props.gusts && (
+          <tspan x="9.71973" y="55.6523" fill="red">
+            G {props.gusts}kts
+          </tspan>
+        )}
       </text>
     </g>
   );
@@ -76,15 +81,27 @@ function Wind(props: IWind) {
         <tspan x="9.71973" y="36.6523">
           {props.speed}kts
         </tspan>
+        {props.gusts && (
+          <tspan x="9.71973" y="55.6523" fill="red">
+            G {props.gusts}kts
+          </tspan>
+        )}
       </text>
     </g>
   );
 
   const compass = (
-    <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <svg
-        width="400"
-        height="400"
+        width="350"
+        height="350"
         viewBox="0 0 400 400"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -203,62 +220,6 @@ function Wind(props: IWind) {
             : arrow360}
         </g>
       </svg>
-      <Box
-        sx={{
-          textAlign: "right",
-          color: "white",
-          border: 1,
-          borderColor: "primary.main",
-          borderRadius: 2,
-          overflow: "hidden",
-          ml: 1,
-        }}
-      >
-        <Box
-          sx={{
-            backgroundColor: "primary.main",
-            opacity: "60%",
-            pl: 2,
-            pr: 2,
-            pt: 0.4,
-            pb: 0.4,
-          }}
-        >
-          <Typography sx={{ fontWeight: "bold" }}>
-            {props.direction}°
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            backgroundColor: "primary.main",
-            opacity: "60%",
-            pl: 2,
-            pr: 2,
-            pt: 0.4,
-            pb: 0.4,
-          }}
-        >
-          <Typography sx={{ fontWeight: "bold" }}>
-            {props.speed} {props.unit}
-          </Typography>
-        </Box>
-        {props.gusts && (
-          <Box
-            sx={{
-              backgroundColor: "warning.main",
-              opacity: "60%",
-              pl: 2,
-              pr: 2,
-              pt: 0.4,
-              pb: 0.4,
-            }}
-          >
-            <Typography sx={{ fontWeight: "bold" }}>
-              G {props.gusts} kts.
-            </Typography>
-          </Box>
-        )}
-      </Box>
     </Box>
   );
 
@@ -266,27 +227,7 @@ function Wind(props: IWind) {
     <>
       {typeof props.direction === "number" && props.direction > 0 && (
         <>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            {compass}
-            <Typography textAlign="center" color="primary.main" marginTop={-8}>
-              select Runway
-            </Typography>
-            <Grid container>
-              {props.runways.map((el, key) => {
-                return (
-                  <Grid item key={key}>
-                    <Button
-                      sx={{ m: 1 }}
-                      onClick={() => setRunwayDirection(el.he_ident)}
-                      variant="contained"
-                    >
-                      RWY {el.he_ident}/{el.le_ident}
-                    </Button>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>{compass}</Box>
         </>
       )}
       {props.direction === 0 && props.speed === 0 && (
@@ -323,6 +264,28 @@ function Wind(props: IWind) {
           </Typography>
         </Box>
       )}
+      <Typography textAlign="center" color="primary.main">
+        select Runway
+      </Typography>
+      <Grid
+        container
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        spacing={{ xs: 1, md: 1 }}
+        justifyContent="center"
+      >
+        {props.runways.map((el, key) => {
+          return (
+            <Grid item xs={2} sm={4} md={4} key={key}>
+              <Button
+                onClick={() => setRunwayDirection(el.he_ident)}
+                variant="contained"
+              >
+                RWY {el.he_ident}/{el.le_ident}
+              </Button>
+            </Grid>
+          );
+        })}
+      </Grid>
     </>
   );
 }

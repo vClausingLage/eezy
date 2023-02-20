@@ -147,7 +147,7 @@ function Metar() {
 
   return (
     <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Grid item xs={4} sm={8} md={9}>
+      <Grid item xs={4} sm={8} md={8}>
         <Box
           id="Metar text input ICAO"
           display="flex"
@@ -323,12 +323,12 @@ function Metar() {
 
                 <Grid
                   container
-                  spacing={4}
-                  direction="row"
+                  spacing={2}
+                  columns={{ xs: 4, sm: 8, md: 12 }}
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <Grid item>
+                  <Grid item xs={4} sm={4} md={6}>
                     {metar.cldCvg1 === "CAVOK" && (
                       <Sun date={metarObject.time.utc} />
                     )}
@@ -339,52 +339,48 @@ function Metar() {
                       <Sun date={metarObject.time.utc} />
                     )}
 
-                    {metar.cldBas1 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas1)}
-                        cloudLayer={metar.cldCvg1}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas2 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas2)}
-                        cloudLayer={metar.cldCvg2}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas3 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas3)}
-                        cloudLayer={metar.cldCvg3}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas4 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas4)}
-                        cloudLayer={metar.cldCvg4}
-                      ></Cloud>
-                    )}
-                  </Grid>
-                  <Grid item>
                     <Box
-                      id="Wind"
                       sx={{
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "center",
-                        mt: 1,
-                        mb: 1,
                       }}
                     >
-                      {metar.wdir && (
-                        <Wind
-                          direction={parseInt(metar.wdir)}
-                          speed={parseInt(metar.wspd)}
-                          unit="kts"
-                          gusts={metar.wgst}
-                          runways={airportObject.runways}
-                        />
+                      {metar.cldBas1 && (
+                        <Cloud
+                          cloudBase={parseInt(metar.cldBas1)}
+                          cloudLayer={metar.cldCvg1}
+                        ></Cloud>
+                      )}
+                      {metar.cldBas2 && (
+                        <Cloud
+                          cloudBase={parseInt(metar.cldBas2)}
+                          cloudLayer={metar.cldCvg2}
+                        ></Cloud>
+                      )}
+                      {metar.cldBas3 && (
+                        <Cloud
+                          cloudBase={parseInt(metar.cldBas3)}
+                          cloudLayer={metar.cldCvg3}
+                        ></Cloud>
+                      )}
+                      {metar.cldBas4 && (
+                        <Cloud
+                          cloudBase={parseInt(metar.cldBas4)}
+                          cloudLayer={metar.cldCvg4}
+                        ></Cloud>
                       )}
                     </Box>
+                  </Grid>
+                  <Grid item xs={4} sm={4} md={6}>
+                    {metar.wdir && (
+                      <Wind
+                        direction={parseInt(metar.wdir)}
+                        speed={parseInt(metar.wspd)}
+                        unit="kts"
+                        gusts={metar.wgst}
+                        runways={airportObject.runways}
+                      />
+                    )}
                   </Grid>
                 </Grid>
 
