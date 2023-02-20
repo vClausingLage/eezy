@@ -336,13 +336,13 @@ function Metar() {
                       }}
                     >
                       {metar.cldCvg1 === "CAVOK" && (
-                        <Sun date={metarObject.time.utc} />
+                        <Sun date={metarObject.time.local} />
                       )}
                       {metar.cldCvg1 === "NCD" && (
-                        <Sun date={metarObject.time.utc} />
+                        <Sun date={metarObject.time.local} />
                       )}
                       {metar.cldCvg1 === "CLR" && (
-                        <Sun date={metarObject.time.utc} />
+                        <Sun date={metarObject.time.local} />
                       )}
                     </Box>
 
