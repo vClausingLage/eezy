@@ -264,28 +264,34 @@ function Wind(props: IWind) {
           </Typography>
         </Box>
       )}
-      <Typography textAlign="center" color="primary.main">
-        select Runway
-      </Typography>
-      <Grid
-        container
-        columns={{ xs: 4, sm: 8, md: 12 }}
-        spacing={{ xs: 1, md: 1 }}
-        justifyContent="center"
-      >
-        {props.runways.map((el, key) => {
-          return (
-            <Grid item xs={2} sm={4} md={4} key={key}>
-              <Button
-                onClick={() => setRunwayDirection(el.he_ident)}
-                variant="contained"
-              >
-                RWY {el.he_ident}/{el.le_ident}
-              </Button>
+      {props.direction !== 0 &&
+        props.speed !== 0 &&
+        props.runways.length > 1 && (
+          <>
+            <Typography textAlign="center" color="primary.main">
+              select Runway
+            </Typography>
+            <Grid
+              container
+              columns={{ xs: 4, sm: 8, md: 12 }}
+              spacing={{ xs: 1, md: 1 }}
+              justifyContent="center"
+            >
+              {props.runways.map((el, key) => {
+                return (
+                  <Grid item xs={2} sm={4} md={4} key={key}>
+                    <Button
+                      onClick={() => setRunwayDirection(el.he_ident)}
+                      variant="contained"
+                    >
+                      RWY {el.he_ident}/{el.le_ident}
+                    </Button>
+                  </Grid>
+                );
+              })}
             </Grid>
-          );
-        })}
-      </Grid>
+          </>
+        )}
     </>
   );
 }

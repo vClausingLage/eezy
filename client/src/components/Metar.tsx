@@ -329,15 +329,22 @@ function Metar() {
                   alignItems="center"
                 >
                   <Grid item xs={4} sm={4} md={6}>
-                    {metar.cldCvg1 === "CAVOK" && (
-                      <Sun date={metarObject.time.utc} />
-                    )}
-                    {metar.cldCvg1 === "NCD" && (
-                      <Sun date={metarObject.time.utc} />
-                    )}
-                    {metar.cldCvg1 === "CLR" && (
-                      <Sun date={metarObject.time.utc} />
-                    )}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {metar.cldCvg1 === "CAVOK" && (
+                        <Sun date={metarObject.time.utc} />
+                      )}
+                      {metar.cldCvg1 === "NCD" && (
+                        <Sun date={metarObject.time.utc} />
+                      )}
+                      {metar.cldCvg1 === "CLR" && (
+                        <Sun date={metarObject.time.utc} />
+                      )}
+                    </Box>
 
                     <Box
                       sx={{
@@ -424,11 +431,12 @@ function Metar() {
             )}
         </Box>
       </Grid>
-      <Grid item xs={4} sm={8} md={3}>
-        {airportObject.frequencies && (
+
+      {airportObject.frequencies && (
+        <Grid item xs={4} sm={8} md={3}>
           <Aerodrome props={airportObject.frequencies} />
-        )}
-      </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 }
