@@ -5,10 +5,10 @@ import Metar from "./components/Metar";
 import Aircraft from "./components/NewAircraft";
 import Map from "./components/Map";
 
-import { ThemeProvider } from "@emotion/react";
-import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/";
 import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";
 
