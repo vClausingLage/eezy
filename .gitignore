@@ -1,5 +1,3 @@
-dist/
-
 client/src/components/Metar/config/
 client/node_modules/
 client/build/
@@ -7,3 +5,4 @@ client/build/
 mobile_app/node_modules/
 
 server/node_modules/
+server/dist/
