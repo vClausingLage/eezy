@@ -87,7 +87,7 @@ export function formatWeatherString(weatherString: string) {
     let tempoMetar: string[] = []
     metar.forEach((el, idx) => {
       let length = metar.length
-      if (/TEMPO/i.test(el)) {
+      if (/^TEMPO$/i.test(el)) {
         for (let i = idx; i < length; i++) {
           tempoMetar.push(metar[i]);
         }
