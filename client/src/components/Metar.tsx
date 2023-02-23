@@ -144,8 +144,13 @@ function Metar() {
   // }, [airportObject]);
 
   return (
-    <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Grid item xs={4} sm={8} md={8}>
+    <Grid
+      container
+      columns={{ xs: 4, sm: 8, md: 12 }}
+      maxWidth="1400px"
+      margin="auto"
+    >
+      <Grid item xs={4} sm={8} md={8} marginRight="1rem">
         <Box
           id="Metar text input ICAO"
           display="flex"
@@ -430,8 +435,8 @@ function Metar() {
         </Box>
       </Grid>
 
-      {airportObject.frequencies && (
-        <Grid item xs={4} sm={8} md={3}>
+      {airportObject.frequencies && !isLoading && (
+        <Grid item xs={4} sm={8} md={3} marginLeft="1rem">
           <Aerodrome props={airportObject.frequencies} />
         </Grid>
       )}
