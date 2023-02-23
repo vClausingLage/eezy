@@ -353,6 +353,7 @@ function Metar() {
                       sx={{
                         display: "flex",
                         justifyContent: "center",
+                        flexFlow: "row",
                       }}
                     >
                       {metar.cldBas1 && (
@@ -423,7 +424,6 @@ function Metar() {
                       display: "flex",
                       justifyContent: "center",
                       margin: "auto",
-                      maxWidth: "50%",
                       mt: 2,
                     }}
                   >
