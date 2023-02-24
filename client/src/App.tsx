@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { getDesignTokens } from "./components/CSS/theme";
 
-import RawMetar from "./components/Metar/RawMetar";
+import RawMetar from "./components/Metar/components/RawMetar";
 import AppFooter from "./AppFooter";
 
 // THEME https://mui.com/material-ui/customization/default-theme/

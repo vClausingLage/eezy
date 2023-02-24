@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import { IWind } from "./IMetar";
+import { IWind } from "../classes/IMetar";
 
 function Wind(props: IWind) {
   const [runwayDir, setRunwayDir] = useState(0);

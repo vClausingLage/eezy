@@ -1,5 +1,5 @@
-import { IFlightRule } from './IMetar';
-import { Metar } from './metar-classes';
+import { IFlightRule } from '../classes/IMetar';
+import { Metar } from '../classes/metar-classes';
 import { dateFormat, windFormat, windFormatSpec, windVarFormat, precipFormat, cloudFormat, tempFormat } from './metar-helper-functions';
 
 // PREPARE metar string

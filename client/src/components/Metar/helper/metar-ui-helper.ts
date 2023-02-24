@@ -1,4 +1,4 @@
-import weatherCodes from "./assets/weatherCodes.json";
+import weatherCodes from "../assets/weatherCodes.json";
 
 export function getFlightRules(visibility: string | number, cloudBaseInput: number) {
 

@@ -16,17 +16,17 @@ import {
   convertDate,
   // checkLocation,
   tempoGusts,
-} from "./Metar/metar-ui-helper";
-import { IMetarObject, IAirportObject } from "./Metar/IMetar";
+} from "./helper/metar-ui-helper";
+import { IMetarObject, IAirportObject } from "./classes/IMetar";
 
-import Cloud from "./Metar/Cloud";
-import Sun from "./Metar/Sun";
-import Wind from "./Metar/Wind";
-import DataView from "./Metar/DataView";
-import Aerodrome from "./Aerodrome/Aerodrome";
-import FlightRuleTable from "./Metar/FlightRuleTable";
+import Cloud from "./components/Cloud";
+import Sun from "./components/Sun";
+import Wind from "./components/Wind";
+import DataView from "./components/DataView";
+import Aerodrome from "./components/Aerodrome";
+import FlightRuleTable from "./components/FlightRuleTable";
 
-import { airportDBKey } from "./Metar/config/config";
+import { airportDBKey } from "./config/config";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);

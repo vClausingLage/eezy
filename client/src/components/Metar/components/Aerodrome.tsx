@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CellTowerIcon from "@mui/icons-material/CellTower";
 
-import { IFreq } from "../Metar/IMetar";
+import { IFreq } from "../classes/IMetar";
 
 type Props = {
   props: IFreq[];

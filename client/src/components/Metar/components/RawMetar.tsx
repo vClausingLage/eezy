@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import Search from "@mui/icons-material/Search";
 
-import { prepareMetar, maptoMetarObj } from "./metar-regex";
+import { prepareMetar, maptoMetarObj } from "../helper/metar-regex";
 
 function RawMetar() {
   const [metarObject, setMetarObject] = useState({});
