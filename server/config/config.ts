@@ -6,3 +6,5 @@ export const config = {
       database: "eezy",
   },
 };
+
+export const mongoDBUri = 'mongodb+srv://metarApp:ZUEw0d0R8G7DyibX@aircraft.iyokwhd.mongodb.net/?retryWrites=true&w=majority'
