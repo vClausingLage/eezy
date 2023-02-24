@@ -43,14 +43,14 @@ function Wind(props: IWind) {
         fontFamily="Roboto"
         fontSize="18"
       >
-        <tspan x="13" y="13">
+        <tspan x="13" y="13" fontWeight="bold">
           {props.direction}°
         </tspan>
-        <tspan x="9" y="40">
+        <tspan x="9" y="40" fontWeight="bold">
           {props.speed}kts
         </tspan>
         {props.gusts && (
-          <tspan x="-3" y="60" fill="red">
+          <tspan x="-2" y="60" fill="red" fontWeight="bold">
             G {props.gusts}kts
           </tspan>
         )}
