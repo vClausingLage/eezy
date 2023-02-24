@@ -344,46 +344,39 @@ function Metar() {
                     )}
                   </Box>
 
-                  <Grid
-                    id="CloudGrid"
-                    container
-                    // justifyContent="center"
-                    alignItems="center"
-                    columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
+                  <Box
+                    id="Clouds"
+                    sx={{
+                      display: "flex",
+                      flexFlow: "row wrap",
+                      justifyContent: "center",
+                    }}
                   >
                     {metar.cldBas1 && (
-                      <Grid item xs={4} sm={4} md={6}>
-                        <Cloud
-                          cloudBase={parseInt(metar.cldBas1)}
-                          cloudLayer={metar.cldCvg1}
-                        ></Cloud>
-                      </Grid>
+                      <Cloud
+                        cloudBase={parseInt(metar.cldBas1)}
+                        cloudLayer={metar.cldCvg1}
+                      ></Cloud>
                     )}
                     {metar.cldBas2 && (
-                      <Grid item xs={4} sm={4} md={6}>
-                        <Cloud
-                          cloudBase={parseInt(metar.cldBas2)}
-                          cloudLayer={metar.cldCvg2}
-                        ></Cloud>
-                      </Grid>
+                      <Cloud
+                        cloudBase={parseInt(metar.cldBas2)}
+                        cloudLayer={metar.cldCvg2}
+                      ></Cloud>
                     )}
                     {metar.cldBas3 && (
-                      <Grid item xs={4} sm={4} md={6}>
-                        <Cloud
-                          cloudBase={parseInt(metar.cldBas3)}
-                          cloudLayer={metar.cldCvg3}
-                        ></Cloud>
-                      </Grid>
+                      <Cloud
+                        cloudBase={parseInt(metar.cldBas3)}
+                        cloudLayer={metar.cldCvg3}
+                      ></Cloud>
                     )}
                     {metar.cldBas4 && (
-                      <Grid item xs={4} sm={4} md={6}>
-                        <Cloud
-                          cloudBase={parseInt(metar.cldBas4)}
-                          cloudLayer={metar.cldCvg4}
-                        ></Cloud>
-                      </Grid>
+                      <Cloud
+                        cloudBase={parseInt(metar.cldBas4)}
+                        cloudLayer={metar.cldCvg4}
+                      ></Cloud>
                     )}
-                  </Grid>
+                  </Box>
                 </Grid>
                 <Grid item xs={4} sm={4} md={6}>
                   {metar.wdir && (
