@@ -5,6 +5,7 @@ export const awc_router = Router()
 awc_router.get('/:metarID', async (req: Request, res: Response) => {
   const icao = req.params.metarID
 
+try {
   const fetchMetar = await fetch(
     `https://beta.aviationweather.gov/cgi-bin/data/metar.php?ids=$${icao}&format=json`, 
     {
@@ -17,6 +18,11 @@ awc_router.get('/:metarID', async (req: Request, res: Response) => {
   const data = await fetchMetar.json();
   if (fetchMetar.status === 200 && data.length > 0) res.send(data[0])
   else res.send({message: 'error'})
+} catch (error) {
+  console.log(error)
+}
+
+  
 })
 
 awc_router.get('/raw/:metarID', async (req: Request, res: Response) => {
