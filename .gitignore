@@ -8,3 +8,4 @@ server/node_modules/
 server/dist/
 
 .vscode/
+server/config/
