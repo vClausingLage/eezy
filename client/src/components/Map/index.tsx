@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-import { calcLatLong } from "./helper/distance-lat-long-calc";
+import { calcLatLong } from "../helper/distance-lat-long-calc";
 
 import placeholderMap from "./Map/placeholderMap.jpg";
 
