@@ -96,6 +96,8 @@ export function formatWeatherString(weatherString: string) {
         }
       }
     })
+    // console.log(tempoMetar)
+    // console.log(metar)
     tempoMetar.forEach(el => {
       let output: string[] | null = []
       if (/^\d{5}G\d{1,2}KT$/ig.test(el)) {
