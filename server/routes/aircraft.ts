@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
 
-import { queryAircrafts } from '../services/controllers.js'
-import { Aircraft } from '../services/models.js'
+import { queryAircraft } from '../services/controllers.js'
+import { aircraft } from '../services/models.js'
 
 export const ac_router = Router();
 
-ac_router.get('/aircraft', queryAircrafts)
+ac_router.get('/aircraft', queryAircraft)
 // router.post('/create', create)
 
 

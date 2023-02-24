@@ -1,16 +1,23 @@
 import { Request, Response } from 'express'
-import { Aircraft } from './models.js'
+import { aircraft } from './models.js'
 
+export async function queryAircraft() {
 
-export async function queryAircrafts(req: Request, res: Response) {
-  const result = await Aircraft.findAll()
-  try {
-    res.send(result)
-
-  } catch {
-    console.error('error')
-  }
 }
+
+export async function createAircraft() {
+  
+}
+
+// export async function queryAircrafts(req: Request, res: Response) {
+//   const result = await Aircraft.findAll()
+//   try {
+//     res.send(result)
+
+//   } catch {
+//     console.error('error')
+//   }
+// }
 
 // const result = await Aircraft.findAll({ 
 //   where: {

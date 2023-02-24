@@ -19,7 +19,7 @@ app.use(
 );
 app.use(cors())
 
-// app.use("/aircraft", ac_router);
+app.use("/aircraft", ac_router);
 app.use('/api', awc_router)
 
 const __filename = fileURLToPath(import.meta.url);
