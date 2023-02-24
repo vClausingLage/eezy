@@ -38,20 +38,19 @@ function Wind(props: IWind) {
         fill="#C65F00"
       />
       <text
-        id="306&#194;&#176; 20kts"
-        transform="matrix(0 -1 1 0 180 64)"
+        transform="matrix(0 -1 1 0 180 65)"
         fill="#C65F00"
         fontFamily="Roboto"
         fontSize="18"
       >
-        <tspan x="13.4463" y="15.6523">
+        <tspan x="13" y="13">
           {props.direction}°
         </tspan>
-        <tspan x="9.71973" y="36.6523">
+        <tspan x="9" y="40">
           {props.speed}kts
         </tspan>
         {props.gusts && (
-          <tspan x="9.71973" y="55.6523" fill="red">
+          <tspan x="-3" y="60" fill="red">
             G {props.gusts}kts
           </tspan>
         )}
