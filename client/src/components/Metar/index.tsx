@@ -144,302 +144,302 @@ function Metar() {
   // }, [airportObject]);
 
   return (
-    <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Grid item xs={4} sm={8} md={8}>
-        <Box
-          id="Metar text input ICAO"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography variant="h2">Metar</Typography>
-          <form onSubmit={searchMetar}>
-            <TextField //! error handling here => https://mui.com/material-ui/react-text-field/#validation
-              type="search"
-              label="enter ICAO Code"
-              value={metarObject.icao}
-              onChange={handleChange}
-              InputProps={{
-                endAdornment: (
-                  <IconButton
-                    id="searchButton"
-                    type="submit"
-                    onClick={searchMetar}
-                    disabled={disabled}
-                  >
-                    <Search />
-                  </IconButton>
-                ),
-              }}
-            ></TextField>
-          </form>
-        </Box>
-        {isLoading && loading}
-        {alertIcao && (
-          <Alert severity="error" sx={{ mt: 3 }}>
-            Please provide ICAO Code
-          </Alert>
-        )}
-        {responseError && (
-          <Alert severity="error" sx={{ mt: 3 }}>
-            No Data Received. <br />
-            Check if a correct ICAO Code was provided or try again a little
-            later.
-          </Alert>
-        )}
-        <Box
-          id="Metar Data"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          {!isLoading &&
-            metar.name &&
-            metar !== undefined && ( // ! move name to object
-              <>
-                <Typography variant="h3">
-                  {metar.name.split(",")[0].replace("/", " ")}
-                </Typography>
-                <Typography
-                  style={{
-                    backgroundColor: metarObject.flightRule?.colorCode,
-                    color: "white",
-                    textAlign: "center",
-                    paddingTop: ".7rem",
-                    paddingBottom: ".7rem",
-                    paddingLeft: "4rem",
-                    paddingRight: "4rem",
-                  }}
+    <Box>
+      <Box
+        id="Metar text input ICAO"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h2">Metar</Typography>
+        <form onSubmit={searchMetar}>
+          <TextField //! error handling here => https://mui.com/material-ui/react-text-field/#validation
+            type="search"
+            label="enter ICAO Code"
+            value={metarObject.icao}
+            onChange={handleChange}
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  id="searchButton"
+                  type="submit"
+                  onClick={searchMetar}
+                  disabled={disabled}
                 >
-                  {metarObject.flightRule?.flightRule}
-                </Typography>
+                  <Search />
+                </IconButton>
+              ),
+            }}
+          ></TextField>
+        </form>
+      </Box>
+      {isLoading && loading}
+      {alertIcao && (
+        <Alert severity="error" sx={{ mt: 3 }}>
+          Please provide ICAO Code
+        </Alert>
+      )}
+      {responseError && (
+        <Alert severity="error" sx={{ mt: 3 }}>
+          No Data Received. <br />
+          Check if a correct ICAO Code was provided or try again a little later.
+        </Alert>
+      )}
+      <Box
+        id="MetarData"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {!isLoading &&
+          metar.name &&
+          metar !== undefined && ( // ! move name to object
+            <>
+              <Typography variant="h3">
+                {metar.name.split(",")[0].replace("/", " ")}
+              </Typography>
+              <Typography
+                style={{
+                  backgroundColor: metarObject.flightRule?.colorCode,
+                  color: "white",
+                  textAlign: "center",
+                  paddingTop: ".7rem",
+                  paddingBottom: ".7rem",
+                  paddingLeft: "4rem",
+                  paddingRight: "4rem",
+                }}
+              >
+                {metarObject.flightRule?.flightRule}
+              </Typography>
 
-                <Box
-                  id="Weather_Data"
-                  sx={{
-                    display: "flex",
-                    flexFlow: "row wrap",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "1rem",
-                  }}
-                >
-                  {metar.slp !== null && metar.altim === null && (
-                    <DataView
-                      data={[
-                        {
-                          description: "SLP",
-                          value: Math.round(metar.slp / 10),
-                        },
-                      ]}
-                      unit={"hPa"}
-                    ></DataView>
-                  )}
-                  {metar.altim !== null && metar.slp === null && (
-                    <DataView
-                      data={[
-                        {
-                          description: "QNH",
-                          value: Math.round(metar.altim / 10),
-                        },
-                      ]}
-                      unit={"hPa"}
-                    ></DataView>
-                  )}
-                  {metar.slp !== null && metar.altim !== null && (
-                    <DataView
-                      data={[
-                        {
-                          description: "QNH",
-                          value: Math.round(metar.altim / 10),
-                        },
-                        {
-                          description: "SLP",
-                          value: Math.round(metar.slp / 10),
-                        },
-                      ]}
-                      unit={"hPa"}
-                    ></DataView>
-                  )}
+              <Box
+                id="WeatherData"
+                sx={{
+                  display: "flex",
+                  flexFlow: "row wrap",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "1rem",
+                }}
+              >
+                {metar.slp !== null && metar.altim === null && (
                   <DataView
                     data={[
                       {
-                        description: "Visibility",
-                        value: metarObject.visibility.meters,
+                        description: "SLP",
+                        value: Math.round(metar.slp / 10),
                       },
                     ]}
-                    unit={"m"}
+                    unit={"hPa"}
                   ></DataView>
-                  {metar.wxString && (
+                )}
+                {metar.altim !== null && metar.slp === null && (
+                  <DataView
+                    data={[
+                      {
+                        description: "QNH",
+                        value: Math.round(metar.altim / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
+                  ></DataView>
+                )}
+                {metar.slp !== null && metar.altim !== null && (
+                  <DataView
+                    data={[
+                      {
+                        description: "QNH",
+                        value: Math.round(metar.altim / 10),
+                      },
+                      {
+                        description: "SLP",
+                        value: Math.round(metar.slp / 10),
+                      },
+                    ]}
+                    unit={"hPa"}
+                  ></DataView>
+                )}
+                <DataView
+                  data={[
+                    {
+                      description: "Visibility",
+                      value: metarObject.visibility.meters,
+                    },
+                  ]}
+                  unit={"m"}
+                ></DataView>
+                {metar.wxString && (
+                  <DataView
+                    data={[
+                      {
+                        description: "Precipitation",
+                        value: formatWeatherString(metar.wxString),
+                      },
+                    ]}
+                  ></DataView>
+                )}
+                {metarObject.tempUnit === "°C" ? (
+                  <>
                     <DataView
                       data={[
                         {
-                          description: "Precipitation",
-                          value: formatWeatherString(metar.wxString),
+                          description: "Temperature",
+                          value: Math.round(metar.temp / 10),
+                        },
+                        {
+                          description: "Dewpoint",
+                          value: Math.round(metar.dewp / 10),
                         },
                       ]}
+                      unit={metarObject.tempUnit}
+                      tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
                     ></DataView>
-                  )}
-                  {metarObject.tempUnit === "°C" ? (
-                    <>
-                      <DataView
-                        data={[
-                          {
-                            description: "Temperature",
-                            value: Math.round(metar.temp / 10),
-                          },
-                          {
-                            description: "Dewpoint",
-                            value: Math.round(metar.dewp / 10),
-                          },
-                        ]}
-                        unit={metarObject.tempUnit}
-                        tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
-                      ></DataView>
-                    </>
-                  ) : (
-                    <>
-                      <DataView
-                        data={[
-                          {
-                            description: "Temperature",
-                            value: Math.round(((metar.temp / 10) * 9) / 5 + 32),
-                          },
-                          {
-                            description: "Dewpoint",
-                            value: Math.round(((metar.dewp / 10) * 9) / 5 + 32),
-                          },
-                        ]}
-                        unit={metarObject.tempUnit}
-                        tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
-                      ></DataView>
-                    </>
-                  )}
-                </Box>
+                  </>
+                ) : (
+                  <>
+                    <DataView
+                      data={[
+                        {
+                          description: "Temperature",
+                          value: Math.round(((metar.temp / 10) * 9) / 5 + 32),
+                        },
+                        {
+                          description: "Dewpoint",
+                          value: Math.round(((metar.dewp / 10) * 9) / 5 + 32),
+                        },
+                      ]}
+                      unit={metarObject.tempUnit}
+                      tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
+                    ></DataView>
+                  </>
+                )}
+              </Box>
 
-                <Grid
-                  id="Grid_CAVOK_Clouds_Wind"
-                  container
-                  spacing={2}
-                  columns={{ xs: 4, sm: 8, md: 12 }}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Grid item xs={4} sm={4} md={6}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {metar.cldCvg1 === "CAVOK" && (
-                        <Sun date={metarObject.time.local} />
-                      )}
-                      {metar.cldCvg1 === "NCD" && (
-                        <Sun date={metarObject.time.local} />
-                      )}
-                      {metar.cldCvg1 === "CLR" && (
-                        <Sun date={metarObject.time.local} />
-                      )}
-                    </Box>
+              <Grid
+                id="Grid_CAVOK_Clouds_Wind"
+                container
+                spacing={2}
+                columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Grid item xs={4} sm={4} md={6}>
+                  <Box
+                    id="SunBox"
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {metar.cldCvg1 === "CAVOK" && (
+                      <Sun date={metarObject.time.local} />
+                    )}
+                    {metar.cldCvg1 === "NCD" && (
+                      <Sun date={metarObject.time.local} />
+                    )}
+                    {metar.cldCvg1 === "CLR" && (
+                      <Sun date={metarObject.time.local} />
+                    )}
+                  </Box>
 
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignContent: "center",
-                        // gridTemplateColumns: "repeat(2, 1fr)",
-                        // gridTemplateRows: "1fr 1fr",
-                        // placeItems: "center",
-                      }}
-                    >
-                      {metar.cldBas1 && (
+                  <Grid
+                    id="CloudGrid"
+                    container
+                    // justifyContent="center"
+                    alignItems="center"
+                    columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
+                  >
+                    {metar.cldBas1 && (
+                      <Grid item xs={4} sm={4} md={6}>
                         <Cloud
                           cloudBase={parseInt(metar.cldBas1)}
                           cloudLayer={metar.cldCvg1}
                         ></Cloud>
-                      )}
-                      {metar.cldBas2 && (
+                      </Grid>
+                    )}
+                    {metar.cldBas2 && (
+                      <Grid item xs={4} sm={4} md={6}>
                         <Cloud
                           cloudBase={parseInt(metar.cldBas2)}
                           cloudLayer={metar.cldCvg2}
                         ></Cloud>
-                      )}
-                      {metar.cldBas3 && (
+                      </Grid>
+                    )}
+                    {metar.cldBas3 && (
+                      <Grid item xs={4} sm={4} md={6}>
                         <Cloud
                           cloudBase={parseInt(metar.cldBas3)}
                           cloudLayer={metar.cldCvg3}
                         ></Cloud>
-                      )}
-                      {metar.cldBas4 && (
+                      </Grid>
+                    )}
+                    {metar.cldBas4 && (
+                      <Grid item xs={4} sm={4} md={6}>
                         <Cloud
                           cloudBase={parseInt(metar.cldBas4)}
                           cloudLayer={metar.cldCvg4}
                         ></Cloud>
-                      )}
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4} sm={4} md={6}>
-                    {metar.wdir && (
-                      <Wind
-                        direction={parseInt(metar.wdir)}
-                        speed={parseInt(metar.wspd)}
-                        unit="kts"
-                        gusts={metar.wgst}
-                        runways={airportObject.runways}
-                      />
+                      </Grid>
                     )}
                   </Grid>
                 </Grid>
-
-                <Alert severity="info">
-                  <Typography>
-                    Metar issued at {metarObject.time.local}h (local time)
-                  </Typography>
-                  {metarObject.nosig && (
-                    <Typography id="NOSIG" sx={{ mt: 1, mb: 1 }}>
-                      <span style={{ color: "red" }}>NO SIG</span>nificant
-                      changes expected
-                    </Typography>
+                <Grid item xs={4} sm={4} md={6}>
+                  {metar.wdir && (
+                    <Wind
+                      direction={parseInt(metar.wdir)}
+                      speed={parseInt(metar.wspd)}
+                      unit="kts"
+                      gusts={metar.wgst}
+                      runways={airportObject.runways}
+                    />
                   )}
-                </Alert>
+                </Grid>
+              </Grid>
 
-                <Typography id="Raw Metar" sx={{ mt: 1, mb: 1 }}>
-                  <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
-                  {metar.rawOb}
+              <Alert severity="info">
+                <Typography>
+                  Metar issued at {metarObject.time.local}h (local time)
                 </Typography>
-                <Button
-                  sx={{ mt: 10 }}
-                  onClick={() => setShowTable(!showTable)}
-                  variant="outlined"
-                >
-                  show flight rule table
-                </Button>
-                {showTable && (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      margin: "auto",
-                      maxWidth: "50%",
-                      mt: 2,
-                    }}
-                  >
-                    <FlightRuleTable />
-                  </Box>
+                {metarObject.nosig && (
+                  <Typography id="NOSIG" sx={{ mt: 1, mb: 1 }}>
+                    <span style={{ color: "red" }}>NO SIG</span>nificant changes
+                    expected
+                  </Typography>
                 )}
-              </>
-            )}
-        </Box>
-      </Grid>
+              </Alert>
 
-      {airportObject.frequencies && (
-        <Grid item xs={4} sm={8} md={3}>
-          <Aerodrome props={airportObject.frequencies} />
-        </Grid>
-      )}
-    </Grid>
+              <Typography id="RawMetar" sx={{ mt: 1, mb: 1 }}>
+                <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
+                {metar.rawOb}
+              </Typography>
+              {airportObject.frequencies && !isLoading && (
+                <Aerodrome props={airportObject.frequencies} />
+              )}
+              <Button
+                sx={{ mt: 10 }}
+                onClick={() => setShowTable(!showTable)}
+                variant="outlined"
+              >
+                show flight rule table
+              </Button>
+              {showTable && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "auto",
+                    mt: 2,
+                  }}
+                >
+                  <FlightRuleTable />
+                </Box>
+              )}
+            </>
+          )}
+      </Box>
+    </Box>
   );
 }
 

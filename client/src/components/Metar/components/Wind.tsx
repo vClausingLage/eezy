@@ -32,7 +32,7 @@ function Wind(props: IWind) {
         transform: `rotate(${props.direction}deg)`,
       }}
     >
-      <circle cx="200" cy="200" r="200" />
+      <circle cx="200" cy="200" r="200" stroke="#DCDCDC" strokeWidth="1px" />
       <path
         d="M198.939 73.0607C199.525 73.6464 200.475 73.6464 201.061 73.0607L210.607 63.5147C211.192 62.9289 211.192 61.9792 210.607 61.3934C210.021 60.8076 209.071 60.8076 208.485 61.3934L200 69.8787L191.515 61.3934C190.929 60.8076 189.979 60.8076 189.393 61.3934C188.808 61.9792 188.808 62.9289 189.393 63.5147L198.939 73.0607ZM198.5 0V72H201.5V0L198.5 0Z"
         fill="#C65F00"
@@ -98,7 +98,6 @@ function Wind(props: IWind) {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -111,7 +110,7 @@ function Wind(props: IWind) {
         xmlns="http://www.w3.org/2000/svg"
       >
         <g id="Compass">
-          <rect width="400" height="400" fill="white" fillOpacity="0.19" />
+          <rect width="400" height="400" fill="white" />
           <path
             id="Circle"
             d="M323 199.5C323 267.155 268.155 322 200.5 322C132.845 322 78 267.155 78 199.5C78 131.845 132.845 77 200.5 77C268.155 77 323 131.845 323 199.5Z"
@@ -227,50 +226,11 @@ function Wind(props: IWind) {
     </Box>
   );
 
-  return (
-    <>
-      {typeof props.direction === "number" && props.direction > 0 && (
-        <>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>{compass}</Box>
-        </>
-      )}
-      {props.direction === 0 && props.speed === 0 && (
-        <Box
-          sx={{
-            textAlign: "center",
-            border: 1,
-            borderColor: "primary.main",
-            borderRadius: 2,
-            mt: 2,
-            mb: 2,
-            overflow: "hidden",
-            padding: 2,
-          }}
-        >
-          <Typography>no wind</Typography>
-        </Box>
-      )}
-      {props.direction === 0 && props.speed > 0 && (
-        <Box
-          sx={{
-            textAlign: "center",
-            border: 1,
-            borderColor: "primary.main",
-            borderRadius: 2,
-            mt: 2,
-            mb: 2,
-            overflow: "hidden",
-            padding: 2,
-          }}
-        >
-          <Typography>
-            Winds from various directions (VRB) at {props.speed} {props.unit}
-          </Typography>
-        </Box>
-      )}
-      {props.direction !== 0 &&
-        props.speed !== 0 &&
-        props.runways.length > 1 && (
+  const compassWind = (
+    <Box>
+      {compass}
+      <Box>
+        {props.runways.length > 1 && (
           <>
             <Typography
               textAlign="center"
@@ -283,8 +243,9 @@ function Wind(props: IWind) {
             <Box
               sx={{
                 display: "flex",
+                flexFlow: "row wrap",
                 justifyContent: "center",
-                gap: "1rem",
+                gap: ".3rem",
               }}
             >
               {props.runways.map((el, key) => {
@@ -294,7 +255,9 @@ function Wind(props: IWind) {
                       onClick={() => setRunwayDirection(el.he_ident)}
                       variant="contained"
                     >
-                      RWY {el.he_ident}/{el.le_ident}
+                      <Typography fontSize="small">
+                        RWY {el.he_ident}/{el.le_ident}
+                      </Typography>
                     </Button>
                   </Box>
                 );
@@ -302,7 +265,54 @@ function Wind(props: IWind) {
             </Box>
           </>
         )}
-    </>
+      </Box>
+    </Box>
+  );
+
+  const noWind = (
+    <Box
+      sx={{
+        textAlign: "center",
+        border: 1,
+        borderColor: "primary.main",
+        borderRadius: 2,
+        mt: 2,
+        mb: 2,
+        overflow: "hidden",
+        padding: 2,
+      }}
+    >
+      <Typography>no wind</Typography>
+    </Box>
+  );
+
+  const varWind = (
+    <Box
+      sx={{
+        textAlign: "center",
+        border: 1,
+        borderColor: "primary.main",
+        borderRadius: 2,
+        mt: 2,
+        mb: 2,
+        overflow: "hidden",
+        padding: 2,
+      }}
+    >
+      <Typography>
+        Winds from various directions (VRB) at {props.speed} {props.unit}
+      </Typography>
+    </Box>
+  );
+
+  return (
+    <Box>
+      {typeof props.direction === "number" && props.direction > 0
+        ? compassWind
+        : props.direction === 0 && props.speed === 0
+        ? noWind
+        : varWind}
+    </Box>
   );
 }
 

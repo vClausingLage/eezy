@@ -74,8 +74,4 @@ function Cloud(props: Props) {
   );
 }
 
-// {typeof props.cloudBase === "number"
-//           ? String(props.cloudBase) + "00 ft AGL"
-//           : props.cloudLayer}
-
 export default Cloud;

@@ -13,11 +13,11 @@ function Aerodrome({ props }: Props) {
     <Box
       id="Aerodrome infromation"
       display="flex"
-      flexDirection="column"
+      flexDirection="row"
       justifyContent="center"
       alignItems="center"
+      gap="1rem"
     >
-      <Typography variant="h2">Airport</Typography>
       <CellTowerIcon fontSize="large" />
       {props.map((el, key) => {
         if (el.type === "GND")
