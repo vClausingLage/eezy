@@ -217,7 +217,7 @@ function Metar() {
                 </Typography>
 
                 <Box
-                  id="Weather Data"
+                  id="Weather_Data"
                   sx={{
                     display: "flex",
                     flexFlow: "row wrap",
@@ -320,6 +320,7 @@ function Metar() {
                 </Box>
 
                 <Grid
+                  id="Grid_CAVOK_Clouds_Wind"
                   container
                   spacing={2}
                   columns={{ xs: 4, sm: 8, md: 12 }}
@@ -347,7 +348,10 @@ function Metar() {
                     <Box
                       sx={{
                         display: "flex",
-                        justifyContent: "center",
+                        alignContent: "center",
+                        // gridTemplateColumns: "repeat(2, 1fr)",
+                        // gridTemplateRows: "1fr 1fr",
+                        // placeItems: "center",
                       }}
                     >
                       {metar.cldBas1 && (
