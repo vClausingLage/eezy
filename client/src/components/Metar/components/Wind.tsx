@@ -122,7 +122,7 @@ function Wind(props: IWind) {
           <circle id="South" cx="200" cy="317" r="5" fill="#182849" />
           <g id="North">
             <circle id="North_2" cx="200" cy="97" r="20" fill="#182849" />
-            <text id="N" fill="#D9D9D9" fontFamily="Jost" fontSize="24">
+            <text id="N" fill="#fff" fontFamily="Jost" fontSize="24">
               <tspan x="191.042" y="105.334">
                 N
               </tspan>
@@ -272,28 +272,34 @@ function Wind(props: IWind) {
         props.speed !== 0 &&
         props.runways.length > 1 && (
           <>
-            <Typography textAlign="center" color="primary.main">
+            <Typography
+              textAlign="center"
+              color="primary.main"
+              borderBottom="solid 1px"
+              marginBottom=".3rem"
+            >
               select Runway
             </Typography>
-            <Grid
-              container
-              columns={{ xs: 4, sm: 8, md: 12 }}
-              spacing={{ xs: 1, md: 1 }}
-              justifyContent="center"
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "1rem",
+              }}
             >
               {props.runways.map((el, key) => {
                 return (
-                  <Grid item xs={2} sm={4} md={4} key={key}>
+                  <Box key={key}>
                     <Button
                       onClick={() => setRunwayDirection(el.he_ident)}
                       variant="contained"
                     >
                       RWY {el.he_ident}/{el.le_ident}
                     </Button>
-                  </Grid>
+                  </Box>
                 );
               })}
-            </Grid>
+            </Box>
           </>
         )}
     </>
