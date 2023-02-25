@@ -1,0 +1,17 @@
+{
+  "manufacturer": "Cessna",
+  "model": "C152",
+  "registration_number": "DEIEB",
+  "fuel_type": "AVGAS",
+  "fuel_capacity": 1200,
+  "cruise_speed": 110,
+  "cruise_fuel_consumption": 30,
+  "magnetic_error": -1,
+  "color": "blue white",
+  "engines": 1,
+  "ps": 100,
+  "seats": 2,
+  "IFR": false,
+  "equiptment": "",
+  "characteristics": ""
+}

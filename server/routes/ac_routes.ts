@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
 
-import { createAircraft, queryAircraft } from '../services/controllers.js'
+import { createAircraft, queryAircraftManufacturer } from '../services/controllersMongoDB.js'
 import { aircraft } from '../services/models.js'
 
 export const ac_router = Router();
 
-ac_router.get('/', queryAircraft)
+ac_router.get('/man', queryAircraftManufacturer)
 ac_router.post('/', createAircraft)
 // router.post('/create', create)
 
