@@ -5,7 +5,7 @@ import { aircraft } from '../services/models.js'
 
 export const ac_router = Router();
 
-ac_router.get('/man', queryAircraftManufacturer)
+ac_router.get('/:man', queryAircraftManufacturer)
 ac_router.post('/', createAircraft)
 // router.post('/create', create)
 

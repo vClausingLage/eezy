@@ -5,9 +5,10 @@ import { aircraft } from './models.js'
 import { IAircraft } from '../interfaces/aircraft.js';
 
 export async function queryAircraftManufacturer(req: Request, res: Response) {
+  console.log(req.params)
   const Aircraft = mongoose.model<IAircraft>('Aircraft', aircraft);
   await mongoose.connect(mongoDBUriTest);
-  const result = await Aircraft.find({ manufacturer: 'Cessna' }).exec();
+  const result = await Aircraft.find({ manufacturer: "Cessna" }).exec();
   res.send(result)
 }
 
