@@ -7,7 +7,7 @@ import { IAircraft } from '../interfaces/aircraft.js'
 export const aircraft = new mongoose.Schema<IAircraft>({
   manufacturer: { type: 'string', required: true},
   model: { type: 'string', required: true},
-  registration_number: { type: 'number', required: true},
+  registration_number: { type: 'string', required: true},
   fuel_type: { type: 'string', required: true},
   fuel_capacity: { type: 'number', required: true},
   cruise_speed: { type: 'number', required: true},

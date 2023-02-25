@@ -1,7 +1,7 @@
 export interface IAircraft {
   manufacturer: string,
   model: string,
-  registration_number: number,
+  registration_number: string,
   fuel_type: string,
   fuel_capacity: number,
   cruise_speed: number,

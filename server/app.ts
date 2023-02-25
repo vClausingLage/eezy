@@ -4,7 +4,7 @@ import {fileURLToPath} from 'url';
 import dotenv from 'dotenv'
 import cors from 'cors'
 
-import { ac_router } from './routes/aircraft.js';
+import { ac_router } from './routes/ac_routes.js';
 import { awc_router } from './routes/awc_routes.js';
 
 const app = express();
