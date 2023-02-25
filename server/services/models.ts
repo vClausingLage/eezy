@@ -5,21 +5,21 @@ import { IAircraft } from '../interfaces/aircraft.js'
 // import { DataTypes } from "sequelize";
 
 export const aircraft = new mongoose.Schema<IAircraft>({
-  manufacturer: { type: 'string', required: true},
-  model: { type: 'string', required: true},
-  registration_number: { type: 'string', required: true},
-  fuel_type: { type: 'string', required: true},
-  fuel_capacity: { type: 'number', required: true},
-  cruise_speed: { type: 'number', required: true},
-  cruise_fuel_consumption: { type: 'number', required: true},
-  magnetic_error: { type: 'number', required: true},
-  color: { type: 'string', required: true},
-  engines: { type: 'number', required: false},
-  ps: { type: 'number', required: false},
-  seats: { type: 'number', required: false},
-  IFR: { type: 'boolean', required: false},
-  equiptment: { type: 'string', required: false},
-  characteristics: { type: 'string', required: false},
+  manufacturer: { type: String, required: true},
+  model: { type: String, required: true},
+  registration_number: { type: String, required: true},
+  fuel_type: { type: String, required: true},
+  fuel_capacity: { type: Number, required: true},
+  cruise_speed: { type: Number, required: true},
+  cruise_fuel_consumption: { type: Number, required: true},
+  magnetic_error: { type: Number, required: true},
+  color: { type: String, required: true},
+  engines: { type: Number, required: false},
+  ps: { type: Number, required: false},
+  seats: { type: Number, required: false},
+  IFR: { type: Boolean, required: false},
+  equiptment: { type: String, required: false},
+  characteristics: { type: String, required: false},
 })
 
 // export const Aircraft = sequelize.define('aircraft', {

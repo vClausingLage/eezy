@@ -12,10 +12,12 @@ export async function createAircraft(req: Request, res: Response) {
   const Aircraft = mongoose.model<IAircraft>('Aircraft', aircraft);
   run().catch(err => console.log(err));
   async function run() {
+    console.log(req.body)
   // 4. Connect to MongoDB
     await mongoose.connect(mongoDBUri);
-    const aircraft = new Aircraft<IAircraft>(
-      req.body)
+    console.log('connected')
+    const aircraft = new Aircraft<IAircraft>(req.body)
+    console.log(aircraft)
     // const aircraft = new Aircraft<IAircraft>({
     //   manufacturer: 'Cessna',
     //   model: 'C152',
