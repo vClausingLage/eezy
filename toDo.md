@@ -9,12 +9,7 @@
 
 ## METAR
 
-https://api.met.no/weatherapi/tafmetar/1.0/documentation#!/data/get_metar
 https://www.dwd.de/DE/fachnutzer/luftfahrt/teaser/luftsportberichte/fbeu40_node.html
-https://en.wikipedia.org/wiki/METAR
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
-
-EDHK 040750Z 22015KT 190V250 3700 RA BKN006 OVC011 08/08 Q1006=
 
 [1] ICAO
 [2] day + Zulu time
@@ -30,8 +25,6 @@ EDHK 040750Z 22015KT 190V250 3700 RA BKN006 OVC011 08/08 Q1006=
 
 ## Inhalt
 
-METAR / GAFOR API -> Email Benachrichtigung
-https://www.aviationweather.gov/dataserver
 !! GAFOR geschützt -> DFS !!
 DWD Flug Wetterberichte als Vorhersage
 
@@ -41,11 +34,6 @@ DWD Flug Wetterberichte als Vorhersage
 - Airports (lat long)
 - WARNING EXCEED FUEL CAPACITY
 - WARNING EDUCATIONAL PURPOSE ONLY
-
-# Node
-
-- TABLE FOR CUSTOM AIRCRAFT
-- LOGIN
 
 ## Server
 
