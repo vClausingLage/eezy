@@ -15,7 +15,7 @@ import {
   formatWeatherString,
   convertDate,
   // checkLocation,
-  tempoGusts,
+  tempoInformation,
 } from "./helper/metar-ui-helper";
 import { IMetarObject, IAirportObject } from "./classes/IMetar";
 
@@ -135,7 +135,7 @@ function Metar() {
       // console.log("fetched Metar", metar);
       // console.log("obj", metarObject);
       if (metar.rawOb !== undefined)
-        console.log("tempo Gusts Warning", tempoGusts(metar.rawOb));
+        console.log("tempo Gusts Warning", tempoInformation(metar.rawOb));
     }
   }, [metar]);
 

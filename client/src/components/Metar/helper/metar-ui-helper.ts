@@ -85,7 +85,7 @@ export function formatWeatherString(weatherString: string) {
     //! return Miles && Meters --> check in JSX
   }
 
-  export function tempoGusts(rawMetar: string) {
+  export function tempoInformation(rawMetar: string) {
     let metar = rawMetar.split(' ')
     let tempoMetar: string[] = []
     metar.forEach((el, idx) => {
@@ -99,16 +99,17 @@ export function formatWeatherString(weatherString: string) {
         }
       }
     })
-    // console.log(tempoMetar)
-    // console.log(metar)
-    tempoMetar.forEach(el => {
-      let output: string[] | null = []
-      if (/^\d{5}G\d{1,2}KT$/ig.test(el)) {
-          output = (el.match(/G\d{1,2}/ig))
-        return output
-      } else {
-        output.push('no gusts')
-        return output
-      }
-    })
+    let output = {gusts: [], precipitation: []} as {gusts: string[], precipitation: string[]}
+    console.log(tempoMetar)
+    console.log(metar)
+    if (tempoMetar.length > 0) {
+      tempoMetar.forEach(el => {
+        if (/^\d{5}G\d{1,2}KT$/ig.test(el)) {
+          console.log(output.gusts)
+          if (el.match(/G\d{1,2}/ig)?.length === 1) output.gusts.push(el.slice(6, 8))
+        }
+      })
+    }
+    if (/^\+?\D{2,6}$/ig.test(tempoMetar.join()) || /^-?\D{2,6}$/ig.test(tempoMetar.join())) output.precipitation.push(formatWeatherString(tempoMetar.join())) // ! working as exspected?
+    return output
   }
