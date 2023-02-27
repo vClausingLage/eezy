@@ -28,30 +28,7 @@ export interface IMetarObject {
   userLocation: string,
   visibility: {meters: number, miles: number};
   CAVOK: boolean;
-}
-
-export interface IMetar {
-  ICAO: string;
-  Date: Date;
-  QNH: number;
-  SLP: number;
-  CAVOK: boolean;
-  Temperature: number[];
-  Precipitation: IPrecipitation;
-  Visibility: string | number;
-  Cloud_Layer: IClouds[];
-  flightRule: IFlightRule,
-  Winds: IWind;
-  Wind_Variation: number[];
-  TAF_Prognosis: string;
-  NOSIG: boolean;
-  RawMetar: string;
-  PreparedMetar: string[];
-  RawMetarDone: string;
-  recent: string;
-  remarks: string[];
-  becoming: string[];
-  tempo: string[];
+  tempo: { gusts: string[], precipitation: string[] }
 }
 
 export interface IWind {

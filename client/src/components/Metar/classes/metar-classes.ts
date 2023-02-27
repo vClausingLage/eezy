@@ -1,23 +1,5 @@
 import { IFlightRule } from "./IMetar";
 
-export class Wind {
-    direction!: number | string;
-    speed!: number;
-    unit!: string;
-    gusts?: number;
-}
-
-export class Precipitation {
-    intensity!: string;
-    elements!: string[];
-}
-
-export class Clouds {
-    cloudLayer!: string;
-    cloudBase!: number | undefined;
-    cloud?: string;
-}
-
 export class Metar {
     ICAO!: string;
     Date!: Date;
@@ -40,4 +22,22 @@ export class Metar {
     remarks!: string[];
     becoming!: string[];
     tempo!: string[];
+}
+
+export class Wind {
+    direction!: number | string;
+    speed!: number;
+    unit!: string;
+    gusts?: number;
+}
+
+export class Precipitation {
+    intensity!: string;
+    elements!: string[];
+}
+
+export class Clouds {
+    cloudLayer!: string;
+    cloudBase!: number | undefined;
+    cloud?: string;
 }

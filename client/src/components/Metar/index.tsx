@@ -137,10 +137,6 @@ function Metar() {
     }
   }, [metar]);
 
-  // useEffect(() => {
-  //   console.log("airportDB rwy", airportObject);
-  // }, [airportObject]);
-
   return (
     <Box>
       <Box
