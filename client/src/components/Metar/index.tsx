@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -27,6 +26,9 @@ import Aerodrome from "./components/Aerodrome";
 import FlightRuleTable from "./components/FlightRuleTable";
 
 import { airportDBKey } from "./config/config";
+
+import "./CSS/index.css";
+import { tempFormat } from "./helper/metar-helper-functions";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
@@ -112,6 +114,7 @@ function Metar() {
           ? true
           : false,
         time: convertDate(data.obsTime + "000"),
+        tempoInformation: tempoInformation(data.rawOb),
       });
       const airportDBresponse = await fetch(
         `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
@@ -132,20 +135,13 @@ function Metar() {
         parseInt(metar.cldBas1)
       );
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
-      // console.log("fetched Metar", metar);
-      // console.log("obj", metarObject);
     }
+    console.log(metarObject.tempoInformation);
   }, [metar]);
 
   return (
     <Box>
-      <Box
-        id="Metar text input ICAO"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
+      <Box id="metar-text-input-ICAO">
         <Typography variant="h2">Metar</Typography>
         <form onSubmit={searchMetar}>
           <TextField //! error handling here => https://mui.com/material-ui/react-text-field/#validation
@@ -180,13 +176,7 @@ function Metar() {
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
       )}
-      <Box
-        id="MetarData"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
+      <Box id="metar-data">
         {!isLoading &&
           metar.name &&
           metar !== undefined && ( // ! move name to object
@@ -195,29 +185,15 @@ function Metar() {
                 {metar.name.split(",")[0].replace("/", " ")}
               </Typography>
               <Typography
+                id="type-flight-rule"
                 style={{
                   backgroundColor: metarObject.flightRule?.colorCode,
-                  color: "white",
-                  textAlign: "center",
-                  paddingTop: ".7rem",
-                  paddingBottom: ".7rem",
-                  paddingLeft: "4rem",
-                  paddingRight: "4rem",
                 }}
               >
                 {metarObject.flightRule?.flightRule}
               </Typography>
 
-              <Box
-                id="WeatherData"
-                sx={{
-                  display: "flex",
-                  flexFlow: "row wrap",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: "1rem",
-                }}
-              >
+              <Box id="weather-data">
                 {metar.slp !== null && metar.altim === null && (
                   <DataView
                     data={[
@@ -311,22 +287,9 @@ function Metar() {
                 )}
               </Box>
 
-              <Grid
-                id="Grid_CAVOK_Clouds_Wind"
-                container
-                spacing={2}
-                columns={{ xs: 4, sm: 8, md: 12, lg: 12 }}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Grid item xs={4} sm={4} md={6}>
-                  <Box
-                    id="SunBox"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
+              <Box id="grid_container_Clouds_Wind">
+                <Box>
+                  <Box id="sun-box">
                     {metar.cldCvg1 === "CAVOK" && (
                       <Sun date={metarObject.time.local} />
                     )}
@@ -338,14 +301,7 @@ function Metar() {
                     )}
                   </Box>
 
-                  <Box
-                    id="Clouds"
-                    sx={{
-                      display: "flex",
-                      flexFlow: "row wrap",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <Box id="cloud-box">
                     {metar.cldBas1 && (
                       <Cloud
                         cloudBase={parseInt(metar.cldBas1)}
@@ -371,8 +327,8 @@ function Metar() {
                       ></Cloud>
                     )}
                   </Box>
-                </Grid>
-                <Grid item xs={4} sm={4} md={6}>
+                </Box>
+                <Box>
                   {metar.wdir && (
                     <Wind
                       direction={parseInt(metar.wdir)}
@@ -382,8 +338,8 @@ function Metar() {
                       runways={airportObject.runways}
                     />
                   )}
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
 
               <Alert severity="info">
                 <Typography>

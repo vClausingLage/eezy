@@ -28,7 +28,7 @@ export interface IMetarObject {
   userLocation: string,
   visibility: {meters: number, miles: number};
   CAVOK: boolean;
-  tempo: { gusts: string[], precipitation: string[] }
+  tempoInformation: { gusts: string[], precipitation: string[] }
 }
 
 export interface IWind {
