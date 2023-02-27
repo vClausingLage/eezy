@@ -10,8 +10,8 @@
     "PR": "partial",
     "BL": "blowing",
     "FZ": "freezing",
-    "SH": "showers",
-    "TS": "thunderstorms"
+    "SH": "showers of",
+    "TS": "thunderstorms of"
   },
   "type": {
     "BR": "mist",

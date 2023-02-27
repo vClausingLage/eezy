@@ -53,6 +53,9 @@ export function formatWeatherString(weatherString: string) {
       }
     }
     for (let el of result) {
+      for (const [key, value] of Object.entries(weatherCodes.characteristic)) {
+        if (el[1] === key) output.push(el[0] + ' ' + value)
+      }
       for (const [key, value] of Object.entries(weatherCodes.type)) {
         if (el[1] === key) output.push(el[0] + " " + value);
       }
