@@ -134,8 +134,6 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
       // console.log("fetched Metar", metar);
       // console.log("obj", metarObject);
-      if (metar.rawOb !== undefined)
-        console.log("tempo Gusts Warning", tempoInformation(metar.rawOb));
     }
   }, [metar]);
 
