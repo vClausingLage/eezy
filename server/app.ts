@@ -3,6 +3,7 @@ import path from 'path'
 import {fileURLToPath} from 'url';
 import dotenv from 'dotenv'
 import cors from 'cors'
+import helmet from 'helmet'
 
 import { ac_router } from './routes/ac_routes.js';
 import { awc_router } from './routes/awc_routes.js';
@@ -18,6 +19,8 @@ app.use(
   })
 );
 app.use(cors())
+app.use(helmet())
+app.disable('x-powered-by')
 
 app.use("/aircraft", ac_router);
 app.use('/api', awc_router)
