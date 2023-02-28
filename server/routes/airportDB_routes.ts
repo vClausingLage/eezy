@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 
-import { airportUriDev } from "../config/dev.js"; //! change!
+import { airportUriDev } from "../config/dev.js"; //! change
 
 export const airportDB_router = Router();
 
