@@ -128,7 +128,6 @@ function Metar() {
         setResponse(true);
         setIsLoading(false);
       }
-
       setIsLoading(false);
     }
   }
@@ -141,7 +140,8 @@ function Metar() {
       );
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
-    console.log(metarObject.tempoInformation);
+    // console.log(metarObject.tempoInformation);
+    console.log(airportObject);
   }, [metar]);
 
   return (

@@ -7,7 +7,7 @@ interface Props {
 }
 
 function Cloud(props: Props) {
-  //! if CldCvg1 = OVX and CldBas1 = 0 => CLOUDBASW NJUMBer
+  //! if CldCvg1 = OVX and CldBas1 = 0 => CLOUDBASE NUMBER
 
   const cloudIcons = (cloudLayer: string) => {
     let cloudIconArray!: string[];
