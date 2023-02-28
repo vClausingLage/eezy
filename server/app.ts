@@ -19,7 +19,7 @@ app.use(
   })
 );
 app.use(cors());
-app.use(helmet());
+app.use(helmet()); //! https://stackoverflow.com/questions/68607669/react-app-served-with-express-and-helmet-cannot-make-api-requests
 app.disable("x-powered-by");
 
 app.use("/aircraft", ac_router);
