@@ -116,14 +116,21 @@ function Metar() {
         time: convertDate(data.obsTime + "000"),
         tempoInformation: tempoInformation(data.rawOb),
       });
-      const airportDBresponse = await fetch(
-        `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
-      );
-      const airportDBData = await airportDBresponse.json();
-      setAirportObject({
-        frequencies: airportDBData.freqs,
-        runways: airportDBData.runways,
-      });
+      try {
+        const airportDBresponse = await fetch(
+          `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
+        );
+        const airportDBData = await airportDBresponse.json();
+        setAirportObject({
+          frequencies: airportDBData.freqs,
+          runways: airportDBData.runways,
+        });
+      } catch (error) {
+        console.log("error airportDB fetch");
+        setResponse(true);
+        setIsLoading(false);
+      }
+
       setIsLoading(false);
     }
   }
