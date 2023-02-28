@@ -4,9 +4,9 @@ import Typography from "@mui/material/Typography";
 
 import { calcLatLong } from "../helper/distance-lat-long-calc";
 
-import placeholderMap from "./Map/placeholderMap.jpg";
+import placeholderMap from "./placeholderMap.jpg";
 
-import "./CSS/Map.css";
+import "./Map.css";
 // import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 
 // const limeOptions = { color: 'lime' }

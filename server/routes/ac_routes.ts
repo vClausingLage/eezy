@@ -1,26 +1,27 @@
-import { Request, Response, Router } from 'express'
+import { Request, Response, Router } from "express";
 
-import { createAircraft, queryAircraftManufacturer } from '../services/controllersMongoDB.js'
-import { aircraft } from '../services/models.js'
+import {
+  createAircraft,
+  queryAircraftManufacturer,
+} from "../services/controllersMongoDB.js";
 
 export const ac_router = Router();
 
-ac_router.get('/:man', queryAircraftManufacturer)
-ac_router.post('/', createAircraft)
+ac_router.get("/:manufacturer", queryAircraftManufacturer);
+ac_router.post("/", createAircraft);
 // router.post('/create', create)
-
 
 // for LOGGING ONLY
 
-import fs from 'fs'
+import fs from "fs";
 
-ac_router.post('/logs', (req: Request, res: Response) => {
+ac_router.post("/logs", (req: Request, res: Response) => {
   const content = JSON.stringify(req.body);
- 
+
   // fs.readFile('./log/logFile.json', (err, data) => {   //! refactor!
   //   let json = JSON.parse(data.toString())
   //   json.push(content)
-  
+
   //   fs.writeFile('./log/logFile.json', JSON.stringify(json), err => {
   //     if (err)
   //       console.log(err);
@@ -30,11 +31,8 @@ ac_router.post('/logs', (req: Request, res: Response) => {
   //   })
   // })
 
-  res.send(content)
-})
-
-
-
+  res.send(content);
+});
 
 // https://www.robinwieruch.de/node-express-server-rest-api/
 
@@ -48,4 +46,3 @@ ac_router.post('/logs', (req: Request, res: Response) => {
 //         res.status(400).send("unable to save to database");
 //   });
 // });
-

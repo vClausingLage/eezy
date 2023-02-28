@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { mongoDBUriTest } from "../config.js";
+import { mongoUri } from "../config/config.js";
 
 export async function mongoDBConnect() {
   try {
-    await mongoose.connect(mongoDBUriTest);
+    if (mongoUri !== undefined) await mongoose.connect(mongoUri);
   } catch (error) {
     console.log("connection mongoDB failed");
   }
