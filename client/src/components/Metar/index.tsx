@@ -25,8 +25,6 @@ import DataView from "./components/DataView";
 import Aerodrome from "./components/Aerodrome";
 import FlightRuleTable from "./components/FlightRuleTable";
 
-import { airportDBKey } from "./config/config";
-
 import "./CSS/index.css";
 import { tempFormat } from "./helper/metar-helper-functions";
 
@@ -82,7 +80,7 @@ function Metar() {
     e.preventDefault();
     if (metarObject.icao.length !== 4) setAlertIcao(true);
     setIsLoading(true);
-    const response = await fetch(`/api/${metarObject.icao}`, {
+    const response = await fetch(`/api/metar/${metarObject.icao}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -118,7 +116,7 @@ function Metar() {
       });
       try {
         const airportDBresponse = await fetch(
-          `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
+          `/api/airport/${metarObject.icao}`
         );
         const airportDBData = await airportDBresponse.json();
         setAirportObject({

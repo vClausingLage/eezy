@@ -7,6 +7,7 @@ import helmet from "helmet";
 
 import { ac_router } from "./routes/ac_routes.js";
 import { awc_router } from "./routes/awc_routes.js";
+import { airportDB_router } from "./routes/airportDB_routes.js";
 
 const app = express();
 dotenv.config();
@@ -22,8 +23,9 @@ app.use(cors());
 app.use(helmet()); //! https://stackoverflow.com/questions/68607669/react-app-served-with-express-and-helmet-cannot-make-api-requests
 app.disable("x-powered-by");
 
-app.use("/aircraft", ac_router);
-app.use("/api", awc_router);
+app.use("/api/aircraft", ac_router);
+app.use("/api/metar", awc_router);
+app.use("/api/airport", airportDB_router);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
