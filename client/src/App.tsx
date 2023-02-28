@@ -40,6 +40,7 @@ function App() {
         <CssBaseline />
         <RouterProvider router={router} />
         <Box>
+          <AppHeader />
           <Metar />
           <AppFooter />
           {/* <Aircraft />
