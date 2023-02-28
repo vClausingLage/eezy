@@ -6,6 +6,6 @@ mobile_app/node_modules/
 
 server/node_modules/
 server/dist/
+server/.env
 
 .vscode/
-server/config/
