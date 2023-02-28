@@ -1,0 +1,9 @@
+.navlink {
+  color: white;
+  font-weight: bold;
+  padding: .3rem;
+  border: 1px solid white;
+  border-radius: .2rem;
+  margin: 1rem;
+  text-decoration: none;
+}

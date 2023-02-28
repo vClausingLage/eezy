@@ -1,52 +1,84 @@
 import { useState, useMemo } from "react";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
-import AppHeader from "./AppHeader";
+import "./CSS/App.css";
+
+import { Box, AppBar, Toolbar } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import { getDesignTokens } from "./CSS/theme";
+
 import AppFooter from "./AppFooter";
 import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
 import RawMetar from "./components/Metar/components/RawMetar";
 
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material/";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import { getDesignTokens } from "./CSS/theme";
-
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-
 function App() {
   const [mode, setMode] = useState("dark");
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Metar />}>
-        <Route path="aircraft" element={<Aircraft />} />
-        <Route path="map" element={<Map />} />
-      </Route>
-    )
-  );
+  let activeStyle = {
+    color: "#800080",
+  };
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-        <Box>
-          <AppHeader />
-          <Metar />
-          <AppFooter />
-          {/* <Aircraft />
-          <RawMetar />
-          <Map /> */}
-        </Box>
+        <BrowserRouter>
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+              <Toolbar>
+                <nav>
+                  <NavLink
+                    className="navlink"
+                    to="/"
+                    style={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                  >
+                    Metar
+                  </NavLink>
+                  <NavLink
+                    className="navlink"
+                    to="/aircraft"
+                    style={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                  >
+                    Aircraft
+                  </NavLink>
+                  <NavLink
+                    className="navlink"
+                    to="/map"
+                    style={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                  >
+                    Map
+                  </NavLink>
+                  <a
+                    href="https://github.com/vClausingLage/eezy"
+                    rel="noreferrer"
+                    target="_blank"
+                    className="navlink"
+                  >
+                    <GitHubIcon />
+                  </a>
+                </nav>
+              </Toolbar>
+            </AppBar>
+          </Box>
+
+          <Routes>
+            <Route path="/" element={<Metar />} />
+            <Route path="aircraft" element={<Aircraft />} />
+            <Route path="map" element={<Map />} />
+            <Route path="rawmetar" element={<RawMetar />} />
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );
