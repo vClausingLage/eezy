@@ -3,6 +3,7 @@
 client/src/components/Metar/config/
 client/node_modules/
 client/build/
+client/src/.env
 
 mobile_app/node_modules/
 
