@@ -31,9 +31,8 @@ function App() {
           <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
               <Toolbar>
-                <nav>
+                <nav className="nav-bar">
                   <NavLink
-                    className="navlink"
                     to="/"
                     style={({ isActive }) =>
                       isActive ? activeStyle : undefined
@@ -42,7 +41,6 @@ function App() {
                     Metar
                   </NavLink>
                   <NavLink
-                    className="navlink"
                     to="/aircraft"
                     style={({ isActive }) =>
                       isActive ? activeStyle : undefined
@@ -51,7 +49,6 @@ function App() {
                     Aircraft
                   </NavLink>
                   <NavLink
-                    className="navlink"
                     to="/map"
                     style={({ isActive }) =>
                       isActive ? activeStyle : undefined
@@ -63,7 +60,6 @@ function App() {
                     href="https://github.com/vClausingLage/eezy"
                     rel="noreferrer"
                     target="_blank"
-                    className="navlink"
                   >
                     <GitHubIcon />
                   </a>
