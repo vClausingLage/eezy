@@ -118,7 +118,7 @@ function Wind(props: IWind) {
           <circle id="West" cx="83" cy="200" r="5" fill="#182849" />
           <circle id="East" cx="318" cy="200" r="5" fill="#182849" />
           <circle id="South" cx="200" cy="317" r="5" fill="#182849" />
-          <g id="North">
+          <g id="North" opacity={opacityNorth}>
             <circle id="North_2" cx="200" cy="97" r="20" fill="#182849" />
             <text id="N" fill="#fff" fontFamily="Jost" fontSize="24">
               <tspan x="191.042" y="105.334">
