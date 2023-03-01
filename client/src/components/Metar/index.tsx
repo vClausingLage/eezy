@@ -114,22 +114,19 @@ function Metar() {
         time: convertDate(data.obsTime + "000"),
         tempoInformation: tempoInformation(data.rawOb),
       });
-      try {
-        const airportDBresponse = await fetch(
-          `/api/airport/${metarObject.icao}`
-        );
-        const airportDBData = await airportDBresponse.json();
-        setAirportObject({
-          frequencies: airportDBData.freqs,
-          runways: airportDBData.runways,
-        });
-      } catch (error) {
-        console.log("error airportDB fetch");
-        setResponse(true);
-        setIsLoading(false);
-      }
-      setIsLoading(false);
     }
+    if (data.message && data.message === "error") {
+      setResponse(true);
+      setIsLoading(false);
+    } else {
+      const airportDBresponse = await fetch(`/api/airport/${metarObject.icao}`);
+      const airportDBData = await airportDBresponse.json();
+      setAirportObject({
+        frequencies: airportDBData.freqs,
+        runways: airportDBData.runways,
+      });
+    }
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -141,7 +138,6 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
     // console.log(metarObject.tempoInformation);
-    console.log(airportObject);
   }, [metar]);
 
   return (
