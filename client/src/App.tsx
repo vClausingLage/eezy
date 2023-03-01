@@ -6,7 +6,6 @@ import "./CSS/App.css";
 import { Box, AppBar, Toolbar } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import { getDesignTokens } from "./CSS/theme";
 
 import AppFooter from "./AppFooter";
@@ -56,13 +55,6 @@ function App() {
                   >
                     Map
                   </NavLink>
-                  <a
-                    href="https://github.com/vClausingLage/eezy"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <GitHubIcon />
-                  </a>
                 </nav>
               </Toolbar>
             </AppBar>
@@ -75,6 +67,7 @@ function App() {
             <Route path="rawmetar" element={<RawMetar />} />
           </Routes>
         </BrowserRouter>
+        <AppFooter />
       </ThemeProvider>
     </>
   );
