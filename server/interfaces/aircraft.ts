@@ -4,7 +4,7 @@ export interface IAircraft {
   type: string;
   registration_number: string;
   fuel_type: string;
-  fuel_capacityL: number;
+  fuel_capacityL: number | number[];
   cruise_speedKTS: number;
   cruise_fuel_consumptionL: number | number[];
   magnetic_error?: number;
@@ -21,7 +21,7 @@ export interface IAircraftModel {
   model: string;
   type: string;
   fuel_type: string;
-  fuel_capacityL: number;
+  fuel_capacityL: number | number[];
   cruise_speedKTS: number;
   cruise_fuel_consumptionL: number | number[];
 }
