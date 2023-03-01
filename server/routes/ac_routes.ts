@@ -3,13 +3,14 @@ import { Request, Response, Router } from "express";
 import {
   createAircraft,
   queryAircraftManufacturer,
+  insertModelAC,
 } from "../services/controllersMongoDB.js";
 
 export const ac_router = Router();
 
 ac_router.get("/:manufacturer", queryAircraftManufacturer);
 ac_router.post("/", createAircraft);
-// router.post('/create', create)
+ac_router.post("/modelinsert", insertModelAC);
 
 // for LOGGING ONLY
 

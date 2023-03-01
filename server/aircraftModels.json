@@ -1,0 +1,62 @@
+[
+  {
+    "manufacturer": "",
+    "model": "",
+    "type": "",
+    "fuel_type": "",
+    "fuel_capacityL": 0,
+    "cruise_speedKTS": 0,
+    "cruise_fuel_consumptionL": 0,
+    "baseModel": true
+  },
+  {
+    "manufacturer": "Cessna",
+    "model": "C150",
+    "type": "",
+    "fuel_type": "AVGAS",
+    "fuel_capacityL": 144,
+    "cruise_speedKTS": 105,
+    "cruise_fuel_consumptionL": 22,
+    "baseModel": true
+  },
+  {
+    "manufacturer": "Cessna",
+    "model": "C172",
+    "type": "",
+    "fuel_type": "AVGAS",
+    "fuel_capacityL": 163,
+    "cruise_speedKTS": 122,
+    "cruise_fuel_consumptionL": 26,
+    "baseModel": true
+  },
+  {
+    "manufacturer": "Comco",
+    "model": "C42",
+    "type": "B",
+    "fuel_type": "",
+    "fuel_capacityL": 65,
+    "cruise_speedKTS": 90,
+    "cruise_fuel_consumptionL": [11,14],
+    "baseModel": true
+  },
+  {
+    "manufacturer": "Comco",
+    "model": "C42",
+    "type": "C",
+    "fuel_type": "",
+    "fuel_capacityL": 65,
+    "cruise_speedKTS": 90,
+    "cruise_fuel_consumptionL": [11,14],
+    "baseModel": true
+  },
+  {
+    "manufacturer": "Comco",
+    "model": "C42",
+    "type": "CS",
+    "fuel_type": "",
+    "fuel_capacityL": 65,
+    "cruise_speedKTS": 90,
+    "cruise_fuel_consumptionL": [11,14],
+    "baseModel": true
+  },
+]
