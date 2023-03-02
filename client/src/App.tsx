@@ -41,15 +41,16 @@ function App() {
       theme: "outline",
       size: "large",
     });
-    console.log(user);
   }, []);
+
+  console.log(user);
 
   const [mode, setMode] = useState("dark");
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   let activeStyle = {
-    color: "#800080",
+    color: "#293866",
   };
 
   return (

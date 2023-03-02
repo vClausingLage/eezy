@@ -13,3 +13,4 @@ server/.env
 server/config/dev.ts
 server/config/prod.ts
 server/config/config.ts
+server/config/config.ts
