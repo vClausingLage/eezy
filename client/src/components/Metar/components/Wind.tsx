@@ -78,14 +78,14 @@ function Wind(props: IWind) {
         fontSize="18"
       >
         <tspan x="13.4463" y="15.6523">
-          {props.direction}°
+          <tspan fontWeight="bold">{props.direction}</tspan>°
         </tspan>
         <tspan x="9.71973" y="36.6523">
-          {props.speed}kts
+          <tspan fontWeight="bold">{props.speed}</tspan>kts
         </tspan>
         {props.gusts && (
           <tspan x="9.71973" y="55.6523" fill="red">
-            G {props.gusts}kts
+            G <tspan fontWeight="bold">{props.gusts}</tspan>kts
           </tspan>
         )}
       </text>

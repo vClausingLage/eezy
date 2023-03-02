@@ -26,6 +26,9 @@ function App() {
   }
 
   useEffect(() => {
+    if (typeof window === "undefined" || !window.google || !googleDiv.current) {
+      return;
+    }
     /* global google */
     google.accounts.id.initialize({
       client_id:
