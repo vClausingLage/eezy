@@ -1,5 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 import "./CSS/App.css";
 
@@ -15,6 +16,31 @@ import Map from "./components/Map";
 import RawMetar from "./components/Metar/components/RawMetar";
 
 function App() {
+  const googleDiv = useRef(null);
+
+  const [user, setUser] = useState<any>();
+
+  function handleCallbackResponse(response: any) {
+    let userObject = jwt_decode(response.credential);
+    setUser(userObject);
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "659451722059-9u4934o3kp0v5osqc4prla3qpgd61gra.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(googleDiv.current!, {
+      type: "standard",
+      theme: "outline",
+      size: "large",
+    });
+    console.log(user);
+  }, []);
+
   const [mode, setMode] = useState("dark");
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
@@ -55,6 +81,7 @@ function App() {
                   >
                     Map
                   </NavLink>
+                  {!user && <div ref={googleDiv}></div>}
                 </nav>
               </Toolbar>
             </AppBar>

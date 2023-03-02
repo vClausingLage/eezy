@@ -27,11 +27,6 @@ app.use("/api/aircraft", ac_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airportDB_router);
 
-import passport from "passport";
-import GoogleStrategy from "passport-google-oauth20";
-
-passport.use(new GoogleStrategy.Strategy());
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "build")));
