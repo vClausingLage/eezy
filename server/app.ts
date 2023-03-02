@@ -11,7 +11,7 @@ import { airportDB_router } from "./routes/airportDB_routes.js";
 
 const app = express();
 dotenv.config();
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(
@@ -30,16 +30,24 @@ app.use("/api/airport", airportDB_router);
 // GOOGLE UDEMY
 
 import passport from "passport";
-const GoogleStrategy = require("passport-google-oauth20");
+import GoogleStrategy from "passport-google-oauth20";
 
-const keys = require("./config/config.js");
+import { googleClientID, googleClientSecret } from "./config/config.js";
 
 passport.use(
-  new GoogleStrategy({
-    clientID: keys.googleClientID,
-    clientSecret: keys.googleClientSecret,
-    callbackURL: "/auth/google/callback",
-  })
+  new GoogleStrategy.Strategy(
+    {
+      clientID: googleClientID,
+      clientSecret: googleClientSecret,
+      callbackURL: "/auth/google/callback",
+    },
+    (accessToken: any) => console.log(accessToken)
+  )
+);
+
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 const __filename = fileURLToPath(import.meta.url);
