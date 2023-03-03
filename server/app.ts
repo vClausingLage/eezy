@@ -27,29 +27,6 @@ app.use("/api/aircraft", ac_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airportDB_router);
 
-// GOOGLE UDEMY
-
-import passport from "passport";
-import GoogleStrategy from "passport-google-oauth20";
-
-import { googleClientID, googleClientSecret } from "./config/config.js";
-
-passport.use(
-  new GoogleStrategy.Strategy(
-    {
-      clientID: googleClientID,
-      clientSecret: googleClientSecret,
-      callbackURL: "/auth/google/callback",
-    },
-    (accessToken: any) => console.log(accessToken)
-  )
-);
-
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "build")));

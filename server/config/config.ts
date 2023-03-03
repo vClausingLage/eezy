@@ -1,3 +1,10 @@
+export const mongoUri =
+  "mongodb+srv://metarApp:ZUEw0d0R8G7DyibX@aircraft.iyokwhd.mongodb.net/?retryWrites=true&w=majority";
+export const airportDBKey =
+  "0d46287852ad25837bf4e3394ff91c6a0f1218856d03f31e77b71dfb1daa696e4ab33ecb68ceb2fbf7ad1a2ab83241f9";
+export const googleClientID =
+  "659451722059-9u4934o3kp0v5osqc4prla3qpgd61gra.apps.googleusercontent.com";
+export const googleClientSecret = "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";
 
 // import { mongoURIDev } from "./dev.js";
 // import { mongoURIProd } from "./prod.js";
