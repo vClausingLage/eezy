@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-import { mongoUri } from "../config/config.js";
+import { mongoUriAircraft } from "../config/config.js";
 
 export async function mongoDBConnect() {
   try {
-    if (mongoUri !== undefined) await mongoose.connect(mongoUri);
+    if (mongoUriAircraft !== undefined)
+      await mongoose.connect(mongoUriAircraft);
   } catch (error) {
     console.log("connection mongoDB failed");
   }

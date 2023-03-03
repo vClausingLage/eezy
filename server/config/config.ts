@@ -1,5 +1,7 @@
-export const mongoUri =
+export const mongoUriAircraft =
   "mongodb+srv://metarApp:ZUEw0d0R8G7DyibX@aircraft.iyokwhd.mongodb.net/?retryWrites=true&w=majority";
+export const mongoUriUsers =
+  "mongodb+srv://metarApp:ZUEw0d0R8G7DyibX@users.iyokwhd.mongodb.net/?retryWrites=true&w=majority";
 export const airportDBKey =
   "0d46287852ad25837bf4e3394ff91c6a0f1218856d03f31e77b71dfb1daa696e4ab33ecb68ceb2fbf7ad1a2ab83241f9";
 export const googleClientID =

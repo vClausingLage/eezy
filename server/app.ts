@@ -27,6 +27,19 @@ app.use("/api/aircraft", ac_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airportDB_router);
 
+// UDEMY
+
+import mongoose from "mongoose";
+import { mongoUriUsers } from "./config/config.js";
+import { authRoutes } from "./routes/authRoutes.js";
+import "./models/user.js";
+import "./services/passport.js";
+
+authRoutes(app);
+mongoose.connect(mongoUriUsers);
+
+// UDEMY
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "build")));
