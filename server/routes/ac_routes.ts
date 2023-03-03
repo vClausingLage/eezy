@@ -4,10 +4,12 @@ import {
   createAircraft,
   queryAircraftManufacturer,
   insertModelAC,
+  queryAircraftAll,
 } from "../services/controllersMongoDB.js";
 
 export const ac_router = Router();
 
+ac_router.get("/all", queryAircraftAll);
 ac_router.get("/:manufacturer", queryAircraftManufacturer);
 ac_router.post("/", createAircraft);
 ac_router.post("/modelinsert", insertModelAC);

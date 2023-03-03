@@ -4,6 +4,13 @@ import { mongoUriAircraft } from "../config/config.js";
 import { aircraft } from "./models.js";
 import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
+export async function queryAircraftAll(req: Request, res: Response) {
+  const Aircraft = mongoose.model<IAircraft>("Aircraft", aircraft);
+  await mongoose.connect(mongoUriAircraft);
+  const result = await Aircraft.find({}).exec();
+  res.send(result);
+}
+
 export async function queryAircraftManufacturer(req: Request, res: Response) {
   console.log(req.params);
   const Aircraft = mongoose.model<IAircraft>("Aircraft", aircraft);

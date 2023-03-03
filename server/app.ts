@@ -36,7 +36,7 @@ import "./models/user.js";
 import "./services/passport.js";
 
 authRoutes(app);
-mongoose.connect(mongoUriUsers);
+// mongoose.connect(mongoUriUsers);
 
 // UDEMY
 
