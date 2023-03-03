@@ -3,14 +3,10 @@
 client/src/components/Metar/config/
 client/node_modules/
 client/build/
-client/src/.env
 
 mobile_app/node_modules/
 
 server/node_modules/
+server/config/
 server/dist/
 server/.env
-server/config/dev.ts
-server/config/prod.ts
-server/config/config.ts
-server/config/config.ts
