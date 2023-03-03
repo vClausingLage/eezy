@@ -85,7 +85,7 @@ function App() {
                   >
                     Map
                   </NavLink>
-                  {!user && <div ref={googleDiv}></div>}
+                  {/* {!user && <div ref={googleDiv}></div>} */}
                 </nav>
               </Toolbar>
             </AppBar>
