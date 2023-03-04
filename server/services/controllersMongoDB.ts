@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import { mongoUriAircraft, mongoUriAircraftModel } from "../config/config.js";
-import { aircraft, aircrafModel } from "../models/aircraft.js";
+import { mongoUriAircraft } from "../config/config.js";
+import { Aircraft, AircraftModel } from "../models/aircraft.js";
 import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
 export async function queryAircraftAll(req: Request, res: Response) {
-  const Aircraft = mongoose.model<IAircraft>("Aircraft", aircraft);
   await mongoose.connect(mongoUriAircraft);
   const result = await Aircraft.find({}).exec();
   res.send(result);
@@ -13,7 +12,6 @@ export async function queryAircraftAll(req: Request, res: Response) {
 
 export async function queryAircraftManufacturer(req: Request, res: Response) {
   console.log(req.params);
-  const Aircraft = mongoose.model<IAircraft>("Aircraft", aircraft);
   await mongoose.connect(mongoUriAircraft);
   const result = await Aircraft.find({
     manufacturer: req.params.manufacturer,
@@ -22,7 +20,6 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
 }
 
 export async function createAircraft(req: Request, res: Response) {
-  const Aircraft = mongoose.model<IAircraft>("Aircraft", aircraft);
   run().catch((err) => console.log(err));
   async function run() {
     await mongoose.connect(mongoUriAircraft);
@@ -33,13 +30,9 @@ export async function createAircraft(req: Request, res: Response) {
 }
 
 export async function insertModelAC(req: Request, res: Response) {
-  const AircraftModel = mongoose.model<IAircraftModel>(
-    "Aircraft",
-    aircrafModel
-  );
   run().catch((err) => console.log(err));
   async function run() {
-    await mongoose.connect(mongoUriAircraftModel);
+    await mongoose.connect(mongoUriAircraft);
     const aircraft = new AircraftModel<IAircraftModel>(req.body);
     await aircraft.save();
     res.send("created");

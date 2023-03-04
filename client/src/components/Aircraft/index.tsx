@@ -14,7 +14,7 @@ function Aircraft() {
 
   useEffect(() => {
     async function fetchAircraft() {
-      const response = await fetch("/api/aircraft/all");
+      const response = await fetch("/api/aircraft/models");
       const result = await response.json();
       setAircraft(result);
     }

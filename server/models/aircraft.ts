@@ -4,7 +4,7 @@ import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 // import { sequelize } from "./sequelize_db.js";
 // import { DataTypes } from "sequelize";
 
-export const aircraft = new mongoose.Schema<IAircraft>({
+const aircraftSchema = new mongoose.Schema<IAircraft>({
   user: { type: String, required: true },
   manufacturer: { type: String, required: true },
   model: { type: String, required: true },
@@ -22,7 +22,7 @@ export const aircraft = new mongoose.Schema<IAircraft>({
   equiptment: { type: String, required: false },
   characteristics: { type: String, required: false },
 });
-export const aircrafModel = new mongoose.Schema<IAircraftModel>({
+const aircrafModelSchema = new mongoose.Schema<IAircraftModel>({
   user: { type: String, required: true },
   manufacturer: { type: String, required: true },
   model: { type: String, required: true },
@@ -31,6 +31,12 @@ export const aircrafModel = new mongoose.Schema<IAircraftModel>({
   cruise_speedKTS: { type: Number, required: true },
   cruise_fuel_consumptionL: { type: Number, required: true },
 });
+
+export const Aircraft = mongoose.model<IAircraft>("Aircraft", aircraftSchema);
+export const AircraftModel = mongoose.model<IAircraftModel>(
+  "AircraftModel",
+  aircrafModelSchema
+);
 
 // export const Aircraft = sequelize.define('aircraft', {
 //   id: {
