@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 function Aircraft() {
+  const [user, setUser] = useState("");
   const [aircraft, setAircraft] = useState();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ function Aircraft() {
       setAircraft(result);
     }
     fetchAircraft();
+    setUser("vincent");
   }, []);
 
   useEffect(() => {

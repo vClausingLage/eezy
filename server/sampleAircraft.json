@@ -1,0 +1,18 @@
+{
+  "user": "vincent",
+  "manufacturer": "Cessna",
+  "model": "C152",
+  "type": "",
+  "fuel_type": "AVGAS",
+  "fuel_capacityL": 160,
+  "cruise_speedKTS": 100,
+  "cruise_fuel_consumptionL": 25,
+  "magnetic_error": -2,
+  "color": "blue white",
+  "engines": 1,
+  "ps": 80,
+  "seats": 2,
+  "IFR": false,
+  "equiptment": "G4",
+  "characteristics": ""
+}

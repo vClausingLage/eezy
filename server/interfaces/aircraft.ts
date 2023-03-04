@@ -1,4 +1,5 @@
 export interface IAircraft {
+  user: string;
   manufacturer: string;
   model: string;
   type: string;
