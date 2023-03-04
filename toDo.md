@@ -42,8 +42,13 @@ DWD Flug Wetterberichte als Vorhersage
 
 ## Server
 
-[Express Typescript](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
-[Sequelize](https://sequelize.org/docs/v6/getting-started/)
+### Google Auth Udemy
+
+- app.ts
+- authRoutes.ts
+- user.ts (models, interfaces)
+- passport.ts (services)
+- config
 
 ## Formular
 

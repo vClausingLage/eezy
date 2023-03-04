@@ -1,3 +1,3 @@
-interface IUser {
-  googleId: string;
-}
+// interface IUser {
+//   googleId: string;
+// }
