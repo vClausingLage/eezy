@@ -9,9 +9,20 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 function Aircraft() {
+  const [aircraft, setAircraft] = useState();
+
   useEffect(() => {
-    fetch("/api/aircraft");
-  });
+    async function fetchAircraft() {
+      const response = await fetch("/api/aircraft");
+      const result = await response.json();
+      setAircraft(result);
+    }
+    fetchAircraft();
+  }, []);
+
+  useEffect(() => {
+    console.log(aircraft);
+  }, [aircraft]);
 
   return (
     <>
