@@ -103,5 +103,5 @@
   "files": ["app.ts"],
   "include": [
     "routes", "services"
-  ]
+, "models/aircraft.ts"  ]
 }

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import { mongoUriAircraft } from "../config/config.js";
-import { aircraft } from "./models.js";
+import { mongoUriAircraft, mongoUriAircraftModel } from "../config/config.js";
+import { aircraft, aircrafModel } from "../models/aircraft.js";
 import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
 export async function queryAircraftAll(req: Request, res: Response) {
@@ -33,11 +33,13 @@ export async function createAircraft(req: Request, res: Response) {
 }
 
 export async function insertModelAC(req: Request, res: Response) {
-  const AircraftModel = mongoose.model<IAircraftModel>("Aircraft", aircraft);
+  const AircraftModel = mongoose.model<IAircraftModel>(
+    "Aircraft",
+    aircrafModel
+  );
   run().catch((err) => console.log(err));
   async function run() {
-    if (mongoUriAircraft !== undefined)
-      await mongoose.connect(mongoUriAircraft);
+    await mongoose.connect(mongoUriAircraftModel);
     const aircraft = new AircraftModel<IAircraftModel>(req.body);
     await aircraft.save();
     res.send("created");

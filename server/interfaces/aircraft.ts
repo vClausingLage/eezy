@@ -18,6 +18,7 @@ export interface IAircraft {
   characteristics?: string;
 }
 export interface IAircraftModel {
+  user: string;
   manufacturer: string;
   model: string;
   type: string;
