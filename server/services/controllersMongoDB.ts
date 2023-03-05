@@ -6,7 +6,9 @@ import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
 export async function queryAircraftAll(req: Request, res: Response) {
   await mongoose.connect(MONGO_CONN_STRING);
+  console.log("connected");
   const result = await Aircraft.find({}).exec(() => mongoose.disconnect());
+  console.log("result", result);
   res.send(result);
 }
 
