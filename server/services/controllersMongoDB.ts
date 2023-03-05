@@ -6,7 +6,7 @@ import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
 export async function queryAircraftAll(req: Request, res: Response) {
   await mongoose.connect(mongoUriAircraft);
-  const result = await Aircraft.find({}).exec();
+  const result = await Aircraft.find({}).exec(() => mongoose.disconnect());
   res.send(result);
 }
 
@@ -15,7 +15,7 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
   await mongoose.connect(mongoUriAircraft);
   const result = await Aircraft.find({
     manufacturer: req.params.manufacturer,
-  }).exec();
+  }).exec(() => mongoose.disconnect());
   res.send(result);
 }
 
@@ -24,7 +24,7 @@ export async function createAircraft(req: Request, res: Response) {
   async function run() {
     await mongoose.connect(mongoUriAircraft);
     const aircraft = new Aircraft<IAircraft>(req.body);
-    await aircraft.save();
+    await aircraft.save(() => mongoose.disconnect());
     res.send("created");
   }
 }
@@ -34,7 +34,7 @@ export async function insertModelAC(req: Request, res: Response) {
   async function run() {
     await mongoose.connect(mongoUriAircraft);
     const aircraft = new AircraftModel<IAircraftModel>(req.body);
-    await aircraft.save();
+    await aircraft.save(() => mongoose.disconnect());
     res.send("created");
   }
 }
