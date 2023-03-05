@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import "./CSS/App.css";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { Box, AppBar, Toolbar } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/";
@@ -10,12 +12,16 @@ import { getDesignTokens } from "./CSS/theme";
 
 import AppFooter from "./AppFooter";
 import LoginButton from "./components/Authentcation/login";
+import LogoutButton from "./components/Authentcation/logout";
+import Profile from "./components/Authentcation/profile";
 import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
 import RawMetar from "./components/Metar/components/RawMetar";
 
 function App() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   const [mode, setMode] = useState("dark");
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
@@ -56,7 +62,10 @@ function App() {
                   >
                     Map
                   </NavLink>
-                  <LoginButton />
+                  {!isAuthenticated && !isLoading && <LoginButton />}
+                  {isAuthenticated && !isLoading && <LogoutButton />}
+
+                  {isAuthenticated && !isLoading && user && <Profile />}
                 </nav>
               </Toolbar>
             </AppBar>
