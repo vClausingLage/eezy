@@ -64,8 +64,16 @@ function App() {
                   </NavLink>
                   {!isAuthenticated && !isLoading && <LoginButton />}
                   {isAuthenticated && !isLoading && <LogoutButton />}
-
-                  {isAuthenticated && !isLoading && user && <Profile />}
+                  {isAuthenticated && !isLoading && user && (
+                    <NavLink
+                      to="/profile"
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                      }
+                    >
+                      Profile
+                    </NavLink>
+                  )}
                 </nav>
               </Toolbar>
             </AppBar>
@@ -76,6 +84,7 @@ function App() {
             <Route path="aircraft" element={<Aircraft />} />
             <Route path="map" element={<Map />} />
             <Route path="rawmetar" element={<RawMetar />} />
+            <Route path="profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
         <AppFooter />
