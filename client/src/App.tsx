@@ -21,6 +21,12 @@ import RawMetar from "./components/Metar/components/RawMetar";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [userID, setUserID] = useState<number>();
+
+  useEffect(() => {
+    if (user?.sub !== undefined)
+      setUserID(parseInt(user.sub.match(/[0-9]/g)!.join("")));
+  });
 
   const [mode, setMode] = useState("dark");
 
@@ -64,16 +70,6 @@ function App() {
                   </NavLink>
                   {!isAuthenticated && !isLoading && <LoginButton />}
                   {isAuthenticated && !isLoading && <LogoutButton />}
-                  {isAuthenticated && !isLoading && user && (
-                    <NavLink
-                      to="/profile"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Profile
-                    </NavLink>
-                  )}
                 </nav>
               </Toolbar>
             </AppBar>
@@ -81,10 +77,9 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Metar />} />
-            <Route path="aircraft" element={<Aircraft />} />
+            <Route path="aircraft" element={<Aircraft userID={userID} />} />
             <Route path="map" element={<Map />} />
             <Route path="rawmetar" element={<RawMetar />} />
-            <Route path="profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
         <AppFooter />

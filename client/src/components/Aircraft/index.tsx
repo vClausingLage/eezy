@@ -8,28 +8,34 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-function Aircraft() {
-  const [user, setUser] = useState("");
-  const [aircraft, setAircraft] = useState();
+import CreateAircraftForm from "./components/createAircraft.component";
 
-  useEffect(() => {
-    async function fetchAircraft() {
-      const response = await fetch("/api/aircraft/models");
-      const result = await response.json();
-      setAircraft(result);
-    }
-    fetchAircraft();
-    setUser("vincent");
-  }, []);
+type Props = {
+  userID: number | undefined;
+};
 
-  useEffect(() => {
-    console.log(aircraft);
-  }, [aircraft]);
+function Aircraft(props: Props) {
+  // const [aircraft, setAircraft] = useState();
+
+  // useEffect(() => {
+  //   async function fetchAircraft() {
+  //     const response = await fetch("/api/aircraft/models");
+  //     const result = await response.json();
+  //     setAircraft(result);
+  //   }
+  //   fetchAircraft();
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log(aircraft);
+  // }, [aircraft]);
 
   return (
     <>
       <Card>
-        <CardContent></CardContent>
+        <CardContent>
+          <CreateAircraftForm userID={props.userID} />
+        </CardContent>
       </Card>
     </>
   );

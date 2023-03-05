@@ -7,9 +7,10 @@ import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 export async function queryAircraftAll(req: Request, res: Response) {
   await mongoose.connect(MONGO_CONN_STRING);
   console.log("connected");
-  const result = await Aircraft.find({}).exec(() => mongoose.disconnect());
+  const result = await Aircraft.find({}).exec();
   console.log("result", result);
   res.send(result);
+  mongoose.disconnect();
 }
 
 export async function queryAircraftManufacturer(req: Request, res: Response) {
@@ -17,8 +18,9 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
   await mongoose.connect(MONGO_CONN_STRING);
   const result = await Aircraft.find({
     manufacturer: req.params.manufacturer,
-  }).exec(() => mongoose.disconnect());
+  }).exec();
   res.send(result);
+  mongoose.disconnect();
 }
 
 export async function createAircraft(req: Request, res: Response) {
@@ -26,8 +28,9 @@ export async function createAircraft(req: Request, res: Response) {
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);
     const aircraft = new Aircraft<IAircraft>(req.body);
-    await aircraft.save(() => mongoose.disconnect());
+    await aircraft.save();
     res.send("created");
+    mongoose.disconnect();
   }
 }
 
@@ -36,7 +39,8 @@ export async function insertModelAC(req: Request, res: Response) {
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);
     const aircraft = new AircraftModel<IAircraftModel>(req.body);
-    await aircraft.save(() => mongoose.disconnect());
+    await aircraft.save();
     res.send("created");
+    mongoose.disconnect();
   }
 }
