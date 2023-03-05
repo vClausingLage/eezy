@@ -9,6 +9,7 @@ import morgan from "morgan";
 import { ac_router } from "./routes/ac_routes.js";
 import { awc_router } from "./routes/awc_routes.js";
 import { airportDB_router } from "./routes/airportDB_routes.js";
+import { AUTH0_SECRET } from "./config/config.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -46,7 +47,7 @@ const config = {
 app.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
-app.get("/", (req, res) => {
+app.get("/auth0", (req, res) => {
   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
 });
 
