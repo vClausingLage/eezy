@@ -12,7 +12,6 @@ export interface IAircraft {
   color?: string;
   IFR?: boolean;
   equiptment?: string;
-  characteristics?: string;
 }
 export interface IAircraftModel {
   user: string;

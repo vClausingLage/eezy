@@ -17,7 +17,6 @@ const aircraftSchema = new mongoose.Schema<IAircraft>({
   color: { type: String, required: true },
   IFR: { type: Boolean, required: false },
   equiptment: { type: String, required: false },
-  characteristics: { type: String, required: false },
 });
 const aircrafModelSchema = new mongoose.Schema<IAircraftModel>({
   user: { type: String, required: true },
