@@ -5,7 +5,7 @@ import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 // import { DataTypes } from "sequelize";
 
 const aircraftSchema = new mongoose.Schema<IAircraft>({
-  user: { type: Number, required: true },
+  user: { type: String, required: true },
   manufacturer: { type: String, required: true },
   model: { type: String, required: true },
   registration_number: { type: String, required: true },
