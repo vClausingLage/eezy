@@ -151,7 +151,6 @@ function CreateAircraftForm(props: Props) {
             <Box sx={{ display: "flex", flexFlow: "row nowrap" }}>
               <Typography>IFR rated?</Typography>
               <Switch
-                checked={newAircraft.IFR}
                 onChange={(e) =>
                   setNewAircraft({ ...newAircraft, IFR: e.target.checked })
                 }
