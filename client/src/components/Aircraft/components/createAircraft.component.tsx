@@ -12,6 +12,17 @@ function CreateAircraftForm(props: Props) {
   const [newAircraft, setNewAircraft] = useState({
     user: props.userID,
     manufacturer: "",
+    model: "",
+    type: "",
+    registration_number: "",
+    fuel_type: "",
+    fuel_capacityL: 0,
+    cruise_fuel_consumptionL: 0,
+    magnetic_error: undefined,
+    color: undefined,
+    IFR: undefined,
+    equiptment: undefined,
+    characteristics: undefined,
   } as IAircraft);
 
   useEffect(() => {

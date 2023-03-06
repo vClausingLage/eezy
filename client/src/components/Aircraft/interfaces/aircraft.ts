@@ -10,9 +10,6 @@ export interface IAircraft {
   cruise_fuel_consumptionL: number | number[];
   magnetic_error?: number;
   color?: string;
-  engines?: number;
-  ps?: number;
-  seats?: number;
   IFR?: boolean;
   equiptment?: string;
   characteristics?: string;
