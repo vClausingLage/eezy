@@ -1,4 +1,13 @@
 #aircraft-form > * {
-display: flex;
-flex-flow: column;
+display: grid;
+grid-template-columns: 1fr 1fr;
+}
+#aircraft-form-column > * {
+  margin: .3rem;
+}
+#submit-box{
+  margin-top: 1rem;
+  border-top: 1px solid #568395;
+  padding-top: .3rem;
+  text-align: center;
 }

@@ -15,24 +15,9 @@ type Props = {
 };
 
 function Aircraft(props: Props) {
-  // const [aircraft, setAircraft] = useState();
-
-  // useEffect(() => {
-  //   async function fetchAircraft() {
-  //     const response = await fetch("/api/aircraft/models");
-  //     const result = await response.json();
-  //     setAircraft(result);
-  //   }
-  //   fetchAircraft();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log(aircraft);
-  // }, [aircraft]);
-
   return (
     <>
-      <Card>
+      <Card sx={{ ml: 2, mr: 2, mt: 1, mb: 1 }}>
         <CardContent>
           <CreateAircraftForm userID={props.userID} />
         </CardContent>

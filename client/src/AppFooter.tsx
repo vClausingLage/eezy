@@ -8,7 +8,7 @@ function AppFooter() {
 
   return (
     <Box>
-      <Typography sx={{ color: "#495c75" }}>
+      <Typography sx={{ color: "#495c75", ml: 1 }}>
         © {year} Vincent Clausing-Lage |{" "}
         <a
           href="https://github.com/vClausingLage/eezy"
