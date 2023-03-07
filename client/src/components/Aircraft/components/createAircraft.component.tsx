@@ -8,7 +8,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
-import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
@@ -24,18 +23,19 @@ function CreateAircraftForm(props: Props) {
     type: "",
     registration_number: "",
     fuel_type: "",
-    fuel_capacityL: null,
-    cruise_fuel_consumptionL: null,
-    cruise_speedKTS: null,
-    magnetic_error: undefined,
-    color: undefined,
-    IFR: undefined,
-    equiptment: undefined,
+    fuel_capacityL: 0,
+    cruise_fuel_consumptionL: 0,
+    cruise_speedKTS: 0,
+    magnetic_error: 0,
+    color: "",
+    IFR: false,
+    equiptment: "",
   } as IAircraft);
 
-  useEffect(() => {
+  function submitAircraft() {
+    console.log("hi");
     console.log(newAircraft);
-  }, [newAircraft]);
+  }
 
   return (
     <>
@@ -45,7 +45,7 @@ function CreateAircraftForm(props: Props) {
         </Alert>
       )}
       {props.userID && (
-        <form action="" id="aircraft-form">
+        <form onSubmit={submitAircraft} id="aircraft-form">
           <Box id="aircraft-form-column">
             <TextField
               label="manufacturer"
@@ -65,7 +65,6 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="type"
-              required
               value={newAircraft.type}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, type: e.target.value })
@@ -131,9 +130,6 @@ function CreateAircraftForm(props: Props) {
               label="magnetic error (deg)"
               required
               value={newAircraft.magnetic_error}
-              inputProps={{
-                endAdornment: <InputAdornment position="end">°</InputAdornment>,
-              }}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
@@ -148,7 +144,9 @@ function CreateAircraftForm(props: Props) {
                 setNewAircraft({ ...newAircraft, color: e.target.value })
               }
             ></TextField>
-            <Box sx={{ display: "flex", flexFlow: "row nowrap" }}>
+            <Box
+              sx={{ display: "flex", flexFlow: "row nowrap", color: "gray" }}
+            >
               <Typography>IFR rated?</Typography>
               <Switch
                 onChange={(e) =>
@@ -167,9 +165,13 @@ function CreateAircraftForm(props: Props) {
           </Box>
           <Box id="submit-box">
             <Button sx={{ maxWidth: "100px" }} variant="outlined">
-              submit
+              save
             </Button>
-            <Typography>fields with an * are required</Typography>
+            <Typography sx={{ color: "gray" }}>
+              fields with{" "}
+              <span style={{ fontWeight: "bold", color: "black" }}>*</span> are
+              required
+            </Typography>
           </Box>
         </form>
       )}
