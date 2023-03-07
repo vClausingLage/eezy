@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 
 type Props = {
   userID: string | undefined;
@@ -26,14 +27,13 @@ function CreateAircraftForm(props: Props) {
     fuel_capacityL: 0,
     cruise_fuel_consumptionL: 0,
     cruise_speedKTS: 0,
-    magnetic_error: 0,
+    magnetic_error: -1,
     color: "",
     IFR: false,
     equiptment: "",
   } as IAircraft);
 
   function submitAircraft() {
-    console.log("hi");
     console.log(newAircraft);
   }
 
@@ -50,6 +50,7 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="manufacturer"
               required
+              error={newAircraft.manufacturer.length === 0}
               value={newAircraft.manufacturer}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, manufacturer: e.target.value })
@@ -58,6 +59,7 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="model"
               required
+              error={newAircraft.model.length === 0}
               value={newAircraft.model}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, model: e.target.value })
@@ -72,7 +74,6 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="registration number"
-              required
               value={newAircraft.registration_number}
               onChange={(e) =>
                 setNewAircraft({
@@ -84,6 +85,7 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="fuel type"
               required
+              error={newAircraft.fuel_type.length === 0}
               value={newAircraft.fuel_type}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, fuel_type: e.target.value })
@@ -93,7 +95,13 @@ function CreateAircraftForm(props: Props) {
               label="fuel capacity (L)"
               type="number"
               required
+              error={newAircraft.fuel_capacityL === 0}
               value={newAircraft.fuel_capacityL}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">liters</InputAdornment>
+                ),
+              }}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
@@ -107,7 +115,13 @@ function CreateAircraftForm(props: Props) {
               label="cruise speed (KTS)"
               type="number"
               required
+              error={newAircraft.cruise_speedKTS === 0}
               value={newAircraft.cruise_speedKTS}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">kts</InputAdornment>
+                ),
+              }}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
@@ -117,8 +131,15 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="cruise fuel consumption (L)"
+              type="number"
               required
+              error={newAircraft.cruise_fuel_consumptionL === 0}
               value={newAircraft.cruise_fuel_consumptionL}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">liters</InputAdornment>
+                ),
+              }}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
@@ -128,8 +149,13 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="magnetic error (deg)"
+              type="number"
               required
+              error={newAircraft.magnetic_error === 0}
               value={newAircraft.magnetic_error}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">°</InputAdornment>,
+              }}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
