@@ -10,3 +10,5 @@ server/node_modules/
 server/config/
 server/dist/
 server/.env
+
+nodeMetarDev/
