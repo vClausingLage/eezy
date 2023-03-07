@@ -29,7 +29,19 @@ export async function createAircraft(req: Request, res: Response) {
     await mongoose.connect(MONGO_CONN_STRING);
     const aircraft = new Aircraft<IAircraft>(req.body);
     await aircraft.save();
-    res.send("created");
+    res.send({ message: "created" });
+    mongoose.disconnect();
+  }
+}
+
+export async function getAircraft(req: Request, res: Response) {
+  run().catch((err) => console.log(err));
+  async function run() {
+    await mongoose.connect(MONGO_CONN_STRING);
+    const result = await Aircraft.find({
+      user: req.params.id,
+    }).exec();
+    res.send(result);
     mongoose.disconnect();
   }
 }

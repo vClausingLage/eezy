@@ -27,14 +27,28 @@ function CreateAircraftForm(props: Props) {
     fuel_capacityL: 0,
     cruise_fuel_consumptionL: 0,
     cruise_speedKTS: 0,
-    magnetic_error: -1,
+    magnetic_error: 0,
     color: "",
     IFR: false,
     equiptment: "",
   } as IAircraft);
+  const [success, setSuccess] = useState(false);
 
   function submitAircraft() {
-    console.log(newAircraft);
+    fetch("/api/aircraft/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newAircraft),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "created") setSuccess(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 
   return (
@@ -74,11 +88,13 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="registration number"
+              required
+              error={newAircraft.model.length === 0}
               value={newAircraft.registration_number}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  registration_number: e.target.value,
+                  registration_number: e.target.value.toUpperCase(),
                 })
               }
             ></TextField>
@@ -151,7 +167,6 @@ function CreateAircraftForm(props: Props) {
               label="magnetic error (deg)"
               type="number"
               required
-              error={newAircraft.magnetic_error === 0}
               value={newAircraft.magnetic_error}
               InputProps={{
                 endAdornment: <InputAdornment position="end">°</InputAdornment>,
@@ -197,6 +212,7 @@ function CreateAircraftForm(props: Props) {
             >
               save
             </Button>
+            {success && <Alert severity="info">created!</Alert>}
             <Typography sx={{ color: "gray" }}>
               fields with{" "}
               <span style={{ fontWeight: "bold", color: "black" }}>*</span> are

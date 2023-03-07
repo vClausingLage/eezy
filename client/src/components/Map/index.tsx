@@ -1,6 +1,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
 
 import { calcLatLong } from "../helper/distance-lat-long-calc";
 
@@ -24,6 +25,9 @@ function Map() {
     <>
       <Card>
         <CardContent>
+          <Alert severity="error">
+            This is a placeholder | under construction
+          </Alert>
           <Typography variant="h2">Flight Planner</Typography>
           <img src={placeholderMap} alt="map" />
           {/* <MapContainer center={center} zoom={13} scrollWheelZoom={false}>

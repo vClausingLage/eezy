@@ -1,6 +1,6 @@
 import { Wind, Clouds } from "../classes/metar-classes";
 
-import * as weatherCodes from "../assets/weatherCodes.json";
+import weatherCodes from "../assets/weatherCodes.json";
 
 export function dateFormat(time: string) {
   let today = new Date();
