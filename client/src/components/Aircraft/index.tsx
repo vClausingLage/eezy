@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import CreateAircraftForm from "./components/createAircraft.component";
 
 type Props = {
-  userID: number | undefined;
+  userID: string | undefined;
 };
 
 function Aircraft(props: Props) {

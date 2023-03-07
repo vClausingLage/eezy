@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
 type Props = {
-  userID: number | undefined;
+  userID: string | undefined;
 };
 
 function CreateAircraftForm(props: Props) {
@@ -164,7 +164,11 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
           </Box>
           <Box id="submit-box">
-            <Button sx={{ maxWidth: "100px" }} variant="outlined">
+            <Button
+              onClick={submitAircraft}
+              sx={{ maxWidth: "100px" }}
+              variant="outlined"
+            >
               save
             </Button>
             <Typography sx={{ color: "gray" }}>
