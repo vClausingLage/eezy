@@ -11,7 +11,9 @@ type Props = {
 function AircraftCard(props: Props) {
   return (
     <Card>
-      <CardContent onClick={() => console.log("click")}>
+      <CardContent
+        onClick={() => console.log("click", props.registration_number)}
+      >
         <Typography>
           {props.manufacturer} {props.model}
         </Typography>
