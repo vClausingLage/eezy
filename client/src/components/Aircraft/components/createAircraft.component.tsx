@@ -34,6 +34,8 @@ function CreateAircraftForm(props: Props) {
   } as IAircraft);
   const [success, setSuccess] = useState(false);
 
+  const fuelTypes = ["AvGas", "MoGas", "JetA1"];
+
   function submitAircraft() {
     fetch("/api/aircraft/create", {
       method: "POST",
@@ -64,7 +66,6 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="manufacturer"
               required
-              error={newAircraft.manufacturer.length === 0}
               value={newAircraft.manufacturer}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, manufacturer: e.target.value })
@@ -73,7 +74,6 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="model"
               required
-              error={newAircraft.model.length === 0}
               value={newAircraft.model}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, model: e.target.value })
@@ -89,7 +89,6 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="registration number"
               required
-              error={newAircraft.model.length === 0}
               value={newAircraft.registration_number}
               onChange={(e) =>
                 setNewAircraft({
@@ -101,7 +100,6 @@ function CreateAircraftForm(props: Props) {
             <TextField
               label="fuel type"
               required
-              error={newAircraft.fuel_type.length === 0}
               value={newAircraft.fuel_type}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, fuel_type: e.target.value })
@@ -111,7 +109,6 @@ function CreateAircraftForm(props: Props) {
               label="fuel capacity (L)"
               type="number"
               required
-              error={newAircraft.fuel_capacityL === 0}
               value={newAircraft.fuel_capacityL}
               InputProps={{
                 endAdornment: (
@@ -131,7 +128,6 @@ function CreateAircraftForm(props: Props) {
               label="cruise speed (KTS)"
               type="number"
               required
-              error={newAircraft.cruise_speedKTS === 0}
               value={newAircraft.cruise_speedKTS}
               InputProps={{
                 endAdornment: (
@@ -149,7 +145,6 @@ function CreateAircraftForm(props: Props) {
               label="cruise fuel consumption (L)"
               type="number"
               required
-              error={newAircraft.cruise_fuel_consumptionL === 0}
               value={newAircraft.cruise_fuel_consumptionL}
               InputProps={{
                 endAdornment: (

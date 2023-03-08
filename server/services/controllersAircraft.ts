@@ -10,7 +10,7 @@ export async function queryAircraftAll(req: Request, res: Response) {
   const result = await Aircraft.find({}).exec();
   console.log("result", result);
   res.send(result);
-  mongoose.disconnect();
+  // mongoose.disconnect();
 }
 
 export async function queryAircraftManufacturer(req: Request, res: Response) {
@@ -20,7 +20,7 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
     manufacturer: req.params.manufacturer,
   }).exec();
   res.send(result);
-  mongoose.disconnect();
+  // mongoose.disconnect();
 }
 
 export async function createAircraft(req: Request, res: Response) {
@@ -30,7 +30,7 @@ export async function createAircraft(req: Request, res: Response) {
     const aircraft = new Aircraft<IAircraft>(req.body);
     await aircraft.save();
     res.send({ message: "created" });
-    mongoose.disconnect();
+    // mongoose.disconnect();
   }
 }
 
@@ -42,7 +42,7 @@ export async function getAircraft(req: Request, res: Response) {
       user: req.params.id,
     }).exec();
     res.send(result);
-    mongoose.disconnect();
+    // mongoose.disconnect();
   }
 }
 
@@ -53,6 +53,6 @@ export async function insertModelAC(req: Request, res: Response) {
     const aircraft = new AircraftModel<IAircraftModel>(req.body);
     await aircraft.save();
     res.send("created");
-    mongoose.disconnect();
+    // mongoose.disconnect();
   }
 }
