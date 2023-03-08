@@ -33,6 +33,7 @@ function App() {
 
   let activeStyle = {
     color: "#293866",
+    borderColor: "#293866",
   };
 
   return (
