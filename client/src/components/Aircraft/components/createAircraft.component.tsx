@@ -11,6 +11,7 @@ import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
+import { MenuItem } from "@mui/material";
 
 type Props = {
   userID: string | undefined;
@@ -53,6 +54,12 @@ function CreateAircraftForm(props: Props) {
       });
   }
 
+  useEffect(() => {
+    console.log(newAircraft);
+  }, [newAircraft]);
+
+  function inputValidation() {}
+
   return (
     <>
       {!props.userID && (
@@ -64,7 +71,7 @@ function CreateAircraftForm(props: Props) {
         <form onSubmit={submitAircraft} id="aircraft-form">
           <Box id="aircraft-form-column">
             <TextField
-              label="manufacturer"
+              label="Manufacturer"
               required
               value={newAircraft.manufacturer}
               onChange={(e) =>
@@ -72,7 +79,7 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
             <TextField
-              label="model"
+              label="Model"
               required
               value={newAircraft.model}
               onChange={(e) =>
@@ -80,14 +87,14 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
             <TextField
-              label="type"
+              label="Type"
               value={newAircraft.type}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, type: e.target.value })
               }
             ></TextField>
             <TextField
-              label="registration number"
+              label="Registration Number"
               required
               value={newAircraft.registration_number}
               onChange={(e) =>
@@ -98,15 +105,24 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
             <TextField
-              label="fuel type"
-              required
-              value={newAircraft.fuel_type}
+              select
+              label="Fuel Type"
+              defaultValue=""
               onChange={(e) =>
-                setNewAircraft({ ...newAircraft, fuel_type: e.target.value })
+                setNewAircraft({
+                  ...newAircraft,
+                  fuel_type: e.target.value,
+                })
               }
-            ></TextField>
+            >
+              {fuelTypes.map((type) => (
+                <MenuItem key={type} value={type}>
+                  {type}
+                </MenuItem>
+              ))}
+            </TextField>
             <TextField
-              label="fuel capacity (L)"
+              label="Fuel Capacity (L)"
               type="number"
               required
               value={newAircraft.fuel_capacityL}
@@ -125,7 +141,7 @@ function CreateAircraftForm(props: Props) {
           </Box>
           <Box id="aircraft-form-column">
             <TextField
-              label="cruise speed (KTS)"
+              label="Cruise Speed (KTS)"
               type="number"
               required
               value={newAircraft.cruise_speedKTS}
@@ -142,7 +158,7 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
             <TextField
-              label="cruise fuel consumption (L)"
+              label="Cruise Fuel Consumption (L)"
               type="number"
               required
               value={newAircraft.cruise_fuel_consumptionL}
@@ -159,7 +175,7 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
             <TextField
-              label="magnetic error (deg)"
+              label="Magnetic Error (deg)"
               type="number"
               required
               value={newAircraft.magnetic_error}
@@ -174,7 +190,7 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
             <TextField
-              label="color"
+              label="Color"
               value={newAircraft.color}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, color: e.target.value })
@@ -192,7 +208,7 @@ function CreateAircraftForm(props: Props) {
               />
             </Box>
             <TextField
-              label="equipment"
+              label="Equipment"
               value={newAircraft.equiptment}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, equiptment: e.target.value })
@@ -207,13 +223,13 @@ function CreateAircraftForm(props: Props) {
             >
               save
             </Button>
-            {success && <Alert severity="info">created!</Alert>}
             <Typography sx={{ color: "gray" }}>
               fields with{" "}
               <span style={{ fontWeight: "bold", color: "black" }}>*</span> are
               required
             </Typography>
           </Box>
+          {success && <Alert severity="info">created!</Alert>}
         </form>
       )}
     </>
