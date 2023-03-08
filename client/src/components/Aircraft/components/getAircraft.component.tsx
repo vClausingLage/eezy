@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import AircraftCard from "./aircraftCard.component";
 import { IAircraft } from "../interfaces/aircraft";
 
+import Box from "@mui/material/Box";
+
+import "../CSS/aircraft-card.css";
+
 type Props = {
   userID: string | undefined;
 };
@@ -23,7 +27,7 @@ function GetAircraft(props: Props) {
   }, [aircraft]);
 
   return (
-    <>
+    <Box id="aircraft-container">
       {aircraft.map((el: IAircraft) => (
         <AircraftCard
           key={el.registration_number}
@@ -32,7 +36,7 @@ function GetAircraft(props: Props) {
           registration_number={el.registration_number}
         />
       ))}
-    </>
+    </Box>
   );
 }
 
