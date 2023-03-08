@@ -1,5 +1,7 @@
 # EEzy Flight Planner
 
+Visit at [https://metarapp.azurewebsites.net/](MetarApp)
+
 # Metar
 
 Metars (*MET*eorological *A*erodrome *R*eport) are reports that are isuued by meteorological stations at every commercial airport. These airports have their own weather observation stations and professional staff that extracs the collected weather data. This is then published in strings with abbreviated tokens for different observations. Metars differ widely and can be quite short:
