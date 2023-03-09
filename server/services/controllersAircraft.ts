@@ -5,6 +5,7 @@ import { Aircraft, AircraftModel } from "../models/aircraft.js";
 import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
 export async function queryAircraftAll(req: Request, res: Response) {
+  console.log("queryAircraftAll");
   await mongoose.connect(MONGO_CONN_STRING);
   const result = await Aircraft.find({}).exec();
   res.send(result);
@@ -12,6 +13,8 @@ export async function queryAircraftAll(req: Request, res: Response) {
 }
 
 export async function queryAircraftManufacturer(req: Request, res: Response) {
+  console.log("queryAircraftManufacturer");
+
   await mongoose.connect(MONGO_CONN_STRING);
   const result = await Aircraft.find({
     manufacturer: req.params.manufacturer,
@@ -21,6 +24,8 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
 }
 
 export async function createAircraft(req: Request, res: Response) {
+  console.log("createAircraft");
+
   run().catch((err) => console.log(err));
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);
@@ -32,6 +37,8 @@ export async function createAircraft(req: Request, res: Response) {
 }
 
 export async function getAircraft(req: Request, res: Response) {
+  console.log("getAircraft");
+
   run().catch((err) => console.log(err));
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);
@@ -44,6 +51,8 @@ export async function getAircraft(req: Request, res: Response) {
 }
 
 export async function insertModelAC(req: Request, res: Response) {
+  console.log("insertModelAC");
+
   run().catch((err) => console.log(err));
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);
