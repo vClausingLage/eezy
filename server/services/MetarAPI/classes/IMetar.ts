@@ -1,6 +1,8 @@
+
+
 export interface IAirportObject {
-  frequencies: IFreq[];
-  runways: IRwy[];
+  frequencies: IFreq[]
+  runways: IRwy[]
 }
 
 export interface IFreq {
@@ -14,19 +16,19 @@ export interface IFreq {
 
 interface IRwy {
   he_ident: string;
-  le_ident: string;
+  le_ident: string
 }
 
 export interface IMetarObject {
-  icao: string;
-  time: { local: string; utc: string };
-  flightRule: IFlightRule;
-  tempUnit: string;
-  nosig: boolean;
-  userLocation: string;
-  visibility: { meters: number; miles: number };
+  icao: string,
+  time: {local: string, utc: string};
+  flightRule: IFlightRule,
+  tempUnit: string,
+  nosig: boolean,
+  userLocation: string,
+  visibility: {meters: number, miles: number};
   CAVOK: boolean;
-  tempoInformation: { gusts: string[]; precipitation: string[] };
+  tempoInformation: { gusts: string[], precipitation: string[] }
 }
 
 export interface IWind {
