@@ -1,10 +1,8 @@
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 
 import { airportDBKey } from "../config/config.js";
 
-export const airportDB_router = Router();
-
-airportDB_router.get("/:airportID", async (req: Request, res: Response) => {
+export async function getAirport(req: Request, res: Response) {
   const icao = req.params.airportID;
   try {
     const fetchAirport = await fetch(
@@ -22,4 +20,4 @@ airportDB_router.get("/:airportID", async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
   }
-});
+}

@@ -6,7 +6,7 @@ import {
   queryAircraftManufacturer,
   insertModelAC,
   queryAircraftAll,
-} from "../services/controllersAircraft.js";
+} from "../services/aircraft.controller.js";
 
 export const ac_router = Router();
 

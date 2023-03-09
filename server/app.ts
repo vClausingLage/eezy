@@ -8,7 +8,7 @@ import morgan from "morgan";
 
 import { ac_router } from "./routes/ac.routes.js";
 import { awc_router } from "./routes/awc.routes.js";
-import { airportDB_router } from "./routes/airportDB.routes.js";
+import { airportDB_router } from "./routes/airport.routes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;

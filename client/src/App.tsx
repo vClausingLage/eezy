@@ -13,7 +13,6 @@ import { getDesignTokens } from "./CSS/theme";
 import AppFooter from "./AppFooter";
 import LoginButton from "./components/Authentcation/login";
 import LogoutButton from "./components/Authentcation/logout";
-import Profile from "./components/Authentcation/profile";
 import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
