@@ -1,6 +1,6 @@
 # EEzy Flight Planner
 
-Visit at [http://metarapp.azurewebsites.net/](MetarApp) [...please be patient, its Azure's Free Tier]
+Visit at [http://metarapp.azurewebsites.net//](MetarApp) [...please be patient, its Azure's Free Tier]
 
 # Metar
 
