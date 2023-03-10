@@ -20,7 +20,9 @@ The App uses the [**AWC API**](https://www.aviationweather.gov/dataserver) _beta
 
 # API
 
-**not yet implemented**
+**Test the API at .../api/metardecoder/<YOUR METAR STRING>**
+
+e.g.: `EDHK 100850Z 08012KT 9999 -SN OVC015 01/M02 Q0992 `
 
 The API can convert Raw Metar String input to an output in JSON format. Additionally it provides some default layout suggestions for simplyfied further use in an app.
 
