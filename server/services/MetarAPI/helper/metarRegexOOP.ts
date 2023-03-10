@@ -10,7 +10,7 @@ import {
   tempFormat,
 } from "./metar-helper-functions.js";
 
-import { METARSdev } from "../metarsDEV.js";
+import { METARSdev } from "../assets/metarsDEV.js";
 
 ("http://localhost:4000/api/metardecoder/LBBG%20071830Z%20AUTO%2012010KT%209999%20NCD%2008/07%20Q1009%20NOSIG");
 

@@ -50,10 +50,10 @@ export function windVarFormat(windVar: string) {
   return output;
 }
 
-export function precipFormat(weatherString: string) {
+export function precipFormatOld(weatherString: string) {
   let result: any = [];
   let output = [];
-  weatherString = weatherString.replace(/\s/gi, "");
+  weatherString = weatherString.replaceAll(" ", "");
   while (weatherString.length > 0) {
     if (weatherString[0] === "-" || weatherString[0] === "+") {
       weatherString[0] === "-"
@@ -68,6 +68,7 @@ export function precipFormat(weatherString: string) {
       weatherString = weatherString.slice(2);
     }
   }
+  console.log(result);
   for (let el of result) {
     for (const [key, value] of Object.entries(weatherCodes.characteristic)) {
       if (el[1] === key) output.push(el[0] + " " + value);
@@ -76,7 +77,24 @@ export function precipFormat(weatherString: string) {
       if (el[1] === key) output.push(el[0] + " " + value);
     }
   }
-  return output.join(" and ");
+  return output;
+}
+
+export function precipFormat(weatherString: string) {
+  let result = { intensity: "", code: "" };
+  let output = {};
+  console.log(weatherString);
+  if (weatherString[0] === "-" || weatherString[0] === "+") {
+    console.log(weatherString[0]);
+    weatherString[0] === "-"
+      ? ((result.intensity = "light"),
+        (result.code = weatherString[1] + weatherString[2]))
+      : ((result.intensity = "heavy"),
+        (result.code = weatherString[1] + weatherString[2]));
+  } else if (weatherString[0] !== "-" && weatherString[0] !== "+") {
+    result.code = weatherString[0] + weatherString[1];
+  }
+  return `${result.intensity}` + " " + `${result.code}`;
 }
 
 // export function precipPreposition(precip: string) {

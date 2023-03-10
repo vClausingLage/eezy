@@ -5,7 +5,7 @@ export class Metar {
   Date!: Date;
   Winds!: Wind;
   Visibility!: { value: number; unit: string };
-  Precipitation!: string; // Precipitation;
+  Precipitation!: string[]; // Precipitation;
   Cloud_Layer!: Clouds[];
   TAF_Prognosis!: string;
   Wind_Variation!: number[];
