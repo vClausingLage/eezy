@@ -18,6 +18,12 @@ The TAF/Metar app provides the pilot a **quick** and **comprehensive** overview 
 
 The App uses the [**AWC API**](https://www.aviationweather.gov/dataserver) _beta_-Server as a baseline. The results of the API are **fine grained with a powerful RegEx over the Raw Metar** that **a)** add a second layer of redundancy and **b)** provide useful extra information that does not come with AWC's API.
 
+## Dev
+
+`cd client && npm install`
+`cd server && npm install`
+`cd server && npm run dev`
+
 # API
 
 **Test the API at .../api/metardecoder/\<YOUR METAR STRING\>**
