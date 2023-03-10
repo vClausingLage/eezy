@@ -20,7 +20,7 @@ The App uses the [**AWC API**](https://www.aviationweather.gov/dataserver) _beta
 
 # API
 
-**Test the API at .../api/metardecoder/<YOUR METAR STRING>**
+**Test the API at .../api/metardecoder/\<YOUR METAR STRING\>**
 
 e.g.: `EDHK 100850Z 08012KT 9999 -SN OVC015 01/M02 Q0992 `
 
