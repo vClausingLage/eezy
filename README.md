@@ -14,7 +14,7 @@ or quite long:
 
 depending on the weather conditions at the airport.
 
-The TAF/Metar app provides the pilot a **quick** and **comprehensive** overview of all the relevant data for his/her departure or aerodrome approach. Most relevant information is **visually** represented on top, and more detailed information follows beneath. The pilot can concentrate on flying and navigating the aircraft while the most important weather reports are available at a glance. Beneath wind direction all RWYs of the aerodrome can be selected, providing useful information before checking in with _approach_ or snap in _ATIS_.
+The TAF/Metar app provides the pilot a **quick** and **comprehensive** overview of all the relevant data for his/her departure or aerodrome approach. Most relevant information is **visually** represented on top, and more detailed information follows beneath. The pilot can concentrate on flying and navigating the aircraft while the most important weather reports are available at a glance. Beneath wind direction all RWYs of the aerodrome can be selected, providing useful information before checking in with _Approach_ or snaping in _ATIS_.
 _(! Runways are selectable even if they have the same heading (in case of RWY 26R and RWY 26L) !)_
 
 The App uses the [**AWC API**](https://www.aviationweather.gov/dataserver) _beta_-Server as a baseline. The results of the API are **fine grained with a powerful RegEx over the Raw Metar** that **a)** add a second layer of redundancy and **b)** provide useful extra information that does not come with AWC's API.
