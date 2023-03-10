@@ -21,7 +21,7 @@ export function prepareMetar(metar: string) {
 // the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
 // ALSO for BECOMING
 //! ADD RMK (remarks)
-function reduceTempo(metar: string[]) {
+export function reduceTempo(metar: string[]) {
   if (metar[metar.length - 1].slice(-1) === "=") {
     metar[metar.length - 1] = metar[metar.length - 1].replace("=", ""); // remove = at the END of metar
   }
