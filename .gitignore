@@ -1,6 +1,6 @@
 .vscode/
 
-client/src/components/Metar/config/
+client/src/config/config.ts
 client/node_modules/
 client/build/
 
