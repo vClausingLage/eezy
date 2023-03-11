@@ -1,4 +1,4 @@
-import { IAirPressure, IFlightRule } from "../interfaces/IMetar.js";
+import { IAirPressure, IFlightRule, IMetar } from "../interfaces/IMetar.js";
 import { Metar } from "../classes/metar-classes.js";
 import {
   dateFormat,
@@ -15,17 +15,23 @@ import { reduceTempo } from "./metar-regex-helper-functions.js";
 export function mapToMetarObj(metarInput: string[]) {
   let [metar, remarks, tempoMetar, becomingMetar] = reduceTempo(metarInput);
   let metarObj = new Metar();
-  metarObj["RawMetar"] = metar.join(" ") + " " + remarks.join(" ");
+  metarObj["RawMetar"] =
+    metar.join(" ") +
+    " " +
+    remarks.join(" ") +
+    " " +
+    tempoMetar.join(" ") +
+    " " +
+    becomingMetar.join(" ");
+  // INITIALISATIONS
   metarObj["remarks"] = remarks;
   metarObj["tempo"] = tempoMetar;
   metarObj["becoming"] = becomingMetar;
+  metarObj["NOSIG"] = false;
   metarObj["flightRule"] = {} as IFlightRule;
   metarObj["AirPressure"] = {} as IAirPressure;
   metarObj["Cloud_Layer"] = [];
-  metarObj["NOSIG"] = false;
-  // initialize Precip Array
   metarObj["Precipitation"] = [];
-  // RAW METAR
   // ICAO
   metarObj["ICAO"] = metar[0];
   metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
@@ -106,13 +112,6 @@ export function mapToMetarObj(metarInput: string[]) {
       metarObj["recent"] = el;
       metar = metar.filter((el) => !el);
     }
-    // else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-    //   if (el !== 'NOSIG' && el!== 'NCD' && el!== 'CLR') {
-    //     let output = precipFormat(el)
-    //     metarObj['Precipitation'] = output;
-    //     metar = metar.filter(el => !el)
-    //   }
-    // }
     // TEMPERATURE
     else if (/^M?\d{2}\/M?\d{2}/i.test(el)) {
       let output = tempFormat(el);
@@ -135,12 +134,30 @@ export function mapToMetarObj(metarInput: string[]) {
       metarObj["AirPressure"]["unit"] = "inHg";
       metar = metar.filter((el) => !el);
     }
+    // ! LESSER TOKENS
     // TAF PROGNOSIS
     else if (/^\d{4}\/\d{4}$/i.test(el)) {
       metarObj["TAF_Prognosis"] = el;
       metar = metar.filter((el) => !el);
     }
+    // PRESSURE FALLING_RISING
+    else if (/^PRESFR$/i.test(el)) {
+      metarObj["remarks"].push("pressure falling rapidly");
+      metar = metar.filter((el) => !el);
+    } else if (/^PRESRR$/i.test(el)) {
+      metarObj["remarks"].push("pressure rising rapidly");
+      metar = metar.filter((el) => !el);
+    }
+    // No Significant Weather
+    else if (/^NSW$/i.test(el)) {
+      metarObj["remarks"].push("no significatn weather");
+      metar = metar.filter((el) => !el);
+    }
   });
   metarObj["RawMetarDone"] = metar.join(" ");
   return metarObj;
+}
+
+function addToRemarks(metarObj: IMetar) {
+  console.log(metarObj.remarks);
 }

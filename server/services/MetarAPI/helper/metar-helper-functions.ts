@@ -38,7 +38,7 @@ export function windFormat(wind: string) {
 export function windFormatSpec(wind: string) {
   let output = new Wind();
   output = {
-    direction: "more than 30",
+    direction: "variable winds from more than 30°",
     speed: parseInt(wind.slice(3, 5)),
     unit: "kts",
   };
