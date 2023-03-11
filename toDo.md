@@ -1,32 +1,34 @@
-# Mobile App
+# METAR API
 
-- menu unten
-- keine Überschrift
+## To Do
 
-# React App
+- new RegEx for crazy differences in PRECIP strings -> regex101
 
-## important
+  - [+/-/_ | 2W | 4W | 6W] -> 6W only if characteristics?
+  - [+/-/_ 2W | 4W (if characteristics!)]
 
-### check METAR codes
+- map TEMPO, BECMG, RMK to _object_
 
-- R26/1000D
-- VV///
-
-## METAR
-
-https://www.dwd.de/DE/fachnutzer/luftfahrt/teaser/luftsportberichte/fbeu40_node.html
+## Structure
 
 [1] ICAO
 [2] day + Zulu time
 [3] wind direction and speed
 [4] wind variation
-[5] visibility (m / ft)
+[5] visibility (m)
 [6] [METAR weather codes](https://en.wikipedia.org/wiki/METAR)
-[7] clouds
-[8] clouds
+[7] clouds (can be **4 instances**)
 [9] temperature/dewpoint (M for minus)
-[10] QNH
-[11] = for end of metar
+[10] QNH/Altimeter
+[11] **RE**cent
+[-1] = for end of metar
+
+## check METAR codes
+
+- R26/1000D
+- VV///
+
+# React App
 
 ## Inhalt
 
@@ -39,3 +41,8 @@ DWD Flug Wetterberichte als Vorhersage
 - Airports (lat long)
 - WARNING EXCEED FUEL CAPACITY
 - WARNING EDUCATIONAL PURPOSE ONLY
+
+# Mobile App
+
+- menu unten
+- keine Überschrift
