@@ -50,7 +50,13 @@ export function windVarFormat(windVar: string) {
   return output;
 }
 
-export function precipFormatOld(weatherString: string) {
+export function precipFormatTest(weatherString: string): string {
+  console.log(weatherString);
+
+  return "hi";
+}
+
+export function precipFormatCon(weatherString: string): string {
   let result: any = [];
   let output = [];
   weatherString = weatherString.replaceAll(" ", "");
@@ -77,10 +83,10 @@ export function precipFormatOld(weatherString: string) {
       if (el[1] === key) output.push(el[0] + " " + value);
     }
   }
-  return output;
+  return output.join(" ");
 }
 
-export function precipFormat(weatherString: string) {
+export function precipFormatSep(weatherString: string): string {
   let result = { intensity: "", code: "" };
   let output = {};
   console.log(weatherString);
@@ -96,64 +102,6 @@ export function precipFormat(weatherString: string) {
   }
   return `${result.intensity}` + " " + `${result.code}`;
 }
-
-// export function precipPreposition(precip: string) {
-//   let formattedPrecip: string[] = []
-//   if (precip.length % 2 === 0) {
-//     formattedPrecip = ['', precip];
-//   }
-//   else if (precip.length % 2 !== 0) {
-//     let preposition: string
-//     if (precip.slice(0, 1) === '-') {
-//       preposition = 'light'
-//     } else if (precip.slice(0, 1) === '+') {
-//       preposition = 'heavy'
-//     }
-//     formattedPrecip = [preposition!, precip.slice(1, precip.length)];
-//   }
-//   return formattedPrecip;
-// }
-
-// export function decodeWeather(precip: string[]) {
-//   let output: string[] = []
-//   // load JSON weather codes to [VAR]
-//   let codes = weatherCodes
-//   let codeArr: Array<Array<string>> = []
-//   for (const [k, v] of Object.entries(codes)) {
-//     for (const [code, descr] of Object.entries(v)) {
-//       codeArr.push([code, descr])
-//     }
-//   }
-//   // use VAR to LOOP METAR input
-//   let result: string[] = []
-//   if (precip[1].length >= 2) {
-//     for (let i = 0, charsLength = precip[1].length; i < charsLength; i += 2) {
-//       result.push(precip[1].substring(i, i + 2));
-//     }
-//   } else {
-//     console.log('precipitation code not properly formatted')
-//     // result.push(precip[1])
-//   }
-//   // check RPECIP for WEATHER CODES MATCH
-//   result.forEach((el) => {
-//     codeArr.forEach(x => {
-//       if (x[0] === el) {      // check weather code match x[0]
-//         output.push(x[1])     // push description of code x[1]
-//       }
-//     })
-//   })
-//   return output
-// }
-
-// export function precipFormat(precip: string) {
-//   precip = precip.replaceAll(' ', '')
-//   let output = new Precipitation();
-//   let newPrecip = precipPreposition(precip);
-//   let weatherCode = decodeWeather(newPrecip);
-//   output.intensity = newPrecip[0];
-//   output.elements = weatherCode;
-//   return output;
-// }
 
 export function cloudFormat(clouds: string) {
   let output = new Clouds();

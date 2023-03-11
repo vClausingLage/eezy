@@ -5,9 +5,10 @@ import {
   windFormat,
   windFormatSpec,
   windVarFormat,
-  precipFormat,
   cloudFormat,
   tempFormat,
+  precipFormatSep,
+  precipFormatTest,
 } from "./metar-helper-functions.js";
 import { reduceTempo } from "./metar-regex-helper-functions.js";
 
@@ -31,14 +32,11 @@ export function mapToMetarObj(metarInput: string[]) {
   metarObj["flightRule"] = {} as IFlightRule;
   metarObj["AirPressure"] = {} as IAirPressure;
   metarObj["Cloud_Layer"] = [];
-  metarObj["Precipitation"] = [];
   // ICAO
   metarObj["ICAO"] = metar[0];
   metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
   // LOOP ELEMENTS
   metar.forEach((el) => {
-    console.log(el);
-    console.log(metar);
     // DATE / TIME
     if (/^\d{6}Z$/i.test(el)) {
       let output = dateFormat(el);
@@ -101,18 +99,26 @@ export function mapToMetarObj(metarInput: string[]) {
       metarObj["Cloud_Layer"].push(output);
       metar = metar.filter((el) => !el);
     }
-    // PRECIPITATION
-    else if (/^\+?\D{2}$/i.test(el) || /^-?\D{2}$/i.test(el)) {
-      if (el !== "NOSIG" && el !== "NCD" && el !== "CLR" && el !== "AUTO") {
-        let output = precipFormat(el);
-        metarObj.Precipitation.push(output);
-        metar = metar.filter((el) => !el);
-      }
-    }
-    // RECENT PRECIPITAION //! must be formatted
+    // RECENT PRECIPITAION //! must be formatted -> connected weather string
     else if (/^RE\D{2,4}/i.test(el)) {
       metarObj["recent"] = el;
       metar = metar.filter((el) => !el);
+    }
+    // PRECIPITATION // ! Seperated Weather Strings
+    else if (/^\+?\D{2}$/i.test(el) || /^-?\D{2}$/i.test(el)) {
+      if (el !== "NOSIG" && el !== "NCD" && el !== "CLR" && el !== "AUTO") {
+        let output = precipFormatTest(el);
+        metarObj["Precipitation"] = output;
+        metar = metar.filter((el) => !el);
+      }
+    }
+    // PRECIPITATION // ! Connected Weather String
+    else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
+      if (el !== "NOSIG" && el !== "NCD" && el !== "CLR" && el !== "AUTO") {
+        let output = precipFormatTest(el);
+        metarObj["Precipitation"] = output;
+        metar = metar.filter((el) => !el);
+      }
     }
     // TEMPERATURE
     else if (/^M?\d{2}\/M?\d{2}/i.test(el)) {
