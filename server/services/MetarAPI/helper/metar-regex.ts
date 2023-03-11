@@ -37,6 +37,8 @@ export function mapToMetarObj(metarInput: string[]) {
   metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
   // LOOP ELEMENTS
   metar.forEach((el) => {
+    console.log(el);
+    console.log(metar);
     // DATE / TIME
     if (/^\d{6}Z$/i.test(el)) {
       let output = dateFormat(el);

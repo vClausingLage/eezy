@@ -7,9 +7,7 @@ export function prepareMetar(metar: string) {
 }
 
 // -> metar-regex (mapToMetarObject)
-// the reduce function removes all TEMPO entries from the original RAW METAR and add them to the TEMPO METAR
-// ALSO for BECOMING
-//! ADD RMK (remarks)
+// the reduce function removes all TEMPO, BECMG, RMK entries from the original RAW METAR and adds them to arrays //! ORDER RMK -> BECMG -> TEMPO
 export function reduceTempo(metar: string[]) {
   if (metar[metar.length - 1].slice(-1) === "=") {
     metar[metar.length - 1] = metar[metar.length - 1].replace("=", ""); // remove = at the END of metar
@@ -19,28 +17,28 @@ export function reduceTempo(metar: string[]) {
   let remarks: string[] = [];
   metar.forEach((el, idx) => {
     let length = metar.length;
-    if (/RMK/i.test(el)) {
-      for (let i = idx; i < length; i++) {
-        remarks.push(metar[i]);
+    metar.forEach((el, idx) => {
+      let length = metar.length;
+      metar.forEach((el, idx) => {
+        let length = metar.length;
+        if (/RMK/i.test(el)) {
+          for (let i = idx; i < length; i++) {
+            remarks.push(metar[i]);
+          }
+          for (let i = idx; i < length; i++) {
+            metar.splice(i);
+          }
+        }
+      });
+      if (/BECMG/i.test(el)) {
+        for (let i = idx; i < length; i++) {
+          becomingMetar.push(metar[i]);
+        }
+        for (let i = idx; i < length; i++) {
+          metar.splice(i);
+        }
       }
-      for (let i = idx; i < length; i++) {
-        metar.splice(i);
-      }
-    }
-  });
-  metar.forEach((el, idx) => {
-    let length = metar.length;
-    if (/BECMG/i.test(el)) {
-      for (let i = idx; i < length; i++) {
-        becomingMetar.push(metar[i]);
-      }
-      for (let i = idx; i < length; i++) {
-        metar.splice(i);
-      }
-    }
-  });
-  metar.forEach((el, idx) => {
-    let length = metar.length;
+    });
     if (/TEMPO/i.test(el)) {
       for (let i = idx; i < length; i++) {
         tempoMetar.push(metar[i]);
