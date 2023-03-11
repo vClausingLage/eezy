@@ -107,7 +107,7 @@ export function mapToMetarObj(metarInput: string[]) {
     // PRECIPITATION // ! Seperated Weather Strings
     else if (/^\+?\D{2}$/i.test(el) || /^-?\D{2}$/i.test(el)) {
       if (el !== "NOSIG" && el !== "NCD" && el !== "CLR" && el !== "AUTO") {
-        let output = precipFormatTest(el);
+        let output = precipFormatSep(el);
         metarObj["Precipitation"] = output;
         metar = metar.filter((el) => !el);
       }
