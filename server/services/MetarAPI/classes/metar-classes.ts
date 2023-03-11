@@ -1,3 +1,11 @@
+import {
+  IWind,
+  IClouds,
+  IAirPressure,
+  IFlightRule,
+} from "../interfaces/IMetar.js";
+
+// -> metar-regex
 export class Metar {
   ICAO!: string;
   Date!: Date;
@@ -20,4 +28,17 @@ export class Metar {
   remarks!: string[];
   becoming!: string[];
   tempo!: string[];
+}
+
+// -> helper-functions
+export class Wind {
+  direction!: number | string;
+  speed!: number;
+  unit!: string;
+  gusts?: number;
+}
+export class Clouds {
+  cloudLayer!: string;
+  cloudBase!: number | undefined;
+  cloud?: string;
 }

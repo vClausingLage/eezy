@@ -176,7 +176,7 @@ export function maptoMetarObj(metarInput: string[]) {
       el = el.replace("Q", "");
       metarObj["AirPressure"]["pressure"] = "QNH";
       metarObj["AirPressure"]["value"] = parseInt(el);
-      metarObj["AirPressure"]["hPA"];
+      metarObj["AirPressure"]["unit"] = "hPa";
       metar = metar.filter((el) => !el);
     }
     // TAF PROGNOSIS
