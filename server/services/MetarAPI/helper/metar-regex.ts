@@ -1,4 +1,4 @@
-import { IFlightRule } from "../classes/IMetar.js";
+import { IFlightRule } from "../interfaces/IMetar.js";
 import { Metar } from "../classes/metar-classes.js";
 import {
   dateFormat,
@@ -174,7 +174,9 @@ export function maptoMetarObj(metarInput: string[]) {
     // QNH
     else if (/^Q\d{3,4}$/i.test(el)) {
       el = el.replace("Q", "");
-      metarObj["QNH"] = parseInt(el);
+      metarObj["AirPressure"]["pressure"] = "QNH";
+      metarObj["AirPressure"]["value"] = parseInt(el);
+      metarObj["AirPressure"]["hPA"];
       metar = metar.filter((el) => !el);
     }
     // TAF PROGNOSIS

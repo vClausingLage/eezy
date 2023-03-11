@@ -1,15 +1,14 @@
-
 export interface IMetar {
   ICAO: string;
   Date: Date;
-  QNH: number;
+  AirPressure: IAirPressure;
   SLP: number;
   CAVOK: boolean;
   Temperature: number[];
   Precipitation: IPrecipitation;
   Visibility: string | number;
   Cloud_Layer: IClouds[];
-  flightRule: IFlightRule,
+  flightRule: IFlightRule;
   Winds: IWind;
   Wind_Variation: number[];
   TAF_Prognosis: string;
@@ -21,6 +20,12 @@ export interface IMetar {
   remarks: string[];
   becoming: string[];
   tempo: string[];
+}
+
+interface IAirPressure {
+  pressure: string;
+  value: number;
+  unit: string;
 }
 
 export interface IWind {
