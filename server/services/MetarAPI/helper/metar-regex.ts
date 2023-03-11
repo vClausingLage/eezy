@@ -1,4 +1,4 @@
-import { IFlightRule } from "../interfaces/IMetar.js";
+import { IAirPressure, IFlightRule } from "../interfaces/IMetar.js";
 import { Metar } from "../classes/metar-classes.js";
 import {
   dateFormat,
@@ -15,16 +15,17 @@ import { reduceTempo } from "./metar-regex-helper-functions.js";
 export function mapToMetarObj(metarInput: string[]) {
   let [metar, remarks, tempoMetar, becomingMetar] = reduceTempo(metarInput);
   let metarObj = new Metar();
+  metarObj["RawMetar"] = metar.join(" ") + " " + remarks.join(" ");
   metarObj["remarks"] = remarks;
   metarObj["tempo"] = tempoMetar;
   metarObj["becoming"] = becomingMetar;
   metarObj["flightRule"] = {} as IFlightRule;
+  metarObj["AirPressure"] = {} as IAirPressure;
   metarObj["Cloud_Layer"] = [];
   metarObj["NOSIG"] = false;
   // initialize Precip Array
   metarObj["Precipitation"] = [];
   // RAW METAR
-  metarObj["RawMetar"] = metar.join(" ");
   // ICAO
   metarObj["ICAO"] = metar[0];
   metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
@@ -124,6 +125,14 @@ export function mapToMetarObj(metarInput: string[]) {
       metarObj["AirPressure"]["pressure"] = "QNH";
       metarObj["AirPressure"]["value"] = parseInt(el);
       metarObj["AirPressure"]["unit"] = "hPa";
+      metar = metar.filter((el) => !el);
+    }
+    // ALTIMETER
+    else if (/^A\d{3,4}$/i.test(el)) {
+      el = el.replace("A", "");
+      metarObj["AirPressure"]["pressure"] = "Altimeter";
+      metarObj["AirPressure"]["value"] = parseInt(el);
+      metarObj["AirPressure"]["unit"] = "inHg";
       metar = metar.filter((el) => !el);
     }
     // TAF PROGNOSIS
