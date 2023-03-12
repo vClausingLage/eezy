@@ -17,14 +17,14 @@ import {
 } from "./helper/metar-ui-helper";
 import { IMetarObject, IAirportObject } from "./classes/IMetar";
 
-import Cloud from "./components/Cloud.component";
-import Sun from "./components/Sun.component";
-import Wind from "./components/Wind.component";
-import AerodromeFrequencies from "./components/AerodromeFrequencies.component";
-import FlightRuleTable from "./components/FlightRuleTable.component";
+import Cloud from "./components/Cloud";
+import Sun from "./components/Sun";
+import Wind from "./components/Wind";
+import AerodromeFrequencies from "./components/AerodromeFrequencies";
+import FlightRuleTable from "./components/FlightRuleTable";
 
 import "./CSS/index.css";
-import DataPanel from "./components/DataPanel.component";
+import DataPanel from "./components/DataPanel";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);

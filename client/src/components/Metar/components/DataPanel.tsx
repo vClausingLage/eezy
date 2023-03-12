@@ -1,4 +1,4 @@
-import DataView from "./DataView.component";
+import DataView from "./DataView";
 
 import { formatWeatherString } from "../helper/metar-ui-helper";
 
