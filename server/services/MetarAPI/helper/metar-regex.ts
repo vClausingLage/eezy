@@ -9,8 +9,10 @@ import {
   tempFormat,
   precipFormatSep,
   precipFormatTest,
+  precipFormatCon,
 } from "./metar-helper-functions.js";
 import { reduceTempo } from "./metar-regex-helper-functions.js";
+import { formatWeatherString } from "./metar-ui-helper.js";
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 export function mapToMetarObj(metarInput: string[]) {
@@ -33,6 +35,7 @@ export function mapToMetarObj(metarInput: string[]) {
   metarObj["flightRule"] = {} as IFlightRule;
   metarObj["AirPressure"] = {} as IAirPressure;
   metarObj["Cloud_Layer"] = [];
+  metarObj["Precipitation"] = [];
   // ICAO
   metarObj["ICAO"] = metar[0];
   metar.shift(); // remove ICAO code to avoid conflict with PRECIPITATION codes
@@ -101,24 +104,17 @@ export function mapToMetarObj(metarInput: string[]) {
       metar = metar.filter((el) => !el);
     }
     // RECENT PRECIPITAION //! must be formatted -> connected weather string
-    else if (/^RE\D{2,4}/i.test(el)) {
+    else if (/^RE[-z]{2,4}/i.test(el)) {
       metarObj["recent"] = el;
       metar = metar.filter((el) => !el);
     }
-    // PRECIPITATION // ! Seperated Weather Strings
-    else if (/^\+?\D{2}$/i.test(el) || /^-?\D{2}$/i.test(el)) {
-      if (el !== "NOSIG" && el !== "NCD" && el !== "CLR" && el !== "AUTO") {
-        let output = precipFormatSep(el);
-        metarObj["Precipitation"] = output;
-        metar = metar.filter((el) => !el);
-      }
-    }
-    // PRECIPITATION // ! Connected Weather String
-    else if (/^\+?\D{2,6}$/i.test(el) || /^-?\D{2,6}$/i.test(el)) {
-      if (el !== "NOSIG" && el !== "NCD" && el !== "CLR" && el !== "AUTO") {
-        let output = precipFormatTest(el);
-        metarObj["Precipitation"] = output;
-        metar = metar.filter((el) => !el);
+    // PRECIPITATION
+    else if (/^(-?|\+?|)(?:[a-z]{4}|[a-z]{2})$/i.test(el)) {
+      if (el !== "AUTO") {
+        let output = precipFormatCon(el);
+        output = output.replace("  ", " ").trim();
+        console.log(output);
+        metarObj["Precipitation"].push(output);
       }
     }
     // TEMPERATURE
