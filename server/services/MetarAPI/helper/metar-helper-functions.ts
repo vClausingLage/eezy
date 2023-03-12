@@ -67,7 +67,6 @@ export function precipFormatTest(weatherString: string): string {
       weatherString = weatherString.slice(2);
     }
   }
-  console.log(result);
   for (let el of result) {
     for (const [key, value] of Object.entries(weatherCodes.characteristic)) {
       if (el[1] === key) output.push(el[0] + " " + value);
@@ -96,7 +95,6 @@ export function precipFormatCon(weatherString: string): string {
       weatherString = weatherString.slice(2);
     }
   }
-  console.log(result);
   for (let el of result) {
     for (const [key, value] of Object.entries(weatherCodes.characteristic)) {
       if (el[1] === key) output.push(el[0] + " " + value);
@@ -110,10 +108,7 @@ export function precipFormatCon(weatherString: string): string {
 
 export function precipFormatSep(weatherString: string): string {
   let result = { intensity: "", code: "" };
-  let output = {};
-  console.log(weatherString);
   if (weatherString[0] === "-" || weatherString[0] === "+") {
-    console.log(weatherString[0]);
     weatherString[0] === "-"
       ? ((result.intensity = "light"),
         (result.code = weatherString[1] + weatherString[2]))
