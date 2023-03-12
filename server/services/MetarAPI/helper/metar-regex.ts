@@ -29,6 +29,7 @@ export function mapToMetarObj(metarInput: string[]) {
   metarObj["tempo"] = tempoMetar;
   metarObj["becoming"] = becomingMetar;
   metarObj["NOSIG"] = false;
+  metarObj["AUTO"] = false;
   metarObj["flightRule"] = {} as IFlightRule;
   metarObj["AirPressure"] = {} as IAirPressure;
   metarObj["Cloud_Layer"] = [];
@@ -43,12 +44,12 @@ export function mapToMetarObj(metarInput: string[]) {
       metarObj["Date"] = output;
       metar = metar.filter((el) => !el);
     }
-    // NOSIG NCD CLR
+    // NOSIG
     else if (/NOSIG/i.test(el)) {
       metarObj["NOSIG"] = true;
       metar = metar.filter((el) => !el);
     }
-    // CAVOK
+    // CAVOK //! NCD CLR HERE
     else if (/^CAVOK$/i.test(el)) {
       metarObj["CAVOK"] = true;
       metar = metar.filter((el) => !el);

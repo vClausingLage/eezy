@@ -44,6 +44,7 @@ export interface IMetar {
   PreparedMetar: string[];
   RawMetarDone: string;
   NOSIG: boolean;
+  AUTO: boolean;
   Temperature: number[];
   recent: string;
   remarks: string[];
