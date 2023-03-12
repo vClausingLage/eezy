@@ -39,6 +39,10 @@
 
 # React App
 
+## Authentication
+
+- set up with Azure (Auth0)
+
 ## Inhalt
 
 !! GAFOR geschützt -> DFS !!

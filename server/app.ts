@@ -31,15 +31,30 @@ app.use("/api/metar", awc_router);
 app.use("/api/airport", airportDB_router);
 app.use("/api/metardecoder", metar_api_router);
 
-// UDEMY
-// import mongoose from "mongoose";
-// import { mongoUriUsers } from "./config/config.js";
-// import { authRoutes } from "./routes/authRoutes.js";
-// import "./models/user.js";
-// import "./services/passport.js";
-// authRoutes(app);
-// mongoose.connect(mongoUriUsers);
-// UDEMY
+// AUTH
+
+import { auth } from "express-openid-connect";
+
+import { AUTH0_SECRET } from "./config/config.js";
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: AUTH0_SECRET,
+  baseURL: "http://localhost:4000",
+  clientID: "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ",
+  issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",
+};
+
+app.use(auth(config));
+
+app.get("/", (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+});
+
+// https://manage.auth0.com/dashboard/us/dev-lcqbfmwjn2s35t2q/applications/QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ/quickstart/express/steps/4
+
+// AUTH
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
