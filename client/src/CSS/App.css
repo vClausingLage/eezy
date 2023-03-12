@@ -12,3 +12,6 @@
   margin: 1rem;
   text-decoration: none;
 }
+.nav-bar > *:hover {
+  background-color: #93A4C5;
+}

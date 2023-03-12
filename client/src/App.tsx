@@ -30,8 +30,7 @@ function App() {
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   let activeStyle = {
-    color: "#293866",
-    borderColor: "#293866",
+    backgroundColor: "#93A4C5",
   };
 
   return (

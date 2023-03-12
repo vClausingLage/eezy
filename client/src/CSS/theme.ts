@@ -6,7 +6,7 @@ export const getDesignTokens = (mode: any) => ({
   },
   palette: {
     primary: {
-      main: "#568395", // #20788d #495c75
+      main: "#4C689F", // #20788d #495c75 #568395 #8495b0
     },
     secondary: {
       main: "#121212",

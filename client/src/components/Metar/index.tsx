@@ -130,7 +130,7 @@ function Metar() {
       <Box id="metar-text-input-ICAO">
         <Typography variant="h2">Metar</Typography>
         <form onSubmit={searchMetar}>
-          <TextField //! error handling here => https://mui.com/material-ui/react-text-field/#validation
+          <TextField
             type="search"
             label="enter ICAO Code"
             value={metarObject.icao}
