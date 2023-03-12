@@ -11,7 +11,6 @@ import Search from "@mui/icons-material/Search";
 
 import {
   getFlightRules,
-  formatWeatherString,
   convertDate,
   // checkLocation,
   tempoInformation,
@@ -21,12 +20,11 @@ import { IMetarObject, IAirportObject } from "./classes/IMetar";
 import Cloud from "./components/Cloud";
 import Sun from "./components/Sun";
 import Wind from "./components/Wind";
-import DataView from "./components/DataView";
-import Aerodrome from "./components/Aerodrome";
+import AerodromeFrequencies from "./components/AerodromeFrequencies";
 import FlightRuleTable from "./components/FlightRuleTable";
 
 import "./CSS/index.css";
-import { tempFormat } from "./helper/metar-helper-functions";
+import DataPanel from "./components/DataPanel";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
@@ -194,99 +192,18 @@ function Metar() {
                 {metarObject.flightRule?.flightRule}
               </Typography>
 
-              <Box id="weather-data">
-                {metar.slp !== null && metar.altim === null && (
-                  <DataView
-                    data={[
-                      {
-                        description: "SLP",
-                        value: Math.round(metar.slp / 10),
-                      },
-                    ]}
-                    unit={"hPa"}
-                  ></DataView>
-                )}
-                {metar.altim !== null && metar.slp === null && (
-                  <DataView
-                    data={[
-                      {
-                        description: "QNH",
-                        value: Math.round(metar.altim / 10),
-                      },
-                    ]}
-                    unit={"hPa"}
-                  ></DataView>
-                )}
-                {metar.slp !== null && metar.altim !== null && (
-                  <DataView
-                    data={[
-                      {
-                        description: "QNH",
-                        value: Math.round(metar.altim / 10),
-                      },
-                      {
-                        description: "SLP",
-                        value: Math.round(metar.slp / 10),
-                      },
-                    ]}
-                    unit={"hPa"}
-                  ></DataView>
-                )}
-                <DataView
-                  data={[
-                    {
-                      description: "Visibility",
-                      value: metarObject.visibility.meters,
-                    },
-                  ]}
-                  unit={"m"}
-                ></DataView>
-                {metar.wxString && (
-                  <DataView
-                    data={[
-                      {
-                        description: "Precipitation",
-                        value: formatWeatherString(metar.wxString),
-                      },
-                    ]}
-                  ></DataView>
-                )}
-                {metarObject.tempUnit === "°C" ? (
-                  <>
-                    <DataView
-                      data={[
-                        {
-                          description: "Temperature",
-                          value: Math.round(metar.temp / 10),
-                        },
-                        {
-                          description: "Dewpoint",
-                          value: Math.round(metar.dewp / 10),
-                        },
-                      ]}
-                      unit={metarObject.tempUnit}
-                      tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
-                    ></DataView>
-                  </>
-                ) : (
-                  <>
-                    <DataView
-                      data={[
-                        {
-                          description: "Temperature",
-                          value: Math.round(((metar.temp / 10) * 9) / 5 + 32),
-                        },
-                        {
-                          description: "Dewpoint",
-                          value: Math.round(((metar.dewp / 10) * 9) / 5 + 32),
-                        },
-                      ]}
-                      unit={metarObject.tempUnit}
-                      tempUnitToggle={(unit: string) => tempUnitToggle(unit)}
-                    ></DataView>
-                  </>
-                )}
-              </Box>
+              <DataPanel
+                props={{
+                  altim: metar.altim,
+                  slp: metar.slp,
+                  temp: metar.temp,
+                  dewp: metar.dewp,
+                  tempUnit: metarObject.tempUnit,
+                  tempUnitToggle: tempUnitToggle,
+                  wxString: metar.wxString,
+                  visibilityMeters: metarObject.visibility.meters,
+                }}
+              />
 
               <Box id="grid_container_Clouds_Wind">
                 <Box>
@@ -359,7 +276,7 @@ function Metar() {
                 {metar.rawOb}
               </Typography>
               {airportObject.frequencies && !isLoading && (
-                <Aerodrome props={airportObject.frequencies} />
+                <AerodromeFrequencies props={airportObject.frequencies} />
               )}
               <Button
                 sx={{ mt: 10 }}
