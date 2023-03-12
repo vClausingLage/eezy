@@ -12,6 +12,10 @@
   - connected
   - separated
 
+- Crazy Metar String RegEx Problems
+
+  - 1 3/4SM
+
 - map TEMPO, BECMG, RMK to _object_
 
 ## Structure
