@@ -39,7 +39,6 @@ function Metar() {
   } as IMetarObject);
 
   function tempUnitToggle(unit: string) {
-    // ! add return
     if (unit === "°C") {
       setMetarObject({ ...metarObject, tempUnit: "°F" });
     } else if (unit === "°F") {
