@@ -17,11 +17,10 @@ import {
 } from "./helper/metar-ui-helper";
 import { IMetarObject, IAirportObject } from "./classes/IMetar";
 
-import Cloud from "./components/Cloud";
-import Sun from "./components/Sun";
-import Wind from "./components/Wind";
+import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";
 import FlightRuleTable from "./components/FlightRuleTable";
+import LoadingCircle from "../General/LoadingCircle";
 
 import "./CSS/index.css";
 import DataPanel from "./components/DataPanel";
@@ -48,18 +47,7 @@ function Metar() {
     }
   }
 
-  const loading = (
-    <Box
-      style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <CircularProgress color="primary" />
-    </Box>
-  );
+  const loading = <LoadingCircle />;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setMetarObject({
@@ -205,59 +193,23 @@ function Metar() {
                 }}
               />
 
-              <Box id="grid_container_Clouds_Wind">
-                <Box>
-                  <Box id="sun-box">
-                    {metar.cldCvg1 === "CAVOK" && (
-                      <Sun date={metarObject.time.local} />
-                    )}
-                    {metar.cldCvg1 === "NCD" && (
-                      <Sun date={metarObject.time.local} />
-                    )}
-                    {metar.cldCvg1 === "CLR" && (
-                      <Sun date={metarObject.time.local} />
-                    )}
-                  </Box>
-
-                  <Box id="cloud-box">
-                    {metar.cldBas1 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas1)}
-                        cloudLayer={metar.cldCvg1}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas2 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas2)}
-                        cloudLayer={metar.cldCvg2}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas3 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas3)}
-                        cloudLayer={metar.cldCvg3}
-                      ></Cloud>
-                    )}
-                    {metar.cldBas4 && (
-                      <Cloud
-                        cloudBase={parseInt(metar.cldBas4)}
-                        cloudLayer={metar.cldCvg4}
-                      ></Cloud>
-                    )}
-                  </Box>
-                </Box>
-                <Box>
-                  {metar.wdir && (
-                    <Wind
-                      direction={parseInt(metar.wdir)}
-                      speed={parseInt(metar.wspd)}
-                      unit="kts"
-                      gusts={metar.wgst}
-                      runways={airportObject.runways}
-                    />
-                  )}
-                </Box>
-              </Box>
+              <SVGPanel
+                props={{
+                  cldCvg1: metar.cldCvg1,
+                  cldCvg2: metar.cldCvg2,
+                  cldCvg3: metar.cldCvg3,
+                  cldCvg4: metar.cldCvg4,
+                  cldBas1: metar.cldBas1,
+                  cldBas2: metar.cldBas2,
+                  cldBas3: metar.cldBas3,
+                  cldBas4: metar.cldBas4,
+                  wspd: metar.wspd,
+                  wdir: metar.wdir,
+                  wgst: metar.wgust,
+                  runways: airportObject.runways,
+                  timeLocal: metarObject.time.local,
+                }}
+              />
 
               <Alert severity="info">
                 <Typography>
@@ -275,9 +227,11 @@ function Metar() {
                 <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
                 {metar.rawOb}
               </Typography>
+
               {airportObject.frequencies && !isLoading && (
                 <AerodromeFrequencies props={airportObject.frequencies} />
               )}
+
               <Button
                 sx={{ mt: 10 }}
                 onClick={() => setShowTable(!showTable)}
