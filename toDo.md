@@ -7,6 +7,11 @@
   - [+/-/_ | 2W | 4W | 6W] -> 6W only if characteristics?
   - [+/-/_ 2W | 4W (if characteristics!)]
 
+- RegEx : ^(-|\+|)\D{2,4}
+
+  - connected
+  - separated
+
 - map TEMPO, BECMG, RMK to _object_
 
 ## Structure
