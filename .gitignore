@@ -1,6 +1,6 @@
 .vscode/
 
-client/src/config/config.ts
+client/src/config.ts
 client/node_modules/
 client/build/
 
