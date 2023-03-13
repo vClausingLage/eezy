@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Metar App",
+  "name": "Metar and Flight Planning",
   "icons": [
   ],
   "start_url": ".",
