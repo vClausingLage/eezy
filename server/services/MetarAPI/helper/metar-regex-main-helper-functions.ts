@@ -7,6 +7,10 @@ export function metarToString(metar: string[]): string {
   return metarString;
 }
 
+export function removeEndCharFromString(metar: string) {
+  return metar.replace("$", "").replace("=", "");
+}
+
 export function splitMetarListRemarks(metar: string[]): {} {
   let tempoMetar: string[] = [];
   let becomingMetar: string[] = [];

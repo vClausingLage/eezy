@@ -4,8 +4,8 @@ import { metarDecoder } from "./MetarAPI/helper/metar-regex-main.js";
 
 export async function decodeRawMetar(req: Request, res: Response) {
   let metarString = req.params.metarstring;
-  metarDecoder(metarString);
+  let result = metarDecoder(metarString);
   // let preparedMetar = prepareMetar(metarString);
   // let metarObj = mapToMetarObj(preparedMetar);
-  res.send({ metarJSON: metarString });
+  res.send({ metarJSON: result });
 }
