@@ -21,7 +21,6 @@ export class Metar {
   flightRule!: IFlightRule;
   RawMetar!: string;
   PreparedMetar!: string[];
-  RawMetarDone!: string;
   NOSIG!: boolean;
   AUTO!: boolean;
   Temperature!: number[];

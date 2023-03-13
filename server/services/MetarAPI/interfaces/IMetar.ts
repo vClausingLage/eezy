@@ -42,7 +42,6 @@ export interface IMetar {
   flightRule: IFlightRule;
   RawMetar: string;
   PreparedMetar: string[];
-  RawMetarDone: string;
   NOSIG: boolean;
   AUTO: boolean;
   Temperature: number[];

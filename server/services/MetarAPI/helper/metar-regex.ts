@@ -58,44 +58,44 @@ export function mapToMetarObj(metarInput: string[]) {
       metar = metar.filter((el) => !el);
     }
     // SLP /* must be before CLOUDS */
-    else if (/^SLP\d{3}$/i.test(el)) {
+    else if (/^SLP[0-9]{3}$/i.test(el)) {
       el = el.replace("SLP", "");
       metarObj["SLP"] = parseInt(el);
       metar = metar.filter((el) => !el);
     }
     // WINDS
-    else if (/^\d{5}KT$/i.test(el) || /^\d{5}G\d{1,2}KT$/i.test(el)) {
+    else if (/^[0-9]{5}KT$/i.test(el) || /^[0-9]{5}G[0-9]{1,2}KT$/i.test(el)) {
       let output = windFormat(el);
       metarObj["Winds"] = output;
       metar = metar.filter((el) => !el);
     }
     // WINDS SPECIAL FORMATS
-    else if (/^VRB\d{2,3}KT$/i.test(el)) {
+    else if (/^VRB[0-9]{2,3}KT$/i.test(el)) {
       let output = windFormatSpec(el);
       metarObj["Winds"] = output;
       metar = metar.filter((el) => !el);
     }
     // WINDVAR
-    else if (/^\d{3}V\d{3}$/i.test(el)) {
+    else if (/^[0-9]{3}V[0-9]{3}$/i.test(el)) {
       let output = windVarFormat(el);
       metarObj["Wind_Variation"] = output;
       metar = metar.filter((el) => !el);
     }
     // VISBILIY
-    else if (/^\d{4}$/i.test(el)) {
+    else if (/^[0-9]{4}$/i.test(el)) {
       let output = { value: parseInt(el), unit: "meters" };
       metarObj["Visibility"] = output;
       metar = metar.filter((el) => !el);
-    } else if (/^d{1,2}SM$/i.test(el)) {
+    } else if (/^[0-9]{1,2}SM$/i.test(el)) {
       el = el.replace("SM", "");
       metarObj["Visibility"] = { value: parseInt(el), unit: "SM" };
       metar = metar.filter((el) => !el);
     }
     // CLOUDS
     else if (
-      /^\D{3}\d{3}$/i.test(el) ||
-      /^\D{3}\d{3}\D$/i.test(el) ||
-      /^\D{3}\d{3}\/\/\/$/i.test(el) ||
+      /^[a-z]{3}[0-9]{3}$/i.test(el) ||
+      /^[a-z]{3}[0-9]{3}[a-z]$/i.test(el) ||
+      /^[a-z]{3}[0-9]{3}\/\/\/$/i.test(el) ||
       /^NCD$/i.test(el) ||
       /^CLR$/i.test(el)
     ) {
@@ -118,13 +118,13 @@ export function mapToMetarObj(metarInput: string[]) {
       }
     }
     // TEMPERATURE
-    else if (/^M?\d{2}\/M?\d{2}/i.test(el)) {
+    else if (/^M?[0-9]{2}\/M?[0-9]{2}/i.test(el)) {
       let output = tempFormat(el);
       metarObj["Temperature"] = output;
       metar = metar.filter((el) => !el);
     }
     // QNH
-    else if (/^Q\d{3,4}$/i.test(el)) {
+    else if (/^Q[0-9]{3,4}$/i.test(el)) {
       el = el.replace("Q", "");
       metarObj["AirPressure"]["pressure"] = "QNH";
       metarObj["AirPressure"]["value"] = parseInt(el);
@@ -132,7 +132,7 @@ export function mapToMetarObj(metarInput: string[]) {
       metar = metar.filter((el) => !el);
     }
     // ALTIMETER
-    else if (/^A\d{3,4}$/i.test(el)) {
+    else if (/^A[0-9]{3,4}$/i.test(el)) {
       el = el.replace("A", "");
       metarObj["AirPressure"]["pressure"] = "Altimeter";
       metarObj["AirPressure"]["value"] = parseInt(el);
@@ -159,7 +159,6 @@ export function mapToMetarObj(metarInput: string[]) {
       metar = metar.filter((el) => !el);
     }
   });
-  metarObj["RawMetarDone"] = metar.join(" ");
   return metarObj;
 }
 

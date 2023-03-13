@@ -48,7 +48,7 @@ const config = {
 
 app.use(auth(config));
 
-app.get("/", (req, res) => {
+app.get("/auth", (req, res) => {
   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
 });
 
