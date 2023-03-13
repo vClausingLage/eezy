@@ -204,7 +204,7 @@ function Metar() {
                   cldBas4: metar.cldBas4,
                   wspd: metar.wspd,
                   wdir: metar.wdir,
-                  wgst: metar.wgust,
+                  wgst: metar.wgst,
                   runways: airportObject.runways,
                   timeLocal: metarObject.time.local,
                 }}

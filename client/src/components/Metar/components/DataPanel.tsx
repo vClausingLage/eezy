@@ -18,8 +18,6 @@ type Props = {
 };
 
 function DataPanel({ props }: Props) {
-  function tempUnitToggle() {}
-
   return (
     <Box id="weather-data">
       {props.slp !== null && props.altim === null && (
