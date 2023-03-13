@@ -7,149 +7,67 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import { useState, useEffect } from "react";
-
-import { ActivityIndicator } from "react-native";
+import { useState } from "react";
 
 import {
-  convertDate,
-  getFlightRules,
-  tempoGusts,
-} from "./Metar/metar-ui-helper";
-import { IAirportObject, IMetarObject } from "./Metar/IMetar";
-
-import { airportDBKey } from "./Metar/config/config";
+  prepareMetar,
+  reduceTempo,
+  maptoMetarObj,
+} from "./helpers/metar-regex";
+import { IMetar } from "./helpers/IMetar";
 
 export default function App() {
-  const [responseError, setResponse] = useState(false);
-  const [metar, setMetar] = useState<any>({}); //! make interface
-  const [disabled, setDisabled] = useState(true);
-  const [showTable, setShowTable] = useState(false);
-  const [alertIcao, setAlertIcao] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [airportObject, setAirportObject] = useState({} as IAirportObject);
-  const [metarObject, setMetarObject] = useState({
-    icao: "",
-    tempUnit: "°C",
-  } as IMetarObject);
+  const [icao, setIcao] = useState("");
+  const [metarCode, setMetarCode] = useState<IMetar>();
+  const [gafor, setGafor] = useState("");
 
-  function tempUnitToggle(unit: string) {
-    // ! add return
-    if (unit === "°C") {
-      setMetarObject({ ...metarObject, tempUnit: "°F" });
-    } else if (unit === "°F") {
-      setMetarObject({ ...metarObject, tempUnit: "°C" });
-    }
-  }
+  const searchIcao = async () => {
+    const fetchMetar = await fetch(
+      "https://api.met.no/weatherapi/tafmetar/1.0/metar?icao=" + icao
+    );
+    const data = await fetchMetar.text();
+    let metarList = prepareMetar(data);
+    let metarListReduced: string[][] = reduceTempo(metarList);
+    let metarObj = maptoMetarObj(metarListReduced[0]);
+    setMetarCode(metarObj);
+    setGafor(metarObj.GAFOR);
+  };
 
-  const loading = (
-    <div
-      style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <ActivityIndicator color="#20788d" />
-    </div>
-  );
-
-  function handleChange(event: any) {
-    setMetarObject({
-      ...metarObject,
-      icao: event.target.value.toUpperCase(),
-    });
-    if (event.target.value.length === 4) {
-      setDisabled(false);
+  const clouds = () => {
+    if (metarCode?.Visibility === "CAVOK") {
+      return "☼";
+    } else if (metarCode?.Cloud_Layer[0].cloudLayer === "FEW") {
+      return "☁";
+    } else if (metarCode?.Cloud_Layer[0].cloudLayer === "SCT") {
+      return "☁☁";
+    } else if (metarCode?.Cloud_Layer[0].cloudLayer === "BKN") {
+      return "☁☁☁";
+    } else if (metarCode?.Cloud_Layer[0].cloudLayer === "OVC") {
+      return "☁☁☁☁";
     } else {
-      setDisabled(true);
+      return "no cloud conclusion";
     }
-    setAlertIcao(false);
-  }
-
-  async function searchMetar(e: any) {
-    e.preventDefault();
-    if (metarObject.icao.length !== 4) setAlertIcao(true);
-    setIsLoading(true);
-    const response = await fetch(`/api/${metarObject.icao}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    if (data.message && data.message === "error") {
-      setResponse(true);
-      setIsLoading(false);
-    } else {
-      setResponse(false);
-      setMetar(data);
-      setMetarObject({
-        ...metarObject,
-        visibility: {
-          ...metarObject.visibility,
-          meters:
-            parseInt(data.visib) >= 621
-              ? 9999
-              : Math.round((parseInt(data.visib) * 16.0934) / 100) * 100,
-          miles: parseInt(data.visib),
-        },
-        nosig: /NOSIG/gi.test(data.rawOb) ? true : false,
-        CAVOK: /CAVOK/gi.test(data.rawOb)
-          ? true
-          : /CLR/gi.test(data.rawOb)
-          ? true
-          : /NCD/gi.test(data.rawOb)
-          ? true
-          : false,
-        time: convertDate(data.obsTime + "000"),
-      });
-      const airportDBresponse = await fetch(
-        `https://airportdb.io/api/v1/airport/${metarObject.icao}?apiToken=${airportDBKey}`
-      );
-      const airportDBData = await airportDBresponse.json();
-      setAirportObject({
-        frequencies: airportDBData.freqs,
-        runways: airportDBData.runways,
-      });
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    if (metar !== undefined && metarObject.visibility !== undefined) {
-      const flightRuleColor = getFlightRules(
-        metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
-        parseInt(metar.cldBas1)
-      );
-      setMetarObject({ ...metarObject, flightRule: flightRuleColor });
-      // console.log("fetched Metar", metar);
-      // console.log("obj", metarObject);
-      if (metar.rawOb !== undefined)
-        console.log("tempo Gusts Warning", tempoGusts(metar.rawOb));
-    }
-  }, [metar]);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <TextInput
         style={styles.input}
-        onChangeText={handleChange}
-        value={metarObject.icao}
+        onChangeText={(input) => setIcao(input)}
+        value={icao}
         placeholder="Airport ICAO Code"
         keyboardType="default"
       />
       <Button
-        onPress={searchMetar}
+        onPress={searchIcao}
         title="search"
         color="#841584"
         accessibilityLabel="button search ICAO Code"
       />
-      <Text>QNH is </Text>
-      <Text>Flight Rules: </Text>
-      <Text>Cloud Layer: </Text>
+      <Text>QNH is {metarCode?.QNH}</Text>
+      <Text>Flight Rules: {gafor}</Text>
+      <Text>Cloud Layer: {clouds()}</Text>
     </SafeAreaView>
   );
 }
