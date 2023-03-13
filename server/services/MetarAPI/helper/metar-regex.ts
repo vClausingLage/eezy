@@ -12,7 +12,6 @@ import {
   precipFormatCon,
 } from "./metar-helper-functions.js";
 import { reduceTempo } from "./metar-regex-helper-functions.js";
-import { formatWeatherString } from "./metar-ui-helper.js";
 
 // the map function generates an object that represents the RAW METAR in KEY-VALUE pairs
 export function mapToMetarObj(metarInput: string[]) {
@@ -50,6 +49,9 @@ export function mapToMetarObj(metarInput: string[]) {
     // NOSIG
     else if (/NOSIG/i.test(el)) {
       metarObj["NOSIG"] = true;
+      metar = metar.filter((el) => !el);
+    } else if (/AUTO/i.test(el)) {
+      metarObj["AUTO"] = true;
       metar = metar.filter((el) => !el);
     }
     // CAVOK //! NCD CLR HERE
