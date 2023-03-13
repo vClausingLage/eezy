@@ -39,16 +39,16 @@ export function mapToMetarObj(metarInput: string[]) {
   // LOOP ELEMENTS
   metar.forEach((el) => {
     // DATE / TIME
-    if (/^\d{6}Z$/i.test(el)) {
+    if (/^[0-9]{6}Z$/i.test(el)) {
       let output = dateFormat(el);
       metarObj["Date"] = output;
       metar = metar.filter((el) => !el);
     }
     // NOSIG
-    else if (/NOSIG/i.test(el)) {
+    else if (/^NOSIG$/i.test(el)) {
       metarObj["NOSIG"] = true;
       metar = metar.filter((el) => !el);
-    } else if (/AUTO/i.test(el)) {
+    } else if (/^AUTO$/i.test(el)) {
       metarObj["AUTO"] = true;
       metar = metar.filter((el) => !el);
     }
