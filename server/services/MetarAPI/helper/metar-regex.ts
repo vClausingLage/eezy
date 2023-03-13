@@ -7,9 +7,7 @@ import {
   windVarFormat,
   cloudFormat,
   tempFormat,
-  precipFormatSep,
-  precipFormatTest,
-  precipFormatCon,
+  precipFormat,
 } from "./metar-helper-functions.js";
 import { reduceTempo } from "./metar-regex-helper-functions.js";
 
@@ -106,14 +104,14 @@ export function mapToMetarObj(metarInput: string[]) {
       metar = metar.filter((el) => !el);
     }
     // RECENT PRECIPITAION //! must be formatted -> connected weather string
-    else if (/^RE[-z]{2,4}/i.test(el)) {
+    else if (/^RE[a-z]{2,4}/i.test(el)) {
       metarObj["recent"] = el;
       metar = metar.filter((el) => !el);
     }
     // PRECIPITATION
     else if (/^(-?|\+?|)(?:[a-z]{4}|[a-z]{2})$/i.test(el)) {
       if (el !== "AUTO") {
-        let output = precipFormatCon(el);
+        let output = precipFormat(el);
         output = output.replace("  ", " ").trim();
         console.log(output);
         metarObj["Precipitation"].push(output);

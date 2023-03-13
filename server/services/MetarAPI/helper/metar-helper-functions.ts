@@ -78,7 +78,7 @@ export function precipFormatTest(weatherString: string): string {
   return output.join(" ");
 }
 
-export function precipFormatCon(weatherString: string): string {
+export function precipFormat(weatherString: string): string {
   let result: any = [];
   let output = [];
   while (weatherString.length > 0) {
