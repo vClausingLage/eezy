@@ -6,21 +6,22 @@ export function findBasicTokens(metar: string[]): {} {
     auto: false,
     pressure: { pressure: "", value: 0, unit: "" },
   };
-  console.log(metar);
   resultObj["icao"] = metar[0];
   metar.shift();
+  console.log(metar);
   metar.forEach((el, idx) => {
-    if (/NOSIG/i.test(el)) {
+    if (/^NOSIG$/i.test(el)) {
+      console.log("nosig");
       resultObj["nosig"] = true;
       metar.splice(idx, 1);
-    } else if (/AUTO/i.test(el)) {
+    } else if (/^AUTO$/i.test(el)) {
       resultObj["auto"] = true;
       metar.splice(idx, 1);
-    } else if (/CAVOK/i.test(el)) {
+    } else if (/^CAVOK$/i.test(el)) {
       resultObj["cavok"] = true;
       metar.splice(idx, 1);
     } // QNH
-    else if (/Q[0-9]{3,4}/i.test(el)) {
+    else if (/^Q[0-9]{3,4}$/i.test(el)) {
       el = el.replace("Q", "");
       resultObj["pressure"]["pressure"] = "QNH";
       resultObj["pressure"]["value"] = parseInt(el);
@@ -28,7 +29,7 @@ export function findBasicTokens(metar: string[]): {} {
       metar.splice(idx, 1);
     }
     // ALTIMETER
-    else if (/A[0-9]{3,4}/i.test(el)) {
+    else if (/^A[0-9]{3,4}$/i.test(el)) {
       el = el.replace("A", "");
       resultObj["pressure"]["pressure"] = "Altimeter";
       resultObj["pressure"]["value"] = parseInt(el);

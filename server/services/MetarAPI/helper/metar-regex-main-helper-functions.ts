@@ -8,7 +8,9 @@ export function metarToString(metar: string[]): string {
 }
 
 export function removeEndCharFromString(metar: string) {
-  return metar.replace("$", "").replace("=", "");
+  let result = metar.replace("$", "").replace("=", "");
+  result = result.trim();
+  return result;
 }
 
 export function splitMetarListRemarks(metar: string[]): {} {
