@@ -1,3 +1,24 @@
+export interface IMetarAPIObject {
+  name: string;
+  cldBas1: string;
+  cldBas2: string;
+  cldBas3: string;
+  cldBas4: string;
+  cldCvg1: string;
+  cldCvg2: string;
+  cldCvg3: string;
+  cldCvg4: string;
+  altim: number;
+  slp: number;
+  temp: number;
+  dewp: number;
+  wspd: string;
+  wdir: string;
+  wgst: number;
+  wxString: string;
+  rawOb: string;
+}
+
 export interface IAirportObject {
   frequencies: IFreq[];
   runways: IRwy[];

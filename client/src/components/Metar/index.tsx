@@ -14,7 +14,11 @@ import {
   // checkLocation,
   tempoInformation,
 } from "./helper/metar-ui-helper";
-import { IMetarObject, IAirportObject } from "./classes/IMetar";
+import {
+  IMetarObject,
+  IAirportObject,
+  IMetarAPIObject,
+} from "./classes/IMetar";
 
 import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";
@@ -26,7 +30,7 @@ import DataPanel from "./components/DataPanel";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
-  const [metar, setMetar] = useState<any>({}); //! make interface
+  const [metar, setMetar] = useState({} as IMetarAPIObject);
   const [disabled, setDisabled] = useState(true);
   const [showTable, setShowTable] = useState(false);
   const [alertIcao, setAlertIcao] = useState(false);
