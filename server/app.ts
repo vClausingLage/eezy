@@ -34,7 +34,7 @@ app.use("/api/metardecoder", metar_api_router);
 // AUTH
 
 import { auth } from "express-openid-connect";
-
+import { requiresAuth } from "express-openid-connect";
 import { AUTH0_SECRET } from "./config/config.js";
 
 const config = {
@@ -51,8 +51,11 @@ app.use(auth(config));
 app.get("/auth", (req, res) => {
   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
 });
+app.get("/auth/profile", requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
 
-// https://manage.auth0.com/dashboard/us/dev-lcqbfmwjn2s35t2q/applications/QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ/quickstart/express/steps/4
+// https://developer.auth0.com/resources/code-samples/full-stack/hello-world/basic-role-based-access-control/spa/react-javascript/express-javascript
 
 // AUTH
 
