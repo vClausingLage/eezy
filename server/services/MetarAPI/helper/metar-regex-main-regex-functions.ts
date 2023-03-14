@@ -8,11 +8,11 @@ export function findBasicTokens(metar: string[]): {} {
   };
   resultObj["icao"] = metar[0];
   metar.shift();
-  //! use filter
   let filteredArray = metar.filter((el) => {
-    if (/^NOSIG$/i.test(el)) return el;
-    else if (/^AUTO$/i.test(el)) return el;
-    else if (/^CAVOK$/i.test(el)) return el;
+    if (/^NOSIG$/i.test(el)) resultObj.nosig = true;
+    else if (/^AUTO$/i.test(el)) {
+      resultObj.auto = true;
+    } else if (/^CAVOK$/i.test(el)) return el;
     else return el;
   });
   console.log(filteredArray);
