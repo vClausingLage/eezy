@@ -4,12 +4,47 @@ import {
   windFormat,
   windVarFormat,
   tempFormat,
+  precipFormat,
 } from "./metar-regex-helper-functions.js";
 
-import { IResultBasicTokens } from "./interfaces/metar-regex-interfaces.js";
+import {
+  IResultBasicTokens,
+  IResultDynamicTokens,
+} from "./interfaces/metar-regex-interfaces.js";
+
+type DynamicTokens = {
+  // ! implement
+  regexResults: IResultDynamicTokens;
+  filteredMetarList: string[];
+};
 
 export function findDynamicTokens(metar: string) {
-  console.log(metar);
+  let resultObj: IResultDynamicTokens = {
+    visibility: { value: 0, unit: "" },
+    precipitation: [],
+  };
+  if (/[0-9]{4}/gi.test(metar)) {
+    resultObj.visibility.value = /[0-9]{4}/gi.exec(metar)?.[0];
+    resultObj.visibility.unit = "m";
+  }
+  if (/[0-9] [0-9]\/[0-9]SM/gi.test(metar)) {
+    let value = /[0-9] [0-9]\/[0-9]SM/gi.exec(metar)?.[0];
+    resultObj.visibility.value = value?.replace("SM", "");
+    resultObj.visibility.unit = "sm";
+  }
+  if (/[0-9]{1,2}SM/gi.test(metar)) {
+    let value = /[0-9]{1,2}SM/gi.exec(metar)?.[0];
+    resultObj.visibility.value = value?.replace("SM", "");
+    resultObj.visibility.unit = "sm";
+  }
+  if (/(-?|\+?|)(?:[a-z]{4}|[a-z]{2})+/gi.test(metar)) {
+    let result = metar.match(/(-?|\+?|)(?:[a-z]{4}|[a-z]{2})+/gi);
+    if (result)
+      for (let el of result) {
+        resultObj.precipitation.push(precipFormat(el));
+      }
+  }
+  return resultObj;
 }
 
 type BasicTokens = {

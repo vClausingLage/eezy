@@ -25,37 +25,30 @@ export function splitMetarListRemarks(metar: string[]): ListRemarks {
   let becomingMetar: string[] = [];
   let remarks: string[] = [];
   metar.forEach((el, idx) => {
-    let length = metar.length;
-    metar.forEach((el, idx) => {
-      let length = metar.length;
-      metar.forEach((el, idx) => {
-        let length = metar.length;
-        if (/RMK/i.test(el)) {
-          for (let i = idx; i < length; i++) {
-            remarks.push(metar[i]);
-          }
-          for (let i = idx; i < length; i++) {
-            metar.splice(i);
-          }
-        }
-      });
-      if (/BECMG/i.test(el)) {
-        for (let i = idx; i < length; i++) {
-          becomingMetar.push(metar[i]);
-        }
-        for (let i = idx; i < length; i++) {
-          metar.splice(i);
-        }
-      }
-    });
-    if (/TEMPO/i.test(el)) {
-      for (let i = idx; i < length; i++) {
-        tempoMetar.push(metar[i]);
-      }
-      for (let i = idx; i < length; i++) {
-        metar.splice(i);
-      }
-    }
+    if (/RMK/i.test(el)) remarks = metar.slice(idx);
+  });
+  metar.forEach((el, idx) => {
+    if (/TEMPO/i.test(el)) tempoMetar = metar.slice(idx);
+  });
+  metar.forEach((el, idx) => {
+    if (/BECMG/i.test(el)) becomingMetar = metar.slice(idx);
+  });
+  remarks.forEach((el, idx) => {
+    if (/TEMPO/i.test(el)) remarks = remarks.slice(0, idx);
+    if (/BECMG/i.test(el)) remarks = remarks.slice(0, idx);
+  });
+  tempoMetar.forEach((el, idx) => {
+    if (/RMK/i.test(el)) tempoMetar = tempoMetar.slice(0, idx);
+    if (/BECMG/i.test(el)) tempoMetar = tempoMetar.slice(0, idx);
+  });
+  becomingMetar.forEach((el, idx) => {
+    if (/TEMPO/i.test(el)) becomingMetar = becomingMetar.slice(0, idx);
+    if (/RMK/i.test(el)) becomingMetar = becomingMetar.slice(0, idx);
+  });
+  metar.forEach((el, idx) => {
+    if (/RMK/i.test(el)) metar = metar.slice(0, idx);
+    if (/BECMG/i.test(el)) metar = metar.slice(0, idx);
+    if (/TEMPO/i.test(el)) metar = metar.slice(0, idx);
   });
   return {
     metar: metar,

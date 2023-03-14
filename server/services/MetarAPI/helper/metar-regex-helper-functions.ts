@@ -1,3 +1,5 @@
+import weatherCodes from "../assets/weatherCodes.json" assert { type: "json" };
+
 export function dateFormat(time: string) {
   let today = new Date();
   let date = new Date(
@@ -81,4 +83,31 @@ export function tempFormat(temperature: string) {
     }
   });
   return output;
+}
+export function precipFormat(weatherString: string): string {
+  let result: any = [];
+  let output = [];
+  while (weatherString.length > 0) {
+    if (weatherString[0] === "-" || weatherString[0] === "+") {
+      weatherString[0] === "-"
+        ? (result = [...result, ["light", weatherString[1] + weatherString[2]]])
+        : (result = [
+            ...result,
+            ["heavy", weatherString[1] + weatherString[2]],
+          ]);
+      weatherString = weatherString.slice(3);
+    } else if (weatherString[0] !== "-" && weatherString[0] !== "+") {
+      result = [...result, ["", weatherString[0] + weatherString[1]]];
+      weatherString = weatherString.slice(2);
+    }
+  }
+  for (let el of result) {
+    for (const [key, value] of Object.entries(weatherCodes.characteristic)) {
+      if (el[1] === key) output.push(el[0] + " " + value);
+    }
+    for (const [key, value] of Object.entries(weatherCodes.type)) {
+      if (el[1] === key) output.push(el[0] + " " + value);
+    }
+  }
+  return output.join("").trim();
 }
