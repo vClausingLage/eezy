@@ -65,8 +65,8 @@ function App() {
                   >
                     Map
                   </NavLink>
-                  {!isAuthenticated && !isLoading && <LoginButton />}
-                  {isAuthenticated && !isLoading && <LogoutButton />}
+                  {/* {!isAuthenticated && !isLoading && <LoginButton />}
+                  {isAuthenticated && !isLoading && <LogoutButton />} */}
                 </nav>
               </Toolbar>
             </AppBar>

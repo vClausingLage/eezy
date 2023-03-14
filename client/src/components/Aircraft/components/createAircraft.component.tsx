@@ -62,12 +62,12 @@ function CreateAircraftForm(props: Props) {
 
   return (
     <>
-      {!props.userID && (
+      {props.userID && ( //! change with LOGIN
         <Alert severity="info">
           You must be logged in to create and choose your aircraft.
         </Alert>
       )}
-      {props.userID && (
+      {!props.userID && ( //! change with LOGIN
         <form onSubmit={submitAircraft} id="aircraft-form">
           <Box id="aircraft-form-column">
             <TextField
