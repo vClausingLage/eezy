@@ -8,6 +8,10 @@ import {
 
 import { IResultBasicTokens } from "./interfaces/metar-regex-interfaces.js";
 
+export function findDynamicTokens(metar: string) {
+  console.log(metar);
+}
+
 type BasicTokens = {
   regexResults: IResultBasicTokens;
   filteredMetarList: string[];
