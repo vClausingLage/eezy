@@ -1,6 +1,11 @@
 import { IResultBasicTokens } from "./interfaces/metar-regex-interfaces.js";
 
-export function findBasicTokens(metar: string[]): {} {
+type BasicTokens = {
+  regexResults: IResultBasicTokens;
+  filteredMetarList: string[];
+};
+
+export function findBasicTokens(metar: string[]): BasicTokens {
   let resultObj: IResultBasicTokens = {
     icao: "",
     date: undefined,
