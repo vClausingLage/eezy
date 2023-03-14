@@ -19,11 +19,12 @@ import Map from "./components/Map";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [userID, setUserID] = useState("");
+  const userID = "123456789";
+  // const [userID, setUserID] = useState(""); //! uncomment
 
-  useEffect(() => {
-    if (user?.sub !== undefined) setUserID(user.sub.match(/[0-9]/g)!.join(""));
-  });
+  // useEffect(() => {
+  //   if (user?.sub !== undefined) setUserID(user.sub.match(/[0-9]/g)!.join(""));
+  // });
 
   const [mode, setMode] = useState("dark");
 
