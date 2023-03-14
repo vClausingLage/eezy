@@ -13,7 +13,14 @@ export function removeEndCharFromString(metar: string) {
   return result;
 }
 
-export function splitMetarListRemarks(metar: string[]): {} {
+type ListRemarks = {
+  metar: string[];
+  remarks: string[];
+  tempo: string[];
+  becoming: string[];
+};
+
+export function splitMetarListRemarks(metar: string[]): ListRemarks {
   let tempoMetar: string[] = [];
   let becomingMetar: string[] = [];
   let remarks: string[] = [];
