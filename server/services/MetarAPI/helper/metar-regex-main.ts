@@ -3,7 +3,7 @@ import {
   metarToString,
   splitMetarListRemarks,
   removeEndCharFromString,
-} from "./metar-regex-helper-functions.js";
+} from "./metar-regex-main-helper-functions.js";
 import { findBasicTokens } from "./metar-regex-functions.js";
 
 import { IResultBasicTokens } from "./interfaces/metar-regex-interfaces.js";

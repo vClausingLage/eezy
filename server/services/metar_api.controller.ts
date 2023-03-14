@@ -6,7 +6,7 @@ import {
   metarToList,
   metarToString,
   splitMetarListRemarks,
-} from "./MetarAPI/helper/metar-regex-helper-functions.js";
+} from "./MetarAPI/helper/metar-regex-main-helper-functions.js";
 
 export async function decodeRawMetar(req: Request, res: Response) {
   let metarString = req.params.metarstring;
