@@ -75,7 +75,7 @@ export function tempFormat(temperature: string) {
       output.push(0);
     } else if (el[0] === "M") {
       el = el.replace("M", "-");
-      output.push(Number(el));
+      output.push(Number(el)); // ! parseInt? -> TEST
     } else {
       output.push(Number(el));
     }
