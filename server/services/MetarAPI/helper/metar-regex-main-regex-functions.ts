@@ -13,6 +13,7 @@ export function findBasicTokens(metar: string[]): {} {
     if (/^NOSIG$/i.test(el)) return el;
     else if (/^AUTO$/i.test(el)) return el;
     else if (/^CAVOK$/i.test(el)) return el;
+    else return el;
   });
   console.log(filteredArray);
   // metar.forEach((el) => {
