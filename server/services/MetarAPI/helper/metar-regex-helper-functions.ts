@@ -1,17 +1,26 @@
-// PREPARE metar string
-export function prepareMetar(metar: string) {
-  metar = metar.replace("$", "").replace("=", "");
+export function metarToList(metar: string): string[] {
   let metarList = metar.split(" ");
-  if (metarList[metarList.length - 1] === "\n") metarList.pop();
   return metarList;
 }
+export function metarToString(metar: string[]): string {
+  let metarString = metar.join(" ");
+  return metarString;
+}
 
-// -> metar-regex (mapToMetarObject)
-// the reduce function removes all TEMPO, BECMG, RMK entries from the original RAW METAR and adds them to arrays //! ORDER RMK -> BECMG -> TEMPO
-export function reduceTempo(metar: string[]) {
-  if (metar[metar.length - 1].slice(-1) === "=") {
-    metar[metar.length - 1] = metar[metar.length - 1].replace("=", ""); // remove = at the END of metar
-  }
+export function removeEndCharFromString(metar: string) {
+  let result = metar.replace("$", "").replace("=", "");
+  result = result.trim();
+  return result;
+}
+
+type ListRemarks = {
+  metar: string[];
+  remarks: string[];
+  tempo: string[];
+  becoming: string[];
+};
+
+export function splitMetarListRemarks(metar: string[]): ListRemarks {
   let tempoMetar: string[] = [];
   let becomingMetar: string[] = [];
   let remarks: string[] = [];
@@ -48,5 +57,10 @@ export function reduceTempo(metar: string[]) {
       }
     }
   });
-  return [metar, remarks, tempoMetar, becomingMetar];
+  return {
+    metar: metar,
+    remarks: remarks,
+    tempo: tempoMetar,
+    becoming: becomingMetar,
+  };
 }

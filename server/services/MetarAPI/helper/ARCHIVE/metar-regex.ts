@@ -1,5 +1,5 @@
-import { IAirPressure, IFlightRule, IMetar } from "../interfaces/IMetar.js";
-import { Metar } from "../classes/metar-classes.js";
+import { IAirPressure, IFlightRule, IMetar } from "../../interfaces/IMetar.js";
+import { Metar } from "../../classes/metar-classes.js";
 import {
   dateFormat,
   windFormat,
