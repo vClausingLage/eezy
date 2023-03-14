@@ -7,7 +7,6 @@ import {
 import { findBasicTokens } from "./metar-regex-main-regex-functions.js";
 
 export function metarDecoder(metar: string) {
-  // metar = removeEndCharFromString(metar);
   let metarList = metarToList(metar);
   let basicTokens = findBasicTokens(metarList);
   return basicTokens;
