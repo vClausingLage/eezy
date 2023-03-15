@@ -45,6 +45,7 @@ export function findDynamicTokens(metar: string) {
       }
   }
   return resultObj;
+  //! { regexResults: resultObj, filteredMetarList: filteredMetar };
 }
 
 type BasicTokens = {

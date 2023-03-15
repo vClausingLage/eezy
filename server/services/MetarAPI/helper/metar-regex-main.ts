@@ -1,8 +1,6 @@
 import {
   metarToList,
   metarToString,
-  splitMetarListRemarks,
-  removeEndCharFromString,
 } from "./metar-regex-main-helper-functions.js";
 import { findBasicTokens, findDynamicTokens } from "./metar-regex-functions.js";
 
