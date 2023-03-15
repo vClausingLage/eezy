@@ -8,7 +8,6 @@ import { IAircraft } from "./interfaces/aircraft";
 
 type Props = {
   userID: string | undefined;
-  activeAircraft: IAircraft;
 };
 
 function Aircraft(props: Props) {

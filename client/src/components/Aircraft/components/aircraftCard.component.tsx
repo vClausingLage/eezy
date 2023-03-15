@@ -2,24 +2,21 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
+import { IAircraft } from "../interfaces/aircraft";
+
 type Props = {
-  manufacturer: String;
-  model: String;
-  registration_number: String;
+  aircraft: IAircraft;
+  getActiveAircraft: (e: React.MouseEvent, aircraft: IAircraft) => void;
 };
 
 function AircraftCard(props: Props) {
-  function chooseAircraft() {}
-
   return (
     <Card>
-      <CardContent
-        onClick={() => console.log("click", props.registration_number)}
-      >
+      <CardContent onClick={(e) => props.getActiveAircraft(e, props.aircraft)}>
         <Typography>
-          {props.manufacturer} {props.model}
+          {props.aircraft.manufacturer} {props.aircraft.model}
         </Typography>
-        <Typography>{props.registration_number}</Typography>
+        <Typography>{props.aircraft.registration_number}</Typography>
       </CardContent>
     </Card>
   );

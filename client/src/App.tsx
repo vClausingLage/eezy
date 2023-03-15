@@ -79,12 +79,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Metar />} />
-            <Route
-              path="aircraft"
-              element={
-                <Aircraft userID={userID} activeAircraft={activeAircraft} />
-              }
-            />
+            <Route path="aircraft" element={<Aircraft userID={userID} />} />
             <Route
               path="map"
               element={<Map activeAircraft={activeAircraft} />}
