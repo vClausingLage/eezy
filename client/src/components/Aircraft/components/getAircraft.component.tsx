@@ -19,7 +19,7 @@ function GetAircraft(props: Props) {
       const result = await response.json();
       setAircraft(result);
     }
-    if (aircraft.length === 0) getAircraft();
+    getAircraft();
   }, [props.userID]);
 
   useEffect(() => {

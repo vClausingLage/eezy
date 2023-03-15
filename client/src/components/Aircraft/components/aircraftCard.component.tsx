@@ -9,6 +9,8 @@ type Props = {
 };
 
 function AircraftCard(props: Props) {
+  function chooseAircraft() {}
+
   return (
     <Card>
       <CardContent
