@@ -5,9 +5,14 @@ grid-template-columns: 1fr 1fr;
 #aircraft-form-column > * {
   margin: .3rem;
 }
+#ifr-box{
+  display: flex;
+  flex-flow: row nowrap;
+  color: gray
+}
 #submit-box{
   margin-top: 1rem;
-  border-top: 1px solid #568395;
+  border-top: 3px solid #568395;
   padding-top: .3rem;
   text-align: center;
 }

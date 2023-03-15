@@ -7,6 +7,8 @@ import { IAircraft } from "../interfaces/aircraft";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
@@ -196,17 +198,22 @@ function CreateAircraftForm(props: Props) {
                 setNewAircraft({ ...newAircraft, color: e.target.value })
               }
             ></TextField>
-            <Box
-              sx={{ display: "flex", flexFlow: "row nowrap", color: "gray" }}
-            >
-              <Typography>IFR rated?</Typography>
-              <Switch
-                onChange={(e) =>
-                  setNewAircraft({ ...newAircraft, IFR: e.target.checked })
+            <FormGroup id="ifr-box">
+              <FormControlLabel
+                control={
+                  <Switch
+                    onChange={(e) =>
+                      setNewAircraft({
+                        ...newAircraft,
+                        IFR: e.target.checked,
+                      })
+                    }
+                  />
                 }
-                inputProps={{ "aria-label": "IFR rated" }}
+                label="IFR rated?"
               />
-            </Box>
+            </FormGroup>
+
             <TextField
               label="Equipment"
               value={newAircraft.equiptment}
@@ -218,12 +225,18 @@ function CreateAircraftForm(props: Props) {
           <Box id="submit-box">
             <Button
               onClick={submitAircraft}
-              sx={{ maxWidth: "100px" }}
-              variant="outlined"
+              style={{ maxWidth: "100px" }}
+              variant="contained"
             >
               save
             </Button>
-            <Typography sx={{ color: "gray" }}>
+            <Typography
+              style={{
+                color: "gray",
+                textAlign: "left",
+                alignSelf: "center",
+              }}
+            >
               fields with{" "}
               <span style={{ fontWeight: "bold", color: "black" }}>*</span> are
               required

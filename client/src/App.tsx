@@ -26,9 +26,10 @@ function App() {
   //   if (user?.sub !== undefined) setUserID(user.sub.match(/[0-9]/g)!.join(""));
   // });
 
-  const [mode, setMode] = useState("dark");
+  // const [mode, setMode] = useState("dark");
+  // const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  const theme = useMemo(() => createTheme(getDesignTokens()), []);
 
   let activeStyle = {
     backgroundColor: "#93A4C5",
@@ -38,7 +39,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box>
             <AppBar position="static">
               <Toolbar>
                 <nav className="nav-bar">
