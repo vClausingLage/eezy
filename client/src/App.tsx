@@ -17,9 +17,12 @@ import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
 
+import { IAircraft } from "./components/Aircraft/interfaces/aircraft";
+
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const userID = "123456789";
+  const [activeAircraft, setActiveAircraft] = useState({} as IAircraft);
   // const [userID, setUserID] = useState(""); //! uncomment
 
   // useEffect(() => {
@@ -75,8 +78,16 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Metar />} />
-            <Route path="aircraft" element={<Aircraft userID={userID} />} />
-            <Route path="map" element={<Map />} />
+            <Route
+              path="aircraft"
+              element={
+                <Aircraft userID={userID} activeAircraft={activeAircraft} />
+              }
+            />
+            <Route
+              path="map"
+              element={<Map activeAircraft={activeAircraft} />}
+            />
           </Routes>
         </BrowserRouter>
         <AppFooter />

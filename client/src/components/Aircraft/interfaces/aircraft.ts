@@ -12,4 +12,5 @@ export interface IAircraft {
   color?: string;
   IFR?: boolean;
   equiptment?: string;
+  id?: string;
 }

@@ -8,6 +8,9 @@ import { calcLatLong } from "../helper/distance-lat-long-calc";
 import placeholderMap from "./placeholderMap.jpg";
 
 import "./Map.css";
+
+import { IAircraft } from "../Aircraft/interfaces/aircraft";
+
 // import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 
 // const limeOptions = { color: 'lime' }
@@ -16,7 +19,12 @@ import "./Map.css";
 //   [51.505, -0.09],
 //   [51.51, -0.1]
 // ]
-function Map() {
+
+type Props = {
+  activeAircraft: IAircraft;
+};
+
+function Map(props: Props) {
   let latLong = `N 54° 22' 46,09'', E 10° 08' 42,54''`;
 
   latLong = calcLatLong(latLong);
