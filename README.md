@@ -1,6 +1,4 @@
-# EEzy Flight Planner
-
-Visit at http://metarapp.azurewebsites.net [...please be patient, its Azure's Free Tier]
+# Air Pocket Planner
 
 # Metar
 

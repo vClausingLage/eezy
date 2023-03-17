@@ -74,6 +74,7 @@ function CreateAircraftForm(props: Props) {
           <Box id="aircraft-form-column">
             <TextField
               label="Manufacturer"
+              placeholder="e.g. Cessna"
               required
               value={newAircraft.manufacturer}
               onChange={(e) =>
@@ -82,6 +83,7 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="Model"
+              placeholder="e.g. C172"
               required
               value={newAircraft.model}
               onChange={(e) =>
@@ -90,6 +92,7 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="Type"
+              placeholder="e.g. SP"
               value={newAircraft.type}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, type: e.target.value })
@@ -97,6 +100,7 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="Registration Number"
+              placeholder="e.g. DKIFF"
               required
               value={newAircraft.registration_number}
               onChange={(e) =>
@@ -109,7 +113,6 @@ function CreateAircraftForm(props: Props) {
             <TextField
               select
               label="Fuel Type"
-              defaultValue=""
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
@@ -193,6 +196,7 @@ function CreateAircraftForm(props: Props) {
             ></TextField>
             <TextField
               label="Color"
+              placeholder="e.g. blue white"
               value={newAircraft.color}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, color: e.target.value })
