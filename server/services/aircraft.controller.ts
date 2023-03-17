@@ -37,8 +37,6 @@ export async function createAircraft(req: Request, res: Response) {
 }
 
 export async function getAircraft(req: Request, res: Response) {
-  console.log("getAircraft");
-
   run().catch((err) => console.log(err));
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);
@@ -46,6 +44,7 @@ export async function getAircraft(req: Request, res: Response) {
       user: req.params.id,
     }).exec();
     res.send(result);
+    console.log("result of get Aircraft", result);
     // mongoose.disconnect();
   }
 }

@@ -113,6 +113,7 @@ function CreateAircraftForm(props: Props) {
             <TextField
               select
               label="Fuel Type"
+              value=""
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,

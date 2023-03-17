@@ -20,11 +20,7 @@ import { IAircraft } from "../Aircraft/interfaces/aircraft";
 //   [51.51, -0.1]
 // ]
 
-type Props = {
-  activeAircraft: IAircraft;
-};
-
-function Map(props: Props) {
+function Map() {
   let latLong = `N 54° 22' 46,09'', E 10° 08' 42,54''`;
 
   latLong = calcLatLong(latLong);
