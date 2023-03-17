@@ -15,6 +15,7 @@
   "author": "vincent clausing-lage",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -22,7 +23,8 @@
     "express-openid-connect": "^2.12.1",
     "helmet": "^6.0.1",
     "mongoose": "^6.10.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "react-redux": "^8.0.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

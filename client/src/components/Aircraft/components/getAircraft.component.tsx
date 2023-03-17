@@ -13,7 +13,6 @@ type Props = {
 
 function GetAircraft(props: Props) {
   const [aircraft, setAircraft] = useState([]);
-  const [activeAircraft, setActiveAircraft] = useState({} as IAircraft);
 
   useEffect(() => {
     async function getAircraft() {
@@ -23,22 +22,11 @@ function GetAircraft(props: Props) {
     }
     getAircraft();
   }, [props.userID]);
-  useEffect(() => {
-    console.log("aircraft get", activeAircraft);
-  }, [activeAircraft]);
-
-  function getActiveAircraft(aircraft: IAircraft) {
-    setActiveAircraft(aircraft);
-  }
 
   return (
     <Box id="aircraft-container">
       {aircraft.map((el: IAircraft) => (
-        <AircraftCard
-          key={el.registration_number}
-          aircraft={el}
-          getActiveAircraft={(e, aircraft) => getActiveAircraft(aircraft)}
-        />
+        <AircraftCard key={el.registration_number} aircraft={el} />
       ))}
     </Box>
   );

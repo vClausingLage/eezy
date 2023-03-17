@@ -6,13 +6,12 @@ import { IAircraft } from "../interfaces/aircraft";
 
 type Props = {
   aircraft: IAircraft;
-  getActiveAircraft: (e: React.MouseEvent, aircraft: IAircraft) => void;
 };
 
 function AircraftCard(props: Props) {
   return (
     <Card>
-      <CardContent onClick={(e) => props.getActiveAircraft(e, props.aircraft)}>
+      <CardContent>
         <Typography>
           {props.aircraft.manufacturer} {props.aircraft.model}
         </Typography>
