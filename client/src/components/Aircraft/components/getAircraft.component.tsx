@@ -20,11 +20,11 @@ function GetAircraft(props: Props) {
       const result = await response.json();
       setAircraft(result);
     }
-    getAircraft();
+    if (props.userID !== undefined) getAircraft();
   }, [props.userID]);
 
   return (
-    <Box id="aircraft-container">
+    <Box className="aircraft-container">
       {aircraft.map((el: IAircraft) => (
         <AircraftCard key={el.registration_number} aircraft={el} />
       ))}

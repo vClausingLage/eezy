@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./redux/counter";
+import aircraftReducer from "./aircraft";
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    selectedAircraft: aircraftReducer,
   },
 });

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import "./CSS/App.css";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import store from "./store";
+import store from "./features/redux/store";
 import { Provider } from "react-redux";
 
 import { Box, AppBar, Toolbar } from "@mui/material";
