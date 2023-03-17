@@ -44,6 +44,7 @@ export async function getAircraft(req: Request, res: Response) {
       user: req.params.id,
     }).exec();
     res.send(result);
+    console.log("result of get Aircraft", result);
     // mongoose.disconnect();
   }
 }
