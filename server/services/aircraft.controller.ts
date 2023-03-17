@@ -24,8 +24,6 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
 }
 
 export async function createAircraft(req: Request, res: Response) {
-  console.log("createAircraft");
-
   run().catch((err) => console.log(err));
   async function run() {
     await mongoose.connect(MONGO_CONN_STRING);

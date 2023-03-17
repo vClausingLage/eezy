@@ -70,8 +70,8 @@ function CreateAircraftForm(props: Props) {
         </Alert>
       )}
       {props.userID && ( //! change with LOGIN
-        <form onSubmit={submitAircraft} id="aircraft-form">
-          <Box id="aircraft-form-column">
+        <form onSubmit={submitAircraft} className="aircraft-form">
+          <Box className="aircraft-form-column">
             <TextField
               label="Manufacturer"
               placeholder="e.g. Cessna"
@@ -113,7 +113,7 @@ function CreateAircraftForm(props: Props) {
             <TextField
               select
               label="Fuel Type"
-              value=""
+              value={newAircraft.fuel_type}
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
@@ -145,7 +145,7 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
           </Box>
-          <Box id="aircraft-form-column">
+          <Box className="aircraft-form-column">
             <TextField
               label="Cruise Speed (KTS)"
               type="number"
@@ -203,7 +203,7 @@ function CreateAircraftForm(props: Props) {
                 setNewAircraft({ ...newAircraft, color: e.target.value })
               }
             ></TextField>
-            <FormGroup id="ifr-box">
+            <FormGroup className="ifr-box">
               <FormControlLabel
                 control={
                   <Switch
@@ -227,7 +227,7 @@ function CreateAircraftForm(props: Props) {
               }
             ></TextField>
           </Box>
-          <Box id="submit-box">
+          <Box className="submit-box">
             <Button
               onClick={submitAircraft}
               style={{ maxWidth: "100px" }}

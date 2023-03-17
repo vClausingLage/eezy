@@ -1,16 +1,16 @@
-#aircraft-form > * {
+.aircraft-form > * {
 display: grid;
 grid-template-columns: 1fr 1fr;
 }
-#aircraft-form-column > * {
-  margin: .3rem;
+.aircraft-form-column > * {
+  margin: .3rem !important;
 }
-#ifr-box{
-  display: flex;
-  flex-flow: row nowrap;
+.ifr-box{
+  display: flex !important;
+  flex-flow: row nowrap !important;
   color: gray
 }
-#submit-box{
+.submit-box{
   margin-top: 1rem;
   border-top: 3px solid #568395;
   padding-top: .3rem;
