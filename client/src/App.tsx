@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import "./CSS/App.css";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import store from "./store";
+import { Provider } from "react-redux";
 
 import { Box, AppBar, Toolbar } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -18,6 +20,7 @@ import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
 
 import { IAircraft } from "./components/Aircraft/interfaces/aircraft";
+import Counter from "./Counter";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -42,49 +45,52 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Box>
-            <AppBar position="static">
-              <Toolbar>
-                <nav className="nav-bar">
-                  <NavLink
-                    to="/"
-                    style={({ isActive }) =>
-                      isActive ? activeStyle : undefined
-                    }
-                  >
-                    Metar
-                  </NavLink>
-                  <NavLink
-                    to="/aircraft"
-                    style={({ isActive }) =>
-                      isActive ? activeStyle : undefined
-                    }
-                  >
-                    Aircraft
-                  </NavLink>
-                  <NavLink
-                    to="/map"
-                    style={({ isActive }) =>
-                      isActive ? activeStyle : undefined
-                    }
-                  >
-                    Map
-                  </NavLink>
-                  {/* {!isAuthenticated && !isLoading && <LoginButton />}
+          <Provider store={store}>
+            <Box>
+              <AppBar position="static">
+                <Toolbar>
+                  <nav className="nav-bar">
+                    <NavLink
+                      to="/"
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                      }
+                    >
+                      Metar
+                    </NavLink>
+                    <NavLink
+                      to="/aircraft"
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                      }
+                    >
+                      Aircraft
+                    </NavLink>
+                    <NavLink
+                      to="/map"
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                      }
+                    >
+                      Map
+                    </NavLink>
+                    {/* {!isAuthenticated && !isLoading && <LoginButton />}
                   {isAuthenticated && !isLoading && <LogoutButton />} */}
-                </nav>
-              </Toolbar>
-            </AppBar>
-          </Box>
+                  </nav>
+                </Toolbar>
+              </AppBar>
+              <Counter />
+            </Box>
 
-          <Routes>
-            <Route path="/" element={<Metar />} />
-            <Route path="aircraft" element={<Aircraft userID={userID} />} />
-            <Route
-              path="map"
-              element={<Map activeAircraft={activeAircraft} />}
-            />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Metar />} />
+              <Route path="aircraft" element={<Aircraft userID={userID} />} />
+              <Route
+                path="map"
+                element={<Map activeAircraft={activeAircraft} />}
+              />
+            </Routes>
+          </Provider>
         </BrowserRouter>
         <AppFooter />
       </ThemeProvider>
