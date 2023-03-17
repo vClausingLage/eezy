@@ -45,9 +45,6 @@
 
 ## Inhalt
 
-!! GAFOR geschützt -> DFS !!
-DWD Flug Wetterberichte als Vorhersage
-
 - Map fertig
 - METAR departure / destination -> Warnings / CAVOK
 - Fuel
