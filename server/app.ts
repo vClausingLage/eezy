@@ -35,12 +35,11 @@ app.use("/api/metardecoder", metar_api_router);
 
 // import { auth } from "express-openid-connect";
 // import { requiresAuth } from "express-openid-connect";
-// import { AUTH0_SECRET } from "./config/config.js";
 
 // const config = {
 //   authRequired: false,
 //   auth0Logout: true,
-//   secret: AUTH0_SECRET,
+//   secret: process.env.AUTH0-SECRET,
 //   baseURL: "http://localhost:4000",
 //   clientID: "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ",
 //   issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",
