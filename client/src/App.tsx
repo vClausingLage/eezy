@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import "./CSS/App.css";
@@ -20,12 +20,10 @@ import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
 
 import { IAircraft } from "./components/Aircraft/interfaces/aircraft";
-import Counter from "./Counter";
 
 function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  // const { user, isAuthenticated, isLoading } = useAuth0();
   const userID = "123456789";
-  const [activeAircraft, setActiveAircraft] = useState({} as IAircraft);
   // const [userID, setUserID] = useState(""); //! uncomment
 
   // useEffect(() => {
@@ -79,16 +77,12 @@ function App() {
                   </nav>
                 </Toolbar>
               </AppBar>
-              <Counter />
             </Box>
 
             <Routes>
               <Route path="/" element={<Metar />} />
               <Route path="aircraft" element={<Aircraft userID={userID} />} />
-              <Route
-                path="map"
-                element={<Map activeAircraft={activeAircraft} />}
-              />
+              <Route path="map" element={<Map />} />
             </Routes>
           </Provider>
         </BrowserRouter>
