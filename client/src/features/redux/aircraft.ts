@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const aircraftSlice = createSlice({
   name: "aircraft",
   initialState: {
-    value: "",
     object: {},
   },
   reducers: {
