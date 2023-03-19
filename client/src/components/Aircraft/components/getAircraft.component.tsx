@@ -24,7 +24,6 @@ function GetAircraft(props: Props) {
       const response = await fetch(`/api/aircraft/create/${props.userID}`);
       const result = await response.json();
       console.log("fetching Aircraft from React");
-      // setAircraft(result);
       dispatch(savedAircraft(result));
       console.log(savedAircraftList);
     }
