@@ -13,9 +13,10 @@ type Props = {
 };
 
 function AircraftCard(props: Props) {
-  const selection = "moin";
-  const count = useSelector((state: any) => state.selectedAircraft.value);
+  const selectionNew = props.aircraft;
+  const selectedAircraft = useSelector((state: any) => state.aircraft.object);
   const dispatch = useDispatch();
+
   return (
     <Card>
       <CardContent>
@@ -25,12 +26,12 @@ function AircraftCard(props: Props) {
         <Typography>{props.aircraft.registration_number}</Typography>
         <Button
           onClick={() => {
-            dispatch(aircraftSelected(selection));
+            dispatch(aircraftSelected(selectionNew));
           }}
         >
           select Aircraft
         </Button>
-        {count}
+        {selectedAircraft.model}
       </CardContent>
     </Card>
   );

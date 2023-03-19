@@ -3,6 +3,6 @@ import aircraftReducer from "./aircraft";
 
 export default configureStore({
   reducer: {
-    selectedAircraft: aircraftReducer,
+    aircraft: aircraftReducer,
   },
 });

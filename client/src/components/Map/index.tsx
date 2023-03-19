@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -21,6 +23,8 @@ import { IAircraft } from "../Aircraft/interfaces/aircraft";
 // ]
 
 function Map() {
+  const selectedAircraft = useSelector((state: any) => state.aircraft.object);
+
   let latLong = `N 54° 22' 46,09'', E 10° 08' 42,54''`;
 
   latLong = calcLatLong(latLong);
@@ -33,6 +37,11 @@ function Map() {
             This is a placeholder | under construction
           </Alert>
           <Typography variant="h2">Flight Planner</Typography>
+          <Typography>
+            {" "}
+            your selected aircraft: {selectedAircraft.manufacturer}{" "}
+            {selectedAircraft.model} {selectedAircraft.registration_number}
+          </Typography>
           <img src={placeholderMap} alt="map" />
           {/* <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
           <TileLayer
