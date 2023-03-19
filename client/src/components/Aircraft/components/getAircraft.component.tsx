@@ -20,14 +20,14 @@ function GetAircraft(props: Props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function getAircraft() {
+    async function fetchAircraft() {
       const response = await fetch(`/api/aircraft/create/${props.userID}`);
       const result = await response.json();
       console.log("fetching Aircraft from React");
       dispatch(savedAircraft(result));
       console.log(savedAircraftList);
     }
-    if (props.userID !== undefined) getAircraft();
+    if (props.userID !== undefined) fetchAircraft();
   }, [props.userID]);
 
   return (
