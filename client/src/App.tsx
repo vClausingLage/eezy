@@ -17,7 +17,7 @@ import AppFooter from "./AppFooter";
 // import LogoutButton from "./components/Authentcation/logout";
 import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
-import Map from "./components/Map";
+import FlightPlanner from "./components/FlightPlanner";
 
 function App() {
   // const { user, isAuthenticated, isLoading } = useAuth0();
@@ -63,12 +63,12 @@ function App() {
                       Aircraft
                     </NavLink>
                     <NavLink
-                      to="/map"
+                      to="/flight-planner"
                       style={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }
                     >
-                      Map
+                      Flight Planner
                     </NavLink>
                     {/* {!isAuthenticated && !isLoading && <LoginButton />}
                   {isAuthenticated && !isLoading && <LogoutButton />} */}
@@ -80,7 +80,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Metar />} />
               <Route path="aircraft" element={<Aircraft userID={userID} />} />
-              <Route path="map" element={<Map />} />
+              <Route path="flight-planner" element={<FlightPlanner />} />
             </Routes>
           </Provider>
         </BrowserRouter>

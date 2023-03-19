@@ -27,7 +27,8 @@ function GetAircraft(props: Props) {
       dispatch(savedAircraft(result));
       console.log(savedAircraftList);
     }
-    if (props.userID !== undefined) fetchAircraft();
+    if (props.userID !== undefined && savedAircraftList.length === 0)
+      fetchAircraft();
   }, [props.userID]);
 
   return (
