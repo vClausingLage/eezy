@@ -1,9 +1,9 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import "./CSS/App.css";
 
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
 
@@ -13,13 +13,11 @@ import { ThemeProvider } from "@mui/material/";
 import { getDesignTokens } from "./CSS/theme";
 
 import AppFooter from "./AppFooter";
-import LoginButton from "./components/Authentcation/login";
-import LogoutButton from "./components/Authentcation/logout";
+// import LoginButton from "./components/Authentcation/login";
+// import LogoutButton from "./components/Authentcation/logout";
 import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
 import Map from "./components/Map";
-
-import { IAircraft } from "./components/Aircraft/interfaces/aircraft";
 
 function App() {
   // const { user, isAuthenticated, isLoading } = useAuth0();
