@@ -34,7 +34,6 @@ function AircraftCard(props: Props) {
           >
             select Aircraft
           </Button>
-          {selectedAircraft.model}
         </CardContent>
       )}
     </Card>
