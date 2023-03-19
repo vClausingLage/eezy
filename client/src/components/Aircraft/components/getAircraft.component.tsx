@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { aircraftAll } from "../../../features/redux/aircraftAll";
+import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
 
 import AircraftCard from "./aircraftCard.component";
 import { IAircraft } from "../interfaces/aircraft";
@@ -14,7 +14,9 @@ type Props = {
 };
 
 function GetAircraft(props: Props) {
-  const allAircraft = useSelector((state: any) => state.aircraftAll.list);
+  const savedAircraftList = useSelector(
+    (state: any) => state.savedAircraft.list
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,15 +25,16 @@ function GetAircraft(props: Props) {
       const result = await response.json();
       console.log("fetching Aircraft from React");
       // setAircraft(result);
-      dispatch(aircraftAll(result));
+      dispatch(savedAircraft(result));
+      console.log(savedAircraftList);
     }
     if (props.userID !== undefined) getAircraft();
   }, [props.userID]);
 
   return (
     <Box className="aircraft-container">
-      {allAircraft.map((el: IAircraft) => (
-        <AircraftCard key={el.registration_number} aircraft={el} />
+      {savedAircraftList.map((el: IAircraft, idx: number) => (
+        <AircraftCard key={idx} aircraft={el} />
       ))}
     </Box>
   );

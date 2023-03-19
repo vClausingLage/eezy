@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import aircraftReducer from "./aircraft";
-import aircraftAllReducer from "./aircraftAll";
+import aircraftReducer from "./selectedAircraftSlice";
+import savedAircraftReducer from "./savedAircraftSlice";
 
 export default configureStore({
   reducer: {
-    aircraft: aircraftReducer,
-    aircraftAll: aircraftAllReducer,
+    selectedAircraft: aircraftReducer,
+    savedAircraft: savedAircraftReducer,
   },
 });
