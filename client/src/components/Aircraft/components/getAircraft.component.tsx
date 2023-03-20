@@ -25,10 +25,10 @@ function GetAircraft(props: Props) {
       const result = await response.json();
       console.log("fetching Aircraft from React");
       dispatch(savedAircraft(result));
-      console.log(savedAircraftList);
     }
-    if (props.userID !== undefined && savedAircraftList.length === 0)
+    if (savedAircraftList.length === 0) {
       fetchAircraft();
+    }
   }, [props.userID]);
 
   return (

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { aircraftSelected } from "../../../features/redux/selectedAircraftSlice";
 
@@ -13,7 +14,6 @@ type Props = {
 };
 
 function AircraftCard(props: Props) {
-  const selectionNew = props.aircraft;
   const selectedAircraft = useSelector(
     (state: any) => state.selectedAircraft.object
   );
@@ -29,11 +29,13 @@ function AircraftCard(props: Props) {
           <Typography>{props.aircraft.registration_number}</Typography>
           <Button
             onClick={() => {
-              dispatch(aircraftSelected(selectionNew));
+              dispatch(aircraftSelected(props.aircraft));
             }}
           >
             select Aircraft
           </Button>
+          {props.aircraft.registration_number ===
+            selectedAircraft.registration_number && <p>selected</p>}
         </CardContent>
       )}
     </Card>

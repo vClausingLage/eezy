@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const savedAircraftSlice = createSlice({
   name: "savedAircraft",
   initialState: {
-    list: [{}],
+    list: [],
   },
   reducers: {
     savedAircraft: (state, action) => {
