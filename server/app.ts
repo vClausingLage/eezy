@@ -33,26 +33,27 @@ app.use("/api/metardecoder", metar_api_router);
 
 // AUTH
 
-// import { auth } from "express-openid-connect";
-// import { requiresAuth } from "express-openid-connect";
+import { auth } from "express-openid-connect";
+import pkg from "express-openid-connect";
+const { requiresAuth } = pkg;
 
-// const config = {
-//   authRequired: false,
-//   auth0Logout: true,
-//   secret: process.env.AUTH0-SECRET,
-//   baseURL: "http://localhost:4000",
-//   clientID: "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ",
-//   issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",
-// };
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET,
+  baseURL: "http://localhost:4000",
+  clientID: "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ",
+  issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",
+};
 
-// app.use(auth(config));
+app.use(auth(config));
 
-// app.get("/auth", (req, res) => {
-//   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
-// });
-// app.get("/auth/profile", requiresAuth(), (req, res) => {
-//   res.send(JSON.stringify(req.oidc.user));
-// });
+app.get("/auth", (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+});
+app.get("/auth/profile", requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
 
 // https://developer.auth0.com/resources/code-samples/full-stack/hello-world/basic-role-based-access-control/spa/react-javascript/express-javascript
 
