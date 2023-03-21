@@ -10,6 +10,7 @@ import { ac_router } from "./routes/ac.routes.js";
 import { awc_router } from "./routes/awc.routes.js";
 import { airportDB_router } from "./routes/airport.routes.js";
 import { metar_api_router } from "./routes/metar_api.routes.js";
+import { auth_router } from "./routes/auth.routes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -30,6 +31,7 @@ app.use("/api/aircraft", ac_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airportDB_router);
 app.use("/api/metardecoder", metar_api_router);
+app.use("/auth", auth_router);
 
 // AUTH
 
