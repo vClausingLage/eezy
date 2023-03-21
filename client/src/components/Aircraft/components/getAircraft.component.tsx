@@ -1,8 +1,11 @@
 import { useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
 
 import AircraftCard from "./aircraftCard.component";
+import LoadingCircleDescription from "../../General/LoadingCircleDescription";
+
 import { IAircraft } from "../interfaces/aircraft";
 
 import Box from "@mui/material/Box";
@@ -33,6 +36,10 @@ function GetAircraft(props: Props) {
 
   return (
     <Box className="aircraft-container">
+      {savedAircraftList.length === 0 && (
+        <LoadingCircleDescription description="Looking up Saved Aircraft" />
+      )}
+
       {savedAircraftList.map((el: IAircraft, idx: number) => (
         <AircraftCard key={idx} aircraft={el} />
       ))}

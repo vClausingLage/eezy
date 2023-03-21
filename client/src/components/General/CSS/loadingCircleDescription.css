@@ -1,0 +1,9 @@
+.loading-circle-description {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.loading-circle-description > * {
+margin:.3rem
+}
