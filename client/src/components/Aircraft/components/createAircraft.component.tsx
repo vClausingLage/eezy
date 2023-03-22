@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
 
 import "../CSS/aircraft-form.css";
 
@@ -39,6 +42,11 @@ function CreateAircraftForm(props: Props) {
 
   const fuelTypes = ["AvGas", "MoGas", "JetA1"];
 
+  const savedAircraftList = useSelector(
+    (state: any) => state.savedAircraft.list
+  );
+  const dispatch = useDispatch();
+
   function submitAircraft() {
     fetch("/api/aircraft/create", {
       method: "POST",
@@ -49,16 +57,15 @@ function CreateAircraftForm(props: Props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.message === "created") setSuccess(true);
+        if (data.message === "created") {
+          setSuccess(true);
+          dispatch(savedAircraft(savedAircraftList + newAircraft));
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }
-
-  // useEffect(() => {/
-  //   console.log(newAircraft);
-  // }, [newAircraft]);
 
   function inputValidation() {}
 

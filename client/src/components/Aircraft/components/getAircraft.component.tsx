@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
@@ -17,22 +17,24 @@ type Props = {
 };
 
 function GetAircraft(props: Props) {
+  const [report, setReport] = useState(false);
+
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function fetchAircraft() {
+    const fetchAircraft = async () => {
       const response = await fetch(`/api/aircraft/create/${props.userID}`);
       const result = await response.json();
       console.log("fetching Aircraft from React");
       dispatch(savedAircraft(result));
-    }
+    };
     if (savedAircraftList.length === 0) {
       fetchAircraft();
     }
-  }, [props.userID]);
+  }, [props.userID, report]);
 
   return (
     <Box className="aircraft-container">
