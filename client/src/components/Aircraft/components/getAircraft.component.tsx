@@ -17,8 +17,6 @@ type Props = {
 };
 
 function GetAircraft(props: Props) {
-  const [report, setReport] = useState(false);
-
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
   );
@@ -33,7 +31,7 @@ function GetAircraft(props: Props) {
     if (savedAircraftList.length === 0) {
       fetchAircraft();
     }
-  }, [props.userID, report]);
+  }, [props.userID]);
 
   return (
     <Box className="aircraft-container">
