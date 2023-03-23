@@ -13,8 +13,8 @@ import { metar_api_router } from "./routes/metar_api.routes.js";
 import { auth_router } from "./routes/auth.routes.js";
 
 const app = express();
-const port = process.env.PORT || 4000;
 dotenv.config();
+const port = process.env.PORT || 4000;
 morgan("tiny");
 
 app.use(express.json());
@@ -35,6 +35,7 @@ app.use("/auth", auth_router);
 
 // AUTH
 
+import { Auth0Api } from "./config/config.js";
 import { auth } from "express-openid-connect";
 import pkg from "express-openid-connect";
 const { requiresAuth } = pkg;
@@ -42,7 +43,7 @@ const { requiresAuth } = pkg;
 const config = {
   authRequired: false,
   auth0Logout: true,
-  secret: process.env.AUTH0_SECRET,
+  secret: Auth0Api,
   baseURL: "http://localhost:4000",
   clientID: "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ",
   issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",

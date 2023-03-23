@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-
-import { airportDBKey } from "../config/config.js";
+import { airportApi } from "../config/config.js";
 
 export async function getAirport(req: Request, res: Response) {
   const icao = req.params.airportID;
   try {
     const fetchAirport = await fetch(
-      `https://airportdb.io/api/v1/airport/${icao}?apiToken=${airportDBKey}`,
+      `https://airportdb.io/api/v1/airport/${icao}?apiToken=${airportApi}`,
       {
         method: "GET",
         headers: {

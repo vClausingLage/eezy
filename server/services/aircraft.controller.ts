@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
-import { MONGO_CONN_STRING } from "../config/config.js";
+import { mongoConnString } from "../config/config.js";
 import { Aircraft, AircraftModel } from "../models/aircraft.js";
 import { IAircraft, IAircraftModel } from "../interfaces/aircraft.js";
 
 export async function queryAircraftAll(req: Request, res: Response) {
   console.log("queryAircraftAll");
-  await mongoose.connect(MONGO_CONN_STRING);
+  await mongoose.connect(mongoConnString);
   const result = await Aircraft.find({}).exec();
   res.send(result);
   // mongoose.disconnect();
@@ -15,7 +15,7 @@ export async function queryAircraftAll(req: Request, res: Response) {
 export async function queryAircraftManufacturer(req: Request, res: Response) {
   console.log("queryAircraftManufacturer");
 
-  await mongoose.connect(MONGO_CONN_STRING);
+  await mongoose.connect(mongoConnString);
   const result = await Aircraft.find({
     manufacturer: req.params.manufacturer,
   }).exec();
@@ -26,7 +26,7 @@ export async function queryAircraftManufacturer(req: Request, res: Response) {
 export async function createAircraft(req: Request, res: Response) {
   run().catch((err) => console.log(err));
   async function run() {
-    await mongoose.connect(MONGO_CONN_STRING);
+    await mongoose.connect(mongoConnString);
     const aircraft = new Aircraft<IAircraft>(req.body);
     await aircraft.save();
     res.send({ message: "created" });
@@ -37,7 +37,7 @@ export async function createAircraft(req: Request, res: Response) {
 export async function getAircraft(req: Request, res: Response) {
   run().catch((err) => console.log(err));
   async function run() {
-    await mongoose.connect(MONGO_CONN_STRING);
+    await mongoose.connect(mongoConnString);
     const result = await Aircraft.find({
       user: req.params.id,
     }).exec();
@@ -52,7 +52,7 @@ export async function insertModelAC(req: Request, res: Response) {
 
   run().catch((err) => console.log(err));
   async function run() {
-    await mongoose.connect(MONGO_CONN_STRING);
+    await mongoose.connect(mongoConnString);
     const aircraft = new AircraftModel<IAircraftModel>(req.body);
     await aircraft.save();
     res.send("created");
