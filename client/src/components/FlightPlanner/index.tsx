@@ -7,8 +7,6 @@ import Alert from "@mui/material/Alert";
 
 import { calcLatLong } from "./helper/distance-lat-long-calc";
 
-// import placeholderMap from "./placeholderMap.jpg";
-
 import "./Map.css";
 
 import {
@@ -44,17 +42,15 @@ function Map() {
           </Alert>
           <Typography variant="h2">Flight Planner</Typography>
           <Typography>
-            {" "}
             your selected aircraft: {selectedAircraft.manufacturer}{" "}
             {selectedAircraft.model} {selectedAircraft.registration_number}
           </Typography>
-          {/* <img src={placeholderMap} alt="map" /> */}
           <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Polyline pathOptions={limeOptions} positions={polyline} />
+            {/* <Polyline pathOptions={limeOptions} positions={polyline} /> */}
           </MapContainer>
         </CardContent>
       </Card>
