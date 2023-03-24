@@ -62,20 +62,26 @@ app.use("/auth", auth_router);
 
 // AUTH
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, "build")));
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/favicon.ico", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "favicon.ico"));
+// app.get("/favicon.ico", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "favicon.ico"));
+// });
+
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
+
+app.use("/metarapp", express.static(path.join(__dirname, "metarapp/build")));
+app.get("metarapp/*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
 });
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
-app.get("/", function (req, res) {
-  res.send("moin");
+app.use(express.static(path.join(__dirname, "prtklr/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/prtklr/build/index.html"));
 });
 
 app.listen(port, () => {
