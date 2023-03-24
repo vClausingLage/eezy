@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.3.0",
+  "homepage": "eezy",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
