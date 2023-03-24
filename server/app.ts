@@ -62,8 +62,8 @@ app.use("/auth", auth_router);
 
 // AUTH
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // app.use(express.static(path.join(__dirname, "build")));
 
 // app.get("/favicon.ico", (req, res) => {
