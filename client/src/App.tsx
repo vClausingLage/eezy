@@ -62,14 +62,14 @@ function App() {
                     >
                       Aircraft
                     </NavLink>
-                    <NavLink
+                    {/* <NavLink
                       to="/flight-planner"
                       style={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }
                     >
                       Flight Planner
-                    </NavLink>
+                    </NavLink> */}
                     {/* {!isAuthenticated && !isLoading && <LoginButton />}
                   {isAuthenticated && !isLoading && <LogoutButton />} */}
                   </nav>
