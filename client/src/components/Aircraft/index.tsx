@@ -24,9 +24,13 @@ function Aircraft(props: Props) {
     <>
       <Card className="root">
         <CardContent>
-          <Typography variant="h4">your Aircraft</Typography>
+          <Typography variant="h4" color="primary.main">
+            your Aircraft
+          </Typography>
           <GetAircraft userID={props.userID} />
-          <Typography variant="h4">add your own Aircraft</Typography>
+          <Typography variant="h4" color="primary.main">
+            add your own Aircraft
+          </Typography>
           <CreateAircraftForm userID={props.userID} />
         </CardContent>
       </Card>
