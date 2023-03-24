@@ -19,7 +19,7 @@ type Props = {
 
 function DataPanel({ props }: Props) {
   return (
-    <Box id="weather-data">
+    <Box className="weather-data">
       {props.slp !== null && props.altim === null && (
         <DataView
           data={[

@@ -29,15 +29,15 @@ type IRwy = {
 
 function SVGPanel({ props }: Props) {
   return (
-    <Box id="grid_container_Clouds_Wind">
+    <Box className="grid_container_Clouds_Wind">
       <Box>
-        <Box id="sun-box">
+        <Box className="sun-box">
           {props.cldCvg1 === "CAVOK" && <Sun date={props.timeLocal} />}
           {props.cldCvg1 === "NCD" && <Sun date={props.timeLocal} />}
           {props.cldCvg1 === "CLR" && <Sun date={props.timeLocal} />}
         </Box>
 
-        <Box id="cloud-box">
+        <Box className="cloud-box">
           {props.cldBas1 && (
             <Cloud
               cloudBase={parseInt(props.cldBas1)}

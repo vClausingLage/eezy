@@ -1,25 +1,31 @@
-#metar-text-input-ICAO {
+.root {
+  margin: 1rem;
+  padding: 1rem;
+  min-height: 80vh;
+}
+
+.metar-text-input-ICAO {
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
 }
 
-#metar-data {
+.metar-data {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#type-flight-rule {
+.type-flight-rule {
   color: white;
   padding-top: .7rem;
   padding-bottom: .7rem;
   padding-left: 4rem;
   padding-right: 4rem;
 }
-#weather-data {
+.weather-data {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -27,35 +33,41 @@
   gap: 1rem;
 }
 
-#grid_container_Clouds_Wind {
+.grid_container_Clouds_Wind {
   display: flex;
   flex-flow: column;
   justify-items: center;
   align-items: center;
 }
-#sun-box {
+.sun-box {
   display: flex;
   justify-content: center;
 }
-#cloud-box {
+.cloud-box {
   display: flex; 
   flex-flow: column; 
   justify-content: center; 
   align-items: center; 
 }
+.table-flight-rule {
+  display: "flex";
+  justify-content: "center";
+  margin: "auto";
+  margin-top: 2rem;
+}
 
 @media only screen and (min-width: 600px) {
-#grid_container_Clouds_Wind {
+.grid_container_Clouds_Wind {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
 }
-#sun-box {
+.sun-box {
   display: flex;
   justify-content: center;
 }
-#cloud-box {
+.cloud-box {
   display: flex; 
   flex-flow: row wrap; 
   justify-content: center; 
