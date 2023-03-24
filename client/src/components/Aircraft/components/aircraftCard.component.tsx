@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { aircraftSelected } from "../../../features/redux/selectedAircraftSlice";
 
@@ -6,8 +5,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import CheckIcon from "@mui/icons-material/Check";
 
 import { IAircraft } from "../interfaces/aircraft";
+
+import "../CSS/aircraft-get.css";
 
 type Props = {
   aircraft: IAircraft;
@@ -35,7 +37,11 @@ function AircraftCard(props: Props) {
             select Aircraft
           </Button>
           {props.aircraft.registration_number ===
-            selectedAircraft.registration_number && <p>selected</p>}
+            selectedAircraft.registration_number && (
+            <Typography className="aircraft-selected">
+              <CheckIcon />
+            </Typography>
+          )}
         </CardContent>
       )}
     </Card>
