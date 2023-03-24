@@ -1,6 +1,6 @@
 import { calcLatLong } from "../helper/distance-lat-long-calc";
 
-import "./Map.css";
+import "..CSS/leaflet.css";
 
 import {
   MapContainer,

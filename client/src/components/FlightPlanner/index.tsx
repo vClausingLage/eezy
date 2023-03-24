@@ -18,9 +18,7 @@ function FlightPlanner() {
     <>
       <Card>
         <CardContent>
-          <Alert severity="error">
-            This is a placeholder | under construction
-          </Alert>
+          <Alert severity="error">under construction</Alert>
           <Typography variant="h2">Flight Planner</Typography>
           <Typography>
             <SelectedAircraft
