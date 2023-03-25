@@ -1,22 +1,9 @@
 # METAR API
 
-## To Do
+## Response
 
-- new RegEx for crazy differences in PRECIP strings -> regex101
-
-  - [+/-/_ | 2W | 4W | 6W] -> 6W only if characteristics?
-  - [+/-/_ 2W | 4W (if characteristics!)]
-
-- RegEx : ^(-|\+|)\D{2,4}
-
-  - connected
-  - separated
-
-- Crazy Metar String RegEx Problems
-
-  - 1 3/4SM
-
-- map TEMPO, BECMG, RMK to _object_
+- check (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#checking_that_the_fetch_was_successful)
+  - check for response.ok
 
 ## Structure
 
@@ -41,7 +28,7 @@
 
 ## Authentication
 
-- set up with Azure (Auth0)
+- complete auth process
 
 ## Inhalt
 

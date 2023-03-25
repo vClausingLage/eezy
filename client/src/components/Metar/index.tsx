@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Search from "@mui/icons-material/Search";
+import Card from "@mui/material/Card";
 
 import {
   getFlightRules,
@@ -129,8 +130,8 @@ function Metar() {
   }, [metar]);
 
   return (
-    <Box>
-      <Box id="metar-text-input-ICAO">
+    <Card className="root">
+      <Box className="metar-text-input-ICAO">
         <Typography variant="h2">Metar</Typography>
         <form onSubmit={searchMetar}>
           <TextField
@@ -165,7 +166,7 @@ function Metar() {
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
       )}
-      <Box id="metar-data">
+      <Box className="metar-data">
         {!isLoading &&
           metar.name &&
           metar !== undefined && ( // ! move name to object
@@ -174,7 +175,7 @@ function Metar() {
                 {metar.name.split(",")[0].replace("/", " ")}
               </Typography>
               <Typography
-                id="type-flight-rule"
+                className="type-flight-rule"
                 style={{
                   backgroundColor: metarObject.flightRule?.colorCode,
                 }}
@@ -242,21 +243,14 @@ function Metar() {
                 show flight rule table
               </Button>
               {showTable && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    margin: "auto",
-                    mt: 2,
-                  }}
-                >
+                <Box className="table-flight-rule">
                   <FlightRuleTable />
                 </Box>
               )}
             </>
           )}
       </Box>
-    </Box>
+    </Card>
   );
 }
 
