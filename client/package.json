@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.3.0",
-  "homepage": ".",
+  "homepage": "clausing-lage.de/metarapp",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",

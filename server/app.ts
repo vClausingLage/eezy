@@ -80,7 +80,7 @@ app.get("metarapp/*", (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, "prtklr/build")));
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname + "/prtklr/build/index.html"));
 });
 
