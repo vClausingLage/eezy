@@ -70,6 +70,20 @@ function FlightCalculator(props: Props) {
           nautical miles
         </Typography>
       </Box>
+      <p>expected Taxi Fuel (default 5L)</p>
+      <p>headwinds -- use GS for fuel calc!</p>
+      <p>absolutly NECCESSARY</p>
+      <ul>
+        <li>monitor fuel consumption of previous flights</li>
+        <li>check fuel LOW indication</li>
+        <li>always apply fuel mixture</li>
+        <li>
+          https://www.simcoders.com/2018/09/07/how-to-calculate-the-fuel-required-for-your-flight/
+        </li>
+        <li>
+          https://www.flight-study.com/2021/05/basic-calculations-cross-country-flight.html
+        </li>
+      </ul>
     </Box>
   );
 }
