@@ -74,8 +74,13 @@ const __dirname = path.dirname(__filename);
 //   res.sendFile(path.join(__dirname, "build", "index.html"));
 // });
 
+// app.use("/metarapp", express.static(path.join(__dirname, "metarapp/build")));
+// app.get("metarapp/*", (req, res) => {
+//   res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
+// });
+
 app.use("/metarapp", express.static(path.join(__dirname, "metarapp/build")));
-app.get("metarapp/*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
 });
 
