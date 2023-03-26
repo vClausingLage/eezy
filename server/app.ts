@@ -64,29 +64,14 @@ app.use("/auth", auth_router);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "build")));
 
-// app.get("/favicon.ico", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "favicon.ico"));
-// });
-
-// app.get("/", function (req, res) {
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
-
-// app.use("/metarapp", express.static(path.join(__dirname, "metarapp/build")));
-// app.get("metarapp/*", (req, res) => {
-//   res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
-// });
-
-app.use("/", express.static(path.join(__dirname, "prtklr/build")));
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/prtklr/build/index.html"));
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "favicon.ico"));
 });
 
-app.use("/metarapp", express.static(path.join(__dirname, "metarapp/build")));
-app.get("/metarapp/*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 app.listen(port, () => {
