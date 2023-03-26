@@ -3,18 +3,17 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-
-
+import IconButton from "@mui/material/IconButton";
 
 function InputDestination() {
-  const [icao, setIcao] = useState({icao.departure: "", icao.destination: ""});
+  const [icao, setIcao] = useState({ departure: "", destination: "" });
 
   function getDistance() {
-    console.log("distance")
+    console.log("distance");
   }
 
   function handleDeparture() {
-    console.log("Departure")
+    console.log("Departure");
   }
 
   return (
@@ -22,12 +21,12 @@ function InputDestination() {
       <Typography variant="h5" color="primary.main">
         Departure & Destination
       </Typography>
-      <Box>
+      {/* <Box>
         <form onSubmit={getDistance}>
           <TextField
             type="departure"
             label="enter ICAO Code"
-            value={departure.icao}
+            value={departure}
             onChange={handleDeparture}
             InputProps={{
               endAdornment: (
@@ -43,7 +42,7 @@ function InputDestination() {
             }}
           ></TextField>
         </form>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
