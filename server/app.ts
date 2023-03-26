@@ -79,16 +79,16 @@ const __dirname = path.dirname(__filename);
 //   res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
 // });
 
+app.use("/", express.static(path.join(__dirname, "prtklr/build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/prtklr/build/index.html"));
+});
+
 app.use("/metarapp", express.static(path.join(__dirname, "metarapp/build")));
 app.get("/metarapp/*", (req, res) => {
   res.sendFile(path.join(__dirname + "/metarapp/build/index.html"));
 });
 
-app.use(express.static(path.join(__dirname, "prtklr/build")));
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/prtklr/build/index.html"));
-});
-
 app.listen(port, () => {
-  // console.log(`Metar App listening at http://localhost:${port}`);
+  console.log(`Metar App listening at http://localhost:${port}`);
 });
