@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 
-import "../CSS/flight-calculator.css";
+import "../CSS/planner-calculator.css";
 
 type Props = {
   distance: number;

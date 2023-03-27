@@ -10,7 +10,7 @@ import SelectedAircraft from "./components/SelectedAircraft";
 import FlightCalculator from "./components/FlightCalculator";
 import InputDestination from "./components/InputDestination";
 
-import "./CSS/root.css";
+import "./CSS/planner-index.css";
 
 function FlightPlanner() {
   // ! dummy value

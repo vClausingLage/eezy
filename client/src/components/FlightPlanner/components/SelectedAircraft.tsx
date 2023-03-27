@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-import "../CSS/aircraft-selected.css";
+import "../CSS/planner-card-selected.css";
 
 type Props = {
   aircraft: {
