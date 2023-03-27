@@ -16,7 +16,7 @@ import Switch from "@mui/material/Switch";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
-import { MenuItem } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 
 type Props = {
   userID: string | undefined;
@@ -59,7 +59,7 @@ function CreateAircraftForm(props: Props) {
       .then((data) => {
         if (data.message === "created") {
           setSuccess(true);
-          dispatch(savedAircraft(savedAircraftList + newAircraft));
+          dispatch(savedAircraft([...savedAircraftList, newAircraft]));
         }
       })
       .catch((error) => {
