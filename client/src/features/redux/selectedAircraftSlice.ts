@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const aircraftSlice = createSlice({
-  name: "aircraft",
+  name: "selectedAircraft",
   initialState: {
     object: {},
   },
