@@ -25,11 +25,11 @@ The App uses the [**AWC API**](https://www.aviationweather.gov/dataserver) _beta
 
 # API
 
-**Test the API at .../api/metardecoder/\<YOUR METAR STRING\>**
+**Test the API at clausing-lage.de/api/metardecoder/\<YOUR METAR STRING\>**
 
 e.g.: `EDHK 100850Z 08012KT 9999 -SN OVC015 01/M02 Q0992 `
 
-The API can convert Raw Metar String input to an output in JSON format. Additionally it provides some default layout suggestions for simplyfied further use in an app -- if desired.
+The API can convert Raw Metar String input to an output in JSON format. The main focus is to maintain the strict design of Metar strings while making it as 'human readable' as possible. The decoding of the weather strings was of particular importance in order to reduce the complexity of the raw Metar strings and to ensure quick information access.
 
 ## To Do
 
