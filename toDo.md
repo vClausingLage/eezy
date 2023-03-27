@@ -1,3 +1,16 @@
+# TO DO
+
+## client
+
+- CSS Hero Page
+- CSS Card Aircraft
+-
+
+## server
+
+- req params / req body
+- VV/// -> OVX
+
 # METAR API
 
 ## Response
