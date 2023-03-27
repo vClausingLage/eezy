@@ -1,4 +1,4 @@
-# Air Pocket Planner
+# EEzy Flight Planner
 
 # Metar
 
