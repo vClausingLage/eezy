@@ -18,6 +18,7 @@ import AppFooter from "./AppFooter";
 import Metar from "./components/Metar";
 import Aircraft from "./components/Aircraft";
 import FlightPlanner from "./components/FlightPlanner";
+import IndexPage from "./components/Index/Index";
 
 function App() {
   // const { user, isAuthenticated, isLoading } = useAuth0();
@@ -52,6 +53,14 @@ function App() {
                         isActive ? activeStyle : undefined
                       }
                     >
+                      Home
+                    </NavLink>
+                    <NavLink
+                      to="/metar"
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                      }
+                    >
                       Metar
                     </NavLink>
                     <NavLink
@@ -78,7 +87,8 @@ function App() {
             </Box>
 
             <Routes>
-              <Route path="/" element={<Metar />} />
+              <Route path="/" element={<IndexPage />} />
+              <Route path="/metar" element={<Metar />} />
               <Route path="aircraft" element={<Aircraft userID={userID} />} />
               <Route path="flight-planner" element={<FlightPlanner />} />
             </Routes>
