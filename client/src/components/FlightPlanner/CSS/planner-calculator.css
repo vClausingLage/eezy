@@ -1,4 +1,10 @@
 .fuel-selection {
-  display: flex;
-  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.attention-bar {
+  background-color: #f12800;
+  padding: 1rem;
+  border-radius: .5rem;
+  color: white;
 }
