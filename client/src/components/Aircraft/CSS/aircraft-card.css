@@ -1,6 +1,6 @@
 .aircraft-container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
 }
 .aircraft-container > * {
   margin: .3rem;
