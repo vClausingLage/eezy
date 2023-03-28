@@ -56,7 +56,7 @@ function App() {
                       Home
                     </NavLink> */}
                     <NavLink
-                      to="/metar"
+                      to="/"
                       style={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }
