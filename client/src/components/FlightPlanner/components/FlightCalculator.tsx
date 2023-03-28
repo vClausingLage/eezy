@@ -117,7 +117,7 @@ function FlightCalculator(props: Props) {
           </li>
           <li>
             apply mixture according to altitude and fly at the
-            manufacturer&#700;s recommended RPM
+            manufacturer&#700;s recommended cruise RPM
           </li>
           <li>double check with your own calculations</li>
         </ul>
