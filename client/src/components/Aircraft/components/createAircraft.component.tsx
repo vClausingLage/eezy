@@ -236,11 +236,12 @@ function CreateAircraftForm(props: Props) {
           </Box>
           <Box className="submit-box">
             <Button
+              disabled
               onClick={submitAircraft}
               style={{ maxWidth: "100px" }}
               variant="contained"
             >
-              save
+              save (disabled for Demo)
             </Button>
             <Typography
               style={{
