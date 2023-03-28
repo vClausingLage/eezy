@@ -47,14 +47,14 @@ function App() {
               <AppBar position="static">
                 <Toolbar>
                   <nav className="nav-bar">
-                    <NavLink
+                    {/* <NavLink
                       to="/"
                       style={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }
                     >
                       Home
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                       to="/metar"
                       style={({ isActive }) =>
@@ -87,8 +87,9 @@ function App() {
             </Box>
 
             <Routes>
-              <Route path="/" element={<IndexPage />} />
-              <Route path="/metar" element={<Metar />} />
+              {/* <Route path="/" element={<IndexPage />} /> */}
+
+              <Route path="/" element={<Metar />} />
               <Route path="aircraft" element={<Aircraft userID={userID} />} />
               <Route path="flight-planner" element={<FlightPlanner />} />
             </Routes>
