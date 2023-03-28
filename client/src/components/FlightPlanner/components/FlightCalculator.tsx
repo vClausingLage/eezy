@@ -19,10 +19,15 @@ type Props = {
 function FlightCalculator(props: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(0);
   const [fuelReserve, setFuleReserve] = useState<number>(45);
+  const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
   const [rangeAlert, setRangeAlert] = useState(false);
 
   function handleFuelChange(e: any) {
-    if (e.target.value !== undefined || e.target.value > 0)
+    if (
+      e.target.value !== undefined ||
+      e.target.value > 0 ||
+      e.target.value < props.fuelCapacity
+    )
       setFuelLoaded(parseInt(e.target.value));
   }
   function handleReserveChange(e: any) {
@@ -65,8 +70,8 @@ function FlightCalculator(props: Props) {
       <Box>
         <Typography>
           max Range:{" "}
-          {getRange(fuelLoaded, props.fuelCapacity, props.cruiseSpeed)} nautical
-          miles
+          {getRange(fuelLoaded, props.fuelConsumption, props.cruiseSpeed)}{" "}
+          nautical miles
         </Typography>
       </Box>
       <p>expected Taxi Fuel (default 5L)</p>
