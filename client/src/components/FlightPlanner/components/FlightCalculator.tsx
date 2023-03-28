@@ -23,18 +23,25 @@ function FlightCalculator(props: Props) {
       setFuelLoaded(parseInt(e.target.value));
   }
 
-  const calculateFuel = (
-    distance: number,
-    fuelCapacity: number,
-    fuelConsumption: number,
-    cruiseSpeed: number
-  ): number => {
-    console.log(distance, fuelLoaded, fuelConsumption, cruiseSpeed);
-    let duration = fuelLoaded / fuelConsumption;
-    console.log(duration);
-    let range = Math.round(duration * cruiseSpeed);
-    return range;
-  };
+  // const calculateFuel = (
+  //   distance: number,
+  //   fuelCapacity: number,
+  //   fuelConsumption: number,
+  //   cruiseSpeed: number
+  // ): number => {
+  //   console.log(distance, fuelLoaded, fuelConsumption, cruiseSpeed);
+  //   let duration = fuelLoaded / fuelConsumption;
+  //   console.log(duration);
+  //   let range = Math.round(duration * cruiseSpeed);
+  //   return range;
+  // };
+  class FuelCalculator {
+    constructor(
+      private fuel_load: number,
+      private fuel_consumption: number,
+      private cruise_speed: number
+    ) {}
+  }
 
   return (
     <Box>
@@ -59,7 +66,7 @@ function FlightCalculator(props: Props) {
         </Typography>
       </Box>
       <Box>
-        <Typography>
+        {/* <Typography>
           max Range (reserve 45"):{" "}
           {calculateFuel(
             props.distance,
@@ -68,7 +75,7 @@ function FlightCalculator(props: Props) {
             props.cruiseSpeed
           )}{" "}
           nautical miles
-        </Typography>
+        </Typography> */}
       </Box>
       <p>expected Taxi Fuel (default 5L)</p>
       <p>headwinds -- use GS for fuel calc!</p>
