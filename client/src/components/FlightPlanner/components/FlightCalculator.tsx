@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 
+import { getRange, getDuration } from "../helper/fuel-calculator";
+
 import "../CSS/planner-calculator.css";
 
 type Props = {
@@ -16,31 +18,15 @@ type Props = {
 
 function FlightCalculator(props: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(0);
+  const [fuelReserve, setFuleReserve] = useState<number>(45);
   const [rangeAlert, setRangeAlert] = useState(false);
 
-  function handleChange(e: any) {
+  function handleFuelChange(e: any) {
     if (e.target.value !== undefined || e.target.value > 0)
       setFuelLoaded(parseInt(e.target.value));
   }
-
-  // const calculateFuel = (
-  //   distance: number,
-  //   fuelCapacity: number,
-  //   fuelConsumption: number,
-  //   cruiseSpeed: number
-  // ): number => {
-  //   console.log(distance, fuelLoaded, fuelConsumption, cruiseSpeed);
-  //   let duration = fuelLoaded / fuelConsumption;
-  //   console.log(duration);
-  //   let range = Math.round(duration * cruiseSpeed);
-  //   return range;
-  // };
-  class FuelCalculator {
-    constructor(
-      private fuel_load: number,
-      private fuel_consumption: number,
-      private cruise_speed: number
-    ) {}
+  function handleReserveChange(e: any) {
+    setFuleReserve(e.target.value);
   }
 
   return (
@@ -59,23 +45,29 @@ function FlightCalculator(props: Props) {
               <InputAdornment position="end">liters</InputAdornment>
             ),
           }}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => handleFuelChange(e)}
         ></TextField>
+
         <Typography display="inline">
           of {props.fuelCapacity} liters max. Capacity
         </Typography>
       </Box>
+      <TextField
+        label="Fuel Reserve"
+        type="number"
+        required
+        value={fuelReserve}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">minutes</InputAdornment>,
+        }}
+        onChange={(e) => handleReserveChange(e)}
+      ></TextField>
       <Box>
-        {/* <Typography>
-          max Range (reserve 45"):{" "}
-          {calculateFuel(
-            props.distance,
-            fuelLoaded,
-            props.fuelConsumption,
-            props.cruiseSpeed
-          )}{" "}
-          nautical miles
-        </Typography> */}
+        <Typography>
+          max Range:{" "}
+          {getRange(fuelLoaded, props.fuelCapacity, props.cruiseSpeed)} nautical
+          miles
+        </Typography>
       </Box>
       <p>expected Taxi Fuel (default 5L)</p>
       <p>headwinds -- use GS for fuel calc!</p>

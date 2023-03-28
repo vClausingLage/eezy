@@ -1,8 +1,10 @@
-export function fuelCalculator(aircraft: any, length: number){ //! remove any
-  console.log('hello fuel')
-  let taxi = 5
-  // Contingency Fuel is the higher of:
-  //   5% of planned trip fuel
-  //   5 minutes of flight at holding speed at 1500ft
-  let reserve = aircraft.cruiseFuelConsumption * 0.75 // -> 45min
+export function getDuration(fuelLoad: number, fuelConsumption: number): number {
+  return Math.round((fuelLoad / fuelConsumption) * 100) / 100;
+}
+export function getRange(
+  fuelLoad: number,
+  fuelConsumption: number,
+  cruiseSpeed: number
+) {
+  return getDuration(fuelLoad, fuelConsumption) * cruiseSpeed;
 }
