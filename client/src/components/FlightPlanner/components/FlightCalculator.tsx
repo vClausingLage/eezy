@@ -8,6 +8,8 @@ import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 import Stack from "@mui/material/Stack";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
+import FuelCalculatorTextInput from "./fuelCalculatorTextInput";
+
 import { getRange } from "../helper/fuel-calculator";
 
 import "../CSS/planner-calculator.css";
@@ -21,16 +23,12 @@ type Props = {
 
 function FlightCalculator(props: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(0);
-  const [fuelReserve, setFuleReserve] = useState<number>(45);
+  const [fuelReserve, setFuleReserve] = useState<number>(0);
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
   const [rangeAlert, setRangeAlert] = useState(false);
 
   function handleFuelChange(e: any) {
-    if (
-      e.target.value !== undefined &&
-      e.target.value >= 0
-      // && e.target.value <= props.fuelCapacity
-    ) {
+    if (e.target.value !== undefined && e.target.value >= 0) {
       setFuelLoaded(parseInt(e.target.value));
       setFuelMaxAlert(false);
     }
@@ -51,39 +49,25 @@ function FlightCalculator(props: Props) {
         gap={1}
         className="fuel-selection"
       >
-        <TextField
+        <FuelCalculatorTextInput
           label="Fuel Loaded"
-          type="number"
-          required
+          unit="liters"
           value={fuelLoaded}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">liters</InputAdornment>
-            ),
-          }}
-          onChange={(e) => handleFuelChange(e)}
-          sx={{ width: 190 }}
-        ></TextField>
+          handleChange={(e) => handleFuelChange(e)}
+        />
         <Typography display="inline">
           of {props.fuelCapacity} liters max. Capacity
         </Typography>
       </Stack>
       <Stack direction="row" alignItems="center" gap={1}>
-        <TextField
+        <FuelCalculatorTextInput
           label="Fuel Reserve"
-          type="number"
-          required
+          unit="minutes"
           value={fuelReserve}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">minutes</InputAdornment>
-            ),
-          }}
-          onChange={(e) => handleReserveChange(e)}
-          sx={{ width: 190 }}
-        ></TextField>
+          handleChange={(e) => handleReserveChange(e)}
+        />
         <Typography display="inline">
-          (equals {props.fuelConsumption * 0.75})
+          (equals {(props.fuelConsumption / 60) * fuelReserve} liters)
         </Typography>
       </Stack>
       <Box>
