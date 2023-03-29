@@ -21,8 +21,6 @@ function FlightPlanner() {
     (state: any) => state.selectedAircraft.object
   );
 
-  console.log(selectedAircraft);
-
   return (
     <>
       <Card>
