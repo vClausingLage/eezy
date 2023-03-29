@@ -2,9 +2,7 @@ import { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
 import Alert from "@mui/material/Alert";
-import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
 import Stack from "@mui/material/Stack";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
@@ -25,7 +23,6 @@ function FlightCalculator(props: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(0);
   const [fuelReserve, setFuleReserve] = useState<number>(0);
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
-  const [rangeAlert, setRangeAlert] = useState(false);
 
   function handleFuelChange(e: any) {
     if (e.target.value !== undefined && e.target.value >= 0) {
