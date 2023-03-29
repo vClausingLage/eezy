@@ -13,10 +13,6 @@ import InputDestination from "./components/InputDestination";
 import "./CSS/planner-index.css";
 
 function FlightPlanner() {
-  // ! dummy value
-
-  const distance = 1000;
-
   const selectedAircraft = useSelector(
     (state: any) => state.selectedAircraft.object
   );
