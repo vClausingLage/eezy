@@ -21,28 +21,6 @@ function InputDestination() {
       <Typography variant="h5" color="primary.main">
         Departure & Destination
       </Typography>
-      {/* <Box>
-        <form onSubmit={getDistance}>
-          <TextField
-            type="departure"
-            label="enter ICAO Code"
-            value={departure}
-            onChange={handleDeparture}
-            InputProps={{
-              endAdornment: (
-                <IconButton
-                  id="searchButton"
-                  type="submit"
-                  onClick={searchMetar}
-                  disabled={disabled}
-                >
-                  <Search />
-                </IconButton>
-              ),
-            }}
-          ></TextField>
-        </form>
-      </Box> */}
     </Box>
   );
 }
