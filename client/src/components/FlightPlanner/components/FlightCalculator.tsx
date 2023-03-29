@@ -40,33 +40,27 @@ function FlightCalculator(props: Props) {
       <Typography variant="h5" color="primary.main">
         Fuel Calculator
       </Typography>
-      <Stack
-        direction="row"
-        alignItems="center"
-        gap={1}
-        className="fuel-selection"
-      >
-        <FuelCalculatorTextInput
-          label="Fuel Loaded"
-          unit="liters"
-          value={fuelLoaded}
-          handleChange={(e) => handleFuelChange(e)}
-        />
-        <Typography display="inline">
-          of {props.fuelCapacity} liters max. Capacity
-        </Typography>
-      </Stack>
-      <Stack direction="row" alignItems="center" gap={1}>
-        <FuelCalculatorTextInput
-          label="Fuel Reserve"
-          unit="minutes"
-          value={fuelReserve}
-          handleChange={(e) => handleReserveChange(e)}
-        />
-        <Typography display="inline">
-          (equals {(props.fuelConsumption / 60) * fuelReserve} liters)
-        </Typography>
-      </Stack>
+
+      <FuelCalculatorTextInput
+        label="Fuel Loaded"
+        unit="liters"
+        value={fuelLoaded}
+        placeholder=""
+        helperText={`of aircraftʼs ${props.fuelCapacity} liters max fuel`}
+        handleChange={(e) => handleFuelChange(e)}
+      />
+
+      <FuelCalculatorTextInput
+        label="Fuel Reserve"
+        unit="minutes"
+        value={fuelReserve}
+        placeholder="e.g. 45"
+        helperText={`(equals ${Math.round(
+          (props.fuelConsumption / 60) * fuelReserve
+        )} liters)`}
+        handleChange={(e) => handleReserveChange(e)}
+      />
+
       <Box>
         {fuelMaxAlert && (
           <Alert severity="error">
@@ -79,7 +73,7 @@ function FlightCalculator(props: Props) {
           nautical miles
         </Typography>
       </Box>
-      <Typography className="attention-bar">
+      <Box className="attention-bar">
         <Stack direction="row" alignItems="center" gap={1}>
           <PriorityHighIcon /> ATTENTION
         </Stack>
@@ -102,7 +96,7 @@ function FlightCalculator(props: Props) {
           </li>
           <li>double check with your own calculations</li>
         </ul>
-      </Typography>
+      </Box>
     </Box>
   );
 }
