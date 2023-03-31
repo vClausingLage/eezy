@@ -7,7 +7,7 @@ import {
   metarToString,
   splitMetarListRemarks,
 } from "./MetarAPI/helper/metar-regex-main-helper-functions.js";
-import { IMetarObject } from "./MetarAPI/helper/interfaces/metar-regex-interfaces.js";
+// import { IMetarObject } from "./MetarAPI/helper/interfaces/metar-regex-interfaces.js";
 
 type ListRemarks = {
   metar: string[];
@@ -18,7 +18,7 @@ type ListRemarks = {
 
 export async function decodeRawMetar(req: Request, res: Response) {
   let metarString = req.params.metarstring;
-  let metarObject = {} as IMetarObject;
+  // let metarObject = {} as IMetarObject;
   let metarListObject: ListRemarks = splitMetarListRemarks(
     metarToList(metarString)
   );
