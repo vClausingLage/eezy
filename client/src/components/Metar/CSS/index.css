@@ -32,7 +32,6 @@
   align-items: center;
   gap: 1rem;
 }
-
 .grid_container_Clouds_Wind {
   display: flex;
   flex-flow: column;
@@ -54,6 +53,13 @@
   justify-content: "center";
   margin: "auto";
   margin-top: 2rem;
+}
+
+.wordcloud {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+max-height: 50vdh;
 }
 
 @media only screen and (min-width: 600px) {

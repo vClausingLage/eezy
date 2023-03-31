@@ -25,6 +25,7 @@ import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";
 import FlightRuleTable from "./components/FlightRuleTable";
 import LoadingCircle from "../General/LoadingCircle";
+import WordCloudICAO from "./assets/WordCloudICAO.png";
 
 import "./CSS/index.css";
 import DataPanel from "./components/DataPanel";
@@ -165,6 +166,11 @@ function Metar() {
           No Data Received. <br />
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
+      )}
+      {!isLoading && !metar.name && (
+        <Box className="wordcloud">
+          <img src={WordCloudICAO} alt="react logo" />
+        </Box>
       )}
       <Box className="metar-data">
         {!isLoading &&
