@@ -169,7 +169,7 @@ function Metar() {
       )}
       {!isLoading && !metar.name && (
         <Box className="wordcloud">
-          <img src={WordCloudICAO} alt="react logo" />
+          <img src={WordCloudICAO} alt="wordcloud" />
         </Box>
       )}
       <Box className="metar-data">
