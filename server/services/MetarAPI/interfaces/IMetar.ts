@@ -1,25 +1,23 @@
-// -> metar-classes.js
-export interface IWind {
+interface IWind {
   direction: number | string | undefined;
   speed: number | undefined;
   unit: string | undefined;
   gusts?: number | undefined;
 }
-export interface IClouds {
+interface IClouds {
   cloud_layer: string;
   cloud_base: number | undefined;
   cloud?: string | undefined;
 }
-export interface IAirPressure {
+interface IAirPressure {
   pressure: string | undefined;
   value: number | undefined;
   unit: string | undefined;
 }
-export interface IFlightRule {
+interface IFlightRule {
   flight_rule: string;
   color_code: string;
 }
-
 interface IVisibility {
   value: number | string | undefined;
   unit: string;

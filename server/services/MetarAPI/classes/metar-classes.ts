@@ -1,24 +1,17 @@
-import {
-  IWind,
-  IClouds,
-  IAirPressure,
-  IFlightRule,
-} from "../interfaces/IMetar.js";
-
 // -> metar-regex
 export class Metar {
   icao!: string;
   date!: Date;
-  wind!: IWind;
+  wind!: { direction: number | string; speed: number; unit: string };
   visibility!: { value: number; unit: string };
   precipitation!: string[];
-  cloud_layer!: IClouds[];
+  cloud_layer!: { cloud_layer: string; cloud_base: number; cloud?: string }[];
   taf_prognosis!: string;
   wind_var!: number[];
-  air_pressure!: IAirPressure;
+  air_pressure!: { pressure: string; value: number; unit: string };
   slp!: number;
   cavok!: boolean;
-  flight_rule!: IFlightRule;
+  flight_rule!: { flight_rule: string; color_code: string };
   raw_metar!: string;
   nosig!: boolean;
   auto!: boolean;
