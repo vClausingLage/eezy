@@ -8,7 +8,7 @@ export interface IWind {
 export interface IClouds {
   cloud_layer: string;
   cloud_base: number | undefined;
-  cloud?: string;
+  cloud?: string | undefined;
 }
 export interface IAirPressure {
   pressure: string | undefined;

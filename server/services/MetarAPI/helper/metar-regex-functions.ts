@@ -13,11 +13,9 @@ import {
 } from "../interfaces/IMetar.js";
 
 type DynamicTokens = {
-  // ! implement
   regexResults: IResultDynamicTokens;
   filteredMetarList: string[];
 };
-
 export function findDynamicTokens(metar: string): DynamicTokens {
   let resultObj: IResultDynamicTokens = {
     visibility: { value: undefined, unit: "" },
@@ -53,7 +51,6 @@ type BasicTokens = {
   regexResults: IResultBasicTokens;
   filteredMetarList: string[];
 };
-
 export function findBasicTokens(metar: string[]): BasicTokens {
   let resultObj: IResultBasicTokens = {
     icao: "",

@@ -19,7 +19,6 @@ type ListRemarks = {
   tempo: string[];
   becoming: string[];
 };
-
 export function splitMetarListRemarks(metar: string[]): ListRemarks {
   let tempoMetar: string[] = [];
   let becomingMetar: string[] = [];

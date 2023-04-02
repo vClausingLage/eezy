@@ -7,7 +7,7 @@ import {
   metarToString,
   splitMetarListRemarks,
 } from "./MetarAPI/helper/metar-regex-main-helper-functions.js";
-import { IMetar } from "./MetarAPI/interfaces/IMetar.js";
+import getFlightRule from "../services/MetarAPI/helper/flight-rule-helper-function.js";
 
 type ListRemarks = {
   metar: string[];
@@ -18,13 +18,17 @@ type ListRemarks = {
 
 export async function decodeRawMetar(req: Request, res: Response) {
   let metarString = req.params.metarstring;
-  let metarObject = {} as IMetar;
   let metarListRemarks: ListRemarks = splitMetarListRemarks(
     metarToList(metarString)
   );
-  metarObject = metarDecoder(metarToString(metarListRemarks.metar));
+  let metarObject = metarDecoder(metarToString(metarListRemarks.metar));
   // metarObject.tempo = metarDecoder(metarToString(metarListRemarks.tempo));
   // metarObject.becoming = metarDecoder(metarToString(metarListRemarks.becoming));
   // metarObject.remarks = metarDecoder(metarToString(metarListRemarks.remarks));
+  metarObject.flight_rule = getFlightRule(
+    metarObject.visibility,
+    metarObject.cloud_layer[0].cloud_base,
+    metarObject.visibility.unit
+  );
   res.send({ metarJSON: metarObject });
 }

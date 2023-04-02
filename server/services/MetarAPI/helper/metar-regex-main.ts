@@ -18,7 +18,6 @@ type DynamicTokens = {
   regexResults: IResultDynamicTokens;
   filteredMetarList: string[];
 };
-
 export function metarDecoder(metar: string): IMetar {
   let metarList = metarToList(metar);
   let basicTokens: BasicTokens = findBasicTokens(metarList);
