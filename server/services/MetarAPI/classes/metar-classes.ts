@@ -7,23 +7,23 @@ import {
 
 // -> metar-regex
 export class Metar {
-  ICAO!: string;
-  Date!: Date;
-  Winds!: IWind;
-  Visibility!: { value: number; unit: string };
-  Precipitation!: string[];
-  Cloud_Layer!: IClouds[];
-  TAF_Prognosis!: string;
-  Wind_Variation!: number[];
-  AirPressure!: IAirPressure;
-  SLP!: number;
-  CAVOK!: boolean;
-  flightRule!: IFlightRule;
-  RawMetar!: string;
-  PreparedMetar!: string[];
-  NOSIG!: boolean;
-  AUTO!: boolean;
-  Temperature!: number[];
+  icao!: string;
+  date!: Date;
+  wind!: IWind;
+  visibility!: { value: number; unit: string };
+  precipitation!: string[];
+  cloud_layer!: IClouds[];
+  taf_prognosis!: string;
+  wind_variation!: number[];
+  air_pressure!: IAirPressure;
+  slp!: number;
+  cavok!: boolean;
+  flight_rule!: IFlightRule;
+  raw_metar!: string;
+  prepared_metar!: string[];
+  nosig!: boolean;
+  auto!: boolean;
+  temperature!: number[];
   recent!: string;
   remarks!: string[];
   becoming!: string[];

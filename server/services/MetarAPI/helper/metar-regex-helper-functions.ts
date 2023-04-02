@@ -16,23 +16,23 @@ export function dateFormat(time: string) {
 export function cloudFormat(clouds: string) {
   let output = new Clouds();
   if (clouds !== "NCD" && clouds !== "CLR" && clouds !== "CAVOK") {
-    let cloudLayer = clouds.slice(0, 3);
-    let cloudBase = clouds.slice(3, 6);
+    let cloud_layer = clouds.slice(0, 3);
+    let cloud_base = clouds.slice(3, 6);
     if (clouds.length >= 6) {
       let cloud = clouds.slice(6, 9);
       output.cloud = cloud;
     }
-    output.cloudLayer = cloudLayer;
-    output.cloudBase = parseInt(cloudBase);
+    output.cloud_layer = cloud_layer;
+    output.cloud_base = parseInt(cloud_base);
   } else if (clouds === "NCD" || clouds === "CLR") {
-    output.cloudLayer = clouds;
-    output.cloudBase = undefined;
+    output.cloud_layer = clouds;
+    output.cloud_base = undefined;
   }
   return output;
 }
 class Clouds {
-  cloudLayer!: string;
-  cloudBase!: number | undefined;
+  cloud_layer!: string;
+  cloud_base!: number | undefined;
   cloud?: string;
 }
 class Wind {

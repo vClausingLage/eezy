@@ -7,7 +7,7 @@ import {
   metarToString,
   splitMetarListRemarks,
 } from "./MetarAPI/helper/metar-regex-main-helper-functions.js";
-// import { IMetarObject } from "./MetarAPI/helper/interfaces/metar-regex-interfaces.js";
+import { IMetar } from "./MetarAPI/interfaces/IMetar.js";
 
 type ListRemarks = {
   metar: string[];
@@ -18,13 +18,13 @@ type ListRemarks = {
 
 export async function decodeRawMetar(req: Request, res: Response) {
   let metarString = req.params.metarstring;
-  // let metarObject = {} as IMetarObject;
-  let metarListObject: ListRemarks = splitMetarListRemarks(
+  let metarObject = {} as IMetar;
+  let metarListRemarks: ListRemarks = splitMetarListRemarks(
     metarToList(metarString)
   );
-  let metarObjectBasic = metarDecoder(metarToString(metarListObject.metar));
-  // metarObject.tempo = metarDecoder(metarToString(metarListObject.tempo));
-  // metarObject.becoming = metarDecoder(metarToString(metarListObject.becoming));
-  // metarObject.remarks = metarDecoder(metarToString(metarListObject.remarks));
-  res.send({ metarJSON: metarObjectBasic });
+  metarObject = metarDecoder(metarToString(metarListRemarks.metar));
+  // metarObject.tempo = metarDecoder(metarToString(metarListRemarks.tempo));
+  // metarObject.becoming = metarDecoder(metarToString(metarListRemarks.becoming));
+  // metarObject.remarks = metarDecoder(metarToString(metarListRemarks.remarks));
+  res.send({ metarJSON: metarObject });
 }
