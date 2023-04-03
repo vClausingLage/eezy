@@ -1,4 +1,7 @@
-import { IFlightRule } from "../interfaces/IMetar.js";
+type IFlightRule = {
+  flight_rule: string;
+  color_code: string;
+};
 
 export default function getFlightRule(
   visibility: { value: number | string | undefined; unit: string },
