@@ -68,7 +68,7 @@ function nauticalMilesFLR(
   ) {
     return { flight_rule: "MVFR", color_code: "blue" };
   } else if (
-    (typeof visibility === "number" && visibility > 8000) ||
+    (typeof visibility === "number" && visibility > 2) ||
     cloud_base * 100 > 3000
   ) {
     return { flight_rule: "VFR", color_code: "green" };
