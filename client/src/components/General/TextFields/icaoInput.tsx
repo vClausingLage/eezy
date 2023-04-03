@@ -25,14 +25,14 @@ function IcaoInput(props: Props) {
     <Box>
       <form onSubmit={handleSubmit}>
         <TextField
-          type="departure"
+          type="search"
           label="enter ICAO Code"
           value={icao}
           onChange={(e) => handleChange(e)}
           InputProps={{
             endAdornment: (
               <IconButton
-                id="searchButton"
+                id="search-button"
                 type="submit"
                 onClick={handleSubmit}
                 disabled={icao.length === 4 ? false : true}
