@@ -1,34 +1,46 @@
+import { useState } from "react";
+
 import IcaoInput from "../../General/TextFields/icaoInput";
 import TextFieldContainer from "../../General/TextFields/TextFieldContainer";
 
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
-
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
+import { Typography, Box, Alert, IconButton } from "@mui/material";
+import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
 
 function InputDestination() {
-  const textInput = <IcaoInput submit={(e) => console.log(e)} />;
+  const [icao, setIcao] = useState("");
+
+  const textField = (
+    <IcaoInput submit={(e) => console.log(e)} adornment="check" />
+  );
+
+  const calculateRoute = () => {
+    console.log(icao);
+  };
 
   return (
     <Box>
-      <Typography variant="h5" color="primary.main">
+      <Typography variant="h5" color="primary">
         Departure & Destination
       </Typography>
       <Alert severity="error">disabled for DEMO</Alert>
-      <Box>
+      <Box display="flex" alignItems="center">
         <Box>
           <TextFieldContainer
-            icon={<FlightTakeoffIcon />}
-            textInput={textInput}
+            icon={<FlightTakeoff />}
+            textInput={textField}
+            submit={(input) => setIcao(input)}
           ></TextFieldContainer>
           <TextFieldContainer
-            icon={<FlightLandIcon />}
-            textInput={textInput}
+            icon={<FlightLand />}
+            textInput={textField}
+            submit={(input) => setIcao(input)}
           ></TextFieldContainer>
         </Box>
-        <Box>!Search Button!</Box>
+        <Box>
+          <IconButton onClick={calculateRoute}>
+            <Search />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   );

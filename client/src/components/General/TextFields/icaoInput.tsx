@@ -1,24 +1,38 @@
 import { useState } from "react";
 
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-
-import Search from "@mui/icons-material/Search";
+import { TextField, Box, IconButton } from "@mui/material";
+import { Search, Check } from "@mui/icons-material";
 
 type Props = {
+  adornment: string;
   submit: (icao: any) => void;
 };
 
 function IcaoInput(props: Props) {
   const [icao, setIcao] = useState("");
 
+  const inputPropsSearch = {
+    endAdornment: (
+      <IconButton
+        id="search-button"
+        type="submit"
+        onClick={handleSubmit}
+        disabled={icao.length === 4 ? false : true}
+      >
+        <Search />
+      </IconButton>
+    ),
+  };
+  const inputPropsCheck = {
+    endAdornment: <Check color={icao.length === 4 ? "success" : "disabled"} />,
+  };
+
   function handleChange(e: any) {
     setIcao(e.target.value);
+    console.log(icao);
   }
   function handleSubmit(e: any) {
     e.preventDefault();
-    console.log("hi");
   }
 
   return (
@@ -29,18 +43,9 @@ function IcaoInput(props: Props) {
           label="enter ICAO Code"
           value={icao}
           onChange={(e) => handleChange(e)}
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                id="search-button"
-                type="submit"
-                onClick={handleSubmit}
-                disabled={icao.length === 4 ? false : true}
-              >
-                <Search />
-              </IconButton>
-            ),
-          }}
+          InputProps={
+            props.adornment === "search" ? inputPropsSearch : inputPropsCheck
+          }
         ></TextField>
       </form>
     </Box>

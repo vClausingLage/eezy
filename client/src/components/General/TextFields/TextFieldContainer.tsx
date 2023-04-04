@@ -5,6 +5,7 @@ import "../CSS/text-field-container.css";
 type Props = {
   icon: any;
   textInput: JSX.Element;
+  submit: (input: string) => void;
 };
 
 function TextFieldContainer({ icon, textInput }: Props) {
