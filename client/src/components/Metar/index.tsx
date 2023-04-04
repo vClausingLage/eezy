@@ -167,7 +167,7 @@ function Metar() {
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
       )}
-      {!isLoading && !metar.name && (
+      {!isLoading && Object.keys(metar).length > 0 && (
         <Box className="wordcloud">
           <img src={WordCloudICAO} alt="wordcloud" />
         </Box>
