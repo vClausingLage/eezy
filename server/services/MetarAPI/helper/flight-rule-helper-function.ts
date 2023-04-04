@@ -1,4 +1,7 @@
-import { IFlightRule } from "../interfaces/IMetar.js";
+type IFlightRule = {
+  flight_rule: string;
+  color_code: string;
+};
 
 export default function getFlightRule(
   visibility: { value: number | string | undefined; unit: string },
@@ -65,7 +68,7 @@ function nauticalMilesFLR(
   ) {
     return { flight_rule: "MVFR", color_code: "blue" };
   } else if (
-    (typeof visibility === "number" && visibility > 8000) ||
+    (typeof visibility === "number" && visibility > 2) ||
     cloud_base * 100 > 3000
   ) {
     return { flight_rule: "VFR", color_code: "green" };

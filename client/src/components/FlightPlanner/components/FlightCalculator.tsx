@@ -95,6 +95,16 @@ function FlightCalculator(props: Props) {
             manufacturer&#700;s recommended cruise RPM
           </li>
           <li>double check with your own calculations</li>
+          <li>
+            recommended fuel reserve is 30" (day), 45" (night) [
+            <a
+              href="https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-135/subpart-D/section-135.209"
+              target="_blank"
+            >
+              link
+            </a>
+            ]{" "}
+          </li>
         </ul>
       </Box>
     </Box>

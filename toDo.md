@@ -2,14 +2,23 @@
 
 ## client
 
-- CSS Hero Page
-- CSS Card Aircraft
--
+- GRID fuel calc update
+- test new Precip Decoder
 
 ## server
 
+### API
+
+- remove empty string in precip decoder
+- SM unit for FLR ! API
 - req params / req body
 - VV/// -> OVX
+- cleanup RegEx
+
+### Calculator
+
+- add reserve fuel to calculation
+- add taxi fuel to calculator
 
 # METAR API
 
