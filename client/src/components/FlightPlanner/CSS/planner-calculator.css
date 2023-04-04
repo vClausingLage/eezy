@@ -3,8 +3,8 @@
   margin-bottom: 1rem;
 }
 .attention-bar {
-  background-color: #f12800;
   padding: 1rem;
+  color: gray;
+  border: 3px solid #ea4f02;
   border-radius: .5rem;
-  color: white;
 }

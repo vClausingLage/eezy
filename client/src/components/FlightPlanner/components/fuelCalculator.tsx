@@ -74,8 +74,9 @@ function FlightCalculator(props: Props) {
         </Typography>
       </Box>
       <Box className="attention-bar">
-        <Stack direction="row" alignItems="center" gap={1}>
-          <PriorityHighIcon /> ATTENTION
+        <Stack direction="row" alignItems="center">
+          <PriorityHighIcon color="warning" />
+          <Typography color="warning.main">ATTENTION</Typography>
         </Stack>
         <ul>
           <li>fuel calculations are guidelines not exact values</li>
@@ -104,7 +105,7 @@ function FlightCalculator(props: Props) {
             >
               link
             </a>
-            ]{" "}
+            ]
           </li>
         </ul>
       </Box>

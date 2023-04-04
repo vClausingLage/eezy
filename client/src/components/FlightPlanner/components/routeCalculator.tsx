@@ -1,20 +1,17 @@
 import { useState } from "react";
 
-import IcaoInput from "../../General/TextFields/icaoInput";
-import TextFieldContainer from "../../General/TextFields/TextFieldContainer";
+import TextFieldContainer from "../../General/TextFields/textFieldContainer";
 
 import { Typography, Box, Alert, IconButton } from "@mui/material";
 import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
 
 function InputDestination() {
-  const [icao, setIcao] = useState("");
-
-  const textField = (
-    <IcaoInput submit={(e) => console.log(e)} adornment="check" />
-  );
+  const [icaoDeparture, setIcaoDeparture] = useState("");
+  const [icaoDestination, setIcaoDestination] = useState("");
 
   const calculateRoute = () => {
-    console.log(icao);
+    console.log("dep", icaoDeparture);
+    console.log("dest", icaoDestination);
   };
 
   return (
@@ -27,13 +24,15 @@ function InputDestination() {
         <Box>
           <TextFieldContainer
             icon={<FlightTakeoff />}
-            textInput={textField}
-            submit={(input) => setIcao(input)}
+            adornment="check"
+            value={icaoDeparture}
+            submit={(input) => setIcaoDeparture(input)}
           ></TextFieldContainer>
           <TextFieldContainer
             icon={<FlightLand />}
-            textInput={textField}
-            submit={(input) => setIcao(input)}
+            value={icaoDestination}
+            adornment="check"
+            submit={(input) => setIcaoDestination(input)}
           ></TextFieldContainer>
         </Box>
         <Box>

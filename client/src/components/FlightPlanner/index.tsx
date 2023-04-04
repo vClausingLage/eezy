@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 
 import SelectedAircraft from "./components/SelectedAircraft";
-import FlightCalculator from "./components/FlightCalculator";
+import FlightCalculator from "./components/fuelCalculator";
 import InputDestination from "./components/routeCalculator";
 
 function FlightPlanner() {
