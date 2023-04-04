@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
 
-import "../CSS/aircraft-form.css";
-
+import { fuelTypes } from "./fuelTypes";
 import { IAircraft } from "../interfaces/aircraft";
+
+import "../CSS/aircraft-form.css";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -39,8 +40,6 @@ function CreateAircraftForm(props: Props) {
     equiptment: "",
   } as IAircraft);
   const [success, setSuccess] = useState(false);
-
-  const fuelTypes = ["AvGas", "MoGas", "JetA1"];
 
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
