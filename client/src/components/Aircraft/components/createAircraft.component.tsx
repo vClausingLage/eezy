@@ -194,12 +194,13 @@ function CreateAircraftForm(props: Props) {
               InputProps={{
                 endAdornment: <InputAdornment position="end">°</InputAdornment>,
               }}
-              onChange={(e) =>
+              onChange={(e) => {
+                typeof e.target.value === "number" && !isNaN(e.target.value); //! implement
                 setNewAircraft({
                   ...newAircraft,
                   magnetic_error: parseInt(e.target.value),
-                })
-              }
+                });
+              }}
             ></TextField>
             <TextField
               label="Color"
