@@ -100,6 +100,7 @@ function FlightCalculator(props: Props) {
             <a
               href="https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-135/subpart-D/section-135.209"
               target="_blank"
+              rel="noreferrer"
             >
               link
             </a>

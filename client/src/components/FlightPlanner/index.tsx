@@ -9,7 +9,7 @@ import Alert from "@mui/material/Alert";
 
 import SelectedAircraft from "./components/SelectedAircraft";
 import FlightCalculator from "./components/FlightCalculator";
-import InputDestination from "./components/InputDestination";
+import InputDestination from "./components/routeCalculator";
 
 function FlightPlanner() {
   //! dummy data
