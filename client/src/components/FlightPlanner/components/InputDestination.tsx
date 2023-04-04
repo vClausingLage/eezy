@@ -1,10 +1,12 @@
-import { useState } from "react";
+import IcaoInput from "../../General/TextFields/icaoInput";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
-import IcaoInput from "../../General/TextFields/icaoInput";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import FlightLandIcon from "@mui/icons-material/FlightLand";
 
 function InputDestination() {
   return (
@@ -13,7 +15,14 @@ function InputDestination() {
         Departure & Destination
       </Typography>
       <Alert severity="error">disabled for DEMO</Alert>
-      <IcaoInput submit={(e) => console.log(e)} />
+      <Stack direction="row" alignItems="center" gap={1}>
+        <FlightTakeoffIcon />
+        <IcaoInput submit={(e) => console.log(e)} />
+      </Stack>
+      <Stack direction="row" alignItems="center" gap={1}>
+        <FlightLandIcon />
+        <IcaoInput submit={(e) => console.log(e)} />
+      </Stack>
     </Box>
   );
 }

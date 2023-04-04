@@ -35,11 +35,16 @@ function FlightPlanner() {
                 }}
               />
 
-              <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Grid item xs={2} sm={4} md={4}>
+              <Grid
+                container
+                justifyContent="center"
+                spacing={{ xs: 2, md: 3 }}
+                columns={{ xs: 4, sm: 8, md: 12 }}
+              >
+                <Grid item xs={4} sm={4} md={6}>
                   <InputDestination />
                 </Grid>
-                <Grid item xs={2} sm={4} md={4}>
+                <Grid item xs={4} sm={4} md={6}>
                   <FlightCalculator
                     distance={distance}
                     fuelCapacity={selectedAircraft.fuel_capacityL}

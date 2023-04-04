@@ -27,7 +27,7 @@ function FuelCalculatorTextInput(props: Props) {
           ),
         }}
         onChange={(e) => props.handleChange(e)}
-        sx={{ width: 250 }}
+        sx={{ width: 200 }}
       ></TextField>
       <Typography display="inline">{props.helperText}</Typography>
     </Stack>
