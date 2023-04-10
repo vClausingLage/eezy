@@ -1,11 +1,6 @@
 import { useSelector } from "react-redux";
 
-import Card from "@mui/material/Card";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
+import { Card, Box, Grid, CardContent, Typography, Alert } from "@mui/material";
 
 import SelectedAircraft from "./components/SelectedAircraft";
 import FlightCalculator from "./components/fuelCalculator";
