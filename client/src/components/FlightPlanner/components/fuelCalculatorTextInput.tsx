@@ -16,7 +16,7 @@ type Props = {
 
 function FuelCalculatorTextInput(props: Props) {
   return (
-    <Stack direction="row" alignItems="center" gap={1}>
+    <Stack direction="row" alignItems="center">
       <TextField
         label={props.label}
         type="number"
