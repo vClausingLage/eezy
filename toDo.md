@@ -2,7 +2,7 @@
 
 ## client
 
-- GRID fuel calc update
+- !!! AWC API changed vis to SM !!! --> change to Raw Metar
 - test new Precip Decoder
 
 ## server
