@@ -1,13 +1,6 @@
 export interface IMetarAPIObject {
   name: string;
-  cldBas1: string;
-  cldBas2: string;
-  cldBas3: string;
-  cldBas4: string;
-  cldCvg1: string;
-  cldCvg2: string;
-  cldCvg3: string;
-  cldCvg4: string;
+  clouds: IClouds[];
   altim: number;
   slp: number;
   temp: number;
@@ -64,9 +57,8 @@ export interface IPrecipitation {
 }
 
 export interface IClouds {
-  cloudLayer: string;
-  cloudBase: number | null;
-  cloud?: string;
+  cover: string;
+  base: number;
 }
 
 export interface IFlightRule {

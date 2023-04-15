@@ -66,7 +66,7 @@ function Cloud(props: Props) {
       <text x="100" y="145" fill="#406377">
         {typeof props.cloudBase === "number"
           ? props.cloudLayer !== "OVX"
-            ? String(props.cloudBase) + "00 ft AGL"
+            ? String(props.cloudBase) + " ft AGL"
             : "sky obscured"
           : props.cloudLayer}
       </text>

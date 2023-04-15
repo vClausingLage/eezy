@@ -3,17 +3,11 @@ import Box from "@mui/material/Box";
 import Sun from "./Sun";
 import Cloud from "./Cloud";
 import Wind from "./Wind";
+import { IClouds } from "../classes/IMetar";
 
 type Props = {
   props: {
-    cldCvg1: string;
-    cldCvg2: string;
-    cldCvg3: string;
-    cldCvg4: string;
-    cldBas1: string;
-    cldBas2: string;
-    cldBas3: string;
-    cldBas4: string;
+    clouds: IClouds[];
     wspd: string;
     wdir: string;
     wgst: number;
@@ -32,13 +26,16 @@ function SVGPanel({ props }: Props) {
     <Box className="grid_container_Clouds_Wind">
       <Box>
         <Box className="sun-box">
-          {props.cldCvg1 === "CAVOK" && <Sun date={props.timeLocal} />}
-          {props.cldCvg1 === "NCD" && <Sun date={props.timeLocal} />}
-          {props.cldCvg1 === "CLR" && <Sun date={props.timeLocal} />}
+          {props.clouds[0].cover === "CAVOK" && <Sun date={props.timeLocal} />}
+          {props.clouds[0].cover === "NCD" && <Sun date={props.timeLocal} />}
+          {props.clouds[0].cover === "CLR" && <Sun date={props.timeLocal} />}
         </Box>
 
         <Box className="cloud-box">
-          {props.cldBas1 && (
+          {props.clouds.map((el) => (
+            <Cloud cloudBase={el.base} cloudLayer={el.cover} />
+          ))}
+          {/* {props.cldBas1 && (
             <Cloud
               cloudBase={parseInt(props.cldBas1)}
               cloudLayer={props.cldCvg1}
@@ -61,7 +58,7 @@ function SVGPanel({ props }: Props) {
               cloudBase={parseInt(props.cldBas4)}
               cloudLayer={props.cldCvg4}
             ></Cloud>
-          )}
+          )} */}
         </Box>
       </Box>
       <Box>

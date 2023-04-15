@@ -123,11 +123,12 @@ function Metar() {
     if (metar !== undefined && metarObject.visibility !== undefined) {
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
-        parseInt(metar.cldBas1)
+        metar.clouds[0].base
       );
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
     // console.log(metarObject.tempoInformation);
+    console.log(metar);
   }, [metar]);
 
   return (
@@ -167,7 +168,7 @@ function Metar() {
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
       )}
-      {!isLoading && Object.keys(metar).length > 0 && (
+      {!isLoading && Object.keys(metar).length === 0 && (
         <Box className="wordcloud">
           <img src={WordCloudICAO} alt="wordcloud" />
         </Box>
@@ -204,14 +205,7 @@ function Metar() {
 
               <SVGPanel
                 props={{
-                  cldCvg1: metar.cldCvg1,
-                  cldCvg2: metar.cldCvg2,
-                  cldCvg3: metar.cldCvg3,
-                  cldCvg4: metar.cldCvg4,
-                  cldBas1: metar.cldBas1,
-                  cldBas2: metar.cldBas2,
-                  cldBas3: metar.cldBas3,
-                  cldBas4: metar.cldBas4,
+                  clouds: metar.clouds,
                   wspd: metar.wspd,
                   wdir: metar.wdir,
                   wgst: metar.wgst,
