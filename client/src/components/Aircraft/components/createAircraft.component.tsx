@@ -8,16 +8,18 @@ import { IAircraft } from "../interfaces/aircraft";
 
 import "../CSS/aircraft-form.css";
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import Button from "@mui/material/Button";
-import Alert from "@mui/material/Alert";
-import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
-import MenuItem from "@mui/material/MenuItem";
+import {
+  Box,
+  Typography,
+  TextField,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Button,
+  Alert,
+  InputAdornment,
+  MenuItem,
+} from "@mui/material";
 
 type Props = {
   userID: string | undefined;

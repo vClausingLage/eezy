@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 
+import "../CSS/planner-calculator.css";
+
 type Props = {
   label: string;
   unit: string;
@@ -14,7 +16,7 @@ type Props = {
 
 function FuelCalculatorTextInput(props: Props) {
   return (
-    <Stack direction="row" alignItems="center" gap={1}>
+    <Stack direction="row" alignItems="center">
       <TextField
         label={props.label}
         type="number"
@@ -27,7 +29,7 @@ function FuelCalculatorTextInput(props: Props) {
           ),
         }}
         onChange={(e) => props.handleChange(e)}
-        sx={{ width: 200 }}
+        className="fuel-selection"
       ></TextField>
       <Typography display="inline">{props.helperText}</Typography>
     </Stack>
