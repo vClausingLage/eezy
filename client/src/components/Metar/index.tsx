@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
+import {
+  Typography,
+  Box,
+  TextField,
+  IconButton,
+  Alert,
+  Button,
+  Card,
+} from "@mui/material";
 import Search from "@mui/icons-material/Search";
-import Card from "@mui/material/Card";
 
 import {
   getFlightRules,
