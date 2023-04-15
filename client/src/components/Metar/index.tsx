@@ -26,11 +26,11 @@ import {
 import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";
 import FlightRuleTable from "./components/FlightRuleTable";
+import DataPanel from "./components/DataPanel";
 import LoadingCircle from "../General/LoadingCircle";
 import WordCloudICAO from "./assets/WordCloudICAO.png";
 
 import "./CSS/index.css";
-import DataPanel from "./components/DataPanel";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
