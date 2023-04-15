@@ -35,30 +35,6 @@ function SVGPanel({ props }: Props) {
           {props.clouds.map((el) => (
             <Cloud cloudBase={el.base} cloudLayer={el.cover} />
           ))}
-          {/* {props.cldBas1 && (
-            <Cloud
-              cloudBase={parseInt(props.cldBas1)}
-              cloudLayer={props.cldCvg1}
-            ></Cloud>
-          )}
-          {props.cldBas2 && (
-            <Cloud
-              cloudBase={parseInt(props.cldBas2)}
-              cloudLayer={props.cldCvg2}
-            ></Cloud>
-          )}
-          {props.cldBas3 && (
-            <Cloud
-              cloudBase={parseInt(props.cldBas3)}
-              cloudLayer={props.cldCvg3}
-            ></Cloud>
-          )}
-          {props.cldBas4 && (
-            <Cloud
-              cloudBase={parseInt(props.cldBas4)}
-              cloudLayer={props.cldCvg4}
-            ></Cloud>
-          )} */}
         </Box>
       </Box>
       <Box>
