@@ -47,7 +47,7 @@ function App() {
                 <Toolbar>
                   <nav className="nav-bar">
                     {/* <NavLink
-                      to="/"
+                      to="/index"
                       style={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }
