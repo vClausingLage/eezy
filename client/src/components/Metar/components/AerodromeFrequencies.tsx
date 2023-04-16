@@ -1,5 +1,4 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 import CellTowerIcon from "@mui/icons-material/CellTower";
 
 import { IFreq } from "../classes/IMetar";
