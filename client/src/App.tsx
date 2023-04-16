@@ -7,9 +7,8 @@ import "./CSS/App.css";
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
 
-import { Box, AppBar, Toolbar } from "@mui/material";
+import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material/";
 import { getDesignTokens } from "./CSS/theme";
 
 import AppFooter from "./AppFooter";
@@ -92,6 +91,7 @@ function App() {
               <Route path="/" element={<Metar />} />
               <Route path="aircraft" element={<Aircraft userID={userID} />} />
               <Route path="flight-planner" element={<FlightPlanner />} />
+              <Route path="index" element={<IndexPage />} />
             </Routes>
           </Provider>
         </BrowserRouter>
