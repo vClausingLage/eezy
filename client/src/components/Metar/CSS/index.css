@@ -4,6 +4,10 @@
   min-height: 75vh;
 }
 
+.alert {
+  margin-top: 3rem;
+}
+
 .metar-text-input-ICAO {
   display: flex;
   flex-flow: column;

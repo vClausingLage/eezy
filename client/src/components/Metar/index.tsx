@@ -173,12 +173,12 @@ function Metar() {
       </Box>
       {isLoading && loading}
       {alertIcao && (
-        <Alert severity="error" sx={{ mt: 3 }}>
+        <Alert severity="error" className="alert">
           Please provide ICAO Code
         </Alert>
       )}
       {responseError && (
-        <Alert severity="error" sx={{ mt: 3 }}>
+        <Alert severity="error" className="alert">
           No Data Received. <br />
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
