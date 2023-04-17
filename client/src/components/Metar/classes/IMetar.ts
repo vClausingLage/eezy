@@ -52,7 +52,7 @@ export interface IFreq {
   frequency_mhz: string;
 }
 
-interface IRwy {
+export interface IRwy {
   he_ident: string;
   le_ident: string;
 }

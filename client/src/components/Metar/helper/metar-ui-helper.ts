@@ -8,9 +8,7 @@ export function getFlightRules(
     flightRule: "",
     colorCode: "",
   };
-
   let cloudBase = cloudBaseInput * 100;
-
   if (typeof visibility === "string" && visibility === "CAVOK") {
     flRul["flightRule"] = "VFR";
     flRul["colorCode"] = "green";

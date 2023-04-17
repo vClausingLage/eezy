@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Sun from "./Sun";
 import Cloud from "./Cloud";
 import Wind from "./Wind";
-import { IClouds } from "../classes/IMetar";
+import { IClouds, IRwy } from "../classes/IMetar";
 
 type Props = {
   props: {
@@ -14,11 +14,6 @@ type Props = {
     runways: IRwy[];
     timeLocal: string;
   };
-};
-
-type IRwy = {
-  he_ident: string;
-  le_ident: string;
 };
 
 function SVGPanel({ props }: Props) {
