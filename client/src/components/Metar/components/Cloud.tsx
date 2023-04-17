@@ -1,14 +1,11 @@
-import Tooltip from "@mui/material/Tooltip";
-import Zoom from "@mui/material/Zoom";
+import { Tooltip, Zoom } from "@mui/material";
 
 interface Props {
-  cloudBase: number | null;
-  cloudLayer: string;
+  base: number | null;
+  cover: string;
 }
 
 function Cloud(props: Props) {
-  //! if CldCvg1 = OVX and CldBas1 = 0 => CLOUDBASE NUMBER
-
   const cloudIcons = (cloudLayer: string) => {
     let cloudIconArray!: string[];
     if (cloudLayer === "FEW") {
@@ -59,16 +56,16 @@ function Cloud(props: Props) {
         TransitionComponent={Zoom}
       >
         <text x="110" y="105">
-          <tspan style={cloudFull}>{cloudIcons(props.cloudLayer)[0]}</tspan>{" "}
-          <tspan style={cloudOpac}>{cloudIcons(props.cloudLayer)[1]}</tspan>
+          <tspan style={cloudFull}>{cloudIcons(props.cover)[0]}</tspan>{" "}
+          <tspan style={cloudOpac}>{cloudIcons(props.cover)[1]}</tspan>
         </text>
       </Tooltip>
       <text x="100" y="145" fill="#406377">
-        {typeof props.cloudBase === "number"
-          ? props.cloudLayer !== "OVX"
-            ? String(props.cloudBase) + " ft AGL"
+        {typeof props.base === "number"
+          ? props.cover !== "OVX"
+            ? String(props.base) + " ft AGL"
             : "sky obscured"
-          : props.cloudLayer}
+          : props.cover}
       </text>
     </svg>
   );

@@ -35,10 +35,11 @@ export interface IMetarObject {
   icao: string;
   time: { local: string; utc: string };
   flightRule: IFlightRule;
+  altim: { altim: number; qnh: number };
   tempUnit: string;
   nosig: boolean;
   userLocation: string;
-  visibility: { meters: number; miles: number };
+  visibility: { meters: number; nm: number };
   CAVOK: boolean;
   tempoInformation: { gusts: string[]; precipitation: string[] };
 }

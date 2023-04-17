@@ -14,6 +14,7 @@ import Search from "@mui/icons-material/Search";
 import {
   getFlightRules,
   convertDate,
+  qnhRegex,
   // checkLocation,
   tempoInformation,
 } from "./helper/metar-ui-helper";
@@ -90,10 +91,14 @@ function Metar() {
         visibility: {
           ...metarObject.visibility,
           meters:
-            parseInt(data.visib) >= 621
+            data.visib === "6+"
               ? 9999
-              : Math.round((parseInt(data.visib) * 16.0934) / 100) * 100,
-          miles: parseInt(data.visib),
+              : Math.round((parseInt(data.visib) * 1852) / 100) * 100,
+          nm: parseInt(data.visib),
+        },
+        altim: {
+          altim: data.altim,
+          qnh: qnhRegex(data.rawOb.altim),
         },
         nosig: /NOSIG/gi.test(data.rawOb) ? true : false,
         CAVOK: /CAVOK/gi.test(data.rawOb)
@@ -130,7 +135,8 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
     // console.log(metarObject.tempoInformation);
-    console.log(metar);
+    console.log("metar API", metar);
+    console.log("qnh", metarObject.altim.qnh);
   }, [metar]);
 
   return (
@@ -194,7 +200,7 @@ function Metar() {
 
               <DataPanel
                 props={{
-                  altim: metar.altim,
+                  altim: metarObject.altim.qnh,
                   slp: metar.slp,
                   temp: metar.temp,
                   dewp: metar.dewp,

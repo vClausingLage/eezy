@@ -82,11 +82,11 @@ function DataPanel({ props }: Props) {
             data={[
               {
                 description: "Temperature",
-                value: Math.round(props.temp / 10),
+                value: props.temp,
               },
               {
                 description: "Dewpoint",
-                value: Math.round(props.dewp / 10),
+                value: props.dewp,
               },
             ]}
             unit={props.tempUnit}

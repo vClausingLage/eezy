@@ -32,9 +32,8 @@ function SVGPanel({ props }: Props) {
         </Box>
 
         <Box className="cloud-box">
-          {props.clouds.map((el) => (
-            <Cloud cloudBase={el.base} cloudLayer={el.cover} />
-          ))}
+          {typeof props.clouds[0].cover != "string" &&
+            props.clouds.map((el) => <Cloud base={el.base} cover={el.cover} />)}
         </Box>
       </Box>
       <Box>
