@@ -24,18 +24,19 @@ import {
   IMetarAPIObject,
 } from "./classes/IMetar";
 
+import LoadingCircle from "../General/LoadingCircle";
+import DataPanel from "./components/DataPanel";
 import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";
 import FlightRuleTable from "./components/FlightRuleTable";
-import DataPanel from "./components/DataPanel";
-import LoadingCircle from "../General/LoadingCircle";
 import WordCloudICAO from "./assets/WordCloudICAO.png";
 
 import "./CSS/index.css";
+import { WidgetsRounded } from "@mui/icons-material";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
-  const [metar, setMetar] = useState({} as IMetarAPIObject);
+  // const [metar, setMetar] = useState({} as IMetarAPIObject);
   const [disabled, setDisabled] = useState(true);
   const [showTable, setShowTable] = useState(false);
   const [alertIcao, setAlertIcao] = useState(false);
@@ -79,15 +80,35 @@ function Metar() {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
+    const data: IMetarAPIObject = await response.json();
+    console.log("API data", data);
     if (data.message && data.message === "error") {
       setResponse(true);
       setIsLoading(false);
     } else {
       setResponse(false);
-      setMetar(data);
       setMetarObject({
         ...metarObject,
+        altim: {
+          altim: data.altim,
+          qnh: qnhRegex(data.rawOb),
+        },
+        CAVOK: /CAVOK/gi.test(data.rawOb)
+          ? true
+          : /CLR/gi.test(data.rawOb)
+          ? true
+          : /NCD/gi.test(data.rawOb)
+          ? true
+          : false,
+        clouds: data.clouds,
+        dewp: data.dewp,
+        name: data.name,
+        nosig: /NOSIG/gi.test(data.rawOb) ? true : false,
+        rawMetar: data.rawOb,
+        slp: data.slp,
+        tempoInformation: tempoInformation(data.rawOb),
+        temp: data.temp,
+        time: convertDate(data.obsTime + "000"),
         visibility: {
           ...metarObject.visibility,
           meters:
@@ -96,20 +117,10 @@ function Metar() {
               : Math.round((parseInt(data.visib) * 1852) / 100) * 100,
           nm: parseInt(data.visib),
         },
-        altim: {
-          altim: data.altim,
-          qnh: qnhRegex(data.rawOb.altim),
-        },
-        nosig: /NOSIG/gi.test(data.rawOb) ? true : false,
-        CAVOK: /CAVOK/gi.test(data.rawOb)
-          ? true
-          : /CLR/gi.test(data.rawOb)
-          ? true
-          : /NCD/gi.test(data.rawOb)
-          ? true
-          : false,
-        time: convertDate(data.obsTime + "000"),
-        tempoInformation: tempoInformation(data.rawOb),
+        wspd: data.wspd,
+        wdir: data.wdir,
+        wgst: data.wgst,
+        wxString: data.wxString,
       });
     }
     if (data.message && data.message === "error") {
@@ -127,17 +138,16 @@ function Metar() {
   }
 
   useEffect(() => {
-    if (metar !== undefined && metarObject.visibility !== undefined) {
+    if (metarObject.visibility !== undefined) {
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
-        metar.clouds[0].base
+        metarObject.clouds[0].base
       );
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
-    // console.log(metarObject.tempoInformation);
-    console.log("metar API", metar);
+    console.log(metarObject.tempoInformation);
     console.log("qnh", metarObject.altim.qnh);
-  }, [metar]);
+  }, []);
 
   return (
     <Card className="root">
@@ -176,18 +186,17 @@ function Metar() {
           Check if a correct ICAO Code was provided or try again a little later.
         </Alert>
       )}
-      {!isLoading && Object.keys(metar).length === 0 && (
+      {!isLoading && metarObject.name === undefined && (
         <Box className="wordcloud">
           <img src={WordCloudICAO} alt="wordcloud" />
         </Box>
       )}
       <Box className="metar-data">
         {!isLoading &&
-          metar.name &&
-          metar !== undefined && ( // ! move name to object
+          metarObject.name && ( // ! move name to object
             <>
               <Typography variant="h3">
-                {metar.name.split(",")[0].replace("/", " ")}
+                {metarObject.name.split(",")[0].replace("/", " ")}
               </Typography>
               <Typography
                 className="type-flight-rule"
@@ -201,22 +210,22 @@ function Metar() {
               <DataPanel
                 props={{
                   altim: metarObject.altim.qnh,
-                  slp: metar.slp,
-                  temp: metar.temp,
-                  dewp: metar.dewp,
+                  slp: metarObject.slp,
+                  temp: metarObject.temp,
+                  dewp: metarObject.dewp,
                   tempUnit: metarObject.tempUnit,
                   tempUnitToggle: tempUnitToggle,
-                  wxString: metar.wxString,
+                  wxString: metarObject.wxString,
                   visibilityMeters: metarObject.visibility.meters,
                 }}
               />
 
               <SVGPanel
                 props={{
-                  clouds: metar.clouds,
-                  wspd: metar.wspd,
-                  wdir: metar.wdir,
-                  wgst: metar.wgst,
+                  clouds: metarObject.clouds,
+                  wspd: metarObject.wspd,
+                  wdir: metarObject.wdir,
+                  wgst: metarObject.wgst,
                   runways: airportObject.runways,
                   timeLocal: metarObject.time.local,
                 }}
@@ -236,7 +245,7 @@ function Metar() {
 
               <Typography id="RawMetar" sx={{ mt: 1, mb: 1 }}>
                 <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
-                {metar.rawOb}
+                {metarObject.rawMetar}
               </Typography>
 
               {airportObject.frequencies && !isLoading && (

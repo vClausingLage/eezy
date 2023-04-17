@@ -1,15 +1,41 @@
 export interface IMetarAPIObject {
-  name: string;
-  clouds: IClouds[];
+  //! update to new AWC API
   altim: number;
+  clouds: IClouds[];
+  dewp: number;
+  name: string;
+  obsTime: number;
+  rawOb: string;
   slp: number;
   temp: number;
-  dewp: number;
-  wspd: string;
-  wdir: string;
+  visib: string;
+  wspd: number;
+  wdir: number;
   wgst: number;
   wxString: string;
-  rawOb: string;
+  message?: string;
+}
+export interface IMetarObject {
+  altim: { altim: number; qnh: number };
+  CAVOK: boolean;
+  clouds: IClouds[];
+  dewp: number;
+  flightRule: IFlightRule;
+  icao: string;
+  name: string;
+  nosig: boolean;
+  rawMetar: string;
+  slp: number;
+  tempoInformation: { gusts: string[]; precipitation: string[] };
+  temp: number;
+  tempUnit: string;
+  time: { local: string; utc: string };
+  userLocation: string;
+  visibility: { meters: number; nm: number };
+  wspd: number;
+  wdir: number;
+  wgst: number;
+  wxString: string;
 }
 
 export interface IAirportObject {
@@ -29,19 +55,6 @@ export interface IFreq {
 interface IRwy {
   he_ident: string;
   le_ident: string;
-}
-
-export interface IMetarObject {
-  icao: string;
-  time: { local: string; utc: string };
-  flightRule: IFlightRule;
-  altim: { altim: number; qnh: number };
-  tempUnit: string;
-  nosig: boolean;
-  userLocation: string;
-  visibility: { meters: number; nm: number };
-  CAVOK: boolean;
-  tempoInformation: { gusts: string[]; precipitation: string[] };
 }
 
 export interface IWind {

@@ -8,8 +8,8 @@ import { IClouds } from "../classes/IMetar";
 type Props = {
   props: {
     clouds: IClouds[];
-    wspd: string;
-    wdir: string;
+    wspd: number;
+    wdir: number;
     wgst: number;
     runways: IRwy[];
     timeLocal: string;
@@ -39,8 +39,8 @@ function SVGPanel({ props }: Props) {
       <Box>
         {props.wdir && (
           <Wind
-            direction={parseInt(props.wdir)}
-            speed={parseInt(props.wspd)}
+            direction={props.wdir}
+            speed={props.wspd}
             unit="kts"
             gusts={props.wgst}
             runways={props.runways}
