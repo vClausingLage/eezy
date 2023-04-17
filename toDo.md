@@ -13,11 +13,18 @@
 
 ### API
 
-- remove empty string in precip decoder
-- SM unit for FLR ! API
 - req params / req body
-- VV/// -> OVX
 - cleanup RegEx
+
+## server & client
+
+- SM unit for FLR ! API
+
+### precip
+
+- VCSH must be 'showers in the vicinity'
+- VV/// -> OVX
+- remove empty string in precip decoder
 
 ### Calculator
 
