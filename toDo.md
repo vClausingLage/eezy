@@ -2,6 +2,7 @@
 
 ## client
 
+- useEffect metar index ARRAY!!!
 - !!! AWC API changed vis to SM !!! --> change to Raw Metar
 - test new Precip Decoder
 - **CAST** number values to string in _aircraftCreate_
