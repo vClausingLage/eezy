@@ -5,6 +5,8 @@
 - !!! AWC API changed vis to SM !!! --> change to Raw Metar
 - test new Precip Decoder
 - **CAST** number values to string in _aircraftCreate_
+- SVG Panel / Clouds -> key for map
+- cannot read undefined
 
 ## server
 
