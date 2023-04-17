@@ -227,7 +227,7 @@ function Metar() {
               }}
             />
 
-            <Alert severity="info">
+            <Alert severity="info" className="alert">
               <Typography>
                 Metar issued at {metarObject.time.local}h (local time)
               </Typography>
@@ -239,20 +239,18 @@ function Metar() {
               )}
             </Alert>
 
-            <Typography id="RawMetar" sx={{ mt: 1, mb: 1 }}>
-              <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
-              {metarObject.rawMetar}
-            </Typography>
+            <Box className="raw-metar">
+              <Typography>
+                <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
+                {metarObject.rawMetar}
+              </Typography>
+            </Box>
 
             {airportObject.frequencies && !isLoading && (
               <AerodromeFrequencies props={airportObject.frequencies} />
             )}
 
-            <Button
-              sx={{ mt: 10 }}
-              onClick={() => setShowTable(!showTable)}
-              variant="outlined"
-            >
+            <Button onClick={() => setShowTable(!showTable)} variant="outlined">
               show flight rule table
             </Button>
             {showTable && (
