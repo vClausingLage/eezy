@@ -157,7 +157,6 @@ function Metar() {
             InputProps={{
               endAdornment: (
                 <IconButton
-                  id="searchButton"
                   type="submit"
                   onClick={searchMetar}
                   disabled={disabled}
