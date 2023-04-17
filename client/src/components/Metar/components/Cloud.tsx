@@ -6,19 +6,19 @@ interface Props {
 }
 
 function Cloud(props: Props) {
-  const cloudIcons = (cloudLayer: string) => {
+  const cloudIcons = (cover: string) => {
     let cloudIconArray!: string[];
-    if (cloudLayer === "FEW") {
+    if (cover === "FEW") {
       cloudIconArray = ["☁", " ☁ ☁ ☁"];
-    } else if (cloudLayer === "SCT") {
+    } else if (cover === "SCT") {
       cloudIconArray = ["☁ ☁", " ☁ ☁"];
-    } else if (cloudLayer === "BKN") {
+    } else if (cover === "BKN") {
       cloudIconArray = ["☁ ☁ ☁", " ☁"];
-    } else if (cloudLayer === "OVC") {
+    } else if (cover === "OVC") {
       cloudIconArray = ["☁ ☁ ☁ ☁", ""];
-    } else if (cloudLayer === "NCD" || cloudLayer === "CLR") {
+    } else if (cover === "NCD" || cover === "CLR") {
       cloudIconArray = ["", "☁ ☁ ☁ ☁"];
-    } else if (cloudLayer === "OVX") {
+    } else if (cover === "OVX") {
       cloudIconArray = ["OVX", ""];
     }
     return cloudIconArray;

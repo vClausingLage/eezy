@@ -25,7 +25,7 @@ function DataPanel({ props }: Props) {
           data={[
             {
               description: "SLP",
-              value: Math.round(props.slp / 10),
+              value: Math.round(props.slp),
             },
           ]}
           unit={"hPa"}
@@ -36,7 +36,7 @@ function DataPanel({ props }: Props) {
           data={[
             {
               description: "QNH",
-              value: Math.round(props.altim / 10),
+              value: Math.round(props.altim),
             },
           ]}
           unit={"hPa"}
@@ -47,11 +47,11 @@ function DataPanel({ props }: Props) {
           data={[
             {
               description: "QNH",
-              value: Math.round(props.altim / 10),
+              value: Math.round(props.altim),
             },
             {
               description: "SLP",
-              value: Math.round(props.slp / 10),
+              value: Math.round(props.slp),
             },
           ]}
           unit={"hPa"}

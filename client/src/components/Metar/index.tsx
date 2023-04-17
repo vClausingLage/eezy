@@ -32,7 +32,6 @@ import FlightRuleTable from "./components/FlightRuleTable";
 import WordCloudICAO from "./assets/WordCloudICAO.png";
 
 import "./CSS/index.css";
-import { WidgetsRounded } from "@mui/icons-material";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
@@ -145,7 +144,6 @@ function Metar() {
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
     console.log("tempo information", metarObject.tempoInformation);
-    console.log("qnh", metarObject.altim?.qnh);
   }, [metarObject.name]);
 
   return (
@@ -191,80 +189,79 @@ function Metar() {
         </Box>
       )}
       <Box className="metar-data">
-        {!isLoading &&
-          metarObject.name && ( // ! move name to object
-            <>
-              <Typography variant="h3">
-                {metarObject.name.split(",")[0].replace("/", " ")}
+        {!isLoading && metarObject.name && (
+          <>
+            <Typography variant="h3">
+              {metarObject.name.split(",")[0].replace("/", " ")}
+            </Typography>
+            <Typography
+              className="type-flight-rule"
+              style={{
+                backgroundColor: metarObject.flightRule?.colorCode,
+              }}
+            >
+              {metarObject.flightRule?.flightRule}
+            </Typography>
+
+            <DataPanel
+              props={{
+                altim: metarObject.altim.qnh,
+                slp: metarObject.slp,
+                temp: metarObject.temp,
+                dewp: metarObject.dewp,
+                tempUnit: metarObject.tempUnit,
+                tempUnitToggle: tempUnitToggle,
+                wxString: metarObject.wxString,
+                visibilityMeters: metarObject.visibility.meters,
+              }}
+            />
+
+            <SVGPanel
+              props={{
+                clouds: metarObject.clouds,
+                wspd: metarObject.wspd,
+                wdir: metarObject.wdir,
+                wgst: metarObject.wgst,
+                runways: airportObject.runways,
+                timeLocal: metarObject.time.local,
+              }}
+            />
+
+            <Alert severity="info">
+              <Typography>
+                Metar issued at {metarObject.time.local}h (local time)
               </Typography>
-              <Typography
-                className="type-flight-rule"
-                style={{
-                  backgroundColor: metarObject.flightRule?.colorCode,
-                }}
-              >
-                {metarObject.flightRule?.flightRule}
-              </Typography>
-
-              <DataPanel
-                props={{
-                  altim: metarObject.altim.qnh,
-                  slp: metarObject.slp,
-                  temp: metarObject.temp,
-                  dewp: metarObject.dewp,
-                  tempUnit: metarObject.tempUnit,
-                  tempUnitToggle: tempUnitToggle,
-                  wxString: metarObject.wxString,
-                  visibilityMeters: metarObject.visibility.meters,
-                }}
-              />
-
-              <SVGPanel
-                props={{
-                  clouds: metarObject.clouds,
-                  wspd: metarObject.wspd,
-                  wdir: metarObject.wdir,
-                  wgst: metarObject.wgst,
-                  runways: airportObject.runways,
-                  timeLocal: metarObject.time.local,
-                }}
-              />
-
-              <Alert severity="info">
-                <Typography>
-                  Metar issued at {metarObject.time.local}h (local time)
+              {metarObject.nosig && (
+                <Typography id="NOSIG" sx={{ mt: 1, mb: 1 }}>
+                  <span style={{ color: "red" }}>NO SIG</span>nificant changes
+                  expected
                 </Typography>
-                {metarObject.nosig && (
-                  <Typography id="NOSIG" sx={{ mt: 1, mb: 1 }}>
-                    <span style={{ color: "red" }}>NO SIG</span>nificant changes
-                    expected
-                  </Typography>
-                )}
-              </Alert>
-
-              <Typography id="RawMetar" sx={{ mt: 1, mb: 1 }}>
-                <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
-                {metarObject.rawMetar}
-              </Typography>
-
-              {airportObject.frequencies && !isLoading && (
-                <AerodromeFrequencies props={airportObject.frequencies} />
               )}
+            </Alert>
 
-              <Button
-                sx={{ mt: 10 }}
-                onClick={() => setShowTable(!showTable)}
-                variant="outlined"
-              >
-                show flight rule table
-              </Button>
-              {showTable && (
-                <Box className="table-flight-rule">
-                  <FlightRuleTable />
-                </Box>
-              )}
-            </>
-          )}
+            <Typography id="RawMetar" sx={{ mt: 1, mb: 1 }}>
+              <span style={{ fontWeight: "bold" }}>Raw Metar</span>{" "}
+              {metarObject.rawMetar}
+            </Typography>
+
+            {airportObject.frequencies && !isLoading && (
+              <AerodromeFrequencies props={airportObject.frequencies} />
+            )}
+
+            <Button
+              sx={{ mt: 10 }}
+              onClick={() => setShowTable(!showTable)}
+              variant="outlined"
+            >
+              show flight rule table
+            </Button>
+            {showTable && (
+              <Box className="table-flight-rule">
+                <FlightRuleTable />
+              </Box>
+            )}
+          </>
+        )}
       </Box>
     </Card>
   );

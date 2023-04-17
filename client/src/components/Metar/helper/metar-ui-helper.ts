@@ -87,7 +87,7 @@ export function convertDate(dateString: string) {
 }
 export function qnhRegex(rawOb: string): number | null {
   return rawOb.match(/Q[0-9]{4}/gi)
-    ? parseInt(rawOb.match(/Q[0-9]{4}/gi)![0])
+    ? parseInt(rawOb.match(/Q[0-9]{4}/gi)![0].replace("Q", ""))
     : null;
 }
 
