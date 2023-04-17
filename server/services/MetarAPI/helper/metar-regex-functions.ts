@@ -68,7 +68,7 @@ export function findBasicTokens(metar: string[]): BasicTokens {
       gusts: undefined,
     },
     wind_var: undefined,
-    temperature: [],
+    temperature: { temp: undefined, dewp: undefined },
     recent_precipitation: undefined,
     taf_prognosis: undefined,
     remarks: [],

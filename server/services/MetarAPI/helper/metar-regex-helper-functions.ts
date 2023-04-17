@@ -20,7 +20,7 @@ export function cloudFormat(clouds: string) {
     let cloud_base = clouds.slice(3, 6);
     if (clouds.length >= 6) {
       let cloud = clouds.slice(6, 9);
-      output.cloud = cloud;
+      if (cloud) output.cloud = cloud;
     }
     output.cloud_layer = cloud_layer;
     output.cloud_base = parseInt(cloud_base);
@@ -69,7 +69,10 @@ export function windVarFormat(windVar: string) {
   let output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))];
   return output;
 }
-export function tempFormat(temperature: string) {
+export function tempFormat(temperature: string): {
+  temp: number;
+  dewp: number;
+} {
   let output: number[] = [];
   let tempArr = temperature.split("/");
   tempArr.forEach((el) => {
@@ -82,7 +85,7 @@ export function tempFormat(temperature: string) {
       output.push(Number(el));
     }
   });
-  return output;
+  return { temp: output[0], dewp: output[1] };
 }
 export function precipFormat(weatherString: string): string {
   let result: any = [];

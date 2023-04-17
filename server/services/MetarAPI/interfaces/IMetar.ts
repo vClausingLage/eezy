@@ -22,6 +22,10 @@ interface IVisibility {
   value: number | string | undefined;
   unit: string;
 }
+interface ITemp {
+  temp: number | undefined;
+  dewp: number | undefined;
+}
 
 export interface IMetar {
   icao: string;
@@ -38,7 +42,7 @@ export interface IMetar {
   raw_metar: string;
   nosig: boolean;
   auto: boolean;
-  temperature: number[];
+  temperature: ITemp;
   taf_prognosis: string | undefined;
   recent_precipitation: string | undefined;
   remarks: string[];
@@ -57,7 +61,7 @@ export interface IResultBasicTokens {
   clouds: IClouds[];
   wind: IWind;
   wind_var: number[] | undefined;
-  temperature: number[];
+  temperature: ITemp;
   recent_precipitation: string | undefined;
   taf_prognosis: string | undefined;
   remarks: string[];
