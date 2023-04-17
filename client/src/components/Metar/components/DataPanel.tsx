@@ -2,11 +2,11 @@ import DataView from "./DataView";
 
 import { formatWeatherString } from "../helper/metar-ui-helper";
 
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 
 type Props = {
   props: {
-    altim: number;
+    altim: number | null;
     slp: number;
     temp: number;
     dewp: number;

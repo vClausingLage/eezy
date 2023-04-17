@@ -16,7 +16,7 @@ export interface IMetarAPIObject {
   message?: string;
 }
 export interface IMetarObject {
-  altim: { altim: number; qnh: number };
+  altim: { altim: number; qnh: number | null };
   CAVOK: boolean;
   clouds: IClouds[];
   dewp: number;

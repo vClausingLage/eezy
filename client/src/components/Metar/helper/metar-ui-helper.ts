@@ -85,9 +85,10 @@ export function convertDate(dateString: string) {
     String(date.getUTCHours()) + ":" + String(date.getUTCMinutes());
   return { local: localTime, utc: utcTime };
 }
-export function qnhRegex(rawOb: string): number {
-  console.log(rawOb.match(/Q[0-9]{3}/gi));
-  return 0;
+export function qnhRegex(rawOb: string): number | null {
+  return rawOb.match(/Q[0-9]{4}/gi)
+    ? parseInt(rawOb.match(/Q[0-9]{4}/gi)![0])
+    : null;
 }
 
 export async function checkLocation() {

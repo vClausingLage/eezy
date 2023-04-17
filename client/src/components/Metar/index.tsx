@@ -36,7 +36,6 @@ import { WidgetsRounded } from "@mui/icons-material";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
-  // const [metar, setMetar] = useState({} as IMetarAPIObject);
   const [disabled, setDisabled] = useState(true);
   const [showTable, setShowTable] = useState(false);
   const [alertIcao, setAlertIcao] = useState(false);
@@ -145,9 +144,9 @@ function Metar() {
       );
       setMetarObject({ ...metarObject, flightRule: flightRuleColor });
     }
-    console.log(metarObject.tempoInformation);
-    console.log("qnh", metarObject.altim.qnh);
-  }, []);
+    console.log("tempo information", metarObject.tempoInformation);
+    console.log("qnh", metarObject.altim?.qnh);
+  }, [metarObject.name]);
 
   return (
     <Card className="root">
