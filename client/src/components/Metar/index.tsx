@@ -6,7 +6,6 @@ import {
   TextField,
   IconButton,
   Alert,
-  Button,
   Card,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
@@ -28,15 +27,14 @@ import LoadingCircle from "../General/LoadingCircle";
 import DataPanel from "./components/DataPanel";
 import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";
-import FlightRuleTable from "./components/FlightRuleTable";
 import WordCloudICAO from "./assets/WordCloudICAO.png";
 
 import "./CSS/index.css";
+import FlightRuleButton from "./components/FlightRuleButton";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [showTable, setShowTable] = useState(false);
   const [alertIcao, setAlertIcao] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [airportObject, setAirportObject] = useState({} as IAirportObject);
@@ -250,14 +248,7 @@ function Metar() {
               <AerodromeFrequencies props={airportObject.frequencies} />
             )}
 
-            <Button onClick={() => setShowTable(!showTable)} variant="outlined">
-              show flight rule table
-            </Button>
-            {showTable && (
-              <Box className="table-flight-rule">
-                <FlightRuleTable />
-              </Box>
-            )}
+            <FlightRuleButton />
           </>
         )}
       </Box>

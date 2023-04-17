@@ -53,7 +53,9 @@
   align-items: center; 
 }
 .table-flight-rule {
+  text-align: center;
   display: "flex";
+  flex-flow: column;
   justify-content: "center";
   margin: "auto";
   margin-top: 2rem;
