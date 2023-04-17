@@ -29,7 +29,7 @@ export interface IMetar {
   wind: IWind;
   visibility: IVisibility;
   precipitation: string[];
-  cloud_layer: IClouds[];
+  clouds: IClouds[];
   wind_var: number[] | undefined;
   air_pressure: IAirPressure;
   slp: number | undefined;
@@ -54,7 +54,7 @@ export interface IResultBasicTokens {
   auto: boolean;
   air_pressure: IAirPressure;
   slp: number | undefined;
-  cloud_layer: IClouds[];
+  clouds: IClouds[];
   wind: IWind;
   wind_var: number[] | undefined;
   temperature: number[];

@@ -27,7 +27,7 @@ export async function decodeRawMetar(req: Request, res: Response) {
   // metarObject.remarks = metarDecoder(metarToString(metarListRemarks.remarks));
   metarObject.flight_rule = getFlightRule(
     metarObject.visibility,
-    metarObject.cloud_layer[0].cloud_base,
+    metarObject.clouds[0].cloud_base,
     metarObject.visibility.unit
   );
   res.send({ metarJSON: metarObject });
