@@ -8,6 +8,7 @@ import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
 function InputDestination() {
   const [icaoDeparture, setIcaoDeparture] = useState("");
   const [icaoDestination, setIcaoDestination] = useState("");
+  const [distance, setDistance] = useState(undefined);
 
   const calculateRoute = () => {
     console.log("dep", icaoDeparture);
@@ -26,13 +27,13 @@ function InputDestination() {
             icon={<FlightTakeoff />}
             adornment="check"
             value={icaoDeparture}
-            submit={(input) => setIcaoDeparture(input)}
+            submit={(input) => setIcaoDeparture(input.toUpperCase())}
           ></TextFieldContainer>
           <TextFieldContainer
             icon={<FlightLand />}
             value={icaoDestination}
             adornment="check"
-            submit={(input) => setIcaoDestination(input)}
+            submit={(input) => setIcaoDestination(input.toUpperCase())}
           ></TextFieldContainer>
         </Box>
         <Box>
@@ -41,6 +42,12 @@ function InputDestination() {
           </IconButton>
         </Box>
       </Box>
+      <Box>
+        <Typography>
+          {icaoDeparture} | {icaoDestination}
+        </Typography>
+      </Box>
+      <Box>distance: {distance}</Box>
     </Box>
   );
 }
