@@ -79,6 +79,17 @@
 
 # SQL
 
+create user \*\*\*
+
+create database eezyApp;
+create table lat_long (
+id INT NOT NULL AUTO_INCREMENT,
+icao VARCHAR(255) NOT NULL,
+lat FLOAT NULL,
+long FLOAT NULL,
+PRIMARY KEY (id)
+);
+
 ## import CSV
 
 LOAD DATA INFILE '/home/export_file.csv'
