@@ -30,7 +30,9 @@ function SVGPanel({ props }: Props) {
           {props.clouds[0].cover !== "CAVOK" &&
             props.clouds[0].cover !== "NCD" &&
             props.clouds[0].cover !== "CLR" &&
-            props.clouds.map((el) => <Cloud base={el.base} cover={el.cover} />)}
+            props.clouds.map((el, idx) => (
+              <Cloud key={idx} base={el.base} cover={el.cover} />
+            ))}
         </Box>
       </Box>
       <Box>
