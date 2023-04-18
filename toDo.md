@@ -92,8 +92,8 @@ PRIMARY KEY (id)
 
 ## import CSV
 
-LOAD DATA INFILE '/home/export_file.csv'
-INTO TABLE table_name
+LOAD DATA LOCAL INFILE '/home/vincent/Downloads/IcaoLatLong.csv'
+INTO TABLE lat_long
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
