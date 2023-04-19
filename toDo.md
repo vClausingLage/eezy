@@ -12,6 +12,8 @@
 
 - req params / req body
 - cleanup RegEx
+- SEQUELIZE MODEL
+- SEQUELIZE QUERY
 
 ## server & client
 
@@ -73,3 +75,25 @@
 
 - menu unten
 - keine Überschrift
+
+# SQL
+
+create user \*\*\*
+
+create database eezyApp;
+create table lat_long (
+id INT NOT NULL AUTO_INCREMENT,
+icao VARCHAR(255) NOT NULL,
+lat FLOAT NULL,
+long FLOAT NULL,
+PRIMARY KEY (id)
+);
+
+## import CSV
+
+LOAD DATA LOCAL INFILE '/home/vincent/Downloads/IcaoLatLong.csv'
+INTO TABLE lat_long
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;

@@ -1,7 +1,11 @@
 import { Router } from "express";
 
-import { getAirport } from "../services/airport.controller.js";
+import { getAirport, getDistance } from "../services/airport.controller.js";
 
-export const airportDB_router = Router();
+export const airport_router = Router();
 
-airportDB_router.get("/:airportID", getAirport);
+// airportDB -> metar
+airport_router.get("/:airportID", getAirport);
+
+// airport -> route calculator
+airport_router.get("/distance/:icao", getDistance);
