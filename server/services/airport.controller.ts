@@ -20,3 +20,8 @@ export async function getAirport(req: Request, res: Response) {
     console.log(error);
   }
 }
+
+export async function getDistance(req: Request, res: Response) {
+  const icao = req.params.icao;
+  res.send({ message: icao + " ok" });
+}

@@ -8,11 +8,30 @@ import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
 function InputDestination() {
   const [icaoDeparture, setIcaoDeparture] = useState("");
   const [icaoDestination, setIcaoDestination] = useState("");
+  const [alertIcao, setAlertIcao] = useState(false);
   const [distance, setDistance] = useState(undefined);
 
   const calculateRoute = () => {
-    console.log("dep", icaoDeparture);
-    console.log("dest", icaoDestination);
+    const fetchLatLong = async (
+      icaoDeparture: string,
+      icaoDestination: string
+    ) => {
+      setAlertIcao(false);
+      const response = await fetch(
+        `/api/airport/distance/${icaoDeparture},${icaoDestination}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+    };
+    icaoDeparture.length === 4 && icaoDestination.length === 4
+      ? fetchLatLong(icaoDeparture, icaoDestination)
+      : setAlertIcao(true);
   };
 
   return (
@@ -43,6 +62,13 @@ function InputDestination() {
         </Box>
       </Box>
       <Box>
+        {alertIcao && (
+          <Alert severity="error">
+            <Typography>
+              proper ICAO Codes for Departure and Destination required!
+            </Typography>
+          </Alert>
+        )}
         <Typography>
           {icaoDeparture} | {icaoDestination}
         </Typography>
