@@ -24,9 +24,5 @@ export function metarDecoder(metar: string): IMetar {
   let dynamicTokens: DynamicTokens = findDynamicTokens(
     metarToString(basicTokens.filteredMetarList)
   );
-  let completeTokens = {
-    ...basicTokens.regexResults,
-    ...dynamicTokens.regexResults,
-  };
-  return completeTokens;
+  return { ...basicTokens.regexResults, ...dynamicTokens.regexResults };
 }
