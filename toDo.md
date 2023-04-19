@@ -12,6 +12,8 @@
 
 - req params / req body
 - cleanup RegEx
+- SEQUELIZE MODEL
+- SEQUELIZE QUERY
 
 ## server & client
 
