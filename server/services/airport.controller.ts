@@ -24,13 +24,19 @@ export async function getAirport(req: Request, res: Response) {
 // SEQUELIZE INIT
 //! refactor when finished
 import { Sequelize } from "sequelize";
+import { sqlDatabase } from "../config/config.js";
 
 export async function getDistance(req: Request, res: Response) {
   const icao = req.params.icao;
   res.send({ message: icao + " ok" });
-  const sequelize = new Sequelize("eezyApp", "root", "lieselotte90", {
-    dialect: "mariadb",
-  });
+  const sequelize = new Sequelize(
+    sqlDatabase.dbName,
+    sqlDatabase.user,
+    sqlDatabase.password,
+    {
+      dialect: "mariadb",
+    }
+  );
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
