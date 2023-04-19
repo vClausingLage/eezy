@@ -21,7 +21,21 @@ export async function getAirport(req: Request, res: Response) {
   }
 }
 
+// SEQUELIZE INIT
+//! refactor when finished
+import { Sequelize } from "sequelize";
+
 export async function getDistance(req: Request, res: Response) {
   const icao = req.params.icao;
   res.send({ message: icao + " ok" });
+  const sequelize = new Sequelize("eezyApp", "root", "lieselotte90", {
+    dialect: "mariadb",
+  });
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+  sequelize.close();
 }
