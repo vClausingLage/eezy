@@ -13,5 +13,5 @@
   "files": ["app.ts"],
   "include": [
     "routes", "services"
-, "models/aircraft.ts"  ]
+, "models/aircraft.sequelize.model.ts"  ]
 }
