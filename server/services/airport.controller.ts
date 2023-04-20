@@ -39,7 +39,7 @@ export async function getDistance(req: Request, res: Response) {
     });
     res.send(latLongResults);
   } catch {
-    res.send({ message: "Error fetching data from Database." });
+    res.send({ type: "error", message: "Error fetching data from Database." });
   }
   // Test if Query and Model fit
   // console.log(latLongResults.every((result) => result instanceof latLong)); // true

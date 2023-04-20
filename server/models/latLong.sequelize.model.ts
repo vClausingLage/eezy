@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { seqConnection } from "../db_conn/seqLatLong.js";
+import { seqConnection } from "../connections/seqLatLong.js";
 
 export const latLong = seqConnection.define(
   "latLong",
