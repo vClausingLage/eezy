@@ -21,7 +21,7 @@ import IndexPage from "./components/Index/Index";
 
 function App() {
   // const { user, isAuthenticated, isLoading } = useAuth0();
-  const userID = "123456789";
+  const userID = "default";
   // const [userID, setUserID] = useState(""); //! uncomment
 
   // useEffect(() => {

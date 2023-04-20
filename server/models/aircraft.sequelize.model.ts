@@ -65,6 +65,7 @@ export const aircraft = seqConnection.define(
   {
     modelName: "aircraft",
     tableName: "aircraft",
+    timestamps: false,
   }
 );
 

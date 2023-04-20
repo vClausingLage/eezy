@@ -33,9 +33,9 @@ function CreateAircraftForm(props: Props) {
     type: "",
     registration_number: "",
     fuel_type: "",
-    fuel_capacityL: 0,
-    cruise_fuel_consumptionL: 0,
-    cruise_speedKTS: 0,
+    fuel_capacity: 0,
+    cruise_fuel_consumption: 0,
+    cruise_speed: 0,
     magnetic_error: 0,
     color: "",
     IFR: false,
@@ -139,7 +139,7 @@ function CreateAircraftForm(props: Props) {
               label="Fuel Capacity (L)"
               type="number"
               required
-              value={newAircraft.fuel_capacityL}
+              value={newAircraft.fuel_capacity}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">liters</InputAdornment>
@@ -148,7 +148,7 @@ function CreateAircraftForm(props: Props) {
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  fuel_capacityL: parseInt(e.target.value),
+                  fuel_capacity: parseInt(e.target.value),
                 })
               }
             ></TextField>
@@ -158,7 +158,7 @@ function CreateAircraftForm(props: Props) {
               label="Cruise Speed (KTS)"
               type="number"
               required
-              value={newAircraft.cruise_speedKTS}
+              value={newAircraft.cruise_speed}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">kts</InputAdornment>
@@ -167,7 +167,7 @@ function CreateAircraftForm(props: Props) {
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  cruise_speedKTS: parseInt(e.target.value),
+                  cruise_speed: parseInt(e.target.value),
                 })
               }
             ></TextField>
@@ -175,7 +175,7 @@ function CreateAircraftForm(props: Props) {
               label="Cruise Fuel Consumption (L)"
               type="number"
               required
-              value={newAircraft.cruise_fuel_consumptionL}
+              value={newAircraft.cruise_fuel_consumption}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">liters</InputAdornment>
@@ -184,7 +184,7 @@ function CreateAircraftForm(props: Props) {
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  cruise_fuel_consumptionL: parseInt(e.target.value),
+                  cruise_fuel_consumption: parseInt(e.target.value),
                 })
               }
             ></TextField>

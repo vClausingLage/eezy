@@ -20,7 +20,7 @@
 //     manufacturer: req.params.manufacturer,
 //   }).exec();
 //   res.send(result);
-//   // mongoose.disconnect();
+// mongoose.disconnect();
 // }
 
 // export async function createAircraft(req: Request, res: Response) {

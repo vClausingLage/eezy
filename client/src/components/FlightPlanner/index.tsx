@@ -42,9 +42,9 @@ function FlightPlanner() {
                 <Grid item xs={4} sm={4} md={6}>
                   <FlightCalculator
                     distance={distance}
-                    fuelCapacity={selectedAircraft.fuel_capacityL}
-                    fuelConsumption={selectedAircraft.cruise_fuel_consumptionL}
-                    cruiseSpeed={selectedAircraft.cruise_speedKTS}
+                    fuelCapacity={selectedAircraft.fuel_capacity}
+                    fuelConsumption={selectedAircraft.cruise_fuel_consumption}
+                    cruiseSpeed={selectedAircraft.cruise_speed}
                   />
                 </Grid>
               </Grid>

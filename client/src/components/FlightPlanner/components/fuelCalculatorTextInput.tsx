@@ -31,7 +31,7 @@ function FuelCalculatorTextInput(props: Props) {
         onChange={(e) => props.handleChange(e)}
         className="fuel-selection"
       ></TextField>
-      <Typography display="inline">{props.helperText}</Typography>
+      <Typography display="inline"> {props.helperText}</Typography>
     </Stack>
   );
 }
