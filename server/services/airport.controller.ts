@@ -23,25 +23,26 @@ export async function getAirport(req: Request, res: Response) {
 
 // SEQUELIZE INIT
 //! refactor when finished
-import { Sequelize } from "sequelize";
-import { sqlDatabase } from "../config/config.js";
+import { latLong } from "../models/latLong.sequelize.model.js";
 
 export async function getDistance(req: Request, res: Response) {
   const icao = req.params.icao;
-  res.send({ message: icao + " ok" });
-  const sequelize = new Sequelize(
-    sqlDatabase.dbName,
-    sqlDatabase.user,
-    sqlDatabase.password,
-    {
-      dialect: "mariadb",
-    }
-  );
+
+  let icaoArr = icao.split(",");
+
   try {
-    await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    const latLongResults = await latLong.findAll({
+      attributes: ["icao", "lat", "long"],
+      where: {
+        icao: [icaoArr[0], icaoArr[1]],
+      },
+    });
+    res.send(latLongResults);
+  } catch {
+    res.send({ message: "Error fetching data from Database." });
   }
-  sequelize.close();
+  // Test if Query and Model fit
+  // console.log(latLongResults.every((result) => result instanceof latLong)); // true
+  //! test for working connections with multiple queries
+  // sequelize.close();
 }
