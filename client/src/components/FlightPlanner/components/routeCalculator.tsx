@@ -11,7 +11,16 @@ function InputDestination() {
   const [alertIcao, setAlertIcao] = useState(false);
   const [distance, setDistance] = useState(undefined);
 
-  const calculateRoute = () => {
+  function handleDepartureInput(input: string): void {
+    console.log("departure", input);
+    setIcaoDeparture(input.toUpperCase());
+  }
+  function handleDestinationInput(input: string): void {
+    console.log("destination", input);
+    setIcaoDestination(input.toUpperCase());
+  }
+
+  function calculateRoute() {
     const fetchLatLong = async (
       icaoDeparture: string,
       icaoDestination: string
@@ -32,7 +41,7 @@ function InputDestination() {
     icaoDeparture.length === 4 && icaoDestination.length === 4
       ? fetchLatLong(icaoDeparture, icaoDestination)
       : setAlertIcao(true);
-  };
+  }
 
   return (
     <Box>
@@ -46,13 +55,13 @@ function InputDestination() {
             icon={<FlightTakeoff />}
             adornment="check"
             value={icaoDeparture}
-            submit={(input) => setIcaoDeparture(input.toUpperCase())}
+            submit={(input) => handleDepartureInput(input)}
           ></TextFieldContainer>
           <TextFieldContainer
             icon={<FlightLand />}
             value={icaoDestination}
             adornment="check"
-            submit={(input) => setIcaoDestination(input.toUpperCase())}
+            submit={(input) => handleDestinationInput(input)}
           ></TextFieldContainer>
         </Box>
         <Box>
