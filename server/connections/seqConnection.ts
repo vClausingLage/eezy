@@ -7,8 +7,8 @@ export const seqConnection = new Sequelize(
   sqlDatabase.password,
   {
     // host: "eezyApp",
-    host: "localhost",
-    port: 3306,
+    // host: "localhost",
+    // port: 3306,
     dialect: "mariadb",
   }
 );
