@@ -13,11 +13,11 @@ export const latLong = seqConnection.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lat: {
+    latitude: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
-    long: {
+    longitude: {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
