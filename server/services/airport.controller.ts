@@ -32,7 +32,7 @@ export async function getDistance(req: Request, res: Response) {
 
   try {
     const latLongResults = await latLong.findAll({
-      attributes: ["icao", "lat", "long"],
+      attributes: ["icao", "latitude", "longitude"],
       where: {
         icao: [icaoArr[0], icaoArr[1]],
       },
@@ -41,8 +41,6 @@ export async function getDistance(req: Request, res: Response) {
   } catch {
     res.send({ type: "error", message: "Error fetching data from Database." });
   }
-  // Test if Query and Model fit
-  // console.log(latLongResults.every((result) => result instanceof latLong)); // true
   //! test for working connections with multiple queries
   // sequelize.close();
 }
