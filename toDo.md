@@ -5,6 +5,7 @@
 - useEffect metar index ARRAY!!!
 - test new Precip Decoder
 - **CAST** number values to string in _aircraftCreate_
+- redo navigation bar (w/o MUI)
 
 ## server
 
