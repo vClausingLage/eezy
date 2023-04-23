@@ -20,7 +20,7 @@ function Map() {
 
   let latLong = `N 54° 22' 46,09'', E 10° 08' 42,54''`;
 
-  latLong = calcLatLong(latLong);
+  // latLong = calcLatLong(latLong);
 
   return (
     <MapContainer center={center} zoom={13} scrollWheelZoom={false}>

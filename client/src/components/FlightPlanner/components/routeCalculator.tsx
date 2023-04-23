@@ -4,12 +4,13 @@ import TextFieldContainer from "../../General/TextFields/textFieldContainer";
 
 import { Typography, Box, Alert, IconButton } from "@mui/material";
 import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
+import { calcLatLong } from "../helper/distance-lat-long-calc";
 
 function InputDestination() {
   const [icaoDeparture, setIcaoDeparture] = useState("");
   const [icaoDestination, setIcaoDestination] = useState("");
   const [alertIcao, setAlertIcao] = useState(false);
-  const [distance, setDistance] = useState(undefined);
+  const [distance, setDistance] = useState<number | undefined>();
 
   function handleDepartureInput(input: string): void {
     console.log("departure", input);
@@ -36,7 +37,7 @@ function InputDestination() {
         }
       );
       const result = await response.json();
-      console.log(result);
+      setDistance(calcLatLong(result));
     };
     icaoDeparture.length === 4 && icaoDestination.length === 4
       ? fetchLatLong(icaoDeparture, icaoDestination)
