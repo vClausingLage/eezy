@@ -13,8 +13,6 @@
 
 - req params / req body
 - cleanup RegEx
-- SEQUELIZE MODEL
-- SEQUELIZE QUERY
 
 ## server & client
 
@@ -68,7 +66,6 @@
 - Map fertig
 - METAR departure / destination -> Warnings / CAVOK
 - Fuel
-- Airports (lat long)
 - WARNING EXCEED FUEL CAPACITY
 - WARNING EDUCATIONAL PURPOSE ONLY
 
