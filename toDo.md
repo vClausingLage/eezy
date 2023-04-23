@@ -2,6 +2,7 @@
 
 ## client
 
+- add new formula for distance calculation
 - useEffect metar index ARRAY!!!
 - test new Precip Decoder
 - **CAST** number values to string in _aircraftCreate_
