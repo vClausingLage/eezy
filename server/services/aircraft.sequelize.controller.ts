@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { aircraft } from "../models/aircraft.sequelize.model.js";
 
 export function createAircraft() {
-  console.log("create");
+  console.log("aircraft created");
 }
 
 export async function getAircraft(req: Request, res: Response) {
@@ -12,5 +12,6 @@ export async function getAircraft(req: Request, res: Response) {
       user: "default",
     },
   });
+  console.log("aircraftResults", aircraftResults);
   res.send(aircraftResults);
 }
