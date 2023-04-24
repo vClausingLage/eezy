@@ -13,6 +13,7 @@ function IcaoInput(props: Props) {
       <IconButton
         id="search-button"
         type="submit"
+        spellCheck={false}
         onClick={handleSubmit}
         disabled={props.value.length === 4 ? false : true}
       >

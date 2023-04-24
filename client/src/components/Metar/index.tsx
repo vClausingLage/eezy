@@ -152,6 +152,8 @@ function Metar() {
           <TextField
             type="search"
             label="enter ICAO Code"
+            autoFocus
+            spellCheck={false}
             value={metarObject.icao}
             onChange={handleChange}
             InputProps={{
