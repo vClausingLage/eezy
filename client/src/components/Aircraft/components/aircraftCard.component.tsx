@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { aircraftSelected } from "../../../features/redux/selectedAircraftSlice";
 
-import Card from "@mui/material/Card";
+import { Card, IconButton } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import { IAircraft } from "../interfaces/aircraft";
 
@@ -36,12 +38,22 @@ function AircraftCard(props: Props) {
           >
             select Aircraft
           </Button>
-          {props.aircraft.registration_number ===
-            selectedAircraft.registration_number && (
-            <Typography className="aircraft-selected">
-              <CheckIcon />
-            </Typography>
-          )}
+          <Typography className="aircraft-selected">
+            <IconButton>
+              <EditIcon color="disabled" />
+            </IconButton>
+            <IconButton>
+              <DeleteForeverIcon color="disabled" />
+            </IconButton>
+            <CheckIcon
+              color={
+                props.aircraft.registration_number ===
+                selectedAircraft.registration_number
+                  ? "success"
+                  : "disabled"
+              }
+            />
+          </Typography>
         </CardContent>
       )}
     </Card>

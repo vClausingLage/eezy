@@ -1,5 +1,9 @@
 .aircraft-selected {
-  text-align: center;
-  /* color: #4C689F; */
-  color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.aircraft-selected > * {
+  margin-left: .5rem;
+  margin-right: .5rem;
 }
