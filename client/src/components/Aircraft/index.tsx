@@ -14,8 +14,6 @@ type Props = {
 };
 
 function Aircraft(props: Props) {
-  const [report, setReport] = useState(false);
-
   return (
     <>
       <Card className="root">
