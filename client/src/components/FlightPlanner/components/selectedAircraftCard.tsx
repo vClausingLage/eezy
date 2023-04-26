@@ -12,7 +12,7 @@ type Props = {
   };
 };
 
-function SelectedAircraft(props: Props) {
+function SelectedAircraftCard(props: Props) {
   return (
     <Card className="card-aircraft-selected">
       <CardContent>
@@ -28,4 +28,4 @@ function SelectedAircraft(props: Props) {
   );
 }
 
-export default SelectedAircraft;
+export default SelectedAircraftCard;

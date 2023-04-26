@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { Card, Box, Grid, CardContent, Typography, Alert } from "@mui/material";
 
-import SelectedAircraft from "./components/SelectedAircraft";
+import SelectedAircraftCard from "./components/selectedAircraftCard";
 import FlightCalculator from "./components/fuelCalculator";
 import InputDestination from "./components/routeCalculator";
 
@@ -22,7 +22,7 @@ function FlightPlanner() {
           <Typography variant="h2">Flight Planner</Typography>
           {selectedAircraft && Object.keys(selectedAircraft).length > 0 && (
             <Box>
-              <SelectedAircraft
+              <SelectedAircraftCard
                 aircraft={{
                   manufacturer: selectedAircraft.manufacturer,
                   model: selectedAircraft.model,
