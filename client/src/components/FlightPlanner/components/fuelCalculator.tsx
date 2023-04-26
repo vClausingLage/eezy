@@ -55,9 +55,9 @@ function FlightCalculator(props: Props) {
         unit="minutes"
         value={fuelReserve}
         placeholder="e.g. 45"
-        helperText={`(equals ${Math.round(
+        helperText={`equals ${Math.round(
           (props.fuelConsumption / 60) * fuelReserve
-        )} liters)`}
+        )} liters`}
         handleChange={(e) => handleReserveChange(e)}
       />
 

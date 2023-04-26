@@ -9,3 +9,9 @@
   border: 3px solid #ea4f02;
   border-radius: .5rem;
 }
+.fuel-calculator-stack > p {
+  margin: .7rem;
+  padding: .3rem;
+  border: solid 1.5px rgba(128, 128, 128, 0.5);
+  border-radius: .7rem;
+}
