@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
 
-import { fuelTypes } from "./data/fuelTypes";
+import { fuelTypes } from "./assets/fuelTypes";
+
 import { IAircraft } from "../interfaces/aircraft";
 
 import "../CSS/aircraft-form.css";
