@@ -28,8 +28,7 @@ function FlightCalculator(props: Props) {
     if (e.target.value !== undefined && e.target.value >= 0) {
       setFuelLoaded(parseInt(e.target.value));
       setFuelMaxAlert(false);
-    }
-    if (e.target.value > props.fuelCapacity) setFuelMaxAlert(true);
+    } else if (e.target.value > props.fuelCapacity) setFuelMaxAlert(true);
   }
   function handleReserveChange(e: any) {
     setFuelReserve(e.target.value);
@@ -69,7 +68,12 @@ function FlightCalculator(props: Props) {
         )}
         <Typography>
           max Range:{" "}
-          {getRange(fuelLoaded, props.fuelConsumption, props.cruiseSpeed)}{" "}
+          {getRange(
+            fuelLoaded,
+            props.fuelConsumption,
+            props.cruiseSpeed,
+            fuelReserve
+          )}{" "}
           nautical miles
         </Typography>
       </Box>

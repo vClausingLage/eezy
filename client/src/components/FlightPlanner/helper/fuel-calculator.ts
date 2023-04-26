@@ -4,9 +4,14 @@ export function getDuration(fuelLoad: number, fuelConsumption: number): number {
 export function getRange(
   fuelLoad: number,
   fuelConsumption: number,
-  cruiseSpeed: number
+  cruiseSpeed: number,
+  fuelReserve: number
 ) {
-  return Math.round(getDuration(fuelLoad, fuelConsumption) * cruiseSpeed);
+  return Math.round(
+    getDuration(fuelLoad, fuelConsumption) * cruiseSpeed -
+      getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
+        cruiseSpeed
+  );
 }
 // function ktsToKmh(input: number): number {
 //   return input * 1.852;
