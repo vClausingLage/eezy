@@ -63,7 +63,7 @@ function FlightCalculator(props: Props) {
       <Box>
         {fuelMaxAlert && (
           <Alert severity="error">
-            Fuel Load exceeds your Aircraft&#700;s max. Capacity!
+            Fuel Load exceeds your Aircraftʼs max. Capacity!
           </Alert>
         )}
         <Typography>
@@ -85,19 +85,17 @@ function FlightCalculator(props: Props) {
         <ul>
           <li>fuel calculations are guidelines not exact values</li>
           <li>
-            always check your aircraft&#700;s flight manual, fuel consumption
-            may vary for individual aircraft
+            always check your aircraftʼs flight manual, fuel consumption may
+            vary for individual aircraft
+          </li>
+          <li>monitor your aircraftʼs fuel consumption of previous flights</li>
+          <li>
+            note that most GA aircraftʼs fuel inidcators are vague and do not
+            indicate exact fuel amounts
           </li>
           <li>
-            monitor your aircraft&#700;s fuel consumption of previous flights
-          </li>
-          <li>
-            note that most GA aircraft&#700;s fuel inidcators are vague and do
-            not indicate exact fuel amounts
-          </li>
-          <li>
-            apply mixture according to altitude and fly at the
-            manufacturer&#700;s recommended cruise RPM
+            apply mixture according to altitude and fly at the manufacturerʼs
+            recommended cruise RPM
           </li>
           <li>double check with your own calculations</li>
           <li>
