@@ -21,7 +21,7 @@ type Props = {
 
 function FlightCalculator(props: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(0);
-  const [fuelReserve, setFuleReserve] = useState<number>(0);
+  const [fuelReserve, setFuelReserve] = useState<number>(0);
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
 
   function handleFuelChange(e: any) {
@@ -32,7 +32,7 @@ function FlightCalculator(props: Props) {
     if (e.target.value > props.fuelCapacity) setFuelMaxAlert(true);
   }
   function handleReserveChange(e: any) {
-    setFuleReserve(e.target.value);
+    setFuelReserve(e.target.value);
   }
 
   return (
