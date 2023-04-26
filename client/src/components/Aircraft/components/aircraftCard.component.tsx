@@ -1,10 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { aircraftSelected } from "../../../features/redux/selectedAircraftSlice";
 
-import { Card, IconButton } from "@mui/material";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import {
+  Card,
+  IconButton,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
