@@ -67,10 +67,11 @@
 
 .wordcloud {
   display: flex;
-  flex-flow: row;
   justify-content: center;
-  max-height: 60dvh;
   opacity: .5;
+}
+img {
+  max-width: 100%;
 }
 
 @media only screen and (min-width: 600px) {
