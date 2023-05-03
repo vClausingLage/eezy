@@ -6,7 +6,7 @@ export const seqConnection = new Sequelize(
   sqlDatabase.user,
   sqlDatabase.password,
   {
-    host: "127.0.0.1",
+    host: "127.0.0.1", //! mariadb user localhost settings
     port: 3306,
     dialect: "mariadb",
   }
