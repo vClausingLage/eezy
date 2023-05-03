@@ -14,10 +14,10 @@ import { getDesignTokens } from "./CSS/theme";
 import AppFooter from "./AppFooter";
 // import LoginButton from "./components/Authentcation/login";
 // import LogoutButton from "./components/Authentcation/logout";
-import Metar from "./components/Metar";
-import Aircraft from "./components/Aircraft";
-import FlightPlanner from "./components/FlightPlanner";
-import IndexPage from "./components/Index/Index";
+import Metar from "./pages/Metar";
+import Aircraft from "./pages/Aircraft";
+import FlightPlanner from "./pages/FlightPlanner";
+import IndexPage from "./pages/Index/Index";
 
 function App() {
   // const { user, isAuthenticated, isLoading } = useAuth0();
