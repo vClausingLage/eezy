@@ -43,7 +43,7 @@ export function findDynamicTokens(metar: string): DynamicTokens {
         resultObj.precipitation.push(precipFormat(el));
       }
   }
-  // return resultObj;
+  resultObj.precipitation = resultObj.precipitation.filter((n) => n.length);
   return { regexResults: resultObj, filteredMetarList: [] }; //! remove regex matches from STRING then JOIN to LIST
 }
 
