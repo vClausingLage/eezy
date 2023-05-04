@@ -15,26 +15,32 @@ type Props = {
 };
 
 function FuelCalculatorTextInput(props: Props) {
+  function onSubmit(e: any) {
+    e.preventDefault();
+  }
   return (
     <Stack
       direction="row"
       alignItems="center"
       className="fuel-calculator-stack"
     >
-      <TextField
-        label={props.label}
-        type="number"
-        required
-        value={props.value}
-        placeholder={props.placeholder}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">{props.unit}</InputAdornment>
-          ),
-        }}
-        onChange={(e) => props.handleChange(e)}
-        className="fuel-selection"
-      ></TextField>
+      <form onSubmit={(e) => onSubmit(e)}>
+        <TextField
+          label={props.label}
+          type="number"
+          required
+          value={props.value}
+          placeholder={props.placeholder}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">{props.unit}</InputAdornment>
+            ),
+          }}
+          onChange={(e) => props.handleChange(e)}
+          onSubmit={(e) => onSubmit(e)}
+          className="fuel-selection"
+        ></TextField>
+      </form>
       <Typography display="inline"> {props.helperText}</Typography>
     </Stack>
   );
