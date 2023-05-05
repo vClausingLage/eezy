@@ -21,17 +21,29 @@ type Props = {
 
 function FlightCalculator(props: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(0);
-  const [fuelReserve, setFuelReserve] = useState<number>(0);
+  const [fuelReserve, setFuelReserve] = useState<number | undefined>();
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
 
   function handleFuelChange(e: any) {
-    if (e.target.value !== undefined && e.target.value >= 0) {
+    if (e.target.value > props.fuelCapacity) {
+      setFuelLoaded(parseInt(e.target.value)); //! remove?
+      setFuelMaxAlert(true);
+    } else if (e.target.value !== undefined && e.target.value >= 0) {
       setFuelLoaded(parseInt(e.target.value));
       setFuelMaxAlert(false);
-    } else if (e.target.value > props.fuelCapacity) setFuelMaxAlert(true);
+    }
   }
   function handleReserveChange(e: any) {
     setFuelReserve(e.target.value);
+  }
+  //! check if working
+  function fuelReserveText(fuelReserve: number | undefined): number {
+    return typeof fuelReserve !== "number"
+      ? Math.round((props.fuelConsumption / 60) * fuelReserve!)
+      : 0;
+  }
+  function fuelCapacityText(fuelCapacity: number | undefined): number {
+    return typeof fuelCapacity !== "number" ? 0 : fuelCapacity;
   }
 
   return (
@@ -40,39 +52,40 @@ function FlightCalculator(props: Props) {
         Fuel Calculator
       </Typography>
 
-      <FuelCalculatorTextInput
-        label="Fuel Loaded"
-        unit="liters"
-        value={fuelLoaded}
-        placeholder=""
-        helperText={`of aircraftʼs ${props.fuelCapacity} liters max fuel`}
-        handleChange={(e) => handleFuelChange(e)}
-      />
-
-      <FuelCalculatorTextInput
-        label="Fuel Reserve"
-        unit="minutes"
-        value={fuelReserve}
-        placeholder="e.g. 45"
-        helperText={`equals ${Math.round(
-          (props.fuelConsumption / 60) * fuelReserve
-        )} liters`}
-        handleChange={(e) => handleReserveChange(e)}
-      />
-
       <Box>
+        <FuelCalculatorTextInput
+          label="Fuel Loaded"
+          unit="liters"
+          value={fuelLoaded}
+          placeholder=""
+          helperText={`of aircraftʼs ${fuelCapacityText(
+            props.fuelCapacity
+          )} liters max fuel`}
+          handleChange={(e) => handleFuelChange(e)}
+        />
         {fuelMaxAlert && (
           <Alert severity="error">
             Fuel Load exceeds your Aircraftʼs max. Capacity!
           </Alert>
         )}
+        <FuelCalculatorTextInput
+          label="Fuel Reserve"
+          unit="minutes"
+          value={fuelReserve}
+          placeholder="e.g. 45"
+          helperText={`equals ${fuelReserveText(fuelReserve)} liters`}
+          handleChange={(e) => handleReserveChange(e)}
+        />
+      </Box>
+
+      <Box>
         <Typography>
           max Range:{" "}
           {getRange(
-            fuelLoaded!,
+            fuelLoaded,
             props.fuelConsumption,
             props.cruiseSpeed,
-            fuelReserve!
+            fuelReserve
           )}{" "}
           nautical miles
         </Typography>

@@ -8,7 +8,7 @@ import "../CSS/planner-calculator.css";
 type Props = {
   label: string;
   unit: string;
-  value: number;
+  value: number | undefined;
   placeholder: string;
   helperText: string;
   handleChange: (e: any) => void;

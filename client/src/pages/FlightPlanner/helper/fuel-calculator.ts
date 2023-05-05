@@ -2,16 +2,20 @@ export function getDuration(fuelLoad: number, fuelConsumption: number): number {
   return Math.round((fuelLoad / fuelConsumption) * 100) / 100;
 }
 export function getRange(
+  fuelLoaded: number | undefined,
   fuelConsumption: number,
   cruiseSpeed: number,
-  fuelReserve: number,
-  fuelLoad: number
-) {
-  return Math.round(
-    getDuration(fuelLoad, fuelConsumption) * cruiseSpeed -
-      getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
-        cruiseSpeed
-  );
+  fuelReserve: number | undefined
+): number {
+  if (fuelLoaded && fuelReserve) {
+    return Math.round(
+      getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
+        getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
+          cruiseSpeed
+    );
+  } else {
+    return 0;
+  }
 }
 // function ktsToKmh(input: number): number {
 //   return input * 1.852;
