@@ -22,7 +22,6 @@
 
 - VCSH must be 'showers in the vicinity'
 - VV/// -> OVX
-- remove empty string in precip decoder
 
 ### Calculator
 
