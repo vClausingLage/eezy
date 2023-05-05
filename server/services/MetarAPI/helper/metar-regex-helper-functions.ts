@@ -1,5 +1,17 @@
 import weatherCodes from "../assets/weatherCodes.json" assert { type: "json" };
 
+class Clouds {
+  cloud_layer!: string;
+  cloud_base!: number | undefined;
+  cloud?: string;
+}
+class Wind {
+  direction!: number | string;
+  speed!: number;
+  unit!: string;
+  gusts?: number;
+}
+
 export function dateFormat(time: string) {
   let today = new Date();
   let date = new Date(
@@ -23,23 +35,12 @@ export function cloudFormat(clouds: string) {
       if (cloud) output.cloud = cloud;
     }
     output.cloud_layer = cloud_layer;
-    output.cloud_base = parseInt(cloud_base);
+    output.cloud_base = parseInt(cloud_base + "00");
   } else if (clouds === "NCD" || clouds === "CLR") {
     output.cloud_layer = clouds;
     output.cloud_base = undefined;
   }
   return output;
-}
-class Clouds {
-  cloud_layer!: string;
-  cloud_base!: number | undefined;
-  cloud?: string;
-}
-class Wind {
-  direction!: number | string;
-  speed!: number;
-  unit!: string;
-  gusts?: number;
 }
 export function windFormat(wind: string) {
   let output = new Wind();
