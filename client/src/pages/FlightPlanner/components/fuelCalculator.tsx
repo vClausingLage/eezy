@@ -8,7 +8,7 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
 import FuelCalculatorTextInput from "./fuelCalculatorTextInput";
 
-import { getRange } from "../helper/fuel-calculator";
+import { getRange, isNanCheck } from "../helper/fuel-calculator";
 
 import "../CSS/planner-calculator.css";
 
@@ -37,13 +37,16 @@ function FlightCalculator(props: Props) {
     setFuelReserve(e.target.value);
   }
   //! check if working
-  function fuelReserveText(fuelReserve: number | undefined): number {
-    return typeof fuelReserve !== "number"
-      ? Math.round((props.fuelConsumption / 60) * fuelReserve!)
+  function fuelReserveText(
+    inputReserve: number | undefined,
+    inputConsumption: number
+  ): number {
+    return typeof inputReserve !== "number"
+      ? Math.round((inputConsumption / 60) * inputReserve!)
       : 0;
   }
-  function fuelCapacityText(fuelCapacity: number | undefined): number {
-    return typeof fuelCapacity !== "number" ? 0 : fuelCapacity;
+  function fuelCapacityText(input: number | undefined): number {
+    return typeof input !== "number" ? 0 : input;
   }
 
   return (
@@ -73,20 +76,23 @@ function FlightCalculator(props: Props) {
           unit="minutes"
           value={fuelReserve}
           placeholder="e.g. 45"
-          helperText={`equals ${fuelReserveText(fuelReserve)} liters`}
+          helperText={`equals ${fuelReserveText(
+            fuelReserve,
+            props.fuelConsumption
+          )} liters`}
           handleChange={(e) => handleReserveChange(e)}
         />
       </Box>
 
       <Box>
         <Typography>
-          max Range:{" "}
+          max Range:
           {getRange(
-            fuelLoaded,
+            isNanCheck(fuelLoaded),
             props.fuelConsumption,
             props.cruiseSpeed,
-            fuelReserve
-          )}{" "}
+            isNanCheck(fuelReserve)
+          )}
           nautical miles
         </Typography>
       </Box>

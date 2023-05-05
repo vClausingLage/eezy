@@ -1,5 +1,8 @@
-export function getDuration(fuelLoad: number, fuelConsumption: number): number {
+function getDuration(fuelLoad: number, fuelConsumption: number): number {
   return Math.round((fuelLoad / fuelConsumption) * 100) / 100;
+}
+export function isNanCheck(input: number | undefined) {
+  return isNaN(input!) ? 0 : input;
 }
 export function getRange(
   fuelLoaded: number | undefined,
@@ -12,6 +15,11 @@ export function getRange(
       getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
         getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
           cruiseSpeed
+    );
+  } else if (fuelLoaded) {
+    return Math.round(
+      getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
+        getDuration(fuelConsumption / 60, fuelConsumption) * cruiseSpeed
     );
   } else {
     return 0;
