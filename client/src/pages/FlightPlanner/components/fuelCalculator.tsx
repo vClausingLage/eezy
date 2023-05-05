@@ -69,10 +69,10 @@ function FlightCalculator(props: Props) {
         <Typography>
           max Range:{" "}
           {getRange(
-            fuelLoaded,
+            fuelLoaded!,
             props.fuelConsumption,
             props.cruiseSpeed,
-            fuelReserve
+            fuelReserve!
           )}{" "}
           nautical miles
         </Typography>
