@@ -46,9 +46,6 @@ function FlightCalculator(props: Props) {
     } else {
       return 0;
     }
-    // return typeof inputReserve !== "number"
-    //   ? Math.round((inputConsumption / 60) * inputReserve!)
-    //   : 0;
   }
   function fuelCapacityText(input: number | undefined): number {
     return typeof input !== "number" ? 0 : input;
@@ -91,13 +88,13 @@ function FlightCalculator(props: Props) {
 
       <Box>
         <Typography>
-          max Range:
+          max Range:{" "}
           {getRange(
             isNanCheck(fuelLoaded),
             props.fuelConsumption,
             props.cruiseSpeed,
             isNanCheck(fuelReserve)
-          )}
+          )}{" "}
           nautical miles
         </Typography>
       </Box>
