@@ -7,6 +7,7 @@
 - test new Precip Decoder
 - **CAST** number values to string in _aircraftCreate_
 - redo navigation bar (w/o MUI)
+- add sm flightRules to _CLIENT_
 
 ## server
 
@@ -16,8 +17,6 @@
 - cleanup RegEx
 
 ## server & client
-
-- SM unit for FLR ! API
 
 ### precip
 
