@@ -18,6 +18,8 @@
 
 ## server & client
 
+- add RECENT
+
 ### precip
 
 - VCSH must be 'showers in the vicinity'
