@@ -20,7 +20,7 @@ type Props = {
 };
 
 function FlightCalculator(props: Props) {
-  const [fuelLoaded, setFuelLoaded] = useState<number>(0);
+  const [fuelLoaded, setFuelLoaded] = useState<number | undefined>();
   const [fuelReserve, setFuelReserve] = useState<number | undefined>();
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
 
@@ -41,9 +41,14 @@ function FlightCalculator(props: Props) {
     inputReserve: number | undefined,
     inputConsumption: number
   ): number {
-    return typeof inputReserve !== "number"
-      ? Math.round((inputConsumption / 60) * inputReserve!)
-      : 0;
+    if (inputReserve) {
+      return Math.round((inputConsumption / 60) * isNanCheck(inputReserve));
+    } else {
+      return 0;
+    }
+    // return typeof inputReserve !== "number"
+    //   ? Math.round((inputConsumption / 60) * inputReserve!)
+    //   : 0;
   }
   function fuelCapacityText(input: number | undefined): number {
     return typeof input !== "number" ? 0 : input;
@@ -72,7 +77,7 @@ function FlightCalculator(props: Props) {
           </Alert>
         )}
         <FuelCalculatorTextInput
-          label="Fuel Reserve"
+          label="Reserve"
           unit="minutes"
           value={fuelReserve}
           placeholder="e.g. 45"

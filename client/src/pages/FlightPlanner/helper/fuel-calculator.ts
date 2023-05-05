@@ -2,7 +2,7 @@ function getDuration(fuelLoad: number, fuelConsumption: number): number {
   return Math.round((fuelLoad / fuelConsumption) * 100) / 100;
 }
 export function isNanCheck(input: number | undefined) {
-  return isNaN(input!) ? 0 : input;
+  return isNaN(input!) ? 0 : input!;
 }
 export function getRange(
   fuelLoaded: number | undefined,
