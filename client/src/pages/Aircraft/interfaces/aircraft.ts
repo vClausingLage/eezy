@@ -6,10 +6,10 @@ export interface IAircraft {
   type: string;
   registration_number: string;
   fuel_type: string;
-  fuel_capacity: number;
-  cruise_speed: number;
-  cruise_fuel_consumption: number;
-  magnetic_error: number;
+  fuel_capacity: number | undefined;
+  cruise_speed: number | undefined;
+  cruise_fuel_consumption: number | undefined;
+  magnetic_error: number | undefined;
   color?: string;
   IFR?: boolean;
   equiptment?: string;

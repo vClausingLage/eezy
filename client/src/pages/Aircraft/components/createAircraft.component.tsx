@@ -34,10 +34,10 @@ function CreateAircraftForm(props: Props) {
     type: "",
     registration_number: "",
     fuel_type: "",
-    fuel_capacity: 0,
-    cruise_fuel_consumption: 0,
-    cruise_speed: 0,
-    magnetic_error: 0,
+    fuel_capacity: undefined,
+    cruise_fuel_consumption: undefined,
+    cruise_speed: undefined,
+    magnetic_error: undefined,
     color: "",
     IFR: false,
     equiptment: "",
@@ -122,6 +122,7 @@ function CreateAircraftForm(props: Props) {
             <TextField
               select
               label="Fuel Type"
+              placeholder="Fuel Type"
               value={newAircraft.fuel_type}
               onChange={(e) =>
                 setNewAircraft({
@@ -138,9 +139,10 @@ function CreateAircraftForm(props: Props) {
             </TextField>
             <TextField
               label="Fuel Capacity (L)"
+              placeholder="Fuel Capacity"
               type="number"
               required
-              value={newAircraft.fuel_capacity}
+              value={String(newAircraft.fuel_capacity)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">liters</InputAdornment>
@@ -149,7 +151,7 @@ function CreateAircraftForm(props: Props) {
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  fuel_capacity: parseInt(e.target.value),
+                  fuel_capacity: Number(e.target.value),
                 })
               }
             ></TextField>
@@ -159,7 +161,7 @@ function CreateAircraftForm(props: Props) {
               label="Cruise Speed (KTS)"
               type="number"
               required
-              value={newAircraft.cruise_speed}
+              value={String(newAircraft.cruise_speed)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">kts</InputAdornment>
@@ -168,7 +170,7 @@ function CreateAircraftForm(props: Props) {
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  cruise_speed: parseInt(e.target.value),
+                  cruise_speed: Number(e.target.value),
                 })
               }
             ></TextField>
@@ -176,7 +178,7 @@ function CreateAircraftForm(props: Props) {
               label="Cruise Fuel Consumption (L)"
               type="number"
               required
-              value={newAircraft.cruise_fuel_consumption}
+              value={String(newAircraft.cruise_fuel_consumption)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">liters</InputAdornment>
@@ -185,7 +187,7 @@ function CreateAircraftForm(props: Props) {
               onChange={(e) =>
                 setNewAircraft({
                   ...newAircraft,
-                  cruise_fuel_consumption: parseInt(e.target.value),
+                  cruise_fuel_consumption: Number(e.target.value),
                 })
               }
             ></TextField>
@@ -193,14 +195,14 @@ function CreateAircraftForm(props: Props) {
               label="Magnetic Error (deg)"
               type="number"
               required
-              value={newAircraft.magnetic_error}
+              value={String(newAircraft.magnetic_error)}
               InputProps={{
                 endAdornment: <InputAdornment position="end">°</InputAdornment>,
               }}
               onChange={(e) => {
                 setNewAircraft({
                   ...newAircraft,
-                  magnetic_error: parseInt(e.target.value),
+                  magnetic_error: Number(e.target.value),
                 });
               }}
             ></TextField>
@@ -230,6 +232,7 @@ function CreateAircraftForm(props: Props) {
 
             <TextField
               label="Equipment"
+              placeholder="e.g. VFR, G1000, Flarm..."
               value={newAircraft.equiptment}
               onChange={(e) =>
                 setNewAircraft({ ...newAircraft, equiptment: e.target.value })
