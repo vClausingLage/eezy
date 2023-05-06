@@ -10,7 +10,7 @@ import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "./CSS/theme";
 
-import AppFooter from "./AppFooter";
+import AppFooter from "./pages/General/AppFooter";
 import Metar from "./pages/Metar";
 import Aircraft from "./pages/Aircraft";
 import FlightPlanner from "./pages/FlightPlanner";
