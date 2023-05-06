@@ -8,6 +8,7 @@
 - **CAST** number values to string in _aircraftCreate_
 - redo navigation bar (w/o MUI)
 - add sm flightRules to _CLIENT_
+- add **animation** to _RWY SELECT_
 
 ## server
 
