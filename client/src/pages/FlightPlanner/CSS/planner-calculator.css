@@ -15,3 +15,14 @@
   border: solid 1.5px rgba(128, 128, 128, 0.5);
   border-radius: .7rem;
 }
+.range-view {
+  text-align: center;
+  color: white;
+  background-color: #4C689F;
+  margin: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  border-radius: .5rem;
+}

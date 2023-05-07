@@ -84,7 +84,7 @@ function FlightCalculator(props: Props) {
         />
       </Box>
 
-      <Box>
+      <Box className="range-view">
         <Typography>
           max Range:{" "}
           {getRange(

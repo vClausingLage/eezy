@@ -10,6 +10,7 @@ function InputDestination() {
   const [icaoDeparture, setIcaoDeparture] = useState("");
   const [icaoDestination, setIcaoDestination] = useState("");
   const [alertIcao, setAlertIcao] = useState(false);
+  const [searchEnable, setSearchEnable] = useState(false);
   const [distance, setDistance] = useState<number | undefined>();
 
   function handleDepartureInput(input: string): void {
@@ -66,7 +67,8 @@ function InputDestination() {
           ></TextFieldContainer>
         </Box>
         <Box>
-          <IconButton onClick={calculateRoute}>
+          //! anpassen
+          <IconButton onClick={calculateRoute} disabled={searchEnable}>
             <Search />
           </IconButton>
         </Box>
