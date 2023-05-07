@@ -36,7 +36,6 @@ function FlightCalculator(props: Props) {
   function handleReserveChange(e: any) {
     setFuelReserve(e.target.value);
   }
-  //! check if working
   function fuelReserveText(
     inputReserve: number | undefined,
     inputConsumption: number
