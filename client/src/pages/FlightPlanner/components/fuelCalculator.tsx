@@ -45,7 +45,8 @@ function FlightCalculator(props: Props) {
       : 0;
   }
   function fuelCapacityText(input: number | undefined): number {
-    return typeof input !== "number" ? 0 : input;
+    // return typeof input !== "number" ? 0 : input;
+    return input ? input : 0;
   }
 
   return (
