@@ -73,7 +73,7 @@ export function formatWeatherString(weatherString: string) {
 }
 
 export function convertDate(dateString: string) {
-  const date = new Date(parseInt(dateString));
+  const date = new Date(Number(dateString));
   const localTime = date.toLocaleString(navigator.language, {
     hour12: false,
     hour: "2-digit",
@@ -85,7 +85,7 @@ export function convertDate(dateString: string) {
 }
 export function qnhRegex(rawOb: string): number | null {
   return rawOb.match(/Q[0-9]{4}/gi)
-    ? parseInt(rawOb.match(/Q[0-9]{4}/gi)![0].replace("Q", ""))
+    ? Number(rawOb.match(/Q[0-9]{4}/gi)![0].replace("Q", ""))
     : null;
 }
 

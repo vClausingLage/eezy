@@ -8,9 +8,9 @@ export function dateFormat(time: string) {
     Date.UTC(
       today.getFullYear(),
       today.getMonth(),
-      parseInt(time.slice(0, 2)),
-      parseInt(time.slice(2, 4)),
-      parseInt(time.slice(4, 6))
+      Number(time.slice(0, 2)),
+      Number(time.slice(2, 4)),
+      Number(time.slice(4, 6))
     )
   );
   return date;
@@ -20,15 +20,15 @@ export function windFormat(wind: string) {
   let output = new Wind();
   if (/^[0-9]{5}KT$/i.test(wind)) {
     output = {
-      direction: parseInt(wind.slice(0, 3)),
-      speed: parseInt(wind.slice(3, 5)),
+      direction: Number(wind.slice(0, 3)),
+      speed: Number(wind.slice(3, 5)),
       unit: "kts",
     };
   } else if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
     output = {
-      direction: parseInt(wind.slice(0, 3)),
-      speed: parseInt(wind.slice(3, 5)),
-      gusts: parseInt(wind.slice(6, 8)),
+      direction: Number(wind.slice(0, 3)),
+      speed: Number(wind.slice(3, 5)),
+      gusts: Number(wind.slice(6, 8)),
       unit: "kts",
     };
   }
@@ -39,14 +39,14 @@ export function windFormatSpec(wind: string) {
   let output = new Wind();
   output = {
     direction: "more than 30",
-    speed: parseInt(wind.slice(3, 5)),
+    speed: Number(wind.slice(3, 5)),
     unit: "kts",
   };
   return output;
 }
 
 export function windVarFormat(windVar: string) {
-  let output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))];
+  let output = [Number(windVar.slice(0, 3)), Number(windVar.slice(4, 7))];
   return output;
 }
 
@@ -116,7 +116,7 @@ export function cloudFormat(clouds: string) {
       output["cloud"] = cloud;
     }
     output["cloudLayer"] = cloudLayer;
-    output["cloudBase"] = parseInt(cloudBase);
+    output["cloudBase"] = Number(cloudBase);
   } else if (clouds === "NCD" || clouds === "CLR") {
     output["cloudLayer"] = clouds;
     output["cloudBase"] = undefined;

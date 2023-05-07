@@ -86,18 +86,18 @@ export function findBasicTokens(metar: string[]): BasicTokens {
     else if (/Q[0-9]{3,4}/i.test(el)) {
       el = el.replace("Q", "");
       resultObj.air_pressure.pressure = "QNH";
-      resultObj.air_pressure.value = parseInt(el);
+      resultObj.air_pressure.value = Number(el);
       resultObj.air_pressure.unit = "hPa";
     } else if (/A[0-9]{3,4}/i.test(el)) {
       el = el.replace("A", "");
       resultObj.air_pressure.pressure = "Altimeter";
-      resultObj.air_pressure.value = parseInt(el);
+      resultObj.air_pressure.value = Number(el);
       resultObj.air_pressure.unit = "inHg";
     } else if (/[0-9]{6}Z/i.test(el)) {
       resultObj.date = dateFormat(el);
     } else if (/SLP[0-9]{3}/i.test(el)) {
       el = el.replace("SLP", "");
-      resultObj.slp = parseInt(el);
+      resultObj.slp = Number(el);
     } else if (
       /[a-z]{3}[0-9]{3}/i.test(el) ||
       /[a-z]{3}[0-9]{3}[a-z]/i.test(el) ||

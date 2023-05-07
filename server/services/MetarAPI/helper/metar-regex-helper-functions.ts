@@ -18,9 +18,9 @@ export function dateFormat(time: string) {
     Date.UTC(
       today.getFullYear(),
       today.getMonth(),
-      parseInt(time.slice(0, 2)),
-      parseInt(time.slice(2, 4)),
-      parseInt(time.slice(4, 6))
+      Number(time.slice(0, 2)),
+      Number(time.slice(2, 4)),
+      Number(time.slice(4, 6))
     )
   );
   return date;
@@ -35,7 +35,7 @@ export function cloudFormat(clouds: string) {
       if (cloud) output.cloud = cloud;
     }
     output.cloud_layer = cloud_layer;
-    output.cloud_base = parseInt(cloud_base + "00");
+    output.cloud_base = Number(cloud_base + "00");
   } else if (clouds === "NCD" || clouds === "CLR") {
     output.cloud_layer = clouds;
     output.cloud_base = undefined;
@@ -46,28 +46,28 @@ export function windFormat(wind: string) {
   let output = new Wind();
   if (/[0-9]{5}KT/i.test(wind)) {
     output = {
-      direction: parseInt(wind.slice(0, 3)),
-      speed: parseInt(wind.slice(3, 5)),
+      direction: Number(wind.slice(0, 3)),
+      speed: Number(wind.slice(3, 5)),
       unit: "kts",
     };
   } else if (/[0-9]{5}G[0-9]{1,2}KT/i.test(wind)) {
     output = {
-      direction: parseInt(wind.slice(0, 3)),
-      speed: parseInt(wind.slice(3, 5)),
-      gusts: parseInt(wind.slice(6, 8)),
+      direction: Number(wind.slice(0, 3)),
+      speed: Number(wind.slice(3, 5)),
+      gusts: Number(wind.slice(6, 8)),
       unit: "kts",
     };
   } else if (/VRB[0-9]{1,2}KT/i.test(wind)) {
     output = {
       direction: "variable",
-      speed: parseInt(wind.slice(3, 5)),
+      speed: Number(wind.slice(3, 5)),
       unit: "kts",
     };
   }
   return output;
 }
 export function windVarFormat(windVar: string) {
-  let output = [parseInt(windVar.slice(0, 3)), parseInt(windVar.slice(4, 7))];
+  let output = [Number(windVar.slice(0, 3)), Number(windVar.slice(4, 7))];
   return output;
 }
 export function tempFormat(temperature: string): {
@@ -81,7 +81,7 @@ export function tempFormat(temperature: string): {
       output.push(0);
     } else if (el[0] === "M") {
       el = el.replace("M", "-");
-      output.push(Number(el)); // ! parseInt? -> TEST
+      output.push(Number(el)); // ! Number? -> TEST
     } else {
       output.push(Number(el));
     }
