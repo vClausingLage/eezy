@@ -6,19 +6,18 @@ import { Typography, Box, Alert, IconButton } from "@mui/material";
 import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
 import { calcLatLong } from "../helper/distance-lat-long-calc";
 
+import "../CSS/planner-calculator.css";
+
 function InputDestination() {
   const [icaoDeparture, setIcaoDeparture] = useState("");
   const [icaoDestination, setIcaoDestination] = useState("");
   const [alertIcao, setAlertIcao] = useState(false);
-  const [searchEnable, setSearchEnable] = useState(false);
   const [distance, setDistance] = useState<number | undefined>();
 
   function handleDepartureInput(input: string): void {
-    console.log("departure", input);
     setIcaoDeparture(input.toUpperCase());
   }
   function handleDestinationInput(input: string): void {
-    console.log("destination", input);
     setIcaoDestination(input.toUpperCase());
   }
 
@@ -67,8 +66,12 @@ function InputDestination() {
           ></TextFieldContainer>
         </Box>
         <Box>
-          //! anpassen
-          <IconButton onClick={calculateRoute} disabled={searchEnable}>
+          <IconButton
+            onClick={calculateRoute}
+            disabled={
+              icaoDeparture.length !== 4 && icaoDestination.length !== 4
+            }
+          >
             <Search />
           </IconButton>
         </Box>
@@ -81,11 +84,13 @@ function InputDestination() {
             </Typography>
           </Alert>
         )}
-        <Typography>
-          {icaoDeparture} | {icaoDestination}
+      </Box>
+      <Box className="result-view">
+        <Typography fontWeight="bold">
+          distance from {icaoDeparture} to {icaoDestination} <br />
+          {distance} nm
         </Typography>
       </Box>
-      <Box>distance: {distance}</Box>
     </Box>
   );
 }

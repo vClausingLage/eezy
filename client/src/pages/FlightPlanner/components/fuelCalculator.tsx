@@ -26,10 +26,10 @@ function FlightCalculator(props: Props) {
 
   function handleFuelChange(e: any) {
     if (e.target.value > props.fuelCapacity) {
-      setFuelLoaded(parseInt(e.target.value)); //! remove?
+      setFuelLoaded(Number(e.target.value)); //! remove?
       setFuelMaxAlert(true);
     } else if (e.target.value !== undefined && e.target.value >= 0) {
-      setFuelLoaded(parseInt(e.target.value));
+      setFuelLoaded(Number(e.target.value));
       setFuelMaxAlert(false);
     }
   }
@@ -45,7 +45,6 @@ function FlightCalculator(props: Props) {
       : 0;
   }
   function fuelCapacityText(input: number | undefined): number {
-    // return typeof input !== "number" ? 0 : input;
     return input ? input : 0;
   }
 
@@ -84,8 +83,8 @@ function FlightCalculator(props: Props) {
         />
       </Box>
 
-      <Box className="range-view">
-        <Typography>
+      <Box className="result-view">
+        <Typography fontWeight="bold">
           max Range:{" "}
           {getRange(
             fuelLoaded,
