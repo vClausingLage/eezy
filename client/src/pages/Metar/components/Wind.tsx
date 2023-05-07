@@ -15,10 +15,10 @@ function Wind(props: IWind) {
       : "100%";
 
   useEffect(() => {
-    setRunwayDir(parseInt(props.runways[0].he_ident.slice(0, 2)) * 10);
+    setRunwayDir(Number(props.runways[0].he_ident.slice(0, 2)) * 10);
   }, []);
   function setRunwayDirection(input: string) {
-    let degrees = parseInt(input.slice(0, 2)) * 10;
+    let degrees = Number(input.slice(0, 2)) * 10;
     setRunwayDir(degrees);
   }
 

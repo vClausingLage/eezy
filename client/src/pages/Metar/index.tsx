@@ -110,8 +110,8 @@ function Metar() {
           meters:
             data.visib === "6+"
               ? 9999
-              : Math.round((parseInt(data.visib) * 1852) / 100) * 100,
-          nm: parseInt(data.visib),
+              : Math.round((Number(data.visib) * 1852) / 100) * 100,
+          nm: Number(data.visib),
         },
         wspd: data.wspd,
         wdir: data.wdir,

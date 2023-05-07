@@ -6,7 +6,7 @@ type Props = {
 };
 
 function Sun(props: Props) {
-  const hours = parseInt(props.date.split(":")[0]);
+  const hours = Number(props.date.split(":")[0]);
   const isDayTime = hours >= 6 && hours <= 18;
   const sun = (
     <g id="Sun">
