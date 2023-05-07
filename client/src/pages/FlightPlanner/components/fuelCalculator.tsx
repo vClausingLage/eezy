@@ -41,11 +41,14 @@ function FlightCalculator(props: Props) {
     inputReserve: number | undefined,
     inputConsumption: number
   ): number {
-    if (inputReserve) {
-      return Math.round((inputConsumption / 60) * inputReserve);
-    } else {
-      return 0;
-    }
+    // if (inputReserve) {
+    //   return Math.round((inputConsumption / 60) * inputReserve);
+    // } else {
+    //   return 0;
+    // }
+    return inputReserve
+      ? Math.round((inputConsumption / 60) * inputReserve)
+      : 0;
   }
   function fuelCapacityText(input: number | undefined): number {
     return typeof input !== "number" ? 0 : input;
