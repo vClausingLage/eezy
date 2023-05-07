@@ -8,7 +8,7 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 
 import FuelCalculatorTextInput from "./fuelCalculatorTextInput";
 
-import { getRange, isNanCheck } from "../helper/fuel-calculator";
+import { getRange } from "../helper/fuel-calculator";
 
 import "../CSS/planner-calculator.css";
 
@@ -42,7 +42,7 @@ function FlightCalculator(props: Props) {
     inputConsumption: number
   ): number {
     if (inputReserve) {
-      return Math.round((inputConsumption / 60) * isNanCheck(inputReserve));
+      return Math.round((inputConsumption / 60) * inputReserve);
     } else {
       return 0;
     }
@@ -90,10 +90,10 @@ function FlightCalculator(props: Props) {
         <Typography>
           max Range:{" "}
           {getRange(
-            isNanCheck(fuelLoaded),
+            fuelLoaded,
             props.fuelConsumption,
             props.cruiseSpeed,
-            isNanCheck(fuelReserve)
+            fuelReserve
           )}{" "}
           nautical miles
         </Typography>
