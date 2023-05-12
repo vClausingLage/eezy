@@ -56,7 +56,7 @@ function FlightCalculator(props: Props) {
 
       <Box>
         <FuelCalculatorTextInput
-          label="Fuel Loaded"
+          label="Fuel"
           unit="liters"
           value={fuelLoaded}
           placeholder=""
