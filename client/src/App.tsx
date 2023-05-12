@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import "./CSS/App.css";
 
-// import { useAuth0 } from "@auth0/auth0-react";
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
 
@@ -11,26 +10,14 @@ import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "./CSS/theme";
 
-import AppFooter from "./AppFooter";
-// import LoginButton from "./components/Authentcation/login";
-// import LogoutButton from "./components/Authentcation/logout";
-import Metar from "./components/Metar";
-import Aircraft from "./components/Aircraft";
-import FlightPlanner from "./components/FlightPlanner";
-import IndexPage from "./components/Index/Index";
+import AppFooter from "./pages/General/AppFooter";
+import Metar from "./pages/Metar";
+import Aircraft from "./pages/Aircraft";
+import FlightPlanner from "./pages/FlightPlanner";
+import IndexPage from "./pages/Index/Index";
 
 function App() {
-  // const { user, isAuthenticated, isLoading } = useAuth0();
   const userID = "default";
-  // const [userID, setUserID] = useState(""); //! uncomment
-
-  // useEffect(() => {
-  //   if (user?.sub !== undefined) setUserID(user.sub.match(/[0-9]/g)!.join(""));
-  // });
-
-  // const [mode, setMode] = useState("dark");
-  // const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-
   const theme = useMemo(() => createTheme(getDesignTokens()), []);
 
   let activeStyle = {
@@ -46,14 +33,14 @@ function App() {
               <AppBar position="static">
                 <Toolbar>
                   <nav className="nav-bar">
-                    {/* <NavLink
+                    <NavLink
                       to="/index"
                       style={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }
                     >
                       Home
-                    </NavLink> */}
+                    </NavLink>
                     <NavLink
                       to="/"
                       style={({ isActive }) =>

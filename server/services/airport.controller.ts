@@ -37,6 +37,7 @@ export async function getDistance(req: Request, res: Response) {
         icao: [icaoArr[0], icaoArr[1]],
       },
     });
+    console.log("icao latLong", icao);
     res.send(latLongResults);
   } catch {
     res.send({ type: "error", message: "Error fetching data from Database." });

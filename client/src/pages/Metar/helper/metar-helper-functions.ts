@@ -1,16 +1,6 @@
-import weatherCodes from "../assets/weatherCodes.json" assert { type: "json" };
+import { Wind, Clouds } from "../classes/metar-classes";
 
-class Clouds {
-  cloud_layer!: string;
-  cloud_base!: number | undefined;
-  cloud?: string;
-}
-class Wind {
-  direction!: number | string;
-  speed!: number;
-  unit!: string;
-  gusts?: number;
-}
+import weatherCodes from "../assets/weatherCodesClient.json";
 
 export function dateFormat(time: string) {
   let today = new Date();
@@ -25,69 +15,41 @@ export function dateFormat(time: string) {
   );
   return date;
 }
-export function cloudFormat(clouds: string) {
-  let output = new Clouds();
-  if (clouds !== "NCD" && clouds !== "CLR" && clouds !== "CAVOK") {
-    let cloud_layer = clouds.slice(0, 3);
-    let cloud_base = clouds.slice(3, 6);
-    if (clouds.length >= 6) {
-      let cloud = clouds.slice(6, 9);
-      if (cloud) output.cloud = cloud;
-    }
-    output.cloud_layer = cloud_layer;
-    output.cloud_base = Number(cloud_base + "00");
-  } else if (clouds === "NCD" || clouds === "CLR") {
-    output.cloud_layer = clouds;
-    output.cloud_base = undefined;
-  }
-  return output;
-}
+
 export function windFormat(wind: string) {
   let output = new Wind();
-  if (/[0-9]{5}KT/i.test(wind)) {
+  if (/^[0-9]{5}KT$/i.test(wind)) {
     output = {
       direction: Number(wind.slice(0, 3)),
       speed: Number(wind.slice(3, 5)),
       unit: "kts",
     };
-  } else if (/[0-9]{5}G[0-9]{1,2}KT/i.test(wind)) {
+  } else if (/^[0-9]{5}G[0-9]{1,2}KT$/i.test(wind)) {
     output = {
       direction: Number(wind.slice(0, 3)),
       speed: Number(wind.slice(3, 5)),
       gusts: Number(wind.slice(6, 8)),
       unit: "kts",
     };
-  } else if (/VRB[0-9]{1,2}KT/i.test(wind)) {
-    output = {
-      direction: "variable",
-      speed: Number(wind.slice(3, 5)),
-      unit: "kts",
-    };
   }
   return output;
 }
+
+export function windFormatSpec(wind: string) {
+  let output = new Wind();
+  output = {
+    direction: "more than 30",
+    speed: Number(wind.slice(3, 5)),
+    unit: "kts",
+  };
+  return output;
+}
+
 export function windVarFormat(windVar: string) {
   let output = [Number(windVar.slice(0, 3)), Number(windVar.slice(4, 7))];
   return output;
 }
-export function tempFormat(temperature: string): {
-  temp: number;
-  dewp: number;
-} {
-  let output: number[] = [];
-  let tempArr = temperature.split("/");
-  tempArr.forEach((el) => {
-    if (el === "M00") {
-      output.push(0);
-    } else if (el[0] === "M") {
-      el = el.replace("M", "-");
-      output.push(Number(el)); // ! Number? -> TEST
-    } else {
-      output.push(Number(el));
-    }
-  });
-  return { temp: output[0], dewp: output[1] };
-}
+
 export function precipFormat(weatherString: string): string {
   let result: any = [];
   let output = [];
@@ -114,4 +76,38 @@ export function precipFormat(weatherString: string): string {
     }
   }
   return output.join("").trim();
+}
+
+export function cloudFormat(clouds: string) {
+  let output = new Clouds();
+  if (clouds !== "NCD" && clouds !== "CLR" && clouds !== "CAVOK") {
+    let cloudLayer = clouds.slice(0, 3);
+    let cloudBase = clouds.slice(3, 6);
+    if (clouds.length >= 6) {
+      let cloud = clouds.slice(6, 9);
+      output["cloud"] = cloud;
+    }
+    output["cloudLayer"] = cloudLayer;
+    output["cloudBase"] = Number(cloudBase);
+  } else if (clouds === "NCD" || clouds === "CLR") {
+    output["cloudLayer"] = clouds;
+    output["cloudBase"] = undefined;
+  }
+  return output;
+}
+
+export function tempFormat(temperature: string) {
+  let output: number[] = [];
+  let tempArr = temperature.split("/");
+  tempArr.forEach((el) => {
+    if (el === "M00") {
+      output.push(0);
+    } else if (el[0] === "M") {
+      el = el.replace("M", "-");
+      output.push(Number(el));
+    } else {
+      output.push(Number(el));
+    }
+  });
+  return output;
 }

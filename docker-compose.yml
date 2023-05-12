@@ -14,7 +14,7 @@ services:
       MYSQL_DB: database
 
   mysql:
-    image: mysql:8.0
+    image: mariadb:latest
     volumes:
       - database-mysql-data:/var/lib/mysql
     environment:
