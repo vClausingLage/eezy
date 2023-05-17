@@ -50,6 +50,7 @@
 [9] temperature/dewpoint (M for minus)
 [10] QNH/Altimeter
 [11] **RE**cent
+[12, 13, 14] TEMPO RMK **which order?**
 [-1] = for end of metar
 
 ## check METAR codes
