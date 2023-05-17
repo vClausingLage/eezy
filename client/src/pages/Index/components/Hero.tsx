@@ -1,8 +1,8 @@
 function Hero() {
   const plannerImg = (
     <svg
-      width="600"
-      height="400"
+      width="450"
+      height="300"
       viewBox="0 0 800 600"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
