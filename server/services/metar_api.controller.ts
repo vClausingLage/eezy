@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 
+import { validator } from "./Validation/validator.controller.js";
+
 import { metarDecoder } from "./MetarAPI/helper/metar-regex-main.js";
 
 import {
@@ -17,7 +19,7 @@ type ListRemarks = {
 };
 
 export async function decodeRawMetar(req: Request, res: Response) {
-  let metarString = req.params.metarstring;
+  let metarString = validator(req.params.metarstring);
   let metarListRemarks: ListRemarks = splitMetarListRemarks(
     metarToList(metarString)
   );
