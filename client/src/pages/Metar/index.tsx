@@ -9,6 +9,7 @@ import {
   Card,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
+import FlightRuleButton from "./components/FlightRuleButton";
 
 import {
   getFlightRules,
@@ -30,7 +31,6 @@ import AerodromeFrequencies from "./components/AerodromeFrequencies";
 import WordCloudICAO from "./assets/WordCloudICAO.png";
 
 import "./CSS/index.css";
-import FlightRuleButton from "./components/FlightRuleButton";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
