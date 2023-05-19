@@ -69,8 +69,6 @@ function CreateAircraftForm(props: Props) {
       });
   }
 
-  function inputValidation() {}
-
   return (
     <>
       {!props.userID && ( //! change with LOGIN
