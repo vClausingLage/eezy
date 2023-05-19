@@ -35,7 +35,7 @@ app.use("/auth", auth_router);
 
 // AUTH
 
-// import { Auth0Api } from "./config/config.js";
+import { Auth0Api, Auth0ClientID } from "./config/config.js";
 // import { auth } from "express-openid-connect";
 // import pkg from "express-openid-connect";
 // const { requiresAuth } = pkg;
@@ -45,7 +45,7 @@ app.use("/auth", auth_router);
 //   auth0Logout: true,
 //   secret: Auth0Api,
 //   baseURL: "http://localhost:4000",
-//   clientID: "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ",
+//   clientID: Auth0ClientID,
 //   issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",
 // };
 

@@ -69,7 +69,7 @@ export function formatWeatherString(weatherString: string) {
       if (el[1] === key) output.push(el[0] + " " + value);
     }
   }
-  return output.join(" and ");
+  return output.join(" and ").replace("of and", "and");
 }
 
 export function convertDate(dateString: string) {
