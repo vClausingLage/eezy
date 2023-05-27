@@ -6,8 +6,6 @@ import Typography from "@mui/material/Typography";
 import Hero from "./components/Hero";
 import LoginButton from "./components/loginButton";
 
-import cloudsImg from "./assets/clouds.jpg";
-
 import "./CSS/index.css";
 
 const Img = styled("img")({
@@ -40,7 +38,7 @@ function IndexPage() {
           </Typography>
         </Grid>
         <Grid item>
-          <Img src={cloudsImg} alt="clouds" className="clouds" />
+          <Img src="./clouds.jpg" alt="clouds" className="clouds" />
         </Grid>
       </Grid>
     </Box>
