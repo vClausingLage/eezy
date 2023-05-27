@@ -1,17 +1,18 @@
 import { useMemo } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 import "./CSS/App.css";
 
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
+import {
+  domain,
+  clientId,
+  redirectUri,
+  audience,
+  onRedirectCallback,
+} from "./config/auth";
 
 import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -29,22 +30,6 @@ function App() {
 
   const activeStyle = {
     backgroundColor: "#93A4C5",
-  };
-
-  const navigate = useNavigate();
-
-  const domain =
-    process.env.REACT_APP_AUTH0_DOMAIN || "dev-lcqbfmwjn2s35t2q.us.auth0.com";
-  const clientId =
-    process.env.REACT_APP_AUTH0_CLIENT_ID || "KN3f6WPnxdQZoAHhPT53qqYrWU9dyXnS";
-  const redirectUri =
-    process.env.REACT_APP_AUTH0_CALLBACK_URL ||
-    "http://localhost:3000/callback";
-  const audience =
-    process.env.REACT_APP_AUTH0_AUDIENCE || "https://metarApp.de";
-
-  const onRedirectCallback = (appState: any) => {
-    navigate(appState?.returnTo || window.location.pathname);
   };
 
   return (
