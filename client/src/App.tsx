@@ -65,16 +65,12 @@ function App() {
                     >
                       Flight Planner
                     </NavLink>
-                    {/* {!isAuthenticated && !isLoading && <LoginButton />}
-                  {isAuthenticated && !isLoading && <LogoutButton />} */}
                   </nav>
                 </Toolbar>
               </AppBar>
             </Box>
 
             <Routes>
-              {/* <Route path="/" element={<IndexPage />} /> */}
-
               <Route path="/" element={<Metar />} />
               <Route path="aircraft" element={<Aircraft userID={userID} />} />
               <Route path="flight-planner" element={<FlightPlanner />} />
