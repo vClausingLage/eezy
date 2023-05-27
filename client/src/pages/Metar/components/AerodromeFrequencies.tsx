@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CellTowerIcon from "@mui/icons-material/CellTower";
 
 import { IFreq } from "../classes/IMetar";
@@ -13,46 +13,72 @@ function Aerodrome({ props }: Props) {
       id="Aerodrome infromation"
       display="flex"
       flexDirection="row"
+      flexWrap="wrap"
       justifyContent="center"
       alignItems="center"
-      gap="1rem"
+      gap={1}
     >
       <CellTowerIcon fontSize="large" />
       {props.map((el, key) => {
         if (el.type === "GND")
           return (
-            <p key={key}>
-              Ground{" "}
-              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
-            </p>
+            <Typography key={key}>
+              <Typography display="inline" color={"primary"}>
+                Ground{" "}
+              </Typography>
+              <Typography display="inline" style={{ fontWeight: "bold" }}>
+                {el.frequency_mhz}
+              </Typography>{" "}
+              MHz
+            </Typography>
           );
         if (el.type === "TWR")
           return (
-            <p key={key}>
-              Tower{" "}
-              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
-            </p>
+            <Typography key={key}>
+              <Typography display="inline" color={"primary"}>
+                Tower{" "}
+              </Typography>
+              <Typography display="inline" style={{ fontWeight: "bold" }}>
+                {el.frequency_mhz}
+              </Typography>{" "}
+              MHz
+            </Typography>
           );
         if (el.type === "ATIS")
           return (
-            <p key={key}>
-              ATIS{" "}
-              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
-            </p>
+            <Typography key={key}>
+              <Typography display="inline" color={"primary"}>
+                ATIS{" "}
+              </Typography>
+              <Typography display="inline" style={{ fontWeight: "bold" }}>
+                {el.frequency_mhz}
+              </Typography>{" "}
+              MHz
+            </Typography>
           );
         if (el.type === "RDR")
           return (
-            <p key={key}>
-              Radar{" "}
-              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
-            </p>
+            <Typography key={key}>
+              <Typography display="inline" color={"primary"}>
+                Radar{" "}
+              </Typography>
+              <Typography display="inline" style={{ fontWeight: "bold" }}>
+                {el.frequency_mhz}
+              </Typography>{" "}
+              MHz
+            </Typography>
           );
         if (el.type === "INFO")
           return (
-            <p key={key}>
-              Info{" "}
-              <span style={{ fontWeight: "bold" }}>{el.frequency_mhz}</span> MHz
-            </p>
+            <Typography key={key}>
+              <Typography display="inline" color={"primary"}>
+                Info{" "}
+              </Typography>
+              <Typography display="inline" style={{ fontWeight: "bold" }}>
+                {el.frequency_mhz}
+              </Typography>{" "}
+              MHz
+            </Typography>
           );
       })}
     </Box>
