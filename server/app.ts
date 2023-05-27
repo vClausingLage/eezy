@@ -5,12 +5,14 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import { auth } from "express-openid-connect";
 
 import { ac_router } from "./routes/ac.routes.js";
 import { awc_router } from "./routes/awc.routes.js";
 import { airport_router } from "./routes/airport.routes.js";
 import { metar_api_router } from "./routes/metar_api.routes.js";
-import { auth_router } from "./routes/auth.routes.js";
+
+import { config } from "./config/auth.js";
 
 const app = express();
 dotenv.config();
@@ -26,41 +28,22 @@ app.use(
 app.use(cors());
 app.use(helmet());
 app.disable("x-powered-by");
+app.use(auth(config));
 
 app.use("/api/aircraft", ac_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airport_router);
 app.use("/api/metardecoder", metar_api_router);
-app.use("/auth", auth_router);
 
-// AUTH
+import pkg from "express-openid-connect";
+const { requiresAuth } = pkg;
 
-import { Auth0Api, Auth0ClientID } from "./config/config.js";
-// import { auth } from "express-openid-connect";
-// import pkg from "express-openid-connect";
-// const { requiresAuth } = pkg;
-
-// const config = {
-//   authRequired: false,
-//   auth0Logout: true,
-//   secret: Auth0Api,
-//   baseURL: "http://localhost:4000",
-//   clientID: Auth0ClientID,
-//   issuerBaseURL: "https://dev-lcqbfmwjn2s35t2q.us.auth0.com",
-// };
-
-// app.use(auth(config));
-
-// app.get("/auth", (req, res) => {
-//   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
-// });
-// app.get("/auth/profile", requiresAuth(), (req, res) => {
-//   res.send(JSON.stringify(req.oidc.user));
-// });
-
-// https://developer.auth0.com/resources/code-samples/full-stack/hello-world/basic-role-based-access-control/spa/react-javascript/express-javascript
-
-// AUTH
+app.get("/auth0", (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
+});
+app.get("/auth0/profile", requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 function LoginButton() {
   const authenticateUser = async () => {
     const response = await fetch("/auth/login", {
@@ -8,10 +10,13 @@ function LoginButton() {
     console.log(data);
   };
 
+  const navigate = useNavigate();
+
   return (
     <button
       onClick={() => {
-        authenticateUser();
+        navigate("/login");
+        // authenticateUser();
       }}
     >
       Login Button
