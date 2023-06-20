@@ -6,13 +6,7 @@ import "./CSS/App.css";
 
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
-import {
-  domain,
-  clientId,
-  redirectUri,
-  audience,
-  onRedirectCallback,
-} from "./config/auth";
+import { domain, clientId, redirectUri, audience } from "./config/auth";
 
 import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -44,7 +38,6 @@ function App() {
                 audience: audience,
                 redirect_uri: redirectUri,
               }}
-              onRedirectCallback={onRedirectCallback}
             >
               <Box>
                 <AppBar position="static">
