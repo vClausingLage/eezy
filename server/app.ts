@@ -12,8 +12,6 @@ import { awc_router } from "./routes/awc.routes.js";
 import { airport_router } from "./routes/airport.routes.js";
 import { metar_api_router } from "./routes/metar_api.routes.js";
 
-import { config } from "./config/auth.js";
-
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 4000;
@@ -28,22 +26,11 @@ app.use(
 app.use(cors());
 app.use(helmet());
 app.disable("x-powered-by");
-app.use(auth(config));
 
 app.use("/api/aircraft", ac_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airport_router);
 app.use("/api/metardecoder", metar_api_router);
-
-import pkg from "express-openid-connect";
-const { requiresAuth } = pkg;
-
-app.get("/auth0", (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
-});
-app.get("/auth0/profile", requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
-});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

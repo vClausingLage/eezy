@@ -21,13 +21,21 @@ function SVGPanel({ props }: Props) {
     <Box className="grid_container_Clouds_Wind">
       <Box>
         <Box className="sun-box">
-          {props.clouds[0].cover === "CAVOK" && <Sun date={props.timeLocal} />}
-          {props.clouds[0].cover === "NCD" && <Sun date={props.timeLocal} />}
-          {props.clouds[0].cover === "CLR" && <Sun date={props.timeLocal} />}
+          {props.clouds[0] === undefined && <Sun date={props.timeLocal} />}
+          {props.clouds[0] && props.clouds[0].cover === "CAVOK" && (
+            <Sun date={props.timeLocal} />
+          )}
+          {props.clouds[0] && props.clouds[0].cover === "NCD" && (
+            <Sun date={props.timeLocal} />
+          )}
+          {props.clouds[0] && props.clouds[0].cover === "CLR" && (
+            <Sun date={props.timeLocal} />
+          )}
         </Box>
 
         <Box className="cloud-box">
-          {props.clouds[0].cover !== "CAVOK" &&
+          {props.clouds[0] &&
+            props.clouds[0].cover !== "CAVOK" &&
             props.clouds[0].cover !== "NCD" &&
             props.clouds[0].cover !== "CLR" &&
             props.clouds.map((el) => (

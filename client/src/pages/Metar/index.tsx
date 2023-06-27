@@ -134,7 +134,7 @@ function Metar() {
     if (metarObject.visibility !== undefined) {
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
-        metarObject.clouds[0].base
+        metarObject.clouds[0] === undefined ? 3000 : metarObject.clouds[0].base
       );
       setMetarObject((prevMetarObject) => ({
         ...prevMetarObject,
