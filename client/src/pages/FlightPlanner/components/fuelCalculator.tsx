@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Box from "@mui/material/Box";
+import { Box, Card } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
@@ -49,7 +49,7 @@ function FlightCalculator(props: Props) {
   }
 
   return (
-    <Box>
+    <Card>
       <Typography variant="h5" color="primary.main">
         Fuel Calculator
       </Typography>
@@ -129,7 +129,7 @@ function FlightCalculator(props: Props) {
           </li>
         </ul>
       </Box>
-    </Box>
+    </Card>
   );
 }
 

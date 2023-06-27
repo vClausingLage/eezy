@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 
 import { aircraft } from "../models/aircraft.sequelize.model.js";
 
+import { validator } from "./Validation/validator.controller.js";
+
 export function createAircraft() {
   console.log("aircraft created");
 }

@@ -4,8 +4,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 
 import Hero from "./components/Hero";
-
-import cloudsImg from "./assets/clouds.jpg";
+import LoginButton from "./components/loginButton";
 
 import "./CSS/index.css";
 
@@ -20,6 +19,9 @@ function IndexPage() {
   return (
     <Box>
       <Box className="hero-container">
+        <Box>
+          <LoginButton />
+        </Box>
         <Box>
           <Typography variant="h3" className="hero-text">
             welcome to the EEzy Flight Planner
@@ -36,7 +38,7 @@ function IndexPage() {
           </Typography>
         </Grid>
         <Grid item>
-          <Img src={cloudsImg} alt="clouds" className="clouds" />
+          <Img src="./clouds.jpg" alt="clouds" className="clouds" />
         </Grid>
       </Grid>
     </Box>

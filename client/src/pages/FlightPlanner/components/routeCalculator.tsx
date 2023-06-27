@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import TextFieldContainer from "../../General/TextFields/textFieldContainer";
 
-import { Typography, Box, Alert, IconButton } from "@mui/material";
+import { Typography, Box, Card, Alert, IconButton } from "@mui/material";
 import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
 import { calcLatLong } from "../helper/distance-lat-long-calc";
 
@@ -45,7 +45,7 @@ function InputDestination() {
   }
 
   return (
-    <Box>
+    <Card>
       <Typography variant="h5" color="primary">
         Departure & Destination
       </Typography>
@@ -91,7 +91,7 @@ function InputDestination() {
           {distance} nm
         </Typography>
       </Box>
-    </Box>
+    </Card>
   );
 }
 

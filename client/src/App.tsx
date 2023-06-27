@@ -1,10 +1,12 @@
 import { useMemo } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 import "./CSS/App.css";
 
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
+import { domain, clientId, redirectUri, audience } from "./config/auth";
 
 import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -20,7 +22,7 @@ function App() {
   const userID = "default";
   const theme = useMemo(() => createTheme(getDesignTokens()), []);
 
-  let activeStyle = {
+  const activeStyle = {
     backgroundColor: "#93A4C5",
   };
 
@@ -29,57 +31,62 @@ function App() {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Provider store={store}>
-            <Box>
-              <AppBar position="static">
-                <Toolbar>
-                  <nav className="nav-bar">
-                    <NavLink
-                      to="/index"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Home
-                    </NavLink>
-                    <NavLink
-                      to="/"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Metar
-                    </NavLink>
-                    <NavLink
-                      to="/aircraft"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Aircraft
-                    </NavLink>
-                    <NavLink
-                      to="/flight-planner"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Flight Planner
-                    </NavLink>
-                    {/* {!isAuthenticated && !isLoading && <LoginButton />}
-                  {isAuthenticated && !isLoading && <LogoutButton />} */}
-                  </nav>
-                </Toolbar>
-              </AppBar>
-            </Box>
+            <Auth0Provider
+              domain={domain}
+              clientId={clientId}
+              authorizationParams={{
+                audience: audience,
+                redirect_uri: redirectUri,
+              }}
+            >
+              <Box>
+                <AppBar position="static">
+                  <Toolbar>
+                    <nav className="nav-bar">
+                      <NavLink
+                        to="/index"
+                        style={({ isActive }) =>
+                          isActive ? activeStyle : undefined
+                        }
+                      >
+                        Home
+                      </NavLink>
+                      <NavLink
+                        to="/"
+                        style={({ isActive }) =>
+                          isActive ? activeStyle : undefined
+                        }
+                      >
+                        Metar
+                      </NavLink>
+                      <NavLink
+                        to="/aircraft"
+                        style={({ isActive }) =>
+                          isActive ? activeStyle : undefined
+                        }
+                      >
+                        Aircraft
+                      </NavLink>
+                      <NavLink
+                        to="/flight-planner"
+                        style={({ isActive }) =>
+                          isActive ? activeStyle : undefined
+                        }
+                      >
+                        Flight Planner
+                      </NavLink>
+                    </nav>
+                  </Toolbar>
+                </AppBar>
+              </Box>
 
-            <Routes>
-              {/* <Route path="/" element={<IndexPage />} /> */}
-
-              <Route path="/" element={<Metar />} />
-              <Route path="aircraft" element={<Aircraft userID={userID} />} />
-              <Route path="flight-planner" element={<FlightPlanner />} />
-              <Route path="index" element={<IndexPage />} />
-            </Routes>
+              <Routes>
+                <Route path="/" element={<Metar />} />
+                <Route path="aircraft" element={<Aircraft userID={userID} />} />
+                <Route path="flight-planner" element={<FlightPlanner />} />
+                <Route path="index" element={<IndexPage />} />
+              </Routes>
+            </Auth0Provider>
           </Provider>
         </BrowserRouter>
         <AppFooter />

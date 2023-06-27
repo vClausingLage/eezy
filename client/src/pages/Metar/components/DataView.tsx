@@ -25,13 +25,13 @@ function DataView(props: DataProps) {
         }}
       >
         {props.data &&
-          props.data.map((el, key) => (
+          props.data.map((el) => (
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
               }}
-              key={key}
+              key={el.description}
             >
               <Box
                 sx={{

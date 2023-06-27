@@ -4,6 +4,7 @@ client/src/config.ts
 client/node_modules/
 client/build/
 client/public/.htaccess
+client/src/config/
 
 mobile_app/node_modules/
 

@@ -246,9 +246,9 @@ function Wind(props: IWind) {
                 gap: ".3rem",
               }}
             >
-              {props.runways.map((el, key) => {
+              {props.runways.map((el) => {
                 return (
-                  <Box key={key}>
+                  <Box key={el.he_ident}>
                     <Button
                       onClick={() => setRunwayDirection(el.he_ident)}
                       variant="contained"

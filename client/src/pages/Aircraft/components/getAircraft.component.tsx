@@ -40,8 +40,8 @@ function GetAircraft(props: Props) {
         <LoadingCircleDescription description="Looking up Saved Aircraft" />
       )}
 
-      {savedAircraftList.map((el: IAircraft, idx: number) => (
-        <AircraftCard key={idx} aircraft={el} />
+      {savedAircraftList.map((el: IAircraft) => (
+        <AircraftCard key={el.registration_number} aircraft={el} />
       ))}
     </Box>
   );
