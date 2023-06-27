@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Box,
@@ -8,13 +7,19 @@ import {
   Alert,
   Card,
 } from "@mui/material";
-import Search from "@mui/icons-material/Search";
+import SearchIcon from "@mui/icons-material/Search";
+
+import LoadingCircle from "../General/LoadingCircle";
+import DataPanel from "./components/DataPanel";
+import SVGPanel from "./components/SVGPanel";
+import AerodromeFrequencies from "./components/AerodromeFrequencies";
+import WordCloudICAO from "./assets/WordCloudICAO.png";
+import FlightRuleButton from "./components/FlightRuleButton";
 
 import {
   getFlightRules,
   convertDate,
   qnhRegex,
-  // checkLocation,
   tempoInformation,
 } from "./helper/metar-ui-helper";
 import {
@@ -23,14 +28,7 @@ import {
   IMetarAPIObject,
 } from "./classes/IMetar";
 
-import LoadingCircle from "../General/LoadingCircle";
-import DataPanel from "./components/DataPanel";
-import SVGPanel from "./components/SVGPanel";
-import AerodromeFrequencies from "./components/AerodromeFrequencies";
-import WordCloudICAO from "./assets/WordCloudICAO.png";
-
 import "./CSS/index.css";
-import FlightRuleButton from "./components/FlightRuleButton";
 
 function Metar() {
   const [responseError, setResponse] = useState(false);
@@ -44,31 +42,30 @@ function Metar() {
   } as IMetarObject);
 
   function tempUnitToggle(unit: string) {
-    if (unit === "°C") {
-      setMetarObject({ ...metarObject, tempUnit: "°F" });
-    } else if (unit === "°F") {
-      setMetarObject({ ...metarObject, tempUnit: "°C" });
-    }
+    setMetarObject((prevMetarObject) => ({
+      ...prevMetarObject,
+      tempUnit: unit === "°C" ? "°F" : "°C",
+    }));
   }
 
   const loading = <LoadingCircle />;
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setMetarObject({
-      ...metarObject,
-      icao: event.target.value.toUpperCase(),
-    });
-    if (event.target.value.length === 4) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
+    const icao = event.target.value.toUpperCase();
+    setMetarObject((prevMetarObject) => ({
+      ...prevMetarObject,
+      icao,
+    }));
+    setDisabled(icao.length === 4 ? false : true);
     setAlertIcao(false);
   }
 
   async function searchMetar(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (metarObject.icao.length !== 4) setAlertIcao(true);
+    if (metarObject.icao.length !== 4) {
+      setAlertIcao(true);
+      return;
+    }
     setIsLoading(true);
     const response = await fetch(`/api/metar/${metarObject.icao}`, {
       method: "GET",
@@ -83,8 +80,8 @@ function Metar() {
       setIsLoading(false);
     } else {
       setResponse(false);
-      setMetarObject({
-        ...metarObject,
+      setMetarObject((prevMetarObject) => ({
+        ...prevMetarObject,
         altim: {
           altim: data.altim,
           qnh: qnhRegex(data.rawOb),
@@ -106,7 +103,7 @@ function Metar() {
         temp: data.temp,
         time: convertDate(data.obsTime + "000"),
         visibility: {
-          ...metarObject.visibility,
+          ...prevMetarObject.visibility,
           meters:
             data.visib === "6+"
               ? 9999
@@ -117,7 +114,7 @@ function Metar() {
         wdir: data.wdir,
         wgst: data.wgst,
         wxString: data.wxString,
-      });
+      }));
     }
     if (data.message && data.message === "error") {
       setResponse(true);
@@ -139,9 +136,11 @@ function Metar() {
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
         metarObject.clouds[0].base
       );
-      setMetarObject({ ...metarObject, flightRule: flightRuleColor });
+      setMetarObject((prevMetarObject) => ({
+        ...prevMetarObject,
+        flightRule: flightRuleColor,
+      }));
     }
-    console.log("tempo information", metarObject.tempoInformation);
   }, [metarObject.name]);
 
   return (
@@ -151,7 +150,7 @@ function Metar() {
         <form onSubmit={searchMetar}>
           <TextField
             type="search"
-            label="enter ICAO Code"
+            label="Enter ICAO Code"
             autoFocus
             spellCheck={false}
             value={metarObject.icao}
@@ -163,7 +162,7 @@ function Metar() {
                   onClick={searchMetar}
                   disabled={disabled}
                 >
-                  <Search />
+                  <SearchIcon />
                 </IconButton>
               ),
             }}
@@ -173,16 +172,17 @@ function Metar() {
       {isLoading && loading}
       {alertIcao && (
         <Alert severity="error" className="alert">
-          Please provide ICAO Code
+          Please provide an ICAO Code.
         </Alert>
       )}
       {responseError && (
         <Alert severity="error" className="alert">
-          No Data Received. <br />
-          Check if a correct ICAO Code was provided or try again a little later.
+          No Data Received.
+          <br />
+          Check if a correct ICAO Code was provided or try again later.
         </Alert>
       )}
-      {!isLoading && metarObject.name === undefined && (
+      {!isLoading && !metarObject.name && (
         <Box className="wordcloud">
           <img src={WordCloudICAO} alt="wordcloud" />
         </Box>
@@ -245,7 +245,7 @@ function Metar() {
               </Typography>
             </Box>
 
-            {airportObject.frequencies && !isLoading && (
+            {airportObject.frequencies && (
               <AerodromeFrequencies props={airportObject.frequencies} />
             )}
 
