@@ -204,16 +204,14 @@ function Metar() {
             </Typography>
 
             <DataPanel
-              props={{
-                altim: metarObject.altim.qnh,
-                slp: metarObject.slp,
-                temp: metarObject.temp,
-                dewp: metarObject.dewp,
-                tempUnit: metarObject.tempUnit,
-                tempUnitToggle: tempUnitToggle,
-                wxString: metarObject.wxString,
-                visibilityMeters: metarObject.visibility.meters,
-              }}
+              altim={metarObject.altim.qnh}
+              slp={metarObject.slp}
+              temp={metarObject.temp}
+              dewp={metarObject.dewp}
+              tempUnit={metarObject.tempUnit}
+              tempUnitToggle={tempUnitToggle}
+              wxString={metarObject.wxString}
+              visibilityMeters={metarObject.visibility.meters}
             />
 
             <SVGPanel

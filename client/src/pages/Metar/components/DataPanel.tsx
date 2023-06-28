@@ -5,53 +5,60 @@ import { formatWeatherString } from "../helper/metar-ui-helper";
 import { Box } from "@mui/material";
 
 type Props = {
-  props: {
-    altim: number | null;
-    slp: number;
-    temp: number;
-    dewp: number;
-    tempUnitToggle: Function;
-    tempUnit: string;
-    wxString: string;
-    visibilityMeters: number;
-  };
+  altim: number | null;
+  slp: number;
+  temp: number;
+  dewp: number;
+  tempUnitToggle: Function;
+  tempUnit: string;
+  wxString: string;
+  visibilityMeters: number;
 };
 
-function DataPanel({ props }: Props) {
+function DataPanel({
+  altim,
+  slp,
+  temp,
+  dewp,
+  tempUnitToggle,
+  tempUnit,
+  wxString,
+  visibilityMeters,
+}: Props) {
   return (
     <Box className="weather-data">
-      {props.slp !== null && props.altim === null && (
+      {slp !== null && altim === null && (
         <DataView
           data={[
             {
               description: "SLP",
-              value: Math.round(props.slp),
+              value: Math.round(slp),
             },
           ]}
           unit={"hPa"}
         ></DataView>
       )}
-      {props.altim !== null && props.slp === null && (
+      {altim !== null && slp === null && (
         <DataView
           data={[
             {
               description: "QNH",
-              value: Math.round(props.altim),
+              value: Math.round(altim),
             },
           ]}
           unit={"hPa"}
         ></DataView>
       )}
-      {props.slp !== null && props.altim !== null && (
+      {slp !== null && altim !== null && (
         <DataView
           data={[
             {
               description: "QNH",
-              value: Math.round(props.altim),
+              value: Math.round(altim),
             },
             {
               description: "SLP",
-              value: Math.round(props.slp),
+              value: Math.round(slp),
             },
           ]}
           unit={"hPa"}
@@ -61,36 +68,36 @@ function DataPanel({ props }: Props) {
         data={[
           {
             description: "Visibility",
-            value: props.visibilityMeters,
+            value: visibilityMeters,
           },
         ]}
         unit={"m"}
       ></DataView>
-      {props.wxString && (
+      {wxString && (
         <DataView
           data={[
             {
               description: "Precipitation",
-              value: formatWeatherString(props.wxString),
+              value: formatWeatherString(wxString),
             },
           ]}
         ></DataView>
       )}
-      {props.tempUnit === "°C" ? (
+      {tempUnit === "°C" ? (
         <>
           <DataView
             data={[
               {
                 description: "Temperature",
-                value: props.temp,
+                value: temp,
               },
               {
                 description: "Dewpoint",
-                value: props.dewp,
+                value: dewp,
               },
             ]}
-            unit={props.tempUnit}
-            tempUnitToggle={() => props.tempUnitToggle(props.tempUnit)}
+            unit={tempUnit}
+            tempUnitToggle={() => tempUnitToggle(tempUnit)}
           ></DataView>
         </>
       ) : (
@@ -99,15 +106,15 @@ function DataPanel({ props }: Props) {
             data={[
               {
                 description: "Temperature",
-                value: Math.round(props.temp * (9 / 5) + 32),
+                value: Math.round(temp * (9 / 5) + 32),
               },
               {
                 description: "Dewpoint",
-                value: Math.round(props.dewp * (9 / 5) + 32),
+                value: Math.round(dewp * (9 / 5) + 32),
               },
             ]}
-            unit={props.tempUnit}
-            tempUnitToggle={() => props.tempUnitToggle(props.tempUnit)}
+            unit={tempUnit}
+            tempUnitToggle={() => tempUnitToggle(tempUnit)}
           ></DataView>
         </>
       )}
