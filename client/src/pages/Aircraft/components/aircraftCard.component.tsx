@@ -20,7 +20,7 @@ type Props = {
   aircraft: IAircraft;
 };
 
-function AircraftCard(props: Props) {
+function AircraftCard({ aircraft }: Props) {
   const selectedAircraft = useSelector(
     (state: any) => state.selectedAircraft.object
   );
@@ -31,12 +31,12 @@ function AircraftCard(props: Props) {
       {selectedAircraft && (
         <CardContent>
           <Typography>
-            {props.aircraft.manufacturer} {props.aircraft.model}
+            {aircraft.manufacturer} {aircraft.model}
           </Typography>
-          <Typography>{props.aircraft.registration_number}</Typography>
+          <Typography>{aircraft.registration_number}</Typography>
           <Button
             onClick={() => {
-              dispatch(aircraftSelected(props.aircraft));
+              dispatch(aircraftSelected(aircraft));
             }}
           >
             select Aircraft
@@ -50,7 +50,7 @@ function AircraftCard(props: Props) {
             </IconButton>
             <CheckIcon
               color={
-                props.aircraft.registration_number ===
+                aircraft.registration_number ===
                 selectedAircraft.registration_number
                   ? "success"
                   : "disabled"

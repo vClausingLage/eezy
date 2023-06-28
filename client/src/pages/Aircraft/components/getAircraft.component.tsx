@@ -16,7 +16,7 @@ type Props = {
   userID: string | undefined;
 };
 
-function GetAircraft(props: Props) {
+function GetAircraft({ userID }: Props) {
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
   );
@@ -24,7 +24,7 @@ function GetAircraft(props: Props) {
 
   useEffect(() => {
     const fetchAircraft = async () => {
-      const response = await fetch(`/api/aircraft/create/${props.userID}`);
+      const response = await fetch(`/api/aircraft/create/${userID}`);
       const result = await response.json();
       console.log(result);
       dispatch(savedAircraft(result));
@@ -32,7 +32,7 @@ function GetAircraft(props: Props) {
     if (savedAircraftList.length === 0) {
       fetchAircraft();
     }
-  }, [props.userID]);
+  }, [userID]);
 
   return (
     <Box className="aircraft-container">

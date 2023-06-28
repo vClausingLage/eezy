@@ -11,7 +11,7 @@ type Props = {
   userID: string | undefined;
 };
 
-function Aircraft(props: Props) {
+function Aircraft({ userID }: Props) {
   return (
     <>
       <Card className="root">
@@ -19,11 +19,11 @@ function Aircraft(props: Props) {
           <Typography variant="h4" color="primary.main">
             your Aircraft
           </Typography>
-          <GetAircraft userID={props.userID} />
+          <GetAircraft userID={userID} />
           <Typography variant="h4" color="primary.main">
             add your own Aircraft
           </Typography>
-          <CreateAircraftForm userID={props.userID} />
+          <CreateAircraftForm userID={userID} />
         </CardContent>
       </Card>
     </>

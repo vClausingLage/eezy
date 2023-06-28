@@ -26,9 +26,9 @@ type Props = {
   userID: string | undefined;
 };
 
-function CreateAircraftForm(props: Props) {
+function CreateAircraftForm({ userID }: Props) {
   const [newAircraft, setNewAircraft] = useState({
-    user: props.userID,
+    user: userID,
     manufacturer: "",
     model: "",
     type: "",
@@ -71,12 +71,12 @@ function CreateAircraftForm(props: Props) {
 
   return (
     <>
-      {!props.userID && ( //! change with LOGIN
+      {!userID && ( //! change with LOGIN
         <Alert severity="info">
           You must be logged in to create and choose your aircraft.
         </Alert>
       )}
-      {props.userID && ( //! change with LOGIN
+      {userID && ( //! change with LOGIN
         <form onSubmit={submitAircraft} className="aircraft-form">
           <Box className="aircraft-form-column">
             <TextField
