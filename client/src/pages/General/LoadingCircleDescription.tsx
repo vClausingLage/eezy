@@ -8,10 +8,10 @@ type Props = {
   description: string;
 };
 
-function LoadingCircle(props: Props) {
+function LoadingCircle({ description }: Props) {
   return (
     <Box className="loading-circle-description">
-      <Typography display="inline">{props.description}</Typography>
+      <Typography display="inline">{description}</Typography>
       <CircularProgress color="primary" />
     </Box>
   );
