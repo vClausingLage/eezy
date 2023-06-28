@@ -1,14 +1,12 @@
 import weatherCodes from "../assets/weatherCodesClient.json";
+import { IClouds } from "../classes/IMetar";
 
-export function getFlightRules(
-  visibility: string | number,
-  cloudBaseInput: number
-) {
+export function getFlightRules(visibility: string | number, clouds: IClouds[]) {
   let flRul = {
     flightRule: "",
     colorCode: "",
   };
-  let cloudBase = cloudBaseInput * 100;
+  let cloudBase = clouds[0] === undefined ? 3000 : clouds[0].base * 100;
   if (typeof visibility === "string" && visibility === "CAVOK") {
     flRul["flightRule"] = "VFR";
     flRul["colorCode"] = "green";
