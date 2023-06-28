@@ -6,16 +6,15 @@ import Button from "@mui/material/Button";
 
 import { IWind } from "../classes/IMetar";
 
-function Wind(props: IWind) {
+function Wind({ direction, speed, unit, runways, gusts }: IWind) {
   const [runwayDir, setRunwayDir] = useState(0);
   const opacityNorth =
-    typeof props.direction === "number" &&
-    (props.direction > 330 || props.direction < 30)
+    typeof direction === "number" && (direction > 330 || direction < 30)
       ? "50%"
       : "100%";
 
   useEffect(() => {
-    setRunwayDir(Number(props.runways[0].he_ident.slice(0, 2)) * 10);
+    setRunwayDir(Number(runways[0].he_ident.slice(0, 2)) * 10);
   }, []);
   function setRunwayDirection(input: string) {
     let degrees = Number(input.slice(0, 2)) * 10;
@@ -28,7 +27,7 @@ function Wind(props: IWind) {
       style={{
         transformBox: "fill-box",
         transformOrigin: "center",
-        transform: `rotate(${props.direction}deg)`,
+        transform: `rotate(${direction}deg)`,
       }}
     >
       <circle cx="200" cy="200" r="200" stroke="#DCDCDC" strokeWidth="1px" />
@@ -43,14 +42,14 @@ function Wind(props: IWind) {
         fontSize="18"
       >
         <tspan x="13" y="13">
-          <tspan fontWeight="bold">{props.direction}</tspan>°
+          <tspan fontWeight="bold">{direction}</tspan>°
         </tspan>
         <tspan x="9" y="40">
-          <tspan fontWeight="bold">{props.speed}</tspan>kts
+          <tspan fontWeight="bold">{speed}</tspan>kts
         </tspan>
-        {props.gusts && (
+        {gusts && (
           <tspan x="-2" y="60" fill="red">
-            G <tspan fontWeight="bold">{props.gusts}</tspan>kts
+            G <tspan fontWeight="bold">{gusts}</tspan>kts
           </tspan>
         )}
       </text>
@@ -62,7 +61,7 @@ function Wind(props: IWind) {
       style={{
         transformBox: "fill-box",
         transformOrigin: "center",
-        transform: `rotate(${props.direction}deg)`,
+        transform: `rotate(${direction}deg)`,
       }}
     >
       <circle cx="200" cy="200" r="200" />
@@ -78,14 +77,14 @@ function Wind(props: IWind) {
         fontSize="18"
       >
         <tspan x="13.4463" y="15.6523">
-          <tspan fontWeight="bold">{props.direction}</tspan>°
+          <tspan fontWeight="bold">{direction}</tspan>°
         </tspan>
         <tspan x="9.71973" y="36.6523">
-          <tspan fontWeight="bold">{props.speed}</tspan>kts
+          <tspan fontWeight="bold">{speed}</tspan>kts
         </tspan>
-        {props.gusts && (
+        {gusts && (
           <tspan x="9.71973" y="55.6523" fill="red">
-            G <tspan fontWeight="bold">{props.gusts}</tspan>kts
+            G <tspan fontWeight="bold">{gusts}</tspan>kts
           </tspan>
         )}
       </text>
@@ -214,9 +213,7 @@ function Wind(props: IWind) {
               fill="white"
             />
           </g>
-          {typeof props.direction === "number" &&
-          props.direction > 0 &&
-          props.direction <= 180
+          {typeof direction === "number" && direction > 0 && direction <= 180
             ? arrow180
             : arrow360}
         </g>
@@ -228,7 +225,7 @@ function Wind(props: IWind) {
     <Box>
       {compass}
       <Box>
-        {props.runways.length > 1 && (
+        {runways.length > 1 && (
           <>
             <Typography
               textAlign="center"
@@ -246,7 +243,7 @@ function Wind(props: IWind) {
                 gap: ".3rem",
               }}
             >
-              {props.runways.map((el) => {
+              {runways.map((el) => {
                 return (
                   <Box key={el.he_ident}>
                     <Button
@@ -298,16 +295,16 @@ function Wind(props: IWind) {
       }}
     >
       <Typography>
-        Winds from various directions (VRB) at {props.speed} {props.unit}
+        Winds from various directions (VRB) at {speed} {unit}
       </Typography>
     </Box>
   );
 
   return (
     <Box>
-      {typeof props.direction === "number" && props.direction > 0
+      {typeof direction === "number" && direction > 0
         ? compassWind
-        : props.direction === 0 && props.speed === 0
+        : direction === 0 && speed === 0
         ? noWind
         : varWind}
     </Box>

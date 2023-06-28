@@ -4,10 +4,10 @@ import CellTowerIcon from "@mui/icons-material/CellTower";
 import { IFreq } from "../classes/IMetar";
 
 type Props = {
-  props: IFreq[];
+  frequencies: IFreq[];
 };
 
-function Aerodrome({ props }: Props) {
+function Aerodrome({ frequencies }: Props) {
   return (
     <Box
       id="Aerodrome infromation"
@@ -19,7 +19,7 @@ function Aerodrome({ props }: Props) {
       gap={1}
     >
       <CellTowerIcon fontSize="large" />
-      {props.map((el, key) => {
+      {frequencies.map((el, key) => {
         if (el.type === "GND")
           return (
             <Typography key={key}>

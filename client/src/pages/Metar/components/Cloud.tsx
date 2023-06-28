@@ -5,7 +5,7 @@ interface Props {
   cover: string;
 }
 
-function Cloud(props: Props) {
+function Cloud({ base, cover }: Props) {
   const cloudIcons = (cover: string) => {
     let cloudIconArray!: string[];
     if (cover === "FEW") {
@@ -56,16 +56,16 @@ function Cloud(props: Props) {
         TransitionComponent={Zoom}
       >
         <text x="110" y="105">
-          <tspan style={cloudFull}>{cloudIcons(props.cover)[0]}</tspan>{" "}
-          <tspan style={cloudOpac}>{cloudIcons(props.cover)[1]}</tspan>
+          <tspan style={cloudFull}>{cloudIcons(cover)[0]}</tspan>{" "}
+          <tspan style={cloudOpac}>{cloudIcons(cover)[1]}</tspan>
         </text>
       </Tooltip>
       <text x="100" y="145" fill="#406377">
-        {typeof props.base === "number"
-          ? props.cover !== "OVX"
-            ? String(props.base) + " ft AGL"
+        {typeof base === "number"
+          ? cover !== "OVX"
+            ? String(base) + " ft AGL"
             : "sky obscured"
-          : props.cover}
+          : cover}
       </text>
     </svg>
   );

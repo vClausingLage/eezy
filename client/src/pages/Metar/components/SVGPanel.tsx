@@ -6,39 +6,31 @@ import Wind from "./Wind";
 import { IClouds, IRwy } from "../classes/IMetar";
 
 type Props = {
-  props: {
-    clouds: IClouds[];
-    wspd: number;
-    wdir: number;
-    wgst: number;
-    runways: IRwy[];
-    timeLocal: string;
-  };
+  clouds: IClouds[];
+  wspd: number;
+  wdir: number;
+  wgst: number;
+  runways: IRwy[];
+  timeLocal: string;
 };
 
-function SVGPanel({ props }: Props) {
+function SVGPanel({ clouds, wspd, wdir, wgst, runways, timeLocal }: Props) {
   return (
     <Box className="grid_container_Clouds_Wind">
       <Box>
         <Box className="sun-box">
-          {props.clouds[0] === undefined && <Sun date={props.timeLocal} />}
-          {props.clouds[0] && props.clouds[0].cover === "CAVOK" && (
-            <Sun date={props.timeLocal} />
-          )}
-          {props.clouds[0] && props.clouds[0].cover === "NCD" && (
-            <Sun date={props.timeLocal} />
-          )}
-          {props.clouds[0] && props.clouds[0].cover === "CLR" && (
-            <Sun date={props.timeLocal} />
-          )}
+          {clouds[0] === undefined && <Sun date={timeLocal} />}
+          {clouds[0] && clouds[0].cover === "CAVOK" && <Sun date={timeLocal} />}
+          {clouds[0] && clouds[0].cover === "NCD" && <Sun date={timeLocal} />}
+          {clouds[0] && clouds[0].cover === "CLR" && <Sun date={timeLocal} />}
         </Box>
 
         <Box className="cloud-box">
-          {props.clouds[0] &&
-            props.clouds[0].cover !== "CAVOK" &&
-            props.clouds[0].cover !== "NCD" &&
-            props.clouds[0].cover !== "CLR" &&
-            props.clouds.map((el) => (
+          {clouds[0] &&
+            clouds[0].cover !== "CAVOK" &&
+            clouds[0].cover !== "NCD" &&
+            clouds[0].cover !== "CLR" &&
+            clouds.map((el) => (
               <Cloud key={el.base} base={el.base} cover={el.cover} />
             ))}
         </Box>
@@ -46,11 +38,11 @@ function SVGPanel({ props }: Props) {
       <Box>
         {
           <Wind
-            direction={props.wdir}
-            speed={props.wspd}
+            direction={wdir}
+            speed={wspd}
             unit="kts"
-            gusts={props.wgst}
-            runways={props.runways}
+            gusts={wgst}
+            runways={runways}
           />
         }
       </Box>

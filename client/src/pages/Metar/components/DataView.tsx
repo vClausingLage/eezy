@@ -8,7 +8,7 @@ type DataProps = {
   tempUnitToggle?: Function;
 };
 
-function DataView(props: DataProps) {
+function DataView({ data, unit, tempUnitToggle }: DataProps) {
   return (
     <>
       <Box
@@ -24,8 +24,8 @@ function DataView(props: DataProps) {
           overflow: "hidden",
         }}
       >
-        {props.data &&
-          props.data.map((el) => (
+        {data &&
+          data.map((el) => (
             <Box
               sx={{
                 display: "flex",
@@ -57,12 +57,12 @@ function DataView(props: DataProps) {
                 <Typography display="inline" sx={{ fontWeight: "bold" }}>
                   {el.value}
                 </Typography>
-                <Typography display="inline">{props.unit}</Typography>
+                <Typography display="inline">{unit}</Typography>
               </Box>
             </Box>
           ))}
 
-        {props.tempUnitToggle && (
+        {tempUnitToggle && (
           <Box
             sx={{
               ml: 0.3,
@@ -72,11 +72,11 @@ function DataView(props: DataProps) {
           >
             <Button
               onClick={() => {
-                props.tempUnitToggle && props.tempUnitToggle(props.unit);
+                tempUnitToggle && tempUnitToggle(unit);
               }}
               variant="outlined"
             >
-              {props.unit === "°C" ? "°F" : "°C"}
+              {unit === "°C" ? "°F" : "°C"}
             </Button>
           </Box>
         )}

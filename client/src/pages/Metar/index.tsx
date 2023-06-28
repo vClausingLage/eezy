@@ -215,14 +215,12 @@ function Metar() {
             />
 
             <SVGPanel
-              props={{
-                clouds: metarObject.clouds,
-                wspd: metarObject.wspd,
-                wdir: metarObject.wdir,
-                wgst: metarObject.wgst,
-                runways: airportObject.runways,
-                timeLocal: metarObject.time.local,
-              }}
+              clouds={metarObject.clouds}
+              wspd={metarObject.wspd}
+              wdir={metarObject.wdir}
+              wgst={metarObject.wgst}
+              runways={airportObject.runways}
+              timeLocal={metarObject.time.local}
             />
 
             <Alert severity="info" className="alert">
@@ -245,7 +243,7 @@ function Metar() {
             </Box>
 
             {airportObject.frequencies && (
-              <AerodromeFrequencies props={airportObject.frequencies} />
+              <AerodromeFrequencies frequencies={airportObject.frequencies} />
             )}
 
             <FlightRuleButton />
