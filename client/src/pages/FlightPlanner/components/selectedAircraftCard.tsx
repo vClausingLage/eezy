@@ -12,7 +12,7 @@ type Props = {
   };
 };
 
-function SelectedAircraftCard(props: Props) {
+function SelectedAircraftCard({ aircraft }: Props) {
   return (
     <Card className="card-aircraft-selected">
       <CardContent>
@@ -20,9 +20,9 @@ function SelectedAircraftCard(props: Props) {
           your Aircraft
         </Typography>
         <Typography>
-          {props.aircraft.manufacturer} {props.aircraft.model}
+          {aircraft.manufacturer} {aircraft.model}
         </Typography>
-        <Typography>{props.aircraft.registration_number}</Typography>
+        <Typography>{aircraft.registration_number}</Typography>
       </CardContent>
     </Card>
   );

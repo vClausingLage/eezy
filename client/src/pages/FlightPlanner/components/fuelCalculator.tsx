@@ -19,13 +19,18 @@ type Props = {
   cruiseSpeed: number;
 };
 
-function FlightCalculator(props: Props) {
+function FlightCalculator({
+  distance,
+  fuelCapacity,
+  fuelConsumption,
+  cruiseSpeed,
+}: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number | undefined>();
   const [fuelReserve, setFuelReserve] = useState<number | undefined>();
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
 
   function handleFuelChange(e: any) {
-    if (e.target.value > props.fuelCapacity) {
+    if (e.target.value > fuelCapacity) {
       setFuelLoaded(Number(e.target.value)); //! remove?
       setFuelMaxAlert(true);
     } else if (e.target.value !== undefined && e.target.value >= 0) {
@@ -61,7 +66,7 @@ function FlightCalculator(props: Props) {
           value={fuelLoaded}
           placeholder=""
           helperText={`of aircraftʼs ${fuelCapacityText(
-            props.fuelCapacity
+            fuelCapacity
           )} liters max fuel`}
           handleChange={(e) => handleFuelChange(e)}
         />
@@ -77,7 +82,7 @@ function FlightCalculator(props: Props) {
           placeholder="e.g. 45"
           helperText={`equals ${fuelReserveText(
             fuelReserve,
-            props.fuelConsumption
+            fuelConsumption
           )} liters`}
           handleChange={(e) => handleReserveChange(e)}
         />
@@ -86,12 +91,7 @@ function FlightCalculator(props: Props) {
       <Box className="result-view">
         <Typography fontWeight="bold">
           max Range:{" "}
-          {getRange(
-            fuelLoaded,
-            props.fuelConsumption,
-            props.cruiseSpeed,
-            fuelReserve
-          )}{" "}
+          {getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve)}{" "}
           nautical miles
         </Typography>
       </Box>
