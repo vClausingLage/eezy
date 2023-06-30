@@ -27,3 +27,5 @@ export async function deleteAircraft(req: Request, res: Response) {
   });
   res.send({ message: "aircraft deleted", id: id.id });
 }
+
+export async function editAircraft(req: Request, res: Response) {}
