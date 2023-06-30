@@ -11,6 +11,6 @@ export interface IAircraft {
   cruise_fuel_consumption: number | undefined;
   magnetic_error: number | undefined;
   color?: string;
-  IFR?: boolean;
+  ifr?: boolean;
   equiptment?: string;
 }

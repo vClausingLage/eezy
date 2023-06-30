@@ -62,12 +62,12 @@ function AircraftCard({ aircraft }: Props) {
             <IconButton
               onClick={() => editAircraft(aircraft.registration_number)}
             >
-              <EditIcon color="disabled" />
+              <EditIcon />
             </IconButton>
             <IconButton
               onClick={() => deleteAircraft(aircraft.registration_number)}
             >
-              <DeleteForeverIcon color="disabled" />
+              <DeleteForeverIcon />
             </IconButton>
             <CheckIcon
               color={
