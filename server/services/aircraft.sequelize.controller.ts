@@ -17,3 +17,5 @@ export async function getAircraft(req: Request, res: Response) {
   console.log("aircraftResults", aircraftResults);
   res.send(aircraftResults);
 }
+
+export async function deleteAircraft(req: Request, res: Response) {}
