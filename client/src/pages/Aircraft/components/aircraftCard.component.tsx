@@ -26,6 +26,23 @@ function AircraftCard({ aircraft }: Props) {
   );
   const dispatch = useDispatch();
 
+  const editAircraft = (id?: string) => {
+    console.log("edit");
+  };
+  const deleteAircraft = async (id?: string) => {
+    console.log("delete");
+    if (id) {
+      const response = await fetch(`/api/aircraft/create/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log("delete aircraft response:", data);
+    }
+  };
+
   return (
     <Card>
       {selectedAircraft && (
@@ -42,10 +59,14 @@ function AircraftCard({ aircraft }: Props) {
             select Aircraft
           </Button>
           <Typography className="aircraft-selected">
-            <IconButton>
+            <IconButton
+              onClick={() => editAircraft(aircraft.registration_number)}
+            >
               <EditIcon color="disabled" />
             </IconButton>
-            <IconButton>
+            <IconButton
+              onClick={() => deleteAircraft(aircraft.registration_number)}
+            >
               <DeleteForeverIcon color="disabled" />
             </IconButton>
             <CheckIcon

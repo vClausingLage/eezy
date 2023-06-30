@@ -18,4 +18,12 @@ export async function getAircraft(req: Request, res: Response) {
   res.send(aircraftResults);
 }
 
-export async function deleteAircraft(req: Request, res: Response) {}
+export async function deleteAircraft(req: Request, res: Response) {
+  const id = req.params;
+  await aircraft.destroy({
+    where: {
+      registration_number: id.id,
+    },
+  });
+  res.send({ message: "aircraft deleted", id: id.id });
+}

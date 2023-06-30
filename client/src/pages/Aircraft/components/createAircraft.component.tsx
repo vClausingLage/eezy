@@ -49,24 +49,19 @@ function CreateAircraftForm({ userID }: Props) {
   );
   const dispatch = useDispatch();
 
-  function submitAircraft() {
-    fetch("/api/aircraft/create", {
+  async function submitAircraft() {
+    const response = await fetch("/api/aircraft/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newAircraft),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message === "created") {
-          setSuccess(true);
-          dispatch(savedAircraft([...savedAircraftList, newAircraft]));
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    });
+    const data = await response.json();
+    if (data.message === "created") {
+      setSuccess(true);
+      dispatch(savedAircraft([...savedAircraftList, newAircraft]));
+    }
   }
 
   return (
