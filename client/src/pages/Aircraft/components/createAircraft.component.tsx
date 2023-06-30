@@ -214,7 +214,7 @@ function CreateAircraftForm({ userID }: Props) {
                     onChange={(e) =>
                       setNewAircraft({
                         ...newAircraft,
-                        IFR: e.target.checked,
+                        ifr: e.target.checked,
                       })
                     }
                   />
