@@ -19,10 +19,10 @@ function Aerodrome({ frequencies }: Props) {
       gap={1}
     >
       <CellTowerIcon fontSize="large" />
-      {frequencies.map((el, key) => {
+      {frequencies.map((el, idx) => {
         if (el.type === "GND")
           return (
-            <Typography key={key}>
+            <Typography key={idx}>
               <Typography display="inline" color={"primary"}>
                 Ground{" "}
               </Typography>
@@ -34,7 +34,7 @@ function Aerodrome({ frequencies }: Props) {
           );
         if (el.type === "TWR")
           return (
-            <Typography key={key}>
+            <Typography key={idx}>
               <Typography display="inline" color={"primary"}>
                 Tower{" "}
               </Typography>
@@ -46,7 +46,7 @@ function Aerodrome({ frequencies }: Props) {
           );
         if (el.type === "ATIS")
           return (
-            <Typography key={key}>
+            <Typography key={idx}>
               <Typography display="inline" color={"primary"}>
                 ATIS{" "}
               </Typography>
@@ -58,7 +58,7 @@ function Aerodrome({ frequencies }: Props) {
           );
         if (el.type === "RDR")
           return (
-            <Typography key={key}>
+            <Typography key={idx}>
               <Typography display="inline" color={"primary"}>
                 Radar{" "}
               </Typography>
@@ -70,7 +70,7 @@ function Aerodrome({ frequencies }: Props) {
           );
         if (el.type === "INFO")
           return (
-            <Typography key={key}>
+            <Typography key={idx}>
               <Typography display="inline" color={"primary"}>
                 Info{" "}
               </Typography>
