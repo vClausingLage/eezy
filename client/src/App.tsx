@@ -6,7 +6,7 @@ import {
   NavLink,
   Navigate,
 } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 import "./CSS/App.css";
 
@@ -25,7 +25,7 @@ import FlightPlanner from "./pages/FlightPlanner";
 import IndexPage from "./pages/Index/Index";
 
 function App() {
-  const userID = "default";
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const theme = useMemo(() => createTheme(getDesignTokens()), []);
 
   const activeStyle = {
@@ -88,7 +88,15 @@ function App() {
 
               <Routes>
                 <Route path="/" element={<Metar />} />
-                <Route path="aircraft" element={<Aircraft userID={userID} />} />
+                <Route
+                  path="aircraft"
+                  element={
+                    <Aircraft
+                      user={user?.sub}
+                      isAuthenticated={isAuthenticated}
+                    />
+                  }
+                />
                 <Route path="flight-planner" element={<FlightPlanner />} />
                 <Route path="index" element={<IndexPage />} />
                 <Route path="callback" element={<Navigate to="/" />} />

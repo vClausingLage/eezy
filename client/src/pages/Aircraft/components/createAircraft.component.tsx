@@ -23,12 +23,12 @@ import {
 } from "@mui/material";
 
 type Props = {
-  userID: string | undefined;
+  user: string | undefined;
 };
 
-function CreateAircraftForm({ userID }: Props) {
+function CreateAircraftForm({ user }: Props) {
   const [newAircraft, setNewAircraft] = useState({
-    user: userID,
+    user: user,
     manufacturer: "",
     model: "",
     type: "",
@@ -71,12 +71,12 @@ function CreateAircraftForm({ userID }: Props) {
 
   return (
     <>
-      {!userID && ( //! change with LOGIN
+      {!user && ( //! change with LOGIN
         <Alert severity="info">
           You must be logged in to create and choose your aircraft.
         </Alert>
       )}
-      {userID && ( //! change with LOGIN
+      {user && ( //! change with LOGIN
         <form onSubmit={submitAircraft} className="aircraft-form">
           <Box className="aircraft-form-column">
             <TextField

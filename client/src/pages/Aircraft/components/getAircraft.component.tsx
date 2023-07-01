@@ -13,10 +13,10 @@ import Box from "@mui/material/Box";
 import "../CSS/aircraft-card.css";
 
 type Props = {
-  userID: string | undefined;
+  user: string | undefined;
 };
 
-function GetAircraft({ userID }: Props) {
+function GetAircraft({ user }: Props) {
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
   );
@@ -24,7 +24,7 @@ function GetAircraft({ userID }: Props) {
 
   useEffect(() => {
     const fetchAircraft = async () => {
-      const response = await fetch(`/api/aircraft/create/${userID}`);
+      const response = await fetch(`/api/aircraft/create/${user}`);
       const result = await response.json();
       console.log(result);
       dispatch(savedAircraft(result));
@@ -32,7 +32,8 @@ function GetAircraft({ userID }: Props) {
     if (savedAircraftList.length === 0) {
       fetchAircraft();
     }
-  }, [userID]);
+    console.log(user);
+  }, [user]);
 
   return (
     <Box className="aircraft-container">

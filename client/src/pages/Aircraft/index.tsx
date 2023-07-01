@@ -8,10 +8,11 @@ import GetAircraft from "./components/getAircraft.component";
 import "./CSS/aircraft-index.css";
 
 type Props = {
-  userID: string | undefined;
+  user: string | undefined;
+  isAuthenticated: boolean;
 };
 
-function Aircraft({ userID }: Props) {
+function Aircraft({ user, isAuthenticated }: Props) {
   return (
     <>
       <Card className="root">
@@ -19,11 +20,11 @@ function Aircraft({ userID }: Props) {
           <Typography variant="h4" color="primary.main">
             your Aircraft
           </Typography>
-          <GetAircraft userID={userID} />
+          <GetAircraft user={user} />
           <Typography variant="h4" color="primary.main">
             add your own Aircraft
           </Typography>
-          <CreateAircraftForm userID={userID} />
+          <CreateAircraftForm user={user} />
         </CardContent>
       </Card>
     </>
