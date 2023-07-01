@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
@@ -24,11 +24,13 @@ import {
 
 type Props = {
   user: string | undefined;
+  isAuthenticated: boolean;
 };
 
-function CreateAircraftForm({ user }: Props) {
+function CreateAircraftForm({ user, isAuthenticated }: Props) {
   const [newAircraft, setNewAircraft] = useState({
-    user: user,
+    id: null,
+    user: "",
     manufacturer: "",
     model: "",
     type: "",
@@ -44,34 +46,44 @@ function CreateAircraftForm({ user }: Props) {
   } as IAircraft);
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user) {
+        setNewAircraft({ ...newAircraft, user: user });
+      }
+    }
+  }, [isAuthenticated]);
+
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
   );
   const dispatch = useDispatch();
 
   async function submitAircraft() {
-    const response = await fetch("/api/aircraft/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAircraft),
-    });
-    const data = await response.json();
-    if (data.message === "created") {
-      setSuccess(true);
-      dispatch(savedAircraft([...savedAircraftList, newAircraft]));
+    if (isAuthenticated) {
+      const response = await fetch("/api/aircraft/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newAircraft),
+      });
+      const data = await response.json();
+      if (data.message === "created") {
+        setSuccess(true);
+        dispatch(savedAircraft([...savedAircraftList, newAircraft]));
+      }
     }
   }
 
   return (
     <>
-      {!user && ( //! change with LOGIN
+      {!user && (
         <Alert severity="info">
           You must be logged in to create and choose your aircraft.
         </Alert>
       )}
-      {user && ( //! change with LOGIN
+      {user && (
         <form onSubmit={submitAircraft} className="aircraft-form">
           <Box className="aircraft-form-column">
             <TextField

@@ -9,8 +9,8 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-// import { Auth0Provider } from "@auth0/auth0-react";
-// import { Auth0Domain, Auth0ClientId } from "./config";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { domain, clientId, redirectUri, audience } from "./config/auth";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,8 +18,16 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <CssBaseline enableColorScheme />
-
-    <App />
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <App />
+    </Auth0Provider>
+    ,
   </React.StrictMode>
 );
 

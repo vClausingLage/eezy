@@ -1,5 +1,5 @@
 export interface IAircraft {
-  id?: number;
+  id?: number | null;
   user: string;
   manufacturer: string;
   model: string;
@@ -13,14 +13,4 @@ export interface IAircraft {
   color?: string;
   ifr?: boolean;
   equiptment?: string;
-}
-export interface IAircraftModel {
-  user: string;
-  manufacturer: string;
-  model: string;
-  type: string;
-  fuel_type: string;
-  fuel_capacity: number | number[];
-  cruise_speed: number;
-  cruise_fuel_consumption: number | number[];
 }

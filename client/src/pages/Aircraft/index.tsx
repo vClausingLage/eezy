@@ -1,3 +1,5 @@
+import { useAuth0 } from "@auth0/auth0-react";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -7,12 +9,9 @@ import GetAircraft from "./components/getAircraft.component";
 
 import "./CSS/aircraft-index.css";
 
-type Props = {
-  user: string | undefined;
-  isAuthenticated: boolean;
-};
+function Aircraft() {
+  const { user, isAuthenticated } = useAuth0();
 
-function Aircraft({ user, isAuthenticated }: Props) {
   return (
     <>
       <Card className="root">
@@ -20,11 +19,17 @@ function Aircraft({ user, isAuthenticated }: Props) {
           <Typography variant="h4" color="primary.main">
             your Aircraft
           </Typography>
-          <GetAircraft user={user} />
+          <GetAircraft
+            user={user?.sub?.replace("|", "")}
+            isAuthenticated={isAuthenticated}
+          />
           <Typography variant="h4" color="primary.main">
             add your own Aircraft
           </Typography>
-          <CreateAircraftForm user={user} />
+          <CreateAircraftForm
+            user={user?.sub?.replace("|", "")}
+            isAuthenticated={isAuthenticated}
+          />
         </CardContent>
       </Card>
     </>

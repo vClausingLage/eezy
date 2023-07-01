@@ -4,17 +4,18 @@ import { aircraft } from "../models/aircraft.sequelize.model.js";
 
 import { validator } from "./Validation/validator.controller.js";
 
-export function createAircraft() {
-  console.log("aircraft created");
+export async function createAircraft(req: Request, res: Response) {
+  const newAircraft = req.body;
+  const jane = await aircraft.create(newAircraft);
 }
 
 export async function getAircraft(req: Request, res: Response) {
+  const user = req.params.id;
   const aircraftResults = await aircraft.findAll({
     where: {
-      user: "default",
+      user: user,
     },
   });
-  console.log("aircraftResults", aircraftResults);
   res.send(aircraftResults);
 }
 
