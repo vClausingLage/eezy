@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 
 import Hero from "./components/Hero";
-import LoginButton from "./components/loginButton";
+import LoginButton from "../General/Buttons/loginButton";
 
 import "./CSS/index.css";
 

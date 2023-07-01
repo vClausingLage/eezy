@@ -1,5 +1,11 @@
 import { useMemo } from "react";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  NavLink,
+  Navigate,
+} from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 import "./CSS/App.css";
@@ -85,6 +91,7 @@ function App() {
                 <Route path="aircraft" element={<Aircraft userID={userID} />} />
                 <Route path="flight-planner" element={<FlightPlanner />} />
                 <Route path="index" element={<IndexPage />} />
+                <Route path="callback" element={<Navigate to="/" />} />
               </Routes>
             </Auth0Provider>
           </Provider>
