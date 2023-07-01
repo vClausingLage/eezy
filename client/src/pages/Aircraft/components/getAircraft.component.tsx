@@ -32,7 +32,7 @@ function GetAircraft({ user }: Props) {
     if (savedAircraftList.length === 0) {
       fetchAircraft();
     }
-    console.log(user);
+    console.log("getAircraft.tsx user login", user);
   }, [user]);
 
   return (
