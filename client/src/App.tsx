@@ -12,7 +12,7 @@ import "./CSS/App.css";
 import store from "./features/redux/store";
 import { Provider } from "react-redux";
 
-import { Box, AppBar, Toolbar, ThemeProvider } from "@mui/material";
+import { Box, AppBar, Toolbar, ThemeProvider, Typography } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "./CSS/theme";
 
@@ -71,6 +71,7 @@ function App() {
                       Flight Planner
                     </NavLink>
                   </nav>
+                  <Typography>USER NAME</Typography>
                 </Toolbar>
               </AppBar>
             </Box>

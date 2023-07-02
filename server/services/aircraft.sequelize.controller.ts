@@ -5,18 +5,28 @@ import { aircraft } from "../models/aircraft.sequelize.model.js";
 import { validator } from "./Validation/validator.controller.js";
 
 export async function createAircraft(req: Request, res: Response) {
-  const newAircraft = req.body;
-  const jane = await aircraft.create(newAircraft);
+  try {
+    const newAircraft = req.body;
+    await aircraft.create(newAircraft);
+    const response = await aircraft.findAll({
+      where: {
+        user: newAircraft.user,
+      },
+    });
+    res.send({ message: "created" });
+  } catch (error) {
+    console.log("error creating aircraft", error);
+  }
 }
 
 export async function getAircraft(req: Request, res: Response) {
   const user = req.params.id;
-  const aircraftResults = await aircraft.findAll({
+  const response = await aircraft.findAll({
     where: {
       user: user,
     },
   });
-  res.send(aircraftResults);
+  res.send(response);
 }
 
 export async function deleteAircraft(req: Request, res: Response) {

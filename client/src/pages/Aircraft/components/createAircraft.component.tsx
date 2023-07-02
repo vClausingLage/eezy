@@ -61,17 +61,21 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
 
   async function submitAircraft() {
     if (isAuthenticated) {
-      const response = await fetch("/api/aircraft/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newAircraft),
-      });
-      const data = await response.json();
-      if (data.message === "created") {
-        setSuccess(true);
-        dispatch(savedAircraft([...savedAircraftList, newAircraft]));
+      try {
+        const response = await fetch("/api/aircraft/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newAircraft),
+        });
+        const data = await response.json();
+        if (data.message === "created") {
+          setSuccess(true);
+          dispatch(savedAircraft([...savedAircraftList, newAircraft]));
+        }
+      } catch (error) {
+        console.log("error getAircarft", error);
       }
     }
   }
