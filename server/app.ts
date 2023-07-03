@@ -7,7 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { auth } from "express-openid-connect";
 
-import { ac_router } from "./routes/ac.routes.js";
+import { aircraft_router } from "./routes/aircraft.routes.js";
 import { awc_router } from "./routes/awc.routes.js";
 import { airport_router } from "./routes/airport.routes.js";
 import { metar_api_router } from "./routes/metar_api.routes.js";
@@ -27,7 +27,7 @@ app.use(cors());
 app.use(helmet());
 app.disable("x-powered-by");
 
-app.use("/api/aircraft", ac_router);
+app.use("/api/aircraft", aircraft_router);
 app.use("/api/metar", awc_router);
 app.use("/api/airport", airport_router);
 app.use("/api/metardecoder", metar_api_router);
