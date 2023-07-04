@@ -18,29 +18,15 @@ import "../CSS/aircraft-get.css";
 
 type Props = {
   aircraft: IAircraft;
+  editAircraft: (id: string) => void;
+  deleteAircraft: (id: string) => void;
 };
 
-function AircraftCard({ aircraft }: Props) {
+function AircraftCard({ aircraft, editAircraft, deleteAircraft }: Props) {
   const selectedAircraft = useSelector(
     (state: any) => state.selectedAircraft.object
   );
   const dispatch = useDispatch();
-
-  const editAircraft = (id?: string) => {
-    console.log("edit"); //! move up to to getAircraft Component
-  };
-  const deleteAircraft = async (id?: string) => {
-    console.log("delete");
-    if (id) {
-      const response = await fetch(`/api/aircraft/create/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json(); //! await new aircraft list //! move up to to getAircraft Component
-    }
-  };
 
   return (
     <Card>

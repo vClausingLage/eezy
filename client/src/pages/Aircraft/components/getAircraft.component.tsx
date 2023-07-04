@@ -47,6 +47,23 @@ function GetAircraft({ user, isAuthenticated }: Props) {
     }
   }, [user]);
 
+  const editAircraft = (id?: string) => {
+    console.log("edit", id);
+  };
+  const deleteAircraft = async (id?: string) => {
+    console.log("delete");
+    if (id) {
+      const response = await fetch(`/api/aircraft/create/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json(); //! await new aircraft list
+      dispatch(savedAircraft(result));
+    }
+  };
+
   return (
     <Box className="aircraft-container">
       {savedAircraftList.length === 0 && loading && (
@@ -56,7 +73,12 @@ function GetAircraft({ user, isAuthenticated }: Props) {
       {savedAircraftList.length === 0 && <h3>no Aircraft found</h3>}
 
       {savedAircraftList.map((el: IAircraft) => (
-        <AircraftCard key={el.registration_number} aircraft={el} />
+        <AircraftCard
+          key={el.registration_number}
+          aircraft={el}
+          editAircraft={editAircraft}
+          deleteAircraft={deleteAircraft}
+        />
       ))}
     </Box>
   );

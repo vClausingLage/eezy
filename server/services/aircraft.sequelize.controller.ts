@@ -13,7 +13,7 @@ export async function createAircraft(req: Request, res: Response) {
         user: newAircraft.user,
       },
     });
-    res.send({ message: "created" });
+    res.send({ message: "created" }); //! send back new AC list
   } catch (error) {
     console.log("error creating aircraft", error);
   }
@@ -40,7 +40,7 @@ export async function deleteAircraft(req: Request, res: Response) {
       registration_number: id.id,
     },
   });
-  res.send({ message: "aircraft deleted", id: id.id });
+  res.send({ message: "aircraft deleted", id: id.id }); //! send back new AC list
 }
 
 export async function editAircraft(req: Request, res: Response) {}
