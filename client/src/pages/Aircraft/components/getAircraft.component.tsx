@@ -28,7 +28,13 @@ function GetAircraft({ user, isAuthenticated }: Props) {
       const fetchAircraft = async () => {
         const response = await fetch(`/api/aircraft/create/${user}`);
         const result = await response.json();
-        dispatch(savedAircraft(result));
+        if (!result.message) {
+          dispatch(savedAircraft(result));
+        } else if (result.message === "no aircraft") {
+          console.log(result.message);
+        } else {
+          console.log(result);
+        }
       };
       if (savedAircraftList.length === 0 && isAuthenticated) {
         fetchAircraft();

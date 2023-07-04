@@ -26,7 +26,11 @@ export async function getAircraft(req: Request, res: Response) {
       user: user,
     },
   });
-  res.send(response);
+  if (response.length > 0) {
+    res.send(response);
+  } else {
+    res.send({ message: "no aircraft" });
+  }
 }
 
 export async function deleteAircraft(req: Request, res: Response) {
