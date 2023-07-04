@@ -49,10 +49,10 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
   useEffect(() => {
     if (isAuthenticated) {
       if (user) {
-        setNewAircraft({ ...newAircraft, user: user });
+        setNewAircraft({ ...newAircraft, user: user }); //! make functional
       }
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list

@@ -33,10 +33,8 @@ function GetAircraft({ user, isAuthenticated }: Props) {
           dispatch(savedAircraft(result));
           setLoading(false);
         } else if (result.message === "no aircraft") {
-          console.log(result.message);
           setLoading(false);
         } else {
-          console.log(result);
           setLoading(false);
         }
       };
@@ -45,7 +43,7 @@ function GetAircraft({ user, isAuthenticated }: Props) {
         fetchAircraft();
       }
     }
-  }, [user]);
+  }, [user, dispatch]);
 
   const editAircraft = (id?: string) => {
     console.log("edit", id);
