@@ -27,7 +27,7 @@ function AircraftCard({ aircraft }: Props) {
   const dispatch = useDispatch();
 
   const editAircraft = (id?: string) => {
-    console.log("edit");
+    console.log("edit"); //! move up to to getAircraft Component
   };
   const deleteAircraft = async (id?: string) => {
     console.log("delete");
@@ -38,8 +38,7 @@ function AircraftCard({ aircraft }: Props) {
           "Content-Type": "application/json",
         },
       });
-      const data = await response.json();
-      console.log("delete aircraft response:", data);
+      const data = await response.json(); //! await new aircraft list //! move up to to getAircraft Component
     }
   };
 

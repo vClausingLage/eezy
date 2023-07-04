@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
@@ -18,6 +18,7 @@ type Props = {
 };
 
 function GetAircraft({ user, isAuthenticated }: Props) {
+  const [loading, setLoading] = useState(false);
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
   );
@@ -30,13 +31,17 @@ function GetAircraft({ user, isAuthenticated }: Props) {
         const result = await response.json();
         if (!result.message) {
           dispatch(savedAircraft(result));
+          setLoading(false);
         } else if (result.message === "no aircraft") {
           console.log(result.message);
+          setLoading(false);
         } else {
           console.log(result);
+          setLoading(false);
         }
       };
       if (savedAircraftList.length === 0 && isAuthenticated) {
+        setLoading(true);
         fetchAircraft();
       }
     }
@@ -44,9 +49,11 @@ function GetAircraft({ user, isAuthenticated }: Props) {
 
   return (
     <Box className="aircraft-container">
-      {savedAircraftList.length === 0 && (
+      {savedAircraftList.length === 0 && loading && (
         <LoadingCircleDescription description="Looking up Saved Aircraft" />
       )}
+
+      {savedAircraftList.length === 0 && <h3>no Aircraft found</h3>}
 
       {savedAircraftList.map((el: IAircraft) => (
         <AircraftCard key={el.registration_number} aircraft={el} />
