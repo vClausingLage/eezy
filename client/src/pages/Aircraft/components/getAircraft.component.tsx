@@ -57,8 +57,10 @@ function GetAircraft({ user, isAuthenticated }: Props) {
           "Content-Type": "application/json",
         },
       });
-      const result = await response.json(); //! await new aircraft list
-      dispatch(savedAircraft(result));
+      const result = await response.json();
+      if (result.message === "created") {
+        dispatch(savedAircraft(result.data));
+      }
     }
   };
 

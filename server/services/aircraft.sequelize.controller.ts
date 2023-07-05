@@ -13,9 +13,9 @@ export async function createAircraft(req: Request, res: Response) {
         user: newAircraft.user,
       },
     });
-    res.send({ message: "created" }); //! send back new AC list
+    res.send({ message: "created", data: response });
   } catch (error) {
-    console.log("error creating aircraft", error);
+    console.log("error creating aircraft", error); //! send back error message
   }
 }
 
@@ -27,20 +27,27 @@ export async function getAircraft(req: Request, res: Response) {
     },
   });
   if (response.length > 0) {
-    res.send(response);
+    res.send({ message: "created", data: response });
   } else {
     res.send({ message: "no aircraft" });
   }
 }
 
 export async function deleteAircraft(req: Request, res: Response) {
-  const id = req.params;
-  await aircraft.destroy({
-    where: {
-      registration_number: id.id,
-    },
-  });
-  res.send({ message: "aircraft deleted", id: id.id }); //! send back new AC list
+  try {
+    const id = req.params;
+    await aircraft.destroy({
+      where: {
+        registration_number: id.id,
+      },
+    });
+    res.send({ message: "aircraft deleted", id: id.id }); //! send back new AC list
+  } catch (error) {
+    console.log("error", error);
+  }
 }
 
-export async function editAircraft(req: Request, res: Response) {}
+export async function editAircraft(req: Request, res: Response) {
+  const id = req.params;
+  console.log("id", id);
+}
