@@ -45,21 +45,29 @@ function GetAircraft({ user, isAuthenticated }: Props) {
     }
   }, [user, dispatch]);
 
-  const editAircraft = (id?: string) => {
-    console.log("edit", id);
+  const editAircraft = async (id?: string) => {
+    if (id) {
+      const response = await fetch(`/api/aircraft/create/${id}`, {
+        method: "update",
+        headers: { "Content-Type": "application/json" },
+      });
+      const result = await response.json();
+    }
   };
+
   const deleteAircraft = async (id?: string) => {
     console.log("delete");
     if (id) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
-        method: "DELETE",
+        method: "delete",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const result = await response.json();
       if (result.message === "created") {
-        dispatch(savedAircraft(result.data));
+        console.log("result.data", result.data);
+        // dispatch(savedAircraft(result.data));
       }
     }
   };
