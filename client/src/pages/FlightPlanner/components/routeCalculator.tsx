@@ -49,7 +49,6 @@ function InputDestination() {
       <Typography variant="h5" color="primary">
         Departure & Destination
       </Typography>
-      <Alert severity="error">disabled for DEMO</Alert>
       <Box display="flex" alignItems="center">
         <Box>
           <TextFieldContainer
