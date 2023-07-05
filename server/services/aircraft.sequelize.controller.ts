@@ -33,21 +33,29 @@ export async function getAircraft(req: Request, res: Response) {
   }
 }
 
+export async function editAircraft(req: Request, res: Response) {
+  const id = req.params.id;
+  const user = req.params.user;
+  console.log("id", id, "user", user);
+  res.send({ user }); //! change to AC list
+}
+
 export async function deleteAircraft(req: Request, res: Response) {
   try {
-    const id = req.params;
+    const id = req.params.id;
+    const user = req.params.user;
     await aircraft.destroy({
       where: {
-        registration_number: id.id,
+        registration_number: id,
       },
     });
-    res.send({ message: "aircraft deleted", id: id.id }); //! send back new AC list
+    const response = await aircraft.findAll({
+      where: {
+        user: user,
+      },
+    });
+    res.send({ message: "aircraft deleted", data: response });
   } catch (error) {
     console.log("error", error);
   }
-}
-
-export async function editAircraft(req: Request, res: Response) {
-  const id = req.params;
-  console.log("id", id);
 }

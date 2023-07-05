@@ -45,17 +45,18 @@ function GetAircraft({ user, isAuthenticated }: Props) {
     }
   }, [user, dispatch]);
 
-  const editAircraft = async (id?: string) => {
+  const editAircraft = async (id?: string, user?: string) => {
     if (id) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
         method: "update",
         headers: { "Content-Type": "application/json" },
       });
       const result = await response.json();
+      console.log("edited", result.data);
     }
   };
 
-  const deleteAircraft = async (id?: string) => {
+  const deleteAircraft = async (id?: string, user?: string) => {
     console.log("delete");
     if (id) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
@@ -66,7 +67,7 @@ function GetAircraft({ user, isAuthenticated }: Props) {
       });
       const result = await response.json();
       if (result.message === "created") {
-        console.log("result.data", result.data);
+        console.log("deleted", result.data);
         // dispatch(savedAircraft(result.data));
       }
     }
@@ -84,6 +85,7 @@ function GetAircraft({ user, isAuthenticated }: Props) {
         <AircraftCard
           key={el.registration_number}
           aircraft={el}
+          user={user}
           editAircraft={editAircraft}
           deleteAircraft={deleteAircraft}
         />

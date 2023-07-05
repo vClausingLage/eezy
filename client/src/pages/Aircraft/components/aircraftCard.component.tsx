@@ -18,6 +18,7 @@ import "../CSS/aircraft-get.css";
 
 type Props = {
   aircraft: IAircraft;
+  user: string | undefined;
   editAircraft: (id: string) => void;
   deleteAircraft: (id: string) => void;
 };
