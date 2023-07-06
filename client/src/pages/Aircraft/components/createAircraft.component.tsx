@@ -72,6 +72,9 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
         const data = await response.json();
         if (data.message === "created") {
           setSuccess(true);
+          setTimeout(() => {
+            setSuccess(false);
+          }, 2000);
           dispatch(savedAircraft([...savedAircraftList, newAircraft])); //! change to new list from API
         }
       } catch (error) {
