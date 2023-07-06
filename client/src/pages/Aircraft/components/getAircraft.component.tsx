@@ -25,12 +25,12 @@ function GetAircraft({ user, isAuthenticated }: Props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user !== undefined) {
       const fetchAircraft = async () => {
         const response = await fetch(`/api/aircraft/create/${user}`);
         const result = await response.json();
-        if (!result.message) {
-          dispatch(savedAircraft(result));
+        if (result.message === "fetched") {
+          dispatch(savedAircraft(result.data));
           setLoading(false);
         } else if (result.message === "no aircraft") {
           setLoading(false);

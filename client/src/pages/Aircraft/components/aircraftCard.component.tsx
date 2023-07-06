@@ -32,6 +32,7 @@ function AircraftCard({ aircraft, editAircraft, deleteAircraft }: Props) {
     <Card>
       {selectedAircraft && (
         <CardContent>
+          <Typography>{aircraft.id}</Typography>
           <Typography>
             {aircraft.manufacturer} {aircraft.model}
           </Typography>

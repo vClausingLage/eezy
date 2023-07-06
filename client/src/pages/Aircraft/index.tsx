@@ -6,11 +6,16 @@ import Typography from "@mui/material/Typography";
 
 import CreateAircraftForm from "./components/createAircraft.component";
 import GetAircraft from "./components/getAircraft.component";
+import LoadingCircle from "../General/LoadingCircle";
 
 import "./CSS/aircraft-index.css";
 
 function Aircraft() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <>

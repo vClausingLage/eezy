@@ -9,5 +9,5 @@ import {
 export const aircraft_router = Router();
 
 aircraft_router.post("/create", createAircraft);
-aircraft_router.get("/create/:id", getAircraft);
+aircraft_router.get("/create/:user", getAircraft);
 aircraft_router.delete("/create/:id", deleteAircraft);

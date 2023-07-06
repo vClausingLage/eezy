@@ -4,6 +4,20 @@ import { aircraft } from "../models/aircraft.sequelize.model.js";
 
 import { validator } from "./Validation/validator.controller.js";
 
+export async function getAircraft(req: Request, res: Response) {
+  const user = req.params.user;
+  const response = await aircraft.findAll({
+    where: {
+      user,
+    },
+  });
+  if (response.length > 0) {
+    res.send({ message: "fetched", data: response });
+  } else {
+    res.send({ message: "no aircraft" });
+  }
+}
+
 export async function createAircraft(req: Request, res: Response) {
   try {
     const newAircraft = req.body;
@@ -16,20 +30,6 @@ export async function createAircraft(req: Request, res: Response) {
     res.send({ message: "created", data: response });
   } catch (error) {
     console.log("error creating aircraft", error); //! send back error message
-  }
-}
-
-export async function getAircraft(req: Request, res: Response) {
-  const user = req.params.id;
-  const response = await aircraft.findAll({
-    where: {
-      user: user,
-    },
-  });
-  if (response.length > 0) {
-    res.send({ message: "created", data: response });
-  } else {
-    res.send({ message: "no aircraft" });
   }
 }
 

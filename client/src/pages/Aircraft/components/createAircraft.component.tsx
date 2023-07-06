@@ -49,7 +49,7 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
   useEffect(() => {
     if (isAuthenticated) {
       if (user) {
-        setNewAircraft({ ...newAircraft, user: user }); //! make functional
+        setNewAircraft({ ...newAircraft, user });
       }
     }
   }, [isAuthenticated, user]);
