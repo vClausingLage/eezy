@@ -18,9 +18,8 @@ import "../CSS/aircraft-get.css";
 
 type Props = {
   aircraft: IAircraft;
-  user: string | undefined;
-  editAircraft: (id: string) => void;
-  deleteAircraft: (id: string) => void;
+  editAircraft: (id: number | null) => void;
+  deleteAircraft: (id: number | null) => void;
 };
 
 function AircraftCard({ aircraft, editAircraft, deleteAircraft }: Props) {
@@ -45,14 +44,10 @@ function AircraftCard({ aircraft, editAircraft, deleteAircraft }: Props) {
             select Aircraft
           </Button>
           <Typography className="aircraft-selected">
-            <IconButton
-              onClick={() => editAircraft(aircraft.registration_number)}
-            >
+            <IconButton onClick={() => editAircraft(aircraft.id)}>
               <EditIcon color="primary" />
             </IconButton>
-            <IconButton
-              onClick={() => deleteAircraft(aircraft.registration_number)}
-            >
+            <IconButton onClick={() => deleteAircraft(aircraft.id)}>
               <DeleteForeverIcon color="error" />
             </IconButton>
             <CheckIcon
