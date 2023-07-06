@@ -81,10 +81,10 @@ function GetAircraft({ user, isAuthenticated }: Props) {
 
       {savedAircraftList.length === 0 && <h3>no Aircraft found</h3>}
 
-      {savedAircraftList.map((el: IAircraft) => (
+      {savedAircraftList.map((ac: IAircraft) => (
         <AircraftCard
-          key={el.registration_number}
-          aircraft={el}
+          key={ac.registration_number}
+          aircraft={ac}
           user={user}
           editAircraft={editAircraft}
           deleteAircraft={deleteAircraft}
