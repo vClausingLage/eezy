@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import "../CSS/aircraft-card.css";
 
 type Props = {
-  user: string | undefined;
+  user?: string;
   isAuthenticated: boolean;
 };
 
@@ -45,8 +45,8 @@ function GetAircraft({ user, isAuthenticated }: Props) {
     }
   }, [user, dispatch]);
 
-  const editAircraft = async (id: number | null) => {
-    if (id) {
+  const editAircraft = async (id: number | null, user?: string) => {
+    if (id && user) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
         method: "update",
         headers: { "Content-Type": "application/json" },
@@ -56,8 +56,8 @@ function GetAircraft({ user, isAuthenticated }: Props) {
     }
   };
 
-  const deleteAircraft = async (id: number | null) => {
-    if (id) {
+  const deleteAircraft = async (id: number | null, user?: string) => {
+    if (id && user) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
         method: "delete",
         headers: {
@@ -86,6 +86,7 @@ function GetAircraft({ user, isAuthenticated }: Props) {
           aircraft={ac}
           editAircraft={editAircraft}
           deleteAircraft={deleteAircraft}
+          user={user}
         />
       ))}
     </Box>

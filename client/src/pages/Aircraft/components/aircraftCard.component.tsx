@@ -18,11 +18,12 @@ import "../CSS/aircraft-get.css";
 
 type Props = {
   aircraft: IAircraft;
-  editAircraft: (id: number | null) => void;
-  deleteAircraft: (id: number | null) => void;
+  editAircraft: (id: number | null, user?: string) => void;
+  deleteAircraft: (id: number | null, user?: string) => void;
+  user?: string;
 };
 
-function AircraftCard({ aircraft, editAircraft, deleteAircraft }: Props) {
+function AircraftCard({ aircraft, editAircraft, deleteAircraft, user }: Props) {
   const selectedAircraft = useSelector(
     (state: any) => state.selectedAircraft.object
   );
@@ -44,10 +45,10 @@ function AircraftCard({ aircraft, editAircraft, deleteAircraft }: Props) {
             select Aircraft
           </Button>
           <Typography className="aircraft-selected">
-            <IconButton onClick={() => editAircraft(aircraft.id)}>
+            <IconButton onClick={() => editAircraft(aircraft.id, user)}>
               <EditIcon color="primary" />
             </IconButton>
-            <IconButton onClick={() => deleteAircraft(aircraft.id)}>
+            <IconButton onClick={() => deleteAircraft(aircraft.id, user)}>
               <DeleteForeverIcon color="error" />
             </IconButton>
             <CheckIcon

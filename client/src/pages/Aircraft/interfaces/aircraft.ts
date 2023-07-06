@@ -1,6 +1,6 @@
 export interface IAircraft {
   id: number | null;
-  user: string;
+  user?: string;
   manufacturer: string;
   model: string;
   type: string;
