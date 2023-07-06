@@ -37,7 +37,7 @@ export async function editAircraft(req: Request, res: Response) {
   const id = req.params.id;
   const user = req.params.user;
   console.log("id", id, "user", user);
-  res.send({ user }); //! change to AC list
+  res.send({ id, user }); //! change to AC list
 }
 
 export async function deleteAircraft(req: Request, res: Response) {
