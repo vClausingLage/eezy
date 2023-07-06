@@ -30,7 +30,7 @@ function InputDestination() {
       const response = await fetch(
         `/api/airport/distance/${icaoDeparture},${icaoDestination}`,
         {
-          method: "GET",
+          method: "get",
           headers: {
             "Content-Type": "application/json",
           },

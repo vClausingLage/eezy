@@ -63,7 +63,7 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
     if (isAuthenticated) {
       try {
         const response = await fetch("/api/aircraft/create", {
-          method: "POST",
+          method: "post",
           headers: {
             "Content-Type": "application/json",
           },

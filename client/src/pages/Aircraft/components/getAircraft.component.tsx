@@ -57,7 +57,6 @@ function GetAircraft({ user, isAuthenticated }: Props) {
   };
 
   const deleteAircraft = async (id: number | null) => {
-    console.log("delete");
     if (id) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
         method: "delete",
@@ -68,7 +67,7 @@ function GetAircraft({ user, isAuthenticated }: Props) {
       const result = await response.json();
       if (result.message === "created") {
         console.log("deleted", result.data);
-        // dispatch(savedAircraft(result.data));
+        dispatch(savedAircraft(result.data));
       }
     }
   };

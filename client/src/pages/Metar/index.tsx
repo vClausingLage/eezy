@@ -68,7 +68,7 @@ function Metar() {
     }
     setIsLoading(true);
     const response = await fetch(`/api/metar/${metarObject.icao}`, {
-      method: "GET",
+      method: "get",
       headers: {
         "Content-Type": "application/json",
       },

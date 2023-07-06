@@ -7,7 +7,7 @@ export async function getAirport(req: Request, res: Response) {
     const fetchAirport = await fetch(
       `https://airportdb.io/api/v1/airport/${icao}?apiToken=${airportApi}`,
       {
-        method: "GET",
+        method: "get",
         headers: {
           "Content-Type": "application/json",
         },

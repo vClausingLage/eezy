@@ -6,7 +6,7 @@ export async function getMetar(req: Request, res: Response) {
     const fetchMetar = await fetch(
       `https://beta.aviationweather.gov/cgi-bin/data/metar.php?ids=$${icao}&format=json`,
       {
-        method: "GET",
+        method: "get",
         headers: {
           "Content-Type": "application/json",
         },
