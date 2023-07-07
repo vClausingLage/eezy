@@ -4,6 +4,8 @@ import { aircraft } from "../models/aircraft.sequelize.model.js";
 
 import { validator } from "./Validation/validator.controller.js";
 
+import errorFetchData from "./error/errorFetchData.js";
+
 export async function getAircraft(req: Request, res: Response) {
   try {
     const user = req.params.user;
@@ -18,7 +20,7 @@ export async function getAircraft(req: Request, res: Response) {
       res.send({ message: "no aircraft" });
     }
   } catch (error) {
-    console.log("error creating aircraft", error); //! send back error message
+    errorFetchData(res, error);
   }
 }
 
@@ -34,7 +36,7 @@ export async function createAircraft(req: Request, res: Response) {
     });
     res.send({ message: "created", data: response });
   } catch (error) {
-    console.log("error creating aircraft", error); //! send back error message
+    errorFetchData(res, error);
   }
 }
 
@@ -48,9 +50,9 @@ export async function editAircraft(req: Request, res: Response) {
         user,
       },
     });
-    res.send({ message: "aircraft edited", data: response });
+    res.send({ message: "edited", data: response });
   } catch (error) {
-    console.log("error creating aircraft", error); //! send back error message
+    errorFetchData(res, error);
   }
 }
 
@@ -68,8 +70,8 @@ export async function deleteAircraft(req: Request, res: Response) {
         user,
       },
     });
-    res.send({ message: "aircraft deleted", data: response });
+    res.send({ message: "deleted", data: response });
   } catch (error) {
-    console.log("error", error);
+    errorFetchData(res, error);
   }
 }
