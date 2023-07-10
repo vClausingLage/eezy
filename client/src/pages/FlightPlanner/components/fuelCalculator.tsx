@@ -28,7 +28,7 @@ function FlightCalculator({
   const [fuelLoaded, setFuelLoaded] = useState<number | undefined>();
   const [fuelReserve, setFuelReserve] = useState<number | undefined>();
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
-  const [range, setRange] = useState<number | undefined>();
+  const [range, setRange] = useState<number | undefined>(0);
 
   function handleFuelChange(e: any) {
     if (e.target.value > fuelCapacity) {
@@ -66,8 +66,6 @@ function FlightCalculator({
         Fuel Calculator
       </Typography>
 
-      <Typography>DISTANCE (for demo only) {distance}</Typography>
-
       <Box>
         <FuelCalculatorTextInput
           label="Fuel"
@@ -104,7 +102,8 @@ function FlightCalculator({
 
       <Box className="result-view">
         <Typography fontWeight="bold">
-          max Range: {range} nautical miles
+          max Range: {range} nautical miles <br /> distance to destination:{" "}
+          {distance}
         </Typography>
       </Box>
       <Box className="attention-bar">
