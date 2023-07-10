@@ -5,8 +5,6 @@ type latLong = {
 };
 
 export function calcLatLong(latLong: latLong[]): number {
-  console.log("latLong", latLong);
-
   const lat0 = latLong[0].latitude;
   const lat1 = latLong[1].latitude;
   const lon0 = latLong[0].longitude;

@@ -13,28 +13,31 @@ import { getRange } from "../helper/fuel-calculator";
 import "../CSS/planner-calculator.css";
 
 type Props = {
-  distance: number;
   fuelCapacity: number;
   fuelConsumption: number;
   cruiseSpeed: number;
+  distance?: number;
 };
 
 function FlightCalculator({
-  distance,
   fuelCapacity,
   fuelConsumption,
   cruiseSpeed,
+  distance,
 }: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number | undefined>();
   const [fuelReserve, setFuelReserve] = useState<number | undefined>();
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
+  const [range, setRange] = useState<number | undefined>();
 
   function handleFuelChange(e: any) {
     if (e.target.value > fuelCapacity) {
-      setFuelLoaded(Number(e.target.value)); //! remove?
+      setFuelLoaded(Number(e.target.value));
+      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
       setFuelMaxAlert(true);
     } else if (e.target.value !== undefined && e.target.value >= 0) {
       setFuelLoaded(Number(e.target.value));
+      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
       setFuelMaxAlert(false);
     }
   }
@@ -52,12 +55,18 @@ function FlightCalculator({
   function fuelCapacityText(input: number | undefined): number {
     return input ? input : 0;
   }
+  function isRangeAlert() {
+    if (distance && range && distance >= range) return true;
+    return false;
+  }
 
   return (
     <Card>
       <Typography variant="h5" color="primary.main">
         Fuel Calculator
       </Typography>
+
+      <Typography>DISTANCE (for demo only) {distance}</Typography>
 
       <Box>
         <FuelCalculatorTextInput
@@ -75,6 +84,11 @@ function FlightCalculator({
             Fuel Load exceeds your Aircraftʼs max. Capacity!
           </Alert>
         )}
+        {isRangeAlert() && (
+          <Alert severity="error">
+            Distance to destination exceeds aircraftʼs maximum range!
+          </Alert>
+        )}
         <FuelCalculatorTextInput
           label="Reserve"
           unit="minutes"
@@ -90,9 +104,7 @@ function FlightCalculator({
 
       <Box className="result-view">
         <Typography fontWeight="bold">
-          max Range:{" "}
-          {getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve)}{" "}
-          nautical miles
+          max Range: {range} nautical miles
         </Typography>
       </Box>
       <Box className="attention-bar">

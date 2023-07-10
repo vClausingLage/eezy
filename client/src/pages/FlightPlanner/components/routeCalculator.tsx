@@ -8,7 +8,11 @@ import { calcLatLong } from "../helper/distance-lat-long-calc";
 
 import "../CSS/planner-calculator.css";
 
-function InputDestination() {
+type Props = {
+  getDistance: (input: number) => void;
+};
+
+function RouteCalculator({ getDistance }: Props) {
   const [icaoDeparture, setIcaoDeparture] = useState("");
   const [icaoDestination, setIcaoDestination] = useState("");
   const [alertIcao, setAlertIcao] = useState(false);
@@ -38,6 +42,7 @@ function InputDestination() {
       );
       const result = await response.json();
       setDistance(calcLatLong(result));
+      if (distance) getDistance(distance);
     };
     icaoDeparture.length === 4 && icaoDestination.length === 4
       ? fetchLatLong(icaoDeparture, icaoDestination)
@@ -94,4 +99,4 @@ function InputDestination() {
   );
 }
 
-export default InputDestination;
+export default RouteCalculator;

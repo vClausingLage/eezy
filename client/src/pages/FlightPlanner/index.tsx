@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Alert, Box, Card, CardContent, Grid, Typography } from "@mui/material";
 
 import SelectedAircraftCard from "./components/selectedAircraftCard";
 import FlightCalculator from "./components/fuelCalculator";
-import InputDestination from "./components/routeCalculator";
+import RouteCalculator from "./components/routeCalculator";
 
 interface Aircraft {
   manufacturer: string;
@@ -16,7 +16,7 @@ interface Aircraft {
 }
 
 function FlightPlanner() {
-  const distance = 1000;
+  const [distance, setDistance] = useState<number | undefined>();
 
   const selectedAircraft: Aircraft = useSelector(
     (state: any) => state.selectedAircraft.object
@@ -32,6 +32,11 @@ function FlightPlanner() {
     cruise_fuel_consumption,
     cruise_speed,
   } = selectedAircraft;
+
+  function getDistance(input: number) {
+    console.log(input);
+    setDistance(input);
+  }
 
   return (
     <Card>
@@ -55,14 +60,14 @@ function FlightPlanner() {
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
               <Grid item xs={4} sm={4} md={6}>
-                <InputDestination />
+                <RouteCalculator getDistance={(input) => getDistance(input)} />
               </Grid>
               <Grid item xs={4} sm={4} md={6}>
                 <FlightCalculator
-                  distance={distance}
                   fuelCapacity={fuel_capacity}
                   fuelConsumption={cruise_fuel_consumption}
                   cruiseSpeed={cruise_speed}
+                  distance={distance}
                 />
               </Grid>
             </Grid>
