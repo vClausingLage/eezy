@@ -22,7 +22,16 @@ import Aircraft from "./pages/Aircraft";
 import FlightPlanner from "./pages/FlightPlanner";
 import IndexPage from "./pages/Index/Index";
 
+import LoginButton from "./pages/General/Buttons/loginButton";
+import LoadingCircle from "./pages/General/LoadingCircle";
+
 function App() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   const theme = useMemo(() => createTheme(getDesignTokens()), []);
 
   const activeStyle = {
@@ -71,6 +80,7 @@ function App() {
                       Flight Planner
                     </NavLink>
                   </nav>
+                  <LoginButton />
                   <Typography>USER NAME</Typography>
                 </Toolbar>
               </AppBar>
