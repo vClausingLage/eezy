@@ -5,7 +5,7 @@ import { savedAircraft } from "../../../../features/redux/savedAircraftSlice";
 
 import { fuelTypes } from "./assets/fuelTypes";
 
-import { IAircraft } from "../interfaces/aircraft";
+import { IAircraft } from "../../../FlightPlanner/interfaces/aircraft";
 
 import "../CSS/aircraft-form.css";
 

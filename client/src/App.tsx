@@ -20,7 +20,6 @@ import { getDesignTokens } from "./CSS/theme";
 
 import AppFooter from "./General/AppFooter";
 import Metar from "./pages/Metar";
-import Aircraft from "./pages/FlightPlanner/Aircraft";
 import FlightPlanner from "./pages/FlightPlanner";
 import IndexPage from "./pages/Index/Index";
 
@@ -83,7 +82,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Metar />} />
-              <Route
+              {/* <Route
                 path="aircraft"
                 element={
                   <Aircraft
@@ -91,7 +90,7 @@ function App() {
                     isAuthenticated={isAuthenticated}
                   />
                 }
-              />
+              /> */}
               <Route
                 path="flight-planner"
                 element={

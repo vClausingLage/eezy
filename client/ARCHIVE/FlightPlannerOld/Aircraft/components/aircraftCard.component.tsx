@@ -12,7 +12,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import { IAircraft } from "../interfaces/aircraft";
+import { IAircraft } from "../../../FlightPlanner/interfaces/aircraft";
 
 import "../CSS/aircraft-get.css";
 

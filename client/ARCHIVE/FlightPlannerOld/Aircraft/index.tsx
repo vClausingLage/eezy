@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 import CreateAircraftForm from "./components/createAircraft.component";
-import GetAircraft from "./components/getAircraft.component";
+import ShowAircraft from "./components/showAircraft";
 
 import "./CSS/aircraft-index.css";
 
@@ -20,7 +20,7 @@ function Aircraft({ user, isAuthenticated }: Props) {
           <Typography variant="h4" color="primary.main">
             your Aircraft
           </Typography>
-          <GetAircraft user={user} isAuthenticated={isAuthenticated} />
+          <ShowAircraft user={user} isAuthenticated={isAuthenticated} />
           <Typography variant="h4" color="primary.main">
             add your own Aircraft
           </Typography>

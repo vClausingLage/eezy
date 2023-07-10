@@ -6,7 +6,7 @@ import { savedAircraft } from "../../../../features/redux/savedAircraftSlice";
 import AircraftCard from "./aircraftCard.component";
 import LoadingCircleDescription from "../../../../General/LoadingCircleDescription";
 
-import { IAircraft } from "../interfaces/aircraft";
+import { IAircraft } from "../../../FlightPlanner/interfaces/aircraft";
 
 import Box from "@mui/material/Box";
 
@@ -17,7 +17,7 @@ type Props = {
   isAuthenticated: boolean;
 };
 
-function GetAircraft({ user, isAuthenticated }: Props) {
+function ShowAircraft({ user, isAuthenticated }: Props) {
   const [loading, setLoading] = useState(false);
   const savedAircraftList = useSelector(
     (state: any) => state.savedAircraft.list
@@ -93,4 +93,4 @@ function GetAircraft({ user, isAuthenticated }: Props) {
   );
 }
 
-export default GetAircraft;
+export default ShowAircraft;
