@@ -20,7 +20,7 @@ import { getDesignTokens } from "./CSS/theme";
 
 import AppFooter from "./General/AppFooter";
 import Metar from "./pages/Metar";
-import Aircraft from "./pages/Aircraft";
+import Aircraft from "./pages/FlightPlanner/Aircraft";
 import FlightPlanner from "./pages/FlightPlanner";
 import IndexPage from "./pages/Index/Index";
 
@@ -73,14 +73,6 @@ function App() {
                       }
                     >
                       Flight Planner
-                    </NavLink>
-                    <NavLink
-                      to="/aircraft"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Aircraft
                     </NavLink>
                   </nav>
                   {!user && <LoginButton />}

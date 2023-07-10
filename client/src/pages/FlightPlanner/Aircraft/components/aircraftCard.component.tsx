@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { aircraftSelected } from "../../../features/redux/selectedAircraftSlice";
+import { aircraftSelected } from "../../../../features/redux/selectedAircraftSlice";
 
 import {
   Card,
