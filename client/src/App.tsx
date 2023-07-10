@@ -63,14 +63,7 @@ function App() {
                     >
                       Metar
                     </NavLink>
-                    <NavLink
-                      to="/aircraft"
-                      style={({ isActive }) =>
-                        isActive ? activeStyle : undefined
-                      }
-                    >
-                      Aircraft
-                    </NavLink>
+
                     <NavLink
                       to="/flight-planner"
                       style={({ isActive }) =>
@@ -78,6 +71,14 @@ function App() {
                       }
                     >
                       Flight Planner
+                    </NavLink>
+                    <NavLink
+                      to="/aircraft"
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined
+                      }
+                    >
+                      Aircraft
                     </NavLink>
                   </nav>
                   <LoginButton />
