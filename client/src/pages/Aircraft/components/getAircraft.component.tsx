@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { savedAircraft } from "../../../features/redux/savedAircraftSlice";
 
 import AircraftCard from "./aircraftCard.component";
-import LoadingCircleDescription from "../../General/LoadingCircleDescription";
+import LoadingCircleDescription from "../../../General/LoadingCircleDescription";
 
 import { IAircraft } from "../interfaces/aircraft";
 

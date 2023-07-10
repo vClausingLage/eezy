@@ -6,6 +6,11 @@ import SelectedAircraftCard from "./components/selectedAircraftCard";
 import FlightCalculator from "./components/fuelCalculator";
 import RouteCalculator from "./components/routeCalculator";
 
+type Props = {
+  user?: string;
+  isAuthenticated: boolean;
+};
+
 interface Aircraft {
   manufacturer: string;
   model: string;
@@ -15,7 +20,7 @@ interface Aircraft {
   cruise_speed: number;
 }
 
-function FlightPlanner() {
+function FlightPlanner({ user, isAuthenticated }: Props) {
   const [distance, setDistance] = useState<number | undefined>();
 
   const selectedAircraft: Aircraft = useSelector(
