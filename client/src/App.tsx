@@ -83,7 +83,7 @@ function App() {
                       Aircraft
                     </NavLink>
                   </nav>
-                  <LoginButton />
+                  {!user && <LoginButton />}
                   <Typography>{user?.name}</Typography>
                 </Toolbar>
               </AppBar>

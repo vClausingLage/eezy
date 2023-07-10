@@ -11,12 +11,6 @@
   border-radius: .2rem;
   text-decoration: none;
   color: #4C689F;
-  /* color: white;
-  font-weight: bold;
-  padding: .3rem;
-  border: 1px solid white;
-  margin: 1rem;
-  text-decoration: none; */
 }
 .nav-bar > *:hover {
   background-color: #93A4C5;
