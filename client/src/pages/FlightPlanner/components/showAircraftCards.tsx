@@ -1,9 +1,9 @@
-import { IAircraft } from "../interfaces/aircraft";
-
 import { Box } from "@mui/material";
 
 import AircraftCard from "./aircraftCard";
-import LoadingCircleDescription from "../../../General/LoadingCircleDescription";
+import LoadingCircleDescription from "../../../general/LoadingCircleDescription";
+
+import { IAircraft } from "../interfaces/aircraft";
 
 type Props = {
   aircraft: IAircraft[];
