@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import TextFieldContainer from "../../../General/TextFields/textFieldContainer";
+import TextFieldContainer from "../../../general/TextFields/textFieldContainer";
 
 import { Typography, Box, Card, Alert, IconButton } from "@mui/material";
 import { FlightTakeoff, FlightLand, Search } from "@mui/icons-material";
@@ -9,7 +9,7 @@ import { calcLatLong } from "../helper/distance-lat-long-calc";
 import "../CSS/planner-calculator.css";
 
 type Props = {
-  getDistance: (input: number) => void;
+  getDistance: (distance: number) => void;
 };
 
 function RouteCalculator({ getDistance }: Props) {

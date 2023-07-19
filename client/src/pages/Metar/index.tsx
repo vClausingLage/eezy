@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-import LoadingCircle from "../../General/LoadingCircle";
+import LoadingCircle from "../../general/LoadingCircle";
 import DataPanel from "./components/DataPanel";
 import SVGPanel from "./components/SVGPanel";
 import AerodromeFrequencies from "./components/AerodromeFrequencies";

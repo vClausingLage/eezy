@@ -18,13 +18,13 @@ import { Box, AppBar, Toolbar, ThemeProvider, Typography } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "./CSS/theme";
 
-import AppFooter from "./General/AppFooter";
+import AppFooter from "./general/AppFooter";
 import Metar from "./pages/Metar";
 import FlightPlanner from "./pages/FlightPlanner";
 import IndexPage from "./pages/Index/Index";
 
-import LoginButton from "./General/Buttons/loginButton";
-import LoadingCircle from "./General/LoadingCircle";
+import LoginButton from "./general/Buttons/loginButton";
+import LoadingCircle from "./general/LoadingCircle";
 
 function App() {
   const theme = useMemo(() => createTheme(getDesignTokens()), []);

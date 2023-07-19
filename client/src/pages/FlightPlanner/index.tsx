@@ -24,7 +24,9 @@ type Props = {
 };
 
 function FlightPlanner({ user, isAuthenticated }: Props) {
-  const [aircraftList, setAircraft] = useState([] as IAircraft[]);
+  const [aircraftList, setAircraftList] = useState([] as IAircraft[]);
+  const [aircraft, setAircraft] = useState({} as Aircraft);
+  const [selectedAircraft, setSelectedAircraft] = useState<number>();
   const [loading, setLoading] = useState(false);
 
   const isAircraftSelected = () => Object.keys(aircraftList).length > 0;
@@ -44,7 +46,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
         const response = await fetch(`/api/aircraft/create/${user}`);
         const result = await response.json();
         if (result.message === "fetched") {
-          setAircraft(result.data);
+          setAircraftList(result.data);
           setLoading(false);
         } else if (result.message === "no aircraft") {
           setLoading(false);
@@ -85,6 +87,15 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     }
   };
 
+  const selectAircraft = (id: number | null) => {
+    if (id) setSelectedAircraft(id);
+    console.log(id);
+  };
+
+  const getDistance = (distance: number) => {
+    console.log(distance);
+  };
+
   return (
     <>
       <ShowAircraftCards
@@ -92,6 +103,8 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
         loading={loading}
         editAircraft={editAircraft}
         deleteAircraft={deleteAircraft}
+        selectAircraft={(id) => selectAircraft(id)}
+        selectedAircraft={selectedAircraft}
         user={user}
       />
       <Card>
@@ -115,16 +128,14 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
                 columns={{ xs: 4, sm: 8, md: 12 }}
               >
                 <Grid item xs={4} sm={4} md={6}>
-                  <RouteCalculator
-                    getDistance={(input) => getDistance(input)}
-                  />
+                  <RouteCalculator getDistance={() => getDistance} />
                 </Grid>
                 <Grid item xs={4} sm={4} md={6}>
                   <FlightCalculator
                     fuelCapacity={fuel_capacity}
                     fuelConsumption={cruise_fuel_consumption}
                     cruiseSpeed={cruise_speed}
-                    distance={distance}
+                    // distance={distance}
                   />
                 </Grid>
               </Grid>

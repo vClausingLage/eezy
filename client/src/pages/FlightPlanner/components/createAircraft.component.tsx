@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { savedAircraft } from "../../../../features/redux/savedAircraftSlice";
+import { fuelTypes } from "../assets/fuelTypes";
 
-import { fuelTypes } from "../../../../ARCHIVE/FlightPlannerOld/Aircraft/components/assets/fuelTypes";
-
-import { IAircraft } from "../../../FlightPlanner/interfaces/aircraft";
+import { IAircraft } from "../interfaces/aircraft";
 
 import "../CSS/aircraft-form.css";
 
@@ -54,11 +51,6 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
     }
   }, [isAuthenticated, user]);
 
-  const savedAircraftList = useSelector(
-    (state: any) => state.savedAircraft.list
-  );
-  const dispatch = useDispatch();
-
   async function submitAircraft() {
     if (isAuthenticated) {
       try {
@@ -71,7 +63,7 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
         });
         const result = await response.json();
         if (result.message === "created") {
-          dispatch(savedAircraft(result.data)); // dispatch(savedAircraft([...savedAircraftList, newAircraft])); //! change to new list from API
+          // create Aircraft
           setSuccess(true);
           setTimeout(() => {
             setSuccess(false);
