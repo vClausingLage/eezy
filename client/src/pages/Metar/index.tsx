@@ -132,7 +132,7 @@ function Metar() {
 
   useEffect(() => {
     if (metarObject.visibility) {
-      //if (metarObject.visibility !== undefined)
+      //! if (metarObject.visibility !== undefined)
       const flightRuleColor = getFlightRules(
         metarObject.CAVOK ? "CAVOK" : metarObject.visibility.meters,
         metarObject.clouds
