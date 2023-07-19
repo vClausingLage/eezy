@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -15,10 +13,6 @@ type Props = {
 };
 
 function SelectedAircraftCard({ aircraft }: Props) {
-  useEffect(() => {
-    console.log(aircraft);
-  }, [aircraft]);
-
   return (
     <Card className="card-aircraft-selected">
       <CardContent>
