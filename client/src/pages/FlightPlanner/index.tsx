@@ -19,7 +19,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
   const [aircraft, setAircraft] = useState({} as IAircraft);
   const [loading, setLoading] = useState(false);
 
-  const isAircraftSelected = () => Object.keys(aircraftList).length > 0;
+  const isAircraftSelected = () => Object.keys(aircraft).length > 0;
 
   const {
     manufacturer,
