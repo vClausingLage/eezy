@@ -9,15 +9,6 @@ import { Box, Card, CardContent, Alert, Typography, Grid } from "@mui/material";
 
 import { IAircraft } from "./interfaces/aircraft";
 
-interface Aircraft {
-  manufacturer: string;
-  model: string;
-  registration_number: string;
-  fuel_capacity: number;
-  cruise_fuel_consumption: number;
-  cruise_speed: number;
-}
-
 type Props = {
   user?: string;
   isAuthenticated: boolean;
@@ -25,8 +16,7 @@ type Props = {
 
 function FlightPlanner({ user, isAuthenticated }: Props) {
   const [aircraftList, setAircraftList] = useState([] as IAircraft[]);
-  const [aircraft, setAircraft] = useState({} as Aircraft);
-  const [selectedAircraft, setSelectedAircraft] = useState<number>();
+  const [aircraft, setAircraft] = useState({} as IAircraft);
   const [loading, setLoading] = useState(false);
 
   const isAircraftSelected = () => Object.keys(aircraftList).length > 0;
@@ -87,9 +77,8 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     }
   };
 
-  const selectAircraft = (id: number | null) => {
-    if (id) setSelectedAircraft(id);
-    console.log(id);
+  const selectAircraft = (aircraft: IAircraft) => {
+    if (aircraft) setAircraft(aircraft);
   };
 
   const getDistance = (distance: number) => {
@@ -99,12 +88,12 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
   return (
     <>
       <ShowAircraftCards
-        aircraft={aircraftList}
+        aircraftList={aircraftList}
         loading={loading}
         editAircraft={editAircraft}
         deleteAircraft={deleteAircraft}
         selectAircraft={(id) => selectAircraft(id)}
-        selectedAircraft={selectedAircraft}
+        aircraft={aircraft}
         user={user}
       />
       <Card>

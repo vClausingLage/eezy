@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { fuelTypes } from "../assets/fuelTypes";
 
-import { IAircraft } from "../interfaces/aircraft";
+import { ICreateAircraft } from "../interfaces/aircraft";
 
 import "../CSS/aircraft-form.css";
 
@@ -40,7 +40,7 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
     color: "",
     IFR: false,
     equiptment: "",
-  } as IAircraft);
+  } as ICreateAircraft);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {

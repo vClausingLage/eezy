@@ -17,8 +17,8 @@ type Props = {
   aircraft: IAircraft;
   editAircraft: (id: number | null, user?: string) => void;
   deleteAircraft: (id: number | null, user?: string) => void;
-  selectAircraft: (id: number | null) => void;
-  selectedAircraft?: number;
+  selectAircraft: (aircraft: IAircraft) => void;
+  selectedAircraft?: IAircraft;
   user?: string;
 };
 
@@ -38,7 +38,7 @@ function AircraftCard({
             {aircraft.manufacturer} {aircraft.model}
           </Typography>
           <Typography>{aircraft.registration_number}</Typography>
-          <Button onClick={() => selectAircraft(aircraft.id)}>
+          <Button onClick={() => selectAircraft(aircraft)}>
             select Aircraft
           </Button>
           <Typography className="aircraft-selected">
@@ -49,7 +49,9 @@ function AircraftCard({
               <DeleteForeverIcon color="error" />
             </IconButton>
             <CheckIcon
-              color={aircraft.id === selectedAircraft ? "success" : "disabled"}
+              color={
+                aircraft.id === selectedAircraft?.id ? "success" : "disabled"
+              }
             />
           </Typography>
         </CardContent>
