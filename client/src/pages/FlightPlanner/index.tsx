@@ -92,15 +92,15 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
 
   const deleteAircraft = async (id: number | null, user?: string) => {
     if (id && user) {
-      const response = await fetch(`/api/aircraft/create/${id}`, {
+      const response = await fetch(`/api/aircraft/create/${id}${user}`, {
         method: "delete",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const result = await response.json();
-      if (result.message === "created") {
-        console.log("deleted", result.data);
+      if (result.message === "deleted") {
+        setAircraftList(result.data);
       }
     }
   };
