@@ -1,6 +1,7 @@
 Flight Planner : user
 
 state
+aircraftList
 aircraft
 range
 fuel
@@ -9,6 +10,7 @@ fuel
 -> edit
 -> delete
 
-- List Aircraft -> Aircraft Card
+- Show Aircraft -> Aircraft Card
 - RouteCalculator
 - FuelCalculator
+- Create / Edit Aircraft
