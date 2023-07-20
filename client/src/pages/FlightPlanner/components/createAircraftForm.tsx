@@ -22,9 +22,17 @@ import {
 type Props = {
   user: string | undefined;
   isAuthenticated: boolean;
+  createAircraft: (newAircraft: ICreateAircraft) => void;
+  createSuccess: boolean;
+  aircraft?: ICreateAircraft;
 };
 
-function CreateAircraftForm({ user, isAuthenticated }: Props) {
+function CreateAircraftForm({
+  user,
+  isAuthenticated,
+  createAircraft,
+  createSuccess,
+}: Props) {
   const [newAircraft, setNewAircraft] = useState({
     id: null,
     user: "",
@@ -41,7 +49,6 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
     IFR: false,
     equiptment: "",
   } as ICreateAircraft);
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -51,39 +58,13 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
     }
   }, [isAuthenticated, user]);
 
-  async function submitAircraft() {
-    if (isAuthenticated) {
-      try {
-        const response = await fetch("/api/aircraft/create", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newAircraft),
-        });
-        const result = await response.json();
-        if (result.message === "created") {
-          // create Aircraft
-          setSuccess(true);
-          setTimeout(() => {
-            setSuccess(false);
-          }, 2000);
-        }
-      } catch (error) {
-        console.log("error getAircarft", error);
-      }
-    }
-  }
-
   return (
     <>
-      {!user && (
-        <Alert severity="info">
-          You must be logged in to create and choose your aircraft.
-        </Alert>
-      )}
       {user && (
-        <form onSubmit={submitAircraft} className="aircraft-form">
+        <form
+          onSubmit={() => createAircraft(newAircraft)}
+          className="aircraft-form"
+        >
           <Box className="aircraft-form-column">
             <TextField
               label="Manufacturer"
@@ -245,7 +226,7 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
           </Box>
           <Box className="submit-box">
             <Button
-              onClick={submitAircraft}
+              onClick={() => createAircraft(newAircraft)}
               style={{ maxWidth: "100px" }}
               variant="contained"
             >
@@ -263,7 +244,7 @@ function CreateAircraftForm({ user, isAuthenticated }: Props) {
               required
             </Typography>
           </Box>
-          {success && <Alert severity="info">created!</Alert>}
+          {createSuccess && <Alert severity="info">created!</Alert>}
         </form>
       )}
     </>

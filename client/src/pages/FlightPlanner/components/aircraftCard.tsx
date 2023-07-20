@@ -1,13 +1,4 @@
-import {
-  Card,
-  IconButton,
-  CardContent,
-  Typography,
-  Button,
-} from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Card, CardContent, Typography, Button } from "@mui/material";
 
 import "../CSS/aircraft-get.css";
 
@@ -15,45 +6,22 @@ import { IAircraft } from "../interfaces/aircraft";
 
 type Props = {
   aircraft: IAircraft;
-  editAircraft: (id: number | null, user?: string) => void;
-  deleteAircraft: (id: number | null, user?: string) => void;
   selectAircraft: (aircraft: IAircraft) => void;
   selectedAircraft?: IAircraft;
-  user?: string;
 };
 
-function AircraftCard({
-  aircraft,
-  editAircraft,
-  deleteAircraft,
-  selectAircraft,
-  selectedAircraft,
-  user,
-}: Props) {
+function AircraftCard({ aircraft, selectAircraft, selectedAircraft }: Props) {
   return (
     <Card>
       {aircraft && (
         <CardContent>
+          <Typography variant="h5" color="primary.main">
+            {aircraft.registration_number}
+          </Typography>
           <Typography>
             {aircraft.manufacturer} {aircraft.model}
           </Typography>
-          <Typography>{aircraft.registration_number}</Typography>
-          <Button onClick={() => selectAircraft(aircraft)}>
-            select Aircraft
-          </Button>
-          <Typography className="aircraft-selected">
-            <IconButton onClick={() => editAircraft(aircraft.id, user)}>
-              <EditIcon color="primary" />
-            </IconButton>
-            <IconButton onClick={() => deleteAircraft(aircraft.id, user)}>
-              <DeleteForeverIcon color="error" />
-            </IconButton>
-            <CheckIcon
-              color={
-                aircraft.id === selectedAircraft?.id ? "success" : "disabled"
-              }
-            />
-          </Typography>
+          <Button onClick={() => selectAircraft(aircraft)}>select</Button>
         </CardContent>
       )}
     </Card>
