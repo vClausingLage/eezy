@@ -124,18 +124,17 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h2">Flight Planner</Typography>
-          <Box>
-            <Alert severity="info">select your Aircraft</Alert>
-            {!isAircraftSelected() && (
+          {!isAircraftSelected() && (
+            <Box>
+              <Alert severity="info">select your Aircraft</Alert>
               <ShowAircraftCards
                 aircraftList={aircraftList}
                 loading={loading}
                 selectAircraft={(id) => selectAircraft(id)}
-                aircraft={aircraft}
                 user={user}
               />
-            )}
-          </Box>
+            </Box>
+          )}
           {isAircraftSelected() && (
             <Box>
               <SelectedAircraftCard

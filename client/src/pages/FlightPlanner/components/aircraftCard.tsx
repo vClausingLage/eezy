@@ -7,10 +7,9 @@ import { IAircraft } from "../interfaces/aircraft";
 type Props = {
   aircraft: IAircraft;
   selectAircraft: (aircraft: IAircraft) => void;
-  selectedAircraft?: IAircraft;
 };
 
-function AircraftCard({ aircraft, selectAircraft, selectedAircraft }: Props) {
+function AircraftCard({ aircraft, selectAircraft }: Props) {
   return (
     <Card>
       {aircraft && (

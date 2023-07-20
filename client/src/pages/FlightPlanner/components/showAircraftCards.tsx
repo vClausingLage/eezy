@@ -1,4 +1,4 @@
-import { Box, Alert } from "@mui/material";
+import { Box, Alert, Button } from "@mui/material";
 
 import AircraftCard from "./aircraftCard";
 import LoadingCircleDescription from "../../../general/LoadingCircleDescription";
@@ -11,7 +11,6 @@ type Props = {
   aircraftList: IAircraft[];
   loading: boolean;
   selectAircraft: (aircraft: IAircraft) => void;
-  aircraft?: IAircraft;
   user?: string;
 };
 
@@ -19,7 +18,6 @@ function ShowAircraftCards({
   aircraftList,
   loading,
   selectAircraft,
-  aircraft,
   user,
 }: Props) {
   return (
@@ -42,9 +40,9 @@ function ShowAircraftCards({
             key={ac.id}
             aircraft={ac}
             selectAircraft={(id) => selectAircraft(id)}
-            selectedAircraft={aircraft}
           />
         ))}
+        <Button variant="outlined">add aircraft</Button>
       </Box>
     </Box>
   );
