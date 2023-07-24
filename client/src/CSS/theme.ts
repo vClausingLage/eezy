@@ -1,9 +1,6 @@
-import {} from "@mui/material/colors";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-export const getDesignTokens = (mode?: any) => ({
-  typography: {
-    fontSize: 16,
-  },
+const theme = createTheme({
   palette: {
     primary: {
       main: "#4C689F", // #20788d #495c75 #568395 #8495b0
@@ -20,8 +17,21 @@ export const getDesignTokens = (mode?: any) => ({
     info: {
       main: "#f2ff00",
     },
-    paper: {
-      main: "#ffeecb",
+  },
+  typography: {
+    h1: {
+      fontSize: "3.5rem",
+    },
+    h2: {
+      fontSize: "2.8rem",
+    },
+    h3: {
+      fontSize: "2rem",
+    },
+    h4: {
+      fontSize: "1.7rem",
     },
   },
 });
+
+export default theme;
