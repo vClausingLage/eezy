@@ -31,11 +31,6 @@ export class Wind {
   gusts?: number;
 }
 
-// export class Precipitation {
-//     intensity!: string;
-//     elements!: string[];
-// }
-
 export class Clouds {
   cloudLayer!: string;
   cloudBase!: number | undefined;
