@@ -8,7 +8,7 @@ client/src/config/
 
 mobile_app/node_modules/
 
-server/node_modules/
-server/config/
-server/dist/
-server/.env
+api/node_modules/
+api/config/
+api/dist/
+api/.env
