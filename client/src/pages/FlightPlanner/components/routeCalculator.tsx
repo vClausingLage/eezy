@@ -9,7 +9,7 @@ import { calcLatLong } from "../helper/distance-lat-long-calc";
 import "../CSS/planner-calculator.css";
 
 type Props = {
-  getDistance: (distance: number) => void;
+  getDistance(distance: number): void;
 };
 
 function RouteCalculator({ getDistance }: Props) {

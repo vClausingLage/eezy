@@ -4,7 +4,7 @@ import { Search, Check } from "@mui/icons-material";
 type Props = {
   value: string;
   adornment: string;
-  submit: (icao: string) => void;
+  submit(icao: string): void;
 };
 
 function IcaoInput(props: Props) {

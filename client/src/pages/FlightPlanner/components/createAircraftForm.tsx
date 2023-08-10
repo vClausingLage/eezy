@@ -22,7 +22,7 @@ import {
 type Props = {
   user: string | undefined;
   isAuthenticated: boolean;
-  createAircraft: (newAircraft: ICreateAircraft) => void;
+  createAircraft(newAircraft: ICreateAircraft): void;
   createSuccess: boolean;
   aircraft?: ICreateAircraft;
 };

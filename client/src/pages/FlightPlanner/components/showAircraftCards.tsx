@@ -10,7 +10,7 @@ import "../CSS/aircraft-card.css";
 type Props = {
   aircraftList: IAircraft[];
   loading: boolean;
-  selectAircraft: (aircraft: IAircraft) => void;
+  selectAircraft(aircraft: IAircraft): void;
   user?: string;
 };
 

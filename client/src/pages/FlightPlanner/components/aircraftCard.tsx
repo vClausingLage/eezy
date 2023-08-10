@@ -6,7 +6,7 @@ import { IAircraft } from "../interfaces/aircraft";
 
 type Props = {
   aircraft: IAircraft;
-  selectAircraft: (aircraft: IAircraft) => void;
+  selectAircraft(aircraft: IAircraft): void;
 };
 
 function AircraftCard({ aircraft, selectAircraft }: Props) {

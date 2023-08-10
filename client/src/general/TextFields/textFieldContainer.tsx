@@ -8,7 +8,7 @@ type Props = {
   icon: any;
   adornment: string;
   value: string;
-  submit: (input: string) => void;
+  submit(input: string): void;
 };
 
 function TextFieldContainer({ icon, value, adornment, submit }: Props) {

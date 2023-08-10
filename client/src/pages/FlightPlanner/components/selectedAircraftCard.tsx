@@ -15,9 +15,9 @@ type Props = {
     model: string;
     registration_number: string;
   };
-  editAircraft: (id: number | null, user?: string) => void;
-  deleteAircraft: (id: number | null, user?: string) => void;
-  deselectAircraft: () => void;
+  editAircraft(id: number | null, user?: string): void;
+  deleteAircraft(i: number | null, user?: string): void;
+  deselectAircraft(): void;
   user?: string;
 };
 
