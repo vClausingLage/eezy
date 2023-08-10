@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Sun from "./Sun";
 import Cloud from "./Cloud";
 import Wind from "./Wind";
-import { IClouds, IRwy } from "../classes/IMetar";
+import { IClouds, IRwy } from "../interfaces/IMetar";
 
 type Props = {
   clouds: IClouds[];

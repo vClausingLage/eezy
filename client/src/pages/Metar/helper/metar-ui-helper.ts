@@ -1,5 +1,5 @@
 import weatherCodes from "../assets/weatherCodesClient.json";
-import { IClouds } from "../classes/IMetar";
+import { IClouds } from "../interfaces/IMetar";
 
 export function getFlightRules(visibility: string | number, clouds: IClouds[]) {
   let flRul = {

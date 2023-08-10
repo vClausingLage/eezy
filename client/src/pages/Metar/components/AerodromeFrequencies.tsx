@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import CellTowerIcon from "@mui/icons-material/CellTower";
 
-import { IFreq } from "../classes/IMetar";
+import { IFreq } from "../interfaces/IMetar";
 
 type Props = {
   frequencies: IFreq[];

@@ -26,7 +26,7 @@ import {
   IMetarObject,
   IAirportObject,
   IMetarAPIObject,
-} from "./classes/IMetar";
+} from "./interfaces/IMetar";
 
 import "./CSS/index.css";
 

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import { IWind } from "../classes/IMetar";
+import { IWind } from "../interfaces/IMetar";
 
 function Wind({ direction, speed, unit, runways, gusts }: IWind) {
   const [runwayDir, setRunwayDir] = useState(0);
