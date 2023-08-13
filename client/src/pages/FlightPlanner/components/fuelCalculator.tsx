@@ -41,7 +41,7 @@ function FlightCalculator({
       setFuelMaxAlert(false);
     }
   }
-  function handleReserveChange(e: any) {
+  function handleReserveChange(e: any): void {
     setFuelReserve(e.target.value);
   }
   function fuelReserveText(
@@ -55,7 +55,7 @@ function FlightCalculator({
   function fuelCapacityText(input: number | undefined): number {
     return input ? input : 0;
   }
-  function isRangeAlert() {
+  function isRangeAlert(): boolean {
     if (distance && range && distance >= range) return true;
     return false;
   }
