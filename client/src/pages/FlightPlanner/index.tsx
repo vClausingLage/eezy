@@ -83,13 +83,17 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     id: number | null,
     user?: string
   ): Promise<any> => {
-    if (id && user) {
-      const response = await fetch(`/api/aircraft/create/${id}`, {
-        method: "update",
-        headers: { "Content-Type": "application/json" },
-      });
-      const result = await response.json();
-      console.log("edited", result.data);
+    try {
+      if (id && user) {
+        const response = await fetch(`/api/aircraft/create/${id}`, {
+          method: "update",
+          headers: { "Content-Type": "application/json" },
+        });
+        const result = await response.json();
+        console.log("edited", result.data);
+      }
+    } catch (error) {
+      console.log("error editAircraft", error);
     }
   };
 
@@ -97,17 +101,21 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     id: number | null,
     user?: string
   ): Promise<any> => {
-    if (id && user) {
-      const response = await fetch(`/api/aircraft/create/${id}${user}`, {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await response.json();
-      if (result.message === "deleted") {
-        setAircraftList(result.data);
+    try {
+      if (id && user) {
+        const response = await fetch(`/api/aircraft/create/${id}${user}`, {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        if (result.message === "deleted") {
+          setAircraftList(result.data);
+        }
       }
+    } catch (error) {
+      console.log("error deleteAircraft", error);
     }
   };
 
