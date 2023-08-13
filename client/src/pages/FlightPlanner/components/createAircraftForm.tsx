@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { fuelTypes } from "../assets/fuelTypes";
 
-import { ICreateAircraft } from "../interfaces/aircraft";
+import { ICreateAircraft } from "../interfaces/IAaircraft";
 
 import "../CSS/aircraft-form.css";
 

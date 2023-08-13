@@ -3,7 +3,7 @@ import { Box, Alert, Button } from "@mui/material";
 import AircraftCard from "./aircraftCard";
 import LoadingCircleDescription from "../../../general/LoadingCircleDescription";
 
-import { IAircraft } from "../interfaces/aircraft";
+import { IAircraft } from "../interfaces/IAaircraft";
 
 import "../CSS/aircraft-card.css";
 

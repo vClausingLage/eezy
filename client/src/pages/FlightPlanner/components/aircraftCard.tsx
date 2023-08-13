@@ -2,7 +2,7 @@ import { Card, CardContent, Typography, Button } from "@mui/material";
 
 import "../CSS/aircraft-get.css";
 
-import { IAircraft } from "../interfaces/aircraft";
+import { IAircraft } from "../interfaces/IAaircraft";
 
 type Props = {
   aircraft: IAircraft;
