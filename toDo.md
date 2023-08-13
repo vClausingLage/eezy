@@ -1,5 +1,11 @@
 # TO DO
 
+## URGENT
+
+- "ADD AIRCRAFT" not showing when no aircraft in DB
+- "ADD AIRCRAFT" -> toggle Aircraft create **form**
+- **useEffect?** for showing aircraft after create/update/delete
+
 ## client
 
 - add new formula for distance calculation **DONE**
