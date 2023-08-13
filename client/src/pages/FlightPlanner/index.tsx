@@ -56,27 +56,27 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
 
   async function createAircraft(newAircraft: ICreateAircraft): Promise<any> {
     console.log(newAircraft);
-    // if (isAuthenticated) {
-    //   try {
-    //     const response = await fetch("/api/aircraft/create", {
-    //       method: "post",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(newAircraft),
-    //     });
-    //     const result = await response.json();
-    //     if (result.message === "created") {
-    //       setAircraft(result);
-    //       setCreateSuccess(true);
-    //       setTimeout(() => {
-    //         setCreateSuccess(false);
-    //       }, 2000);
-    //     }
-    //   } catch (error) {
-    //     console.log("error getAircarft", error);
-    //   }
-    // }
+    if (isAuthenticated) {
+      try {
+        const response = await fetch("/api/aircraft/create", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newAircraft),
+        });
+        const result = await response.json();
+        if (result.message === "created") {
+          setAircraft(result);
+          setCreateSuccess(true);
+          setTimeout(() => {
+            setCreateSuccess(false);
+          }, 2000);
+        }
+      } catch (error) {
+        console.log("error getAircarft", error);
+      }
+    }
   }
 
   const editAircraft = async (
@@ -133,8 +133,6 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
 
   return (
     <>
-      <Alert severity="error">under construction</Alert>
-
       <Card>
         <CardContent>
           <Typography variant="h2">Flight Planner</Typography>
