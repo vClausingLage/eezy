@@ -54,7 +54,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     }
   }, []);
 
-  async function createAircraft(newAircraft: ICreateAircraft) {
+  async function createAircraft(newAircraft: ICreateAircraft): Promise<any> {
     console.log(newAircraft);
     // if (isAuthenticated) {
     //   try {
@@ -79,7 +79,10 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     // }
   }
 
-  const editAircraft = async (id: number | null, user?: string) => {
+  const editAircraft = async (
+    id: number | null,
+    user?: string
+  ): Promise<any> => {
     if (id && user) {
       const response = await fetch(`/api/aircraft/create/${id}`, {
         method: "update",
@@ -90,7 +93,10 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     }
   };
 
-  const deleteAircraft = async (id: number | null, user?: string) => {
+  const deleteAircraft = async (
+    id: number | null,
+    user?: string
+  ): Promise<any> => {
     if (id && user) {
       const response = await fetch(`/api/aircraft/create/${id}${user}`, {
         method: "delete",
@@ -105,11 +111,11 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     }
   };
 
-  const selectAircraft = (aircraft: IAircraft) => {
+  const selectAircraft = (aircraft: IAircraft): void => {
     if (aircraft) setAircraft(aircraft);
   };
 
-  const deselectAircraft = () => {
+  const deselectAircraft = (): void => {
     setAircraft({} as IAircraft);
   };
 
