@@ -5,6 +5,7 @@
 - "ADD AIRCRAFT" not showing when no aircraft in DB
 - "ADD AIRCRAFT" -> toggle Aircraft create **form**
 - **useEffect?** for showing aircraft after create/update/delete
+- fuel calculation **wrong**
 
 ## client
 
