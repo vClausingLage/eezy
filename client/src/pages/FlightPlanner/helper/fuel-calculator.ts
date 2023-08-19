@@ -2,6 +2,12 @@ function getDuration(fuelLoad: number, fuelConsumption: number): number {
   return Math.round((fuelLoad / fuelConsumption) * 100) / 100;
 }
 
+/**
+ * @param fuelLoaded fuel loaded liters
+ * @param fuelConsumption fuel consumption liters
+ * @param cruiseSpeed cruise speed kts
+ * @param fuelReserve fuel reserve liters
+ */
 export function getRange(
   fuelLoaded: number | undefined,
   fuelConsumption: number,
