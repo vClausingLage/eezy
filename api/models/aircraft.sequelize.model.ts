@@ -1,12 +1,6 @@
 import { seqConnection } from "../connections/seqConnection.js";
 import { DataTypes } from "sequelize";
 
-// id: {
-//   type: DataTypes.NUMBER,
-//   primaryKey: true,
-//   autoIncrement: true,
-// },
-
 export const aircraft = seqConnection.define(
   "aircraft",
   {
