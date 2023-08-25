@@ -15,7 +15,8 @@ function Wind({ direction, speed, unit, runways, gusts }: IWind) {
 
   useEffect(() => {
     setRunwayDir(Number(runways[0].he_ident.slice(0, 2)) * 10);
-  }, []);
+  }, [runways]);
+
   function setRunwayDirection(input: string) {
     let degrees = Number(input.slice(0, 2)) * 10;
     setRunwayDir(degrees);

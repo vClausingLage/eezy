@@ -52,7 +52,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
         fetchAircraft();
       }
     }
-  }, []);
+  }, [isAuthenticated, user, aircraftList.length]);
 
   async function createAircraft(newAircraft: ICreateAircraft): Promise<any> {
     console.log(newAircraft);
