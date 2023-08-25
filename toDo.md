@@ -19,6 +19,7 @@
 - redo navigation bar (w/o MUI)
 - add sm flightRules to _CLIENT_
 - add **animation** to _RWY SELECT_
+- **selected aircraft** must be stored in **App.tsx**
 
 ## server
 
