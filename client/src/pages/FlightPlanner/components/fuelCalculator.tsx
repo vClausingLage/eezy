@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Box, Card } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -31,6 +31,10 @@ function FlightCalculator({
   const [fuelReserve, setFuelReserve] = useState<number | undefined>();
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
   const [range, setRange] = useState<number | undefined>(0);
+
+  useEffect(() => {
+    setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
+  }, []);
 
   function handleFuelChange(e: any) {
     if (e.target.value > fuelCapacity) {
