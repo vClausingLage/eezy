@@ -6,6 +6,7 @@
 - "ADD AIRCRAFT" -> toggle Aircraft create **form**
 - **useEffect?** for showing aircraft after create/update/delete
 - fuel calculation **wrong**
+- remove **fileToTest** and test
 
 ## client
 
