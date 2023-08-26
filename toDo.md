@@ -5,12 +5,9 @@
 - "ADD AIRCRAFT" not showing when no aircraft in DB
 - "ADD AIRCRAFT" -> toggle Aircraft create **form**
 - **useEffect?** for showing aircraft after create/update/delete
-- fuel calculation **wrong**
 
 ## client
 
-- add new formula for distance calculation **DONE**
-- finish **Login** logic
 - add **Haversine distance** to ICAOs
 - useEffect metar index ARRAY!!!
 - test new Precip Decoder
