@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Box, Card } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -28,21 +28,27 @@ function FlightCalculator({
   const [fuelLoaded, setFuelLoaded] = useState<number>(fuelCapacity);
   const [fuelReserve, setFuelReserve] = useState<number>(0);
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
-  const [range, setRange] = useState<number | undefined>(0);
+  const [range, setRange] = useState<number>(0);
+
+  useEffect(() => {
+    if (fuelLoaded > fuelCapacity) {
+      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
+      setFuelMaxAlert(true);
+    } else if (fuelLoaded !== undefined && fuelLoaded >= 0) {
+      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
+      setFuelMaxAlert(false);
+    }
+  }, [fuelLoaded, fuelReserve]);
 
   function handleFuelChange(e: any) {
     if (e.target.value > fuelCapacity) {
       setFuelLoaded(Number(e.target.value));
-      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
-      setFuelMaxAlert(true);
     } else if (e.target.value !== undefined && e.target.value >= 0) {
       setFuelLoaded(Number(e.target.value));
-      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
-      setFuelMaxAlert(false);
     }
   }
   function handleReserveChange(e: any): void {
-    if (e.target.value > 0) setFuelReserve(e.target.value);
+    if (e.target.value >= 0) setFuelReserve(e.target.value);
   }
   function fuelReserveText(
     inputReserve: number | undefined,
