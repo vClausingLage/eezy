@@ -25,10 +25,8 @@ function FlightCalculator({
   cruiseSpeed,
   distance,
 }: Props) {
-  const [fuelLoaded, setFuelLoaded] = useState<number | undefined>(
-    fuelCapacity
-  );
-  const [fuelReserve, setFuelReserve] = useState<number | undefined>();
+  const [fuelLoaded, setFuelLoaded] = useState<number>(fuelCapacity);
+  const [fuelReserve, setFuelReserve] = useState<number>(0);
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
   const [range, setRange] = useState<number | undefined>(0);
 
@@ -44,7 +42,7 @@ function FlightCalculator({
     }
   }
   function handleReserveChange(e: any): void {
-    setFuelReserve(e.target.value);
+    if (e.target.value > 0) setFuelReserve(e.target.value);
   }
   function fuelReserveText(
     inputReserve: number | undefined,
