@@ -1,25 +1,25 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
 
-import Hero from "./components/Hero";
+import Hero from './components/Hero'
 
-import "./CSS/index.css";
+import './CSS/index.css'
 
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
+const Img = styled('img')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '100%'
+})
 
-function IndexPage() {
+function IndexPage () {
   return (
     <Box>
-      <Box className="hero-container">
+      <Box className='hero-container'>
         <Box>
-          <Typography variant="h3" className="hero-text">
+          <Typography variant='h3' className='hero-text'>
             welcome to the EEzy Flight Planner
           </Typography>
         </Box>
@@ -27,18 +27,18 @@ function IndexPage() {
           <Hero />
         </Box>
       </Box>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent='center' alignItems='center'>
         <Grid item>
-          <Typography variant="h5">
+          <Typography variant='h5'>
             stay ahead of changing weather with our METAR App
           </Typography>
         </Grid>
         <Grid item>
-          <Img src="./clouds.jpg" alt="clouds" className="clouds" />
+          <Img src='./clouds.jpg' alt='clouds' className='clouds' />
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }
 
-export default IndexPage;
+export default IndexPage

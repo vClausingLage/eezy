@@ -1,101 +1,101 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
-import { Box, Card } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import { Box, Card } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import Alert from '@mui/material/Alert'
+import Stack from '@mui/material/Stack'
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
 
-import FuelCalculatorTextInput from "./fuelCalculatorTextInput";
+import FuelCalculatorTextInput from './fuelCalculatorTextInput'
 
-import { getRange } from "../helper/fuel-calculator";
+import { getRange } from '../helper/fuel-calculator'
 
-import "../CSS/planner-calculator.css";
+import '../CSS/planner-calculator.css'
 
-type Props = {
-  fuelCapacity: number;
-  fuelConsumption: number;
-  cruiseSpeed: number;
-  distance?: number;
-};
+interface Props {
+  fuelCapacity: number
+  fuelConsumption: number
+  cruiseSpeed: number
+  distance?: number
+}
 
-function FlightCalculator({
+function FlightCalculator ({
   fuelCapacity,
   fuelConsumption,
   cruiseSpeed,
-  distance,
+  distance
 }: Props) {
-  const [fuelLoaded, setFuelLoaded] = useState<number>(fuelCapacity);
-  const [fuelReserve, setFuelReserve] = useState<number>(0);
-  const [fuelMaxAlert, setFuelMaxAlert] = useState(false);
-  const [range, setRange] = useState<number | undefined>(0);
+  const [fuelLoaded, setFuelLoaded] = useState<number>(fuelCapacity)
+  const [fuelReserve, setFuelReserve] = useState<number>(0)
+  const [fuelMaxAlert, setFuelMaxAlert] = useState(false)
+  const [range, setRange] = useState<number | undefined>(0)
 
   useEffect(() => {
-    setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
-  }, []);
+    setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve))
+  }, [])
 
-  function handleFuelChange(e: any) {
+  function handleFuelChange (e: any) {
     if (e.target.value > fuelCapacity) {
-      setFuelLoaded(Number(e.target.value));
-      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
-      setFuelMaxAlert(true);
+      setFuelLoaded(Number(e.target.value))
+      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve))
+      setFuelMaxAlert(true)
     } else if (e.target.value !== undefined && e.target.value >= 0) {
-      setFuelLoaded(Number(e.target.value));
-      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve));
-      setFuelMaxAlert(false);
+      setFuelLoaded(Number(e.target.value))
+      setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve))
+      setFuelMaxAlert(false)
     }
   }
-  function handleReserveChange(e: any): void {
-    if (e.target.value > 0) setFuelReserve(e.target.value);
+  function handleReserveChange (e: any): void {
+    if (e.target.value > 0) setFuelReserve(e.target.value)
   }
-  function fuelReserveText(
+  function fuelReserveText (
     inputReserve: number | undefined,
     inputConsumption: number
   ): number {
     return inputReserve
       ? Math.round((inputConsumption / 60) * inputReserve)
-      : 0;
+      : 0
   }
-  function fuelCapacityText(input: number | undefined): number {
-    return input ? input : 0;
+  function fuelCapacityText (input: number | undefined): number {
+    return input || 0
   }
-  function isRangeAlert(): boolean {
-    if (distance && range && distance >= range) return true;
-    return false;
+  function isRangeAlert (): boolean {
+    if (distance && range && distance >= range) return true
+    return false
   }
 
   return (
     <Card>
-      <Typography variant="h5" color="primary.main">
+      <Typography variant='h5' color='primary.main'>
         Fuel Calculator
       </Typography>
 
       <Box>
         <FuelCalculatorTextInput
-          label="Fuel"
-          unit="liters"
+          label='Fuel'
+          unit='liters'
           value={fuelLoaded}
-          placeholder=""
+          placeholder=''
           helperText={`of aircraftʼs ${fuelCapacityText(
             fuelCapacity
           )} liters max fuel`}
           handleChange={(e) => handleFuelChange(e)}
         />
         {fuelMaxAlert && (
-          <Alert severity="error">
+          <Alert severity='error'>
             Fuel Load exceeds your Aircraftʼs max. Capacity!
           </Alert>
         )}
         {isRangeAlert() && (
-          <Alert severity="error">
+          <Alert severity='error'>
             Distance to destination exceeds aircraftʼs maximum range!
           </Alert>
         )}
         <FuelCalculatorTextInput
-          label="Reserve"
-          unit="minutes"
+          label='Reserve'
+          unit='minutes'
           value={fuelReserve}
-          placeholder="e.g. 45"
+          placeholder='e.g. 45'
           helperText={`equals ${fuelReserveText(
             fuelReserve,
             fuelConsumption
@@ -104,16 +104,16 @@ function FlightCalculator({
         />
       </Box>
 
-      <Box className="result-view">
-        <Typography fontWeight="bold">
-          max Range: {range} nautical miles <br /> distance to destination:{" "}
+      <Box className='result-view'>
+        <Typography fontWeight='bold'>
+          max Range: {range} nautical miles <br /> distance to destination:{' '}
           {distance}
         </Typography>
       </Box>
-      <Box className="attention-bar">
-        <Stack direction="row" alignItems="center">
-          <PriorityHighIcon color="warning" />
-          <Typography color="warning.main">ATTENTION</Typography>
+      <Box className='attention-bar'>
+        <Stack direction='row' alignItems='center'>
+          <PriorityHighIcon color='warning' />
+          <Typography color='warning.main'>ATTENTION</Typography>
         </Stack>
         <ul>
           <li>fuel calculations are guidelines not exact values</li>
@@ -134,9 +134,9 @@ function FlightCalculator({
           <li>
             recommended fuel reserve is 30" (day), 45" (night) [
             <a
-              href="https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-135/subpart-D/section-135.209"
-              target="_blank"
-              rel="noreferrer"
+              href='https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-135/subpart-D/section-135.209'
+              target='_blank'
+              rel='noreferrer'
             >
               link
             </a>
@@ -145,7 +145,7 @@ function FlightCalculator({
         </ul>
       </Box>
     </Card>
-  );
+  )
 }
 
-export default FlightCalculator;
+export default FlightCalculator

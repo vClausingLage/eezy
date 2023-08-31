@@ -1,1 +1,1 @@
-export const fuelTypes = ["AvGas", "MoGas", "JetA1"];
+export const fuelTypes = ['AvGas', 'MoGas', 'JetA1']

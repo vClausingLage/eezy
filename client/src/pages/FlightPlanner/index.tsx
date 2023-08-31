@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
-import ShowAircraftCards from "./components/showAircraftCards";
-import SelectedAircraftCard from "./components/selectedAircraftCard";
-import FlightCalculator from "./components/fuelCalculator";
-import RouteCalculator from "./components/routeCalculator";
-import CreateAircraftForm from "./components/createAircraftForm";
+import ShowAircraftCards from './components/showAircraftCards'
+import SelectedAircraftCard from './components/selectedAircraftCard'
+import FlightCalculator from './components/fuelCalculator'
+import RouteCalculator from './components/routeCalculator'
+import CreateAircraftForm from './components/createAircraftForm'
 
-import { Box, Card, CardContent, Alert, Typography, Grid } from "@mui/material";
+import { Box, Card, CardContent, Alert, Typography, Grid } from '@mui/material'
 
-import { IAircraft, ICreateAircraft } from "./interfaces/IAaircraft";
+import { IAircraft, ICreateAircraft } from './interfaces/IAaircraft'
 
-type Props = {
-  user?: string;
-  isAuthenticated: boolean;
-};
+interface Props {
+  user?: string
+  isAuthenticated: boolean
+}
 
-function FlightPlanner({ user, isAuthenticated }: Props) {
-  const [aircraftList, setAircraftList] = useState([] as IAircraft[]);
-  const [aircraft, setAircraft] = useState({} as IAircraft);
-  const [loading, setLoading] = useState(false);
-  const [createSuccess, setCreateSuccess] = useState(false);
+function FlightPlanner ({ user, isAuthenticated }: Props) {
+  const [aircraftList, setAircraftList] = useState([] as IAircraft[])
+  const [aircraft, setAircraft] = useState({} as IAircraft)
+  const [loading, setLoading] = useState(false)
+  const [createSuccess, setCreateSuccess] = useState(false)
 
-  const isAircraftSelected = () => Object.keys(aircraft).length > 0;
+  const isAircraftSelected = () => Object.keys(aircraft).length > 0
 
   const {
     id,
@@ -30,51 +30,51 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     registration_number,
     fuel_capacity,
     cruise_fuel_consumption,
-    cruise_speed,
-  } = aircraft;
+    cruise_speed
+  } = aircraft
 
   useEffect(() => {
     if (isAuthenticated && user) {
       const fetchAircraft = async () => {
-        const response = await fetch(`/api/aircraft/create/${user}`);
-        const result = await response.json();
-        if (result.message === "fetched") {
-          setAircraftList(result.data);
-          setLoading(false);
-        } else if (result.message === "no aircraft") {
-          setLoading(false);
+        const response = await fetch(`/api/aircraft/create/${user}`)
+        const result = await response.json()
+        if (result.message === 'fetched') {
+          setAircraftList(result.data)
+          setLoading(false)
+        } else if (result.message === 'no aircraft') {
+          setLoading(false)
         } else {
-          setLoading(false);
+          setLoading(false)
         }
-      };
+      }
       if (aircraftList.length === 0 && isAuthenticated) {
-        setLoading(true);
-        fetchAircraft();
+        setLoading(true)
+        fetchAircraft()
       }
     }
-  }, [isAuthenticated, user, aircraftList.length]);
+  }, [isAuthenticated, user, aircraftList.length])
 
-  async function createAircraft(newAircraft: ICreateAircraft): Promise<any> {
-    console.log(newAircraft);
+  async function createAircraft (newAircraft: ICreateAircraft): Promise<any> {
+    console.log(newAircraft)
     if (isAuthenticated) {
       try {
-        const response = await fetch("/api/aircraft/create", {
-          method: "post",
+        const response = await fetch('/api/aircraft/create', {
+          method: 'post',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(newAircraft),
-        });
-        const result = await response.json();
-        if (result.message === "created") {
-          setAircraft(result);
-          setCreateSuccess(true);
+          body: JSON.stringify(newAircraft)
+        })
+        const result = await response.json()
+        if (result.message === 'created') {
+          setAircraft(result)
+          setCreateSuccess(true)
           setTimeout(() => {
-            setCreateSuccess(false);
-          }, 2000);
+            setCreateSuccess(false)
+          }, 2000)
         }
       } catch (error) {
-        console.log("error getAircarft", error);
+        console.log('error getAircarft', error)
       }
     }
   }
@@ -86,16 +86,16 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     try {
       if (id && user) {
         const response = await fetch(`/api/aircraft/create/${id}`, {
-          method: "update",
-          headers: { "Content-Type": "application/json" },
-        });
-        const result = await response.json();
-        console.log("edited", result.data);
+          method: 'update',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        const result = await response.json()
+        console.log('edited', result.data)
       }
     } catch (error) {
-      console.log("error editAircraft", error);
+      console.log('error editAircraft', error)
     }
-  };
+  }
 
   const deleteAircraft = async (
     id: number | null,
@@ -104,41 +104,41 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
     try {
       if (id && user) {
         const response = await fetch(`/api/aircraft/create/${id}${user}`, {
-          method: "delete",
+          method: 'delete',
           headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const result = await response.json();
-        if (result.message === "deleted") {
-          setAircraftList(result.data);
+            'Content-Type': 'application/json'
+          }
+        })
+        const result = await response.json()
+        if (result.message === 'deleted') {
+          setAircraftList(result.data)
         }
       }
     } catch (error) {
-      console.log("error deleteAircraft", error);
+      console.log('error deleteAircraft', error)
     }
-  };
+  }
 
   const selectAircraft = (aircraft: IAircraft): void => {
-    if (aircraft) setAircraft(aircraft);
-  };
+    if (aircraft) setAircraft(aircraft)
+  }
 
   const deselectAircraft = (): void => {
-    setAircraft({} as IAircraft);
-  };
+    setAircraft({} as IAircraft)
+  }
 
   const getDistance = (distance: number) => {
-    console.log(distance);
-  };
+    console.log(distance)
+  }
 
   return (
     <>
       <Card>
         <CardContent>
-          <Typography variant="h2">Flight Planner</Typography>
+          <Typography variant='h2'>Flight Planner</Typography>
           {!isAircraftSelected() && (
             <Box>
-              <Alert severity="info">select your Aircraft</Alert>
+              <Alert severity='info'>select your Aircraft</Alert>
               <ShowAircraftCards
                 aircraftList={aircraftList}
                 loading={loading}
@@ -154,7 +154,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
                   id,
                   manufacturer,
                   model,
-                  registration_number,
+                  registration_number
                 }}
                 editAircraft={editAircraft}
                 deleteAircraft={deleteAircraft}
@@ -164,7 +164,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
 
               <Grid
                 container
-                justifyContent="center"
+                justifyContent='center'
                 spacing={{ xs: 2, md: 3 }}
                 columns={{ xs: 4, sm: 8, md: 12 }}
               >
@@ -195,7 +195,7 @@ function FlightPlanner({ user, isAuthenticated }: Props) {
         </CardContent>
       </Card>
     </>
-  );
+  )
 }
 
-export default FlightPlanner;
+export default FlightPlanner

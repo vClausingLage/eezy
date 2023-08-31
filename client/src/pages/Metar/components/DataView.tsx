@@ -1,48 +1,48 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 
-type DataProps = {
-  data: { description: string; value: number | string }[];
-  unit?: string;
-  tempUnitToggle?: Function;
-};
+interface DataProps {
+  data: Array<{ description: string, value: number | string }>
+  unit?: string
+  tempUnitToggle?: Function
+}
 
-function DataView({ data, unit, tempUnitToggle }: DataProps) {
+function DataView ({ data, unit, tempUnitToggle }: DataProps) {
   return (
     <>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          textAlign: "center",
+          display: 'flex',
+          flexDirection: 'row',
+          textAlign: 'center',
           border: 1,
-          borderColor: "primary.main",
+          borderColor: 'primary.main',
           borderRadius: 2,
           mt: 2,
           mb: 2,
-          overflow: "hidden",
+          overflow: 'hidden'
         }}
       >
         {data &&
           data.map((el) => (
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column'
               }}
               key={el.description}
             >
               <Box
                 sx={{
-                  backgroundColor: "primary.main",
+                  backgroundColor: 'primary.main',
                   pl: 2,
                   pr: 2,
                   pt: 0.4,
-                  pb: 0.4,
+                  pb: 0.4
                 }}
               >
-                <Typography sx={{ color: "white" }}>
+                <Typography sx={{ color: 'white' }}>
                   {el.description}
                 </Typography>
               </Box>
@@ -51,38 +51,38 @@ function DataView({ data, unit, tempUnitToggle }: DataProps) {
                   pl: 2,
                   pr: 2,
                   pt: 0.4,
-                  pb: 0.4,
+                  pb: 0.4
                 }}
               >
-                <Typography display="inline" sx={{ fontWeight: "bold" }}>
+                <Typography display='inline' sx={{ fontWeight: 'bold' }}>
                   {el.value}
                 </Typography>
-                <Typography display="inline">{unit}</Typography>
+                <Typography display='inline'>{unit}</Typography>
               </Box>
             </Box>
           ))}
 
-        {tempUnitToggle && (
+        {(tempUnitToggle != null) && (
           <Box
             sx={{
               ml: 0.3,
               mr: 0.3,
-              alignSelf: "center",
+              alignSelf: 'center'
             }}
           >
             <Button
               onClick={() => {
-                tempUnitToggle && tempUnitToggle(unit);
+                tempUnitToggle && tempUnitToggle(unit)
               }}
-              variant="outlined"
+              variant='outlined'
             >
-              {unit === "°C" ? "°F" : "°C"}
+              {unit === '°C' ? '°F' : '°C'}
             </Button>
           </Box>
         )}
       </Box>
     </>
-  );
+  )
 }
 
-export default DataView;
+export default DataView

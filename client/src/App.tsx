@@ -3,77 +3,74 @@ import {
   Routes,
   Route,
   NavLink,
-  Navigate,
-} from "react-router-dom";
+  Navigate
+} from 'react-router-dom'
 
-import "./CSS/App.css";
+import './CSS/App.css'
 
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react'
 
-import { Box, AppBar, Toolbar, ThemeProvider, Typography } from "@mui/material";
-import theme from "./CSS/theme";
+import { Box, AppBar, Toolbar, ThemeProvider, Typography } from '@mui/material'
+import theme from './CSS/theme'
 
-import AppFooter from "./general/AppFooter";
-import Metar from "./pages/Metar";
-import FlightPlanner from "./pages/FlightPlanner";
-import IndexPage from "./pages/Index/Index";
+import AppFooter from './general/AppFooter'
+import Metar from './pages/Metar'
+import FlightPlanner from './pages/FlightPlanner'
+import IndexPage from './pages/Index/Index'
 
-import LoginButton from "./general/Buttons/loginButton";
-import LoadingCircle from "./general/LoadingCircle";
+import LoginButton from './general/Buttons/loginButton'
+import LoadingCircle from './general/LoadingCircle'
 
-function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+function App () {
+  const { user, isAuthenticated, isLoading } = useAuth0()
 
   if (isLoading) {
-    return <LoadingCircle />;
+    return <LoadingCircle />
   }
 
   const activeStyle = {
-    backgroundColor: "#93A4C5",
-  };
+    backgroundColor: '#93A4C5'
+  }
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Box>
-            <AppBar position="static">
+            <AppBar position='static'>
               <Toolbar>
-                <nav className="nav-bar">
+                <nav className='nav-bar'>
                   <NavLink
-                    to="/index"
+                    to='/index'
                     style={({ isActive }) =>
-                      isActive ? activeStyle : undefined
-                    }
+                      isActive ? activeStyle : undefined}
                   >
                     Home
                   </NavLink>
                   <NavLink
-                    to="/"
+                    to='/'
                     style={({ isActive }) =>
-                      isActive ? activeStyle : undefined
-                    }
+                      isActive ? activeStyle : undefined}
                   >
                     Metar
                   </NavLink>
 
                   <NavLink
-                    to="/flight-planner"
+                    to='/flight-planner'
                     style={({ isActive }) =>
-                      isActive ? activeStyle : undefined
-                    }
+                      isActive ? activeStyle : undefined}
                   >
                     Flight Planner
                   </NavLink>
                 </nav>
-                {!user && <LoginButton />}
+                {(user == null) && <LoginButton />}
                 <Typography>{user?.name}</Typography>
               </Toolbar>
             </AppBar>
           </Box>
 
           <Routes>
-            <Route path="/" element={<Metar />} />
+            <Route path='/' element={<Metar />} />
             {/* <Route
                 path="aircraft"
                 element={
@@ -84,22 +81,22 @@ function App() {
                 }
               /> */}
             <Route
-              path="flight-planner"
+              path='flight-planner'
               element={
                 <FlightPlanner
-                  user={user?.sub?.replace("|", "")}
+                  user={user?.sub?.replace('|', '')}
                   isAuthenticated={isAuthenticated}
                 />
               }
             />
-            <Route path="index" element={<IndexPage />} />
-            <Route path="callback" element={<Navigate to="/aircraft" />} />
+            <Route path='index' element={<IndexPage />} />
+            <Route path='callback' element={<Navigate to='/aircraft' />} />
           </Routes>
         </BrowserRouter>
         <AppFooter />
       </ThemeProvider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
