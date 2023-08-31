@@ -4,7 +4,7 @@ import TextFieldContainer from '../../../general/TextFields/textFieldContainer'
 
 import { Typography, Box, Card, Alert, IconButton } from '@mui/material'
 import { FlightTakeoff, FlightLand, Search } from '@mui/icons-material'
-import { calcLatLong } from '../helper/distance-lat-long-calc'
+import calcLatLong from '../helper/distanceLatLongCalc'
 
 import '../CSS/planner-calculator.css'
 
@@ -12,20 +12,20 @@ interface Props {
   getDistance: (distance: number) => void
 }
 
-function RouteCalculator ({ getDistance }: Props) {
+function RouteCalculator({ getDistance }: Props) {
   const [icaoDeparture, setIcaoDeparture] = useState('')
   const [icaoDestination, setIcaoDestination] = useState('')
   const [alertIcao, setAlertIcao] = useState(false)
   const [distance, setDistance] = useState<number | undefined>()
 
-  function handleDepartureInput (input: string): void {
+  function handleDepartureInput(input: string): void {
     setIcaoDeparture(input.toUpperCase())
   }
-  function handleDestinationInput (input: string): void {
+  function handleDestinationInput(input: string): void {
     setIcaoDestination(input.toUpperCase())
   }
 
-  function calculateRoute () {
+  function calculateRoute() {
     const fetchLatLong = async (
       icaoDeparture: string,
       icaoDestination: string
@@ -36,13 +36,14 @@ function RouteCalculator ({ getDistance }: Props) {
         {
           method: 'get',
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         }
       )
       const result = await response.json()
+      console.log(result)
       setDistance(calcLatLong(result))
-      if (distance) getDistance(distance)
+      if (distance) getDistance(distance) //! ???
     }
     icaoDeparture.length === 4 && icaoDestination.length === 4
       ? fetchLatLong(icaoDeparture, icaoDestination)

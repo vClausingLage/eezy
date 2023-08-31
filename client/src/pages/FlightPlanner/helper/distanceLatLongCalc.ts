@@ -4,7 +4,7 @@ interface latLong {
   longitude: number
 }
 
-export function calcLatLong (latLong: latLong[]): number {
+export function calcLatLong(latLong: latLong[]): number {
   const lat0 = latLong[0].latitude
   const lat1 = latLong[1].latitude
   const lon0 = latLong[0].longitude
@@ -24,3 +24,5 @@ export function calcLatLong (latLong: latLong[]): number {
   const d = R * c // in metres
   return Math.round(d / 1852)
 }
+
+export default calcLatLong

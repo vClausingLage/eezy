@@ -1,16 +1,8 @@
-import { calcLatLong } from '../helper/distance-lat-long-calc'
-
 import '..CSS/leaflet.css'
 
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline
-} from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 
-function Map () {
+function Map() {
   // const limeOptions = { color: "lime" };
   const center = { lat: 51.505, lng: -0.09 } // [51.505, -0.09]
   // const polyline = [
@@ -18,7 +10,7 @@ function Map () {
   //   { lat: 51.51, lng: -0.1 },
   // ];
 
-  const latLong = 'N 54° 22\' 46,09\'\', E 10° 08\' 42,54\'\''
+  const latLong = "N 54° 22' 46,09'', E 10° 08' 42,54''"
 
   // latLong = calcLatLong(latLong);
 
