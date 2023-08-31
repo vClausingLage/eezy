@@ -19,7 +19,7 @@ morgan('tiny')
 app.use(express.json())
 app.use(
   express.urlencoded({
-    extended: true
+    extended: true,
   })
 )
 app.use(cors())
