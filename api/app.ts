@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { auth } from "express-openid-connect";
 
 import { aircraft_router } from "./routes/aircraft.routes.js";
 import { awc_router } from "./routes/awc.routes.js";
