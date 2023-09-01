@@ -19,11 +19,11 @@ interface Props {
   distance?: number
 }
 
-function FlightCalculator ({
+function FlightCalculator({
   fuelCapacity,
   fuelConsumption,
   cruiseSpeed,
-  distance
+  distance,
 }: Props) {
   const [fuelLoaded, setFuelLoaded] = useState<number>(fuelCapacity)
   const [fuelReserve, setFuelReserve] = useState<number>(0)
@@ -31,31 +31,34 @@ function FlightCalculator ({
   const [range, setRange] = useState<number | undefined>(0)
 
   useEffect(() => {
-    setRange(getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve))
-  }, [])
+    setRange(
+      Math.round(
+        getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve)
+      )
+    )
+  }, [fuelLoaded, fuelReserve])
 
-  function handleFuelChange (e: any) {
+  function handleFuelChange(e: any) {
     if (e.target.value > fuelCapacity) {
-      setFuelLoaded(Number(e.target.value));
+      setFuelMaxAlert(true) // setFuelLoaded(Number(e.target.value))
     } else if (e.target.value !== undefined && e.target.value >= 0) {
-      setFuelLoaded(Number(e.target.value));
+      setFuelLoaded(Number(e.target.value))
+      setFuelMaxAlert(false)
     }
   }
   function handleReserveChange(e: any): void {
-    if (e.target.value >= 0) setFuelReserve(e.target.value);
+    if (e.target.value >= 0) setFuelReserve(e.target.value)
   }
-  function fuelReserveText (
+  function fuelReserveText(
     inputReserve: number | undefined,
     inputConsumption: number
   ): number {
-    return inputReserve
-      ? Math.round((inputConsumption / 60) * inputReserve)
-      : 0
+    return inputReserve ? (inputConsumption / 60) * inputReserve : 0
   }
-  function fuelCapacityText (input: number | undefined): number {
+  function fuelCapacityText(input: number | undefined): number {
     return input || 0
   }
-  function isRangeAlert (): boolean {
+  function isRangeAlert(): boolean {
     if (distance && range && distance >= range) return true
     return false
   }

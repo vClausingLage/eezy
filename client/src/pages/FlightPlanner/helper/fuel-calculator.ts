@@ -1,5 +1,5 @@
-function getDuration (fuelLoad: number, fuelConsumption: number): number {
-  return Math.round((fuelLoad / fuelConsumption) * 100) / 100
+function getDuration(fuelLoad: number, fuelConsumption: number): number {
+  return ((fuelLoad / fuelConsumption) * 100) / 100
 }
 
 /**
@@ -8,7 +8,7 @@ function getDuration (fuelLoad: number, fuelConsumption: number): number {
  * @param cruiseSpeed cruise speed KTS
  * @param fuelReserve fuel reserve LITERS
  */
-export function getRange (
+export function getRange(
   fuelLoaded: number | undefined,
   fuelConsumption: number,
   cruiseSpeed: number,
@@ -16,15 +16,15 @@ export function getRange (
 ): number {
   console.log('fuel calc START')
   if (fuelLoaded && fuelReserve) {
-    return Math.round(
+    return (
       getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
-        getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
-          cruiseSpeed
+      getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
+        cruiseSpeed
     )
   } else if (fuelLoaded) {
-    return Math.round(
+    return (
       getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
-        getDuration(fuelConsumption / 60, fuelConsumption) * cruiseSpeed
+      getDuration(fuelConsumption / 60, fuelConsumption) * cruiseSpeed
     )
   } else {
     return 0
