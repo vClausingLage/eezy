@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "../server/MetarAPI/metar-ui-helper.ts"  ]
+  ],
 }

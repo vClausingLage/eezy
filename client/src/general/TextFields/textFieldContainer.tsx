@@ -1,20 +1,20 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack } from '@mui/material'
 
-import IcaoInput from "./icaoInput";
+import IcaoInput from './icaoInput'
 
-import "../CSS/text-field-container.css";
+import '../CSS/text-field-container.css'
 
-type Props = {
-  icon: any;
-  adornment: string;
-  value: string;
-  submit(input: string): void;
-};
+interface Props {
+  icon: any
+  adornment: string
+  value: string
+  submit: (input: string) => void
+}
 
-function TextFieldContainer({ icon, value, adornment, submit }: Props) {
+function TextFieldContainer ({ icon, value, adornment, submit }: Props) {
   return (
-    <Box className="text-field-container">
-      <Stack direction="row" alignItems="center" spacing={2}>
+    <Box className='text-field-container'>
+      <Stack direction='row' alignItems='center' spacing={2}>
         {icon}
         <IcaoInput
           submit={(input) => submit(input)}
@@ -23,7 +23,7 @@ function TextFieldContainer({ icon, value, adornment, submit }: Props) {
         />
       </Stack>
     </Box>
-  );
+  )
 }
 
-export default TextFieldContainer;
+export default TextFieldContainer

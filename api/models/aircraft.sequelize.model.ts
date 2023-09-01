@@ -1,71 +1,65 @@
-import { seqConnection } from "../connections/seqConnection.js";
-import { DataTypes } from "sequelize";
-
-// id: {
-//   type: DataTypes.NUMBER,
-//   primaryKey: true,
-//   autoIncrement: true,
-// },
+import { seqConnection } from '../connections/seqConnection.js'
+import { DataTypes } from 'sequelize'
 
 export const aircraft = seqConnection.define(
-  "aircraft",
+  'aircraft',
   {
     user: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     manufacturer: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     model: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     registration_number: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     fuel_type: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     fuel_capacity: {
       type: DataTypes.NUMBER,
-      allowNull: false,
+      allowNull: false
     },
     cruise_speed: {
       type: DataTypes.NUMBER,
-      allowNull: false,
+      allowNull: false
     },
     cruise_fuel_consumption: {
       type: DataTypes.NUMBER,
-      allowNull: false,
+      allowNull: false
     },
     magnetic_error: {
       type: DataTypes.NUMBER,
-      allowNull: false,
+      allowNull: false
     },
     color: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     IFR: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     equipment: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   },
   {
-    modelName: "aircraft",
-    tableName: "aircraft",
-    timestamps: false,
+    modelName: 'aircraft',
+    tableName: 'aircraft',
+    timestamps: false
   }
-);
+)

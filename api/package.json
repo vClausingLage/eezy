@@ -9,7 +9,8 @@
     "build": "npx tsc",
     "start": "node dist/app.js",
     "apitest": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\"",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\" \"npm start --prefix ../client \" "
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\" \"npm start --prefix ../client \" ",
+    "standard": "npx ts-standard --fix"
   },
   "keywords": [],
   "author": "vincent clausing-lage",
@@ -32,6 +33,7 @@
     "@types/node": "^18.11.17",
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.21",
+    "ts-standard": "^12.0.2",
     "typescript": "^4.9.4"
   }
 }

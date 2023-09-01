@@ -1,21 +1,21 @@
-import DataView from "./DataView";
+import DataView from './DataView'
 
-import { formatWeatherString } from "../helper/metar-ui-helper";
+import { formatWeatherString } from '../helper/metar-ui-helper'
 
-import { Box } from "@mui/material";
+import { Box } from '@mui/material'
 
-type Props = {
-  altim: number | null;
-  slp: number;
-  temp: number;
-  dewp: number;
-  tempUnitToggle: Function;
-  tempUnit: string;
-  wxString: string;
-  visibilityMeters: number;
-};
+interface Props {
+  altim: number | null
+  slp: number
+  temp: number
+  dewp: number
+  tempUnitToggle: Function
+  tempUnit: string
+  wxString: string
+  visibilityMeters: number
+}
 
-function DataPanel({
+function DataPanel ({
   altim,
   slp,
   temp,
@@ -23,103 +23,105 @@ function DataPanel({
   tempUnitToggle,
   tempUnit,
   wxString,
-  visibilityMeters,
+  visibilityMeters
 }: Props) {
   return (
-    <Box className="weather-data">
+    <Box className='weather-data'>
       {slp !== null && altim === null && (
         <DataView
           data={[
             {
-              description: "SLP",
-              value: Math.round(slp),
-            },
+              description: 'SLP',
+              value: Math.round(slp)
+            }
           ]}
-          unit={"hPa"}
-        ></DataView>
+          unit='hPa'
+        />
       )}
       {altim !== null && slp === null && (
         <DataView
           data={[
             {
-              description: "QNH",
-              value: Math.round(altim),
-            },
+              description: 'QNH',
+              value: Math.round(altim)
+            }
           ]}
-          unit={"hPa"}
-        ></DataView>
+          unit='hPa'
+        />
       )}
       {slp !== null && altim !== null && (
         <DataView
           data={[
             {
-              description: "QNH",
-              value: Math.round(altim),
+              description: 'QNH',
+              value: Math.round(altim)
             },
             {
-              description: "SLP",
-              value: Math.round(slp),
-            },
+              description: 'SLP',
+              value: Math.round(slp)
+            }
           ]}
-          unit={"hPa"}
-        ></DataView>
+          unit='hPa'
+        />
       )}
       <DataView
         data={[
           {
-            description: "Visibility",
-            value: visibilityMeters,
-          },
+            description: 'Visibility',
+            value: visibilityMeters
+          }
         ]}
-        unit={"m"}
-      ></DataView>
+        unit='m'
+      />
       {wxString && (
         <DataView
           data={[
             {
-              description: "Precipitation",
-              value: formatWeatherString(wxString),
-            },
+              description: 'Precipitation',
+              value: formatWeatherString(wxString)
+            }
           ]}
-        ></DataView>
+        />
       )}
-      {tempUnit === "°C" ? (
-        <>
-          <DataView
-            data={[
-              {
-                description: "Temperature",
-                value: temp,
-              },
-              {
-                description: "Dewpoint",
-                value: dewp,
-              },
-            ]}
-            unit={tempUnit}
-            tempUnitToggle={() => tempUnitToggle(tempUnit)}
-          ></DataView>
-        </>
-      ) : (
-        <>
-          <DataView
-            data={[
-              {
-                description: "Temperature",
-                value: Math.round(temp * (9 / 5) + 32),
-              },
-              {
-                description: "Dewpoint",
-                value: Math.round(dewp * (9 / 5) + 32),
-              },
-            ]}
-            unit={tempUnit}
-            tempUnitToggle={() => tempUnitToggle(tempUnit)}
-          ></DataView>
-        </>
-      )}
+      {tempUnit === '°C'
+        ? (
+          <>
+            <DataView
+              data={[
+                {
+                  description: 'Temperature',
+                  value: temp
+                },
+                {
+                  description: 'Dewpoint',
+                  value: dewp
+                }
+              ]}
+              unit={tempUnit}
+              tempUnitToggle={() => tempUnitToggle(tempUnit)}
+            />
+          </>
+          )
+        : (
+          <>
+            <DataView
+              data={[
+                {
+                  description: 'Temperature',
+                  value: Math.round(temp * (9 / 5) + 32)
+                },
+                {
+                  description: 'Dewpoint',
+                  value: Math.round(dewp * (9 / 5) + 32)
+                }
+              ]}
+              unit={tempUnit}
+              tempUnitToggle={() => tempUnitToggle(tempUnit)}
+            />
+          </>
+          )}
     </Box>
-  );
+  )
 }
 
-export default DataPanel;
+export default DataPanel

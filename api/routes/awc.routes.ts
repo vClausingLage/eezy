@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router } from 'express'
 
-import { getMetar, getRawMetar } from "../services/awc.controller.ts.js";
+import { getMetar, getRawMetar } from '../services/awc.controller.ts.js'
 
-export const awc_router = Router();
+export const awc_router = Router()
 
-awc_router.get("/:metarID", getMetar);
-awc_router.get("/raw/:metarID", getRawMetar);
+awc_router.get('/:metarID', getMetar)
+awc_router.get('/raw/:metarID', getRawMetar)

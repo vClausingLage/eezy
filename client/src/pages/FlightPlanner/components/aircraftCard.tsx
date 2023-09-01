@@ -1,20 +1,20 @@
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardContent, Typography, Button } from '@mui/material'
 
-import "../CSS/aircraft-get.css";
+import '../CSS/aircraft-get.css'
 
-import { IAircraft } from "../interfaces/IAaircraft";
+import { IAircraft } from '../interfaces/IAaircraft'
 
-type Props = {
-  aircraft: IAircraft;
-  selectAircraft(aircraft: IAircraft): void;
-};
+interface Props {
+  aircraft: IAircraft
+  selectAircraft: (aircraft: IAircraft) => void
+}
 
-function AircraftCard({ aircraft, selectAircraft }: Props) {
+function AircraftCard ({ aircraft, selectAircraft }: Props) {
   return (
     <Card>
       {aircraft && (
         <CardContent>
-          <Typography variant="h5" color="primary.main">
+          <Typography variant='h5' color='primary.main'>
             {aircraft.registration_number}
           </Typography>
           <Typography>
@@ -24,7 +24,7 @@ function AircraftCard({ aircraft, selectAircraft }: Props) {
         </CardContent>
       )}
     </Card>
-  );
+  )
 }
 
-export default AircraftCard;
+export default AircraftCard

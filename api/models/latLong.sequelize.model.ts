@@ -1,33 +1,33 @@
-import { DataTypes } from "sequelize";
-import { seqConnection } from "../connections/seqConnection.js";
+import { DataTypes } from 'sequelize'
+import { seqConnection } from '../connections/seqConnection.js'
 
 export const latLong = seqConnection.define(
-  "latLong",
+  'latLong',
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
     },
     icao: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     latitude: {
       type: DataTypes.FLOAT,
-      allowNull: true,
+      allowNull: true
     },
     longitude: {
       type: DataTypes.FLOAT,
-      allowNull: true,
+      allowNull: true
     },
     elev: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   },
   {
-    modelName: "latLong",
-    tableName: "lat_long",
+    modelName: 'latLong',
+    tableName: 'lat_long'
   }
-);
+)

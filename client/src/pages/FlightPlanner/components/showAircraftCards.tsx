@@ -1,40 +1,40 @@
-import { Box, Alert, Button } from "@mui/material";
+import { Box, Alert, Button } from '@mui/material'
 
-import AircraftCard from "./aircraftCard";
-import LoadingCircleDescription from "../../../general/LoadingCircleDescription";
+import AircraftCard from './aircraftCard'
+import LoadingCircleDescription from '../../../general/LoadingCircleDescription'
 
-import { IAircraft } from "../interfaces/IAaircraft";
+import { IAircraft } from '../interfaces/IAaircraft'
 
-import "../CSS/aircraft-card.css";
+import '../CSS/aircraft-card.css'
 
-type Props = {
-  aircraftList: IAircraft[];
-  loading: boolean;
-  selectAircraft(aircraft: IAircraft): void;
-  user?: string;
-};
+interface Props {
+  aircraftList: IAircraft[]
+  loading: boolean
+  selectAircraft: (aircraft: IAircraft) => void
+  user?: string
+}
 
-function ShowAircraftCards({
+function ShowAircraftCards ({
   aircraftList,
   loading,
   selectAircraft,
-  user,
+  user
 }: Props) {
   return (
     <Box>
       {aircraftList.length === 0 && loading && (
-        <LoadingCircleDescription description="Looking up Saved Aircraft" />
+        <LoadingCircleDescription description='Looking up Saved Aircraft' />
       )}
 
       {!user && (
-        <Alert severity="info">
+        <Alert severity='info'>
           You must be logged in to create and choose your aircraft.
         </Alert>
       )}
 
       <Box>{aircraftList.length === 0 && <h3>no Aircraft found</h3>}</Box>
 
-      <Box className="aircraft-container">
+      <Box className='aircraft-container'>
         {aircraftList.map((ac: IAircraft) => (
           <AircraftCard
             key={ac.id}
@@ -42,10 +42,10 @@ function ShowAircraftCards({
             selectAircraft={(id) => selectAircraft(id)}
           />
         ))}
-        <Button variant="outlined">add aircraft</Button>
+        <Button variant='outlined'>add aircraft</Button>
       </Box>
     </Box>
-  );
+  )
 }
 
-export default ShowAircraftCards;
+export default ShowAircraftCards

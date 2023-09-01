@@ -1,32 +1,33 @@
-function getDuration(fuelLoad: number, fuelConsumption: number): number {
-  return Math.round((fuelLoad / fuelConsumption) * 100) / 100;
+function getDuration (fuelLoad: number, fuelConsumption: number): number {
+  return Math.round((fuelLoad / fuelConsumption) * 100) / 100
 }
 
 /**
- * @param fuelLoaded fuel loaded liters
- * @param fuelConsumption fuel consumption liters
- * @param cruiseSpeed cruise speed kts
- * @param fuelReserve fuel reserve liters
+ * @param fuelLoaded fuel loaded LITERS
+ * @param fuelConsumption fuel consumption LITERS
+ * @param cruiseSpeed cruise speed KTS
+ * @param fuelReserve fuel reserve LITERS
  */
-export function getRange(
+export function getRange (
   fuelLoaded: number | undefined,
   fuelConsumption: number,
   cruiseSpeed: number,
   fuelReserve: number | undefined
 ): number {
+  console.log('fuel calc START')
   if (fuelLoaded && fuelReserve) {
     return Math.round(
       getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
         getDuration((fuelConsumption / 60) * fuelReserve, fuelConsumption) *
           cruiseSpeed
-    );
+    )
   } else if (fuelLoaded) {
     return Math.round(
       getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -
         getDuration(fuelConsumption / 60, fuelConsumption) * cruiseSpeed
-    );
+    )
   } else {
-    return 0;
+    return 0
   }
 }
 // function ktsToKmh(input: number): number {
