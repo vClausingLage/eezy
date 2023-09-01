@@ -1,6 +1,6 @@
 import DataView from './DataView'
 
-import { formatWeatherString } from '../helper/metar-ui-helper'
+import { formatWeatherString } from '../helper/metarUiHelpers'
 
 import { Box } from '@mui/material'
 

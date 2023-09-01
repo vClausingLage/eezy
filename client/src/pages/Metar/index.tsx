@@ -21,7 +21,7 @@ import {
   convertDate,
   qnhRegex,
   tempoInformation
-} from './helper/metar-ui-helper'
+} from './helper/metarUiHelpers'
 import {
   IMetarObject,
   IAirportObject,

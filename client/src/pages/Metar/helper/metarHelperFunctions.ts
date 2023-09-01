@@ -80,7 +80,10 @@ export function precipFormat (weatherString: string): string {
 
 export function cloudFormat (clouds: string) {
   const output = new Clouds()
-  if (clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK') {
+  if (clouds.slice(0,2) === 'VV') {
+    output.cloudLayer = 'vertical visibility'
+    if (clouds.slice(2, 5) !== '///') output.cloudBase = Number(clouds.slice(2, 5))
+  } else if (clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK' && clouds !== 'NSC') {
     const cloudLayer = clouds.slice(0, 3)
     const cloudBase = clouds.slice(3, 6)
     if (clouds.length >= 6) {
@@ -89,7 +92,7 @@ export function cloudFormat (clouds: string) {
     }
     output.cloudLayer = cloudLayer
     output.cloudBase = Number(cloudBase)
-  } else if (clouds === 'NCD' || clouds === 'CLR') {
+  } else if (clouds === 'NCD' || clouds === 'CLR' || clouds === 'NSC') {
     output.cloudLayer = clouds
     output.cloudBase = undefined
   }

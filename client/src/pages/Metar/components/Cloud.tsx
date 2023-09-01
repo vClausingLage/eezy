@@ -16,7 +16,7 @@ function Cloud ({ base, cover }: Props) {
       cloudIconArray = ['☁ ☁ ☁', ' ☁']
     } else if (cover === 'OVC') {
       cloudIconArray = ['☁ ☁ ☁ ☁', '']
-    } else if (cover === 'NCD' || cover === 'CLR') {
+    } else if (cover === 'NCD' || cover === 'CLR' || cover === 'NSC') {
       cloudIconArray = ['', '☁ ☁ ☁ ☁']
     } else if (cover === 'OVX') {
       cloudIconArray = ['OVX', '']

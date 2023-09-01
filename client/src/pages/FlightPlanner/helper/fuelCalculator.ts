@@ -1,5 +1,5 @@
 function getDuration(fuelLoad: number, fuelConsumption: number): number {
-  return ((fuelLoad / fuelConsumption) * 100) / 100
+  return fuelLoad / fuelConsumption
 }
 
 /**
@@ -14,7 +14,6 @@ export function getRange(
   cruiseSpeed: number,
   fuelReserve: number | undefined
 ): number {
-  console.log('fuel calc START')
   if (fuelLoaded && fuelReserve) {
     return (
       getDuration(fuelLoaded, fuelConsumption) * cruiseSpeed -

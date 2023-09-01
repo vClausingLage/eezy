@@ -8,7 +8,7 @@ import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
 
 import FuelCalculatorTextInput from './fuelCalculatorTextInput'
 
-import { getRange } from '../helper/fuel-calculator'
+import { getRange } from '../helper/fuelCalculator'
 
 import '../CSS/planner-calculator.css'
 
