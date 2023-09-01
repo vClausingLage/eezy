@@ -7,6 +7,12 @@
 - **useEffect?** for showing aircraft after create/update/delete
 - remove **fileToTest** and test
 
+## REALLY URGENT AND COMPLEX
+
+- add warning codes (color green, orange, red) to weather codes
+- show Warning when orange or red
+- print colored weather strings
+
 ## client
 
 - add **Haversine distance** to ICAOs
