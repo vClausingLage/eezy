@@ -28,8 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "jest": "jest",
+    "test": "jest",
     "eject": "react-scripts eject",
     "standard": "npx ts-standard --fix"
   },
