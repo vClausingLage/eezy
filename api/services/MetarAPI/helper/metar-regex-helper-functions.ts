@@ -1,18 +1,18 @@
-import weatherCodes from '../assets/weatherCodes.json' assert { type: 'json' }
+import weatherCodes from '../assets/weatherCodes.json'
 
-class Clouds {
-  cloud_layer!: string
-  cloud_base!: number | undefined
+interface Cloud {
+  cloud_layer: string
+  cloud_base: number | undefined
   cloud?: string
 }
-class Wind {
-  direction!: number | string
-  speed!: number
-  unit!: string
+interface Wind {
+  direction: number | string
+  speed: number
+  unit: string
   gusts?: number
 }
 
-export function dateFormat (time: string) {
+export function dateFormat(time: string) {
   const today = new Date()
   const date = new Date(
     Date.UTC(
@@ -25,8 +25,8 @@ export function dateFormat (time: string) {
   )
   return date
 }
-export function cloudFormat (clouds: string) {
-  const output = new Clouds()
+export function cloudFormat(clouds: string) {
+  const output: Cloud = {} as Cloud
   if (clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK') {
     const cloud_layer = clouds.slice(0, 3)
     const cloud_base = clouds.slice(3, 6)
@@ -42,8 +42,8 @@ export function cloudFormat (clouds: string) {
   }
   return output
 }
-export function windFormat (wind: string) {
-  let output = new Wind()
+export function windFormat(wind: string) {
+  let output = {} as Wind
   if (/[0-9]{5}KT/i.test(wind)) {
     output = {
       direction: Number(wind.slice(0, 3)),
@@ -66,11 +66,11 @@ export function windFormat (wind: string) {
   }
   return output
 }
-export function windVarFormat (windVar: string) {
+export function windVarFormat(windVar: string) {
   const output = [Number(windVar.slice(0, 3)), Number(windVar.slice(4, 7))]
   return output
 }
-export function tempFormat (temperature: string): {
+export function tempFormat(temperature: string): {
   temp: number
   dewp: number
 } {
@@ -88,7 +88,7 @@ export function tempFormat (temperature: string): {
   })
   return { temp: output[0], dewp: output[1] }
 }
-export function precipFormat (weatherString: string): string {
+export function precipFormat(weatherString: string): string {
   let result: any = []
   const output = []
   while (weatherString.length > 0) {
@@ -96,9 +96,9 @@ export function precipFormat (weatherString: string): string {
       weatherString[0] === '-'
         ? (result = [...result, ['light', weatherString[1] + weatherString[2]]])
         : (result = [
-            ...result,
-            ['heavy', weatherString[1] + weatherString[2]]
-          ])
+          ...result,
+          ['heavy', weatherString[1] + weatherString[2]]
+        ])
       weatherString = weatherString.slice(3)
     } else if (weatherString[0] !== '-' && weatherString[0] !== '+') {
       result = [...result, ['', weatherString[0] + weatherString[1]]]
