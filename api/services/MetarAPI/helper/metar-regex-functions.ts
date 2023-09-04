@@ -16,24 +16,24 @@ interface DynamicTokens {
   regexResults: IResultDynamicTokens
   filteredMetarList: string[]
 }
-export function findDynamicTokens (metar: string): DynamicTokens {
+export function findDynamicTokens(metar: string): DynamicTokens {
   const resultObj: IResultDynamicTokens = {
     visibility: { value: undefined, unit: '' },
     precipitation: [],
     flight_rule: undefined
   }
   if (/[0-9]{4}/gi.test(metar)) {
-    resultObj.visibility.value = /[0-9]{4}/gi.exec(metar)?.[0]
+    resultObj.visibility.value = Number(/[0-9]{4}/gi.exec(metar)?.[0])
     resultObj.visibility.unit = 'm'
   }
   if (/[0-9] [0-9]\/[0-9]SM/gi.test(metar)) {
     const value = /[0-9] [0-9]\/[0-9]SM/gi.exec(metar)?.[0]
-    resultObj.visibility.value = value?.replace('SM', '')
+    resultObj.visibility.value = Number(value?.replace('SM', ''))
     resultObj.visibility.unit = 'sm'
   }
   if (/[0-9]{1,2}SM/gi.test(metar)) {
     const value = /[0-9]{1,2}SM/gi.exec(metar)?.[0]
-    resultObj.visibility.value = value?.replace('SM', '')
+    resultObj.visibility.value = Number(value?.replace('SM', ''))
     resultObj.visibility.unit = 'sm'
   }
   if (/(-?|\+?|)(?:[a-z]{4}|[a-z]{2})+/gi.test(metar)) {
@@ -52,7 +52,7 @@ interface BasicTokens {
   regexResults: IResultBasicTokens
   filteredMetarList: string[]
 }
-export function findBasicTokens (metar: string[]): BasicTokens {
+export function findBasicTokens(metar: string[]): BasicTokens {
   const resultObj: IResultBasicTokens = {
     icao: '',
     date: undefined,
