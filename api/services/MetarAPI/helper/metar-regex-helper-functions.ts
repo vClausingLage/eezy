@@ -1,4 +1,4 @@
-import weatherCodes from '../assets/weatherCodes.json'
+import weatherCodes from '../assets/weatherCodes.json' assert { type: 'json' }
 
 interface Cloud {
   cloud_layer: string

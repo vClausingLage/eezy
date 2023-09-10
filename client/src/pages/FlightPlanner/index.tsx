@@ -15,7 +15,7 @@ interface Props {
   isAuthenticated: boolean
 }
 
-function FlightPlanner ({ user, isAuthenticated }: Props) {
+function FlightPlanner({ user, isAuthenticated }: Props) {
   const [aircraftList, setAircraftList] = useState([] as IAircraft[])
   const [aircraft, setAircraft] = useState({} as IAircraft)
   const [loading, setLoading] = useState(false)
@@ -54,9 +54,9 @@ function FlightPlanner ({ user, isAuthenticated }: Props) {
     }
   }, [isAuthenticated, user, aircraftList.length])
 
-  async function createAircraft (newAircraft: ICreateAircraft): Promise<any> {
+  async function createAircraft(newAircraft: ICreateAircraft): Promise<any> {
     console.log(newAircraft)
-    if (isAuthenticated) {
+    if (isAuthenticated && newAircraft.user!.length > 0) {
       try {
         const response = await fetch('/api/aircraft/create', {
           method: 'post',
@@ -176,7 +176,7 @@ function FlightPlanner ({ user, isAuthenticated }: Props) {
                     fuelCapacity={fuel_capacity}
                     fuelConsumption={cruise_fuel_consumption}
                     cruiseSpeed={cruise_speed}
-                    //! distance={distance}
+                  //! distance={distance}
                   />
                 </Grid>
               </Grid>

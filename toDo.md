@@ -5,7 +5,6 @@
 - "ADD AIRCRAFT" not showing when no aircraft in DB
 - "ADD AIRCRAFT" -> toggle Aircraft create **form**
 - **useEffect?** for showing aircraft after create/update/delete
-- remove **fileToTest** and test
 
 ## REALLY URGENT AND COMPLEX
 
@@ -23,6 +22,8 @@
 - add sm flightRules to _CLIENT_
 - add **animation** to _RWY SELECT_
 - **selected aircraft** must be stored in **App.tsx**
+- remove useEffect where possible
+- useMemo, useCallback
 
 ## server
 

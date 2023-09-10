@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { fuelTypes } from '../assets/fuelTypes'
 
@@ -20,14 +20,14 @@ import {
 } from '@mui/material'
 
 interface Props {
-  user: string | undefined
+  user?: string
   isAuthenticated: boolean
   createAircraft: (newAircraft: ICreateAircraft) => void
   createSuccess: boolean
   aircraft?: ICreateAircraft
 }
 
-function CreateAircraftForm ({
+function CreateAircraftForm({
   user,
   isAuthenticated,
   createAircraft,
@@ -35,7 +35,7 @@ function CreateAircraftForm ({
 }: Props) {
   const [newAircraft, setNewAircraft] = useState({
     id: null,
-    user: '',
+    user: isAuthenticated ? user : '',
     manufacturer: '',
     model: '',
     type: '',
@@ -49,14 +49,6 @@ function CreateAircraftForm ({
     IFR: false,
     equiptment: ''
   } as ICreateAircraft)
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      if (user) {
-        setNewAircraft({ ...newAircraft, user })
-      }
-    }
-  }, [isAuthenticated, user])
 
   return (
     <>

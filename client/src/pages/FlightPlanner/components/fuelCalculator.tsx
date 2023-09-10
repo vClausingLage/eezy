@@ -30,7 +30,7 @@ function FlightCalculator({
   const [fuelMaxAlert, setFuelMaxAlert] = useState(false)
   const [range, setRange] = useState<number | undefined>(0)
 
-  useEffect(() => {
+  useEffect(() => { //! set to hook, remove useEffect
     setRange(
       Math.round(
         getRange(fuelLoaded, fuelConsumption, cruiseSpeed, fuelReserve)
