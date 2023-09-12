@@ -11,13 +11,11 @@
 - add warning codes (color green, orange, red) to weather codes
 - show Warning when orange or red
 - print colored weather strings
-
 ## client
 
 - add **Haversine distance** to ICAOs
 - useEffect metar index ARRAY!!!
 - test new Precip Decoder
-- **CAST** number values to string in _aircraftCreate_
 - redo navigation bar (w/o MUI)
 - add sm flightRules to _CLIENT_
 - add **animation** to _RWY SELECT_
