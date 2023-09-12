@@ -12,7 +12,7 @@ import { IAircraft, ICreateAircraft } from './interfaces/IAaircraft'
 
 interface Props {
   user?: string
-  isAuthenticated: boolean
+  isAuthenticated?: boolean
 }
 
 function FlightPlanner({ user, isAuthenticated }: Props) {

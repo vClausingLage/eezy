@@ -21,7 +21,7 @@ import {
 
 interface Props {
   user?: string
-  isAuthenticated: boolean
+  isAuthenticated?: boolean
   createAircraft: (newAircraft: ICreateAircraft) => void
   createSuccess: boolean
   aircraft?: ICreateAircraft
