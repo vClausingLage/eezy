@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import TextFieldContainer from '../../../general/TextFields/textFieldContainer'
 
@@ -17,6 +17,14 @@ function RouteCalculator({ getDistance }: Props) {
   const [icaoDestination, setIcaoDestination] = useState('')
   const [alertIcao, setAlertIcao] = useState(false)
   const [distance, setDistance] = useState<number | undefined>()
+
+  useEffect(() => {
+    if (icaoDeparture.length === 4 && icaoDestination.length === 4) {
+      calculateRoute()
+    } else {
+      setDistance(undefined)
+    }
+  }, [icaoDeparture, icaoDestination])
 
   function handleDepartureInput(input: string): void {
     setIcaoDeparture(input.toUpperCase())
@@ -42,7 +50,12 @@ function RouteCalculator({ getDistance }: Props) {
       )
       const result = await response.json()
       console.log(result)
-      setDistance(calcLatLong(result))
+      if (result.length === 2) {
+        setDistance(calcLatLong(result))
+        setAlertIcao(false)
+      } else {
+        setAlertIcao(true)
+      }
       if (distance) getDistance(distance) //! ???
     }
     icaoDeparture.length === 4 && icaoDestination.length === 4
@@ -90,12 +103,14 @@ function RouteCalculator({ getDistance }: Props) {
           </Alert>
         )}
       </Box>
-      <Box className='result-view'>
-        <Typography fontWeight='bold'>
-          distance from {icaoDeparture} to {icaoDestination} <br />
-          {distance} nm
-        </Typography>
-      </Box>
+      {icaoDeparture.length === 4 && icaoDestination.length === 4 &&
+        <Box className='result-view'>
+          <Typography fontWeight='bold'>
+            distance from {icaoDeparture} to {icaoDestination} <br />
+            {distance} nm
+          </Typography>
+        </Box>
+      }
     </Card>
   )
 }
