@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-export async function getMetar (req: Request, res: Response) {
+export async function getMetar(req: Request, res: Response) {
   const icao = req.params.metarID
   try {
     const fetchMetar = await fetch(
@@ -20,9 +20,8 @@ export async function getMetar (req: Request, res: Response) {
   }
 }
 
-export async function getRawMetar (req: Request, res: Response) {
+export async function getRawMetar(req: Request, res: Response) {
   const icao = req.params.metarID
-
   const fetchRawMetar = await fetch(
     `https://beta.aviationweather.gov/cgi-bin/data/metar.php?ids=${icao}`
   )

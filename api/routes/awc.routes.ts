@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getMetar, getRawMetar } from '../services/awc.controller.ts.js'
+import { getMetar, getRawMetar } from '../services/awc.controller.js'
 
 export const awc_router = Router()
 

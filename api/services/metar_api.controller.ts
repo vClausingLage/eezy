@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import fs from 'fs'
 
 import { validator } from './Validation/validator.controller.js'
 
@@ -18,7 +19,15 @@ interface ListRemarks {
   becoming: string[]
 }
 
-export async function decodeRawMetar (req: Request, res: Response) {
+export async function decodeRawMetar(req: Request, res: Response) {
+  console.log(req)
+  const content = `${req.params.metarstring} from ${req.headers['x-forwarded-for']}\n`
+  fs.appendFile('file.log', content, err => {
+    if (err) {
+      console.error(err);
+    }
+    // done!
+  });
   const metarString = validator(req.params.metarstring)
   const metarListRemarks: ListRemarks = splitMetarListRemarks(
     metarToList(metarString)
