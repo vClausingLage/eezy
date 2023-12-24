@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 
-export async function getMetar(req: Request, res: Response) {
+export async function getMetar(req: Request, res: Response): Promise<void> {
   const icao = req.params.metarID
   const date = new Date()
   const dateString = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}_${date.getHours()}${date.getMinutes()}`
-  const url = `https://aviationweather.gov/api/data/metar?ids=${icao}&date=${dateString}&format=json` //! Date must beu Zulu
+  const url = `https://aviationweather.gov/api/data/metar?ids=${icao}&date=${dateString}&format=json` //! Date must be Zulu
   try {
     const fetchMetar = await fetch(
       url,
@@ -24,10 +24,10 @@ export async function getMetar(req: Request, res: Response) {
   }
 }
 
-export async function getRawMetar(req: Request, res: Response) {
+export async function getRawMetar(req: Request, res: Response): Promise<void> {
   const icao = req.params.metarID
   const fetchRawMetar = await fetch(
-    `https://beta.aviationweather.gov/cgi-bin/data/metar.php?ids=${icao}` //! change url
+    `https://aviationweather.gov/api/data/metar?ids=${icao}` //! change url
   )
   const data = await fetchRawMetar.text()
   // const response = fetchMetar.headers;

@@ -6,7 +6,7 @@ import { validator } from './Validation/validator.controller.js'
 
 import errorFetchData from './error/errorFetchData.js'
 
-export async function getAircraft (req: Request, res: Response) {
+export async function getAircraft(req: Request, res: Response): Promise<void> {
   try {
     const user = req.params.user
     const response = await aircraft.findAll({
@@ -21,10 +21,13 @@ export async function getAircraft (req: Request, res: Response) {
     }
   } catch (error) {
     errorFetchData(res, error)
+  } finally {
+    console.log(req)
+    // sequelize.close();
   }
 }
 
-export async function createAircraft (req: Request, res: Response) {
+export async function createAircraft(req: Request, res: Response): Promise<void> {
   try {
     const newAircraft = req.body
     const user = req.body.user
@@ -37,10 +40,13 @@ export async function createAircraft (req: Request, res: Response) {
     res.send({ message: 'created', data: response })
   } catch (error) {
     errorFetchData(res, error)
+  } finally {
+    console.log(req)
+    // sequelize.close();
   }
 }
 
-export async function editAircraft (req: Request, res: Response) {
+export async function editAircraft(req: Request, res: Response): Promise<void> {
   try {
     const id = req.params.id
     const user = req.params.user
@@ -52,10 +58,13 @@ export async function editAircraft (req: Request, res: Response) {
     res.send({ message: 'edited', data: response })
   } catch (error) {
     errorFetchData(res, error)
+  } finally {
+    console.log(req)
+    // sequelize.close();
   }
 }
 
-export async function deleteAircraft (req: Request, res: Response) {
+export async function deleteAircraft(req: Request, res: Response): Promise<void> {
   const id = req.params.id
   const user = req.params.user
   try {
@@ -72,5 +81,8 @@ export async function deleteAircraft (req: Request, res: Response) {
     res.send({ message: 'deleted', data: response })
   } catch (error) {
     errorFetchData(res, error)
+  } finally {
+    console.log(req)
+    // sequelize.close();
   }
 }

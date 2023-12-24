@@ -5,7 +5,7 @@ import { airportApi } from '../config/config.js'
 //! refactor when finished
 import { latLong } from '../models/latLong.sequelize.model.js'
 
-export async function getAirport (req: Request, res: Response) {
+export async function getAirport(req: Request, res: Response): Promise<void> {
   const icao = req.params.airportID
   try {
     const fetchAirport = await fetch(
@@ -22,10 +22,13 @@ export async function getAirport (req: Request, res: Response) {
     else res.send({ message: 'error' })
   } catch (error) {
     console.log(error)
+  } finally {
+    console.log(req)
+    // sequelize.close();
   }
 }
 
-export async function getDistance (req: Request, res: Response) {
+export async function getDistance(req: Request, res: Response): Promise<void> {
   const icao = req.params.icao
 
   const icaoArr = icao.split(',')
@@ -41,7 +44,8 @@ export async function getDistance (req: Request, res: Response) {
     res.send(latLongResults)
   } catch {
     res.send({ type: 'error', message: 'Error fetching data from Database.' })
+  } finally {
+    console.log(req)
+    // sequelize.close();
   }
-  //! test for working connections with multiple queries
-  // sequelize.close();
 }

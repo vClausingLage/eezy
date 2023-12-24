@@ -29,9 +29,15 @@ LTBJ 071820Z VRB04KT 9999 -TSRA FEW015CB SCT030 BKN100 11/11 Q1013 RESHRA BECMG 
 
 SPZO 071830Z VRB04KT 9999 SCT050 SCT100 21/04 Q1027 NOSIG RMK BIRD HAZARD RWY 10/28
 
+**FM** (from)
+
+FM040800
+
 **BECMG**
 
 LZIB 071830Z 17009KT 9999 FEW013 BKN014 05/02 Q1001 BECMG BKN007
+
+**TEMPO**
 
 **NCD CAVOK CLR**
 
@@ -44,4 +50,7 @@ BKPR 071830Z 25013KT **CAVOK** 09/03 Q1008 NOSIG
 ## further read
 
 - http://www.dixwx.com/wxdecoding.htm#rem
+- -> PDF file
+
+- https://www.dwd.de/SharedDocs/broschueren/DE/luftfahrt/metar_taf.pdf?__blob=publicationFile&v=1
 - -> PDF file

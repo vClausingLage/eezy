@@ -1,0 +1,34 @@
+{
+    "BLU+": {
+        "ceiling": ">=20000 ft",
+        "visibility": ">=8000 m"
+    },
+    "BLU": {
+        "ceiling": ">=2500 ft",
+        "visibility": ">=8000 m"
+    },
+    "WHT": {
+        "ceiling": ">=1500 ft",
+        "visibility": ">=5000 m"
+    },
+    "GRN": {
+        "ceiling": ">=700 ft",
+        "visibility": ">=3700 m"
+    },
+    "YLO": {
+        "ceiling": ">=300 ft",
+        "visibility": ">=1600 m"
+    },
+    "AMB": {
+        "ceiling": ">=200 ft",
+        "visibility": ">=800 m"
+    },
+    "RED": {
+        "ceiling": "<200 ft",
+        "visibility": "<800 m"
+    },
+    "BLK": {
+        "ceiling": "N/A",
+        "visibility": "N/A"
+    }
+}
