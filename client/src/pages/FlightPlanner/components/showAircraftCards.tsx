@@ -3,18 +3,18 @@ import { Box, Alert, Button } from '@mui/material'
 import AircraftCard from './aircraftCard'
 import LoadingCircleDescription from '../../../general/LoadingCircleDescription'
 
-import { IAircraft } from '../interfaces/IAaircraft'
+import { IAircraft } from '../types/IAaircraft'
 
 import '../CSS/aircraft-card.css'
 
-interface Props {
+type Props = {
   aircraftList: IAircraft[]
   loading: boolean
   selectAircraft: (aircraft: IAircraft) => void
   user?: string
 }
 
-function ShowAircraftCards ({
+function ShowAircraftCards({
   aircraftList,
   loading,
   selectAircraft,

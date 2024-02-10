@@ -1,11 +1,11 @@
 import { Tooltip, Zoom } from '@mui/material'
 
-interface Props {
+type Props = {
   base: number | null
   cover: string
 }
 
-function Cloud ({ base, cover }: Props) {
+function Cloud({ base, cover }: Props) {
   const cloudIcons = (cover: string) => {
     let cloudIconArray!: string[]
     if (cover === 'FEW') {

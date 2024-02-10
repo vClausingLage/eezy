@@ -8,7 +8,7 @@ import calcLatLong from '../helper/distanceLatLongCalc'
 
 import '../CSS/planner-calculator.css'
 
-interface Props {
+type Props = {
   getDistance: (distance: number) => void
 }
 
@@ -33,6 +33,7 @@ function RouteCalculator({ getDistance }: Props) {
     setIcaoDestination(input.toUpperCase())
   }
 
+  //! missing dependecy
   function calculateRoute() {
     const fetchLatLong = async (
       icaoDeparture: string,

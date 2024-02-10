@@ -12,7 +12,7 @@ import { getRange } from '../helper/fuelCalculator'
 
 import '../CSS/planner-calculator.css'
 
-interface Props {
+type Props = {
   fuelCapacity: number
   fuelConsumption: number
   cruiseSpeed: number

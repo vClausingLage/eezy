@@ -1,11 +1,11 @@
 import weatherCodes from '../assets/weatherCodes.json' assert { type: 'json' }
 
-interface Cloud {
+type Cloud = {
   cloud_layer: string
   cloud_base: number | undefined
   cloud?: string
 }
-interface Wind {
+type Wind = {
   direction: number | string
   speed: number
   unit: string

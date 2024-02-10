@@ -3,9 +3,9 @@ import Box from '@mui/material/Box'
 import Sun from './Sun'
 import Cloud from './Cloud'
 import Wind from './Wind'
-import { IClouds, IRwy } from '../interfaces/IMetar'
+import { IClouds, IRwy } from '../types/IMetar'
 
-interface Props {
+type Props = {
   clouds: IClouds[]
   wspd: number
   wdir: number
@@ -14,7 +14,7 @@ interface Props {
   timeLocal: string
 }
 
-function SVGPanel ({ clouds, wspd, wdir, wgst, runways, timeLocal }: Props) {
+function SVGPanel({ clouds, wspd, wdir, wgst, runways, timeLocal }: Props) {
   return (
     <Box className='grid_container_Clouds_Wind'>
       <Box>

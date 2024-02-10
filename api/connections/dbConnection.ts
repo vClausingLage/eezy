@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize'
 import { sqlDatabase } from '../config/config.js'
 
-export const seqConnection = new Sequelize(
+export const dbConnection = new Sequelize(
   sqlDatabase.dbName,
   sqlDatabase.user,
   sqlDatabase.password,
@@ -13,7 +13,7 @@ export const seqConnection = new Sequelize(
 )
 
 try {
-  await seqConnection.authenticate()
+  await dbConnection.authenticate()
   console.log('Connection has been established successfully.')
 } catch (error) {
   console.error('Unable to connect to the database:', error)

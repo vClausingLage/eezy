@@ -29,6 +29,7 @@
 
 - req params / req body
 - cleanup RegEx
+- remove unused configs
 
 ## server & client
 

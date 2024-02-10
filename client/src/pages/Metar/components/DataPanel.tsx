@@ -4,7 +4,7 @@ import { formatWeatherString } from '../helper/metarUiHelpers'
 
 import { Box } from '@mui/material'
 
-interface Props {
+type Props = {
   altim: number | null
   slp: number
   temp: number
@@ -15,7 +15,7 @@ interface Props {
   visibilityMeters: number
 }
 
-function DataPanel ({
+function DataPanel({
   altim,
   slp,
   temp,
@@ -101,7 +101,7 @@ function DataPanel ({
               tempUnitToggle={() => tempUnitToggle(tempUnit)}
             />
           </>
-          )
+        )
         : (
           <>
             <DataView
@@ -119,7 +119,7 @@ function DataPanel ({
               tempUnitToggle={() => tempUnitToggle(tempUnit)}
             />
           </>
-          )}
+        )}
     </Box>
   )
 }

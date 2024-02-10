@@ -1,33 +1,33 @@
-interface IWind {
+type IWind = {
   direction: number | string | undefined
   speed: number | undefined
   unit: string | undefined
   gusts?: number | undefined
 }
-interface IClouds {
+type IClouds = {
   cloud_layer: string
   cloud_base: number | undefined
   cloud?: string | undefined
 }
-interface IAirPressure {
+type IAirPressure = {
   pressure: string | undefined
   value: number | undefined
   unit: string | undefined
 }
-interface IFlightRule {
+type IFlightRule = {
   flight_rule: string
   color_code: string
 }
-interface IVisibility {
+type IVisibility = {
   value: number | string | undefined
   unit: string
 }
-interface ITemp {
+type ITemp = {
   temp: number | undefined
   dewp: number | undefined
 }
 
-export interface IMetar {
+export type IMetar = {
   icao: string
   date: Date | undefined
   wind: IWind
@@ -50,7 +50,7 @@ export interface IMetar {
   tempo: string[]
 }
 
-export interface IResultBasicTokens {
+export type IResultBasicTokens = {
   icao: string
   date: Date | undefined
   cavok: boolean
@@ -69,8 +69,10 @@ export interface IResultBasicTokens {
   tempo: string[]
   raw_metar: string
 }
-export interface IResultDynamicTokens {
+export type IResultDynamicTokens = {
   visibility: IVisibility
   precipitation: string[]
   flight_rule: IFlightRule | undefined
 }
+
+export type IResultTokens = IResultBasicTokens & IResultDynamicTokens

@@ -4,11 +4,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import './CSS/loadingCircleDescription.css'
 
-interface Props {
+type Props = {
   description: string
 }
 
-function LoadingCircle ({ description }: Props) {
+function LoadingCircle({ description }: Props) {
   return (
     <Box className='loading-circle-description'>
       <Typography display='inline'>{description}</Typography>

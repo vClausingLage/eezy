@@ -1,13 +1,13 @@
 import { Box, Typography } from '@mui/material'
 import CellTowerIcon from '@mui/icons-material/CellTower'
 
-import { IFreq } from '../interfaces/IMetar'
+import { IFreq } from '../types/IMetar'
 
-interface Props {
+type Props = {
   frequencies: IFreq[]
 }
 
-function Aerodrome ({ frequencies }: Props) {
+function Aerodrome({ frequencies }: Props) {
   return (
     <Box
       id='Aerodrome infromation'

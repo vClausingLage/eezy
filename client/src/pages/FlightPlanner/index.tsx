@@ -8,9 +8,9 @@ import CreateAircraftForm from './components/createAircraftForm'
 
 import { Box, Card, CardContent, Alert, Typography, Grid } from '@mui/material'
 
-import { IAircraft, ICreateAircraft } from './interfaces/IAaircraft'
+import { IAircraft, ICreateAircraft } from './types/IAaircraft'
 
-interface Props {
+type Props = {
   user?: string
   isAuthenticated?: boolean
 }

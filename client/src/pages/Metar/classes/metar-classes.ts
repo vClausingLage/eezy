@@ -1,4 +1,4 @@
-import { IFlightRule } from '../interfaces/IMetar'
+import { IFlightRule } from '../types/IMetar'
 
 export class Metar {
   ICAO!: string

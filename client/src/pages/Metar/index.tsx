@@ -26,11 +26,11 @@ import {
   IMetarObject,
   IAirportObject,
   IMetarAPIObject
-} from './interfaces/IMetar'
+} from './types/IMetar'
 
 import './CSS/index.css'
 
-function Metar () {
+function Metar() {
   const [responseError, setResponse] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [alertIcao, setAlertIcao] = useState(false)
@@ -41,8 +41,8 @@ function Metar () {
     tempUnit: '°C'
   } as IMetarObject)
 
-  function tempUnitToggle (unit: string) {
-    setMetarObject((prevMetarObject) => ({
+  function tempUnitToggle(unit: string) {
+    setMetarObject((prevMetarObject: IMetarObject) => ({
       ...prevMetarObject,
       tempUnit: unit === '°C' ? '°F' : '°C'
     }))
@@ -50,9 +50,9 @@ function Metar () {
 
   const loading = <LoadingCircle />
 
-  function handleChange (event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const icao = event.target.value.toUpperCase()
-    setMetarObject((prevMetarObject) => ({
+    setMetarObject((prevMetarObject: IMetarObject) => ({
       ...prevMetarObject,
       icao
     }))
@@ -60,7 +60,7 @@ function Metar () {
     setAlertIcao(false)
   }
 
-  async function searchMetar (e: React.SyntheticEvent) {
+  async function searchMetar(e: React.SyntheticEvent) {
     e.preventDefault()
     if (metarObject.icao.length !== 4) {
       setAlertIcao(true)
@@ -73,6 +73,7 @@ function Metar () {
         'Content-Type': 'application/json'
       }
     })
+    console.log(response)
     const data: IMetarAPIObject = await response.json()
     console.log('API data', data)
     if (data.message && data.message === 'error') {
@@ -80,7 +81,7 @@ function Metar () {
       setIsLoading(false)
     } else {
       setResponse(false)
-      setMetarObject((prevMetarObject) => ({
+      setMetarObject((prevMetarObject: IMetarObject) => ({
         ...prevMetarObject,
         altim: {
           altim: data.altim,
@@ -135,12 +136,12 @@ function Metar () {
         metarObject.CAVOK ? 'CAVOK' : metarObject.visibility.meters,
         metarObject.clouds
       )
-      setMetarObject((prevMetarObject) => ({
+      setMetarObject((prevMetarObject: IMetarObject) => ({
         ...prevMetarObject,
         flightRule: flightRuleColor
       }))
     }
-  }, [metarObject.name])
+  }, [metarObject.name, metarObject.CAVOK, metarObject.visibility, metarObject.clouds])
 
   return (
     <Card className='root'>

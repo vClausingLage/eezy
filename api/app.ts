@@ -6,15 +6,18 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
+import { auth } from 'express-oauth2-jwt-bearer';
+import guard from 'express-jwt-permissions';
 
 import { aircraft_router } from './routes/aircraft.routes.js'
-import { awc_router } from './routes/awc.routes.js'
 import { airport_router } from './routes/airport.routes.js'
-import { metar_api_router } from './routes/metar_api.routes.js'
+import { metar_router } from './routes/metar.routes.js'
+// import { awc_router } from './routes/awc.routes.js'
+// import { metar_api_router } from './routes/metar_api.routes.js'
 
 const app = express()
 dotenv.config()
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4001
 morgan('tiny')
 
 app.use(express.json())
@@ -27,6 +30,23 @@ app.use(cors())
 app.use(helmet())
 app.disable('x-powered-by')
 
+const jwtCheck = auth({
+  audience: 'https://vincent-clausing.de/',
+  issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
+  tokenSigningAlg: 'RS256'
+});
+
+// enforce on all endpoints
+app.use(jwtCheck);
+
+// app.get('/auth-metar', guard().check(['read:metar']), function (req, res) {
+//   res.send('Secured Resource');
+// });
+app.get('/auth-metar', function (req, res) {
+  res.send('Secured Resource');
+})
+
+
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes
   limit: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -37,9 +57,10 @@ const limiter = rateLimit({
 app.use(limiter)
 
 app.use('/api/aircraft', aircraft_router)
-app.use('/api/metar', awc_router)
 app.use('/api/airport', airport_router)
-app.use('/api/metardecoder', metar_api_router)
+app.use('/api/metar', metar_router)
+// app.use('/api/awc', awc_router)
+// app.use('/api/metardecoder', metar_api_router)
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

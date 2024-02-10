@@ -5,7 +5,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 
 import '../CSS/planner-calculator.css'
 
-interface Props {
+type Props = {
   label: string
   unit: string
   value: number | undefined
@@ -14,7 +14,7 @@ interface Props {
   handleChange: (e: any) => void
 }
 
-function FuelCalculatorTextInput ({
+function FuelCalculatorTextInput({
   label,
   unit,
   value,
@@ -22,7 +22,7 @@ function FuelCalculatorTextInput ({
   helperText,
   handleChange
 }: Props) {
-  function onSubmit (e: any) {
+  function onSubmit(e: any) {
     e.preventDefault()
   }
   return (

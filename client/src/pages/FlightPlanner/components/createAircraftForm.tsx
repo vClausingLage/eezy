@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { fuelTypes } from '../assets/fuelTypes'
 
-import { ICreateAircraft } from '../interfaces/IAaircraft'
+import { ICreateAircraft } from '../types/IAaircraft'
 
 import '../CSS/aircraft-form.css'
 
@@ -19,7 +19,7 @@ import {
   MenuItem
 } from '@mui/material'
 
-interface Props {
+type Props = {
   user?: string
   isAuthenticated?: boolean
   createAircraft: (newAircraft: ICreateAircraft) => void

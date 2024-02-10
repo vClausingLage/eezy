@@ -1,11 +1,11 @@
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
-interface Props {
+type Props = {
   date: string
 }
 
-function Sun ({ date }: Props) {
+function Sun({ date }: Props) {
   const hours = Number(date.split(':')[0])
   const isDayTime = hours >= 6 && hours <= 18
   const sun = (

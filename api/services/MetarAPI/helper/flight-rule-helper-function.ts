@@ -1,9 +1,9 @@
-interface IFlightRule {
+type IFlightRule = {
   flight_rule: string
   color_code: string
 }
 
-export default function getFlightRule (
+export default function getFlightRule(
   visibility: { value: number | string | undefined, unit: string },
   cloud_base: number | undefined,
   unit: string
@@ -13,7 +13,7 @@ export default function getFlightRule (
   } else return nauticalMilesFLR(visibility, cloud_base)
 }
 
-function metersFLR (
+function metersFLR(
   visibility: { value: number | string | undefined, unit: string },
   cloud_base: number | undefined
 ): IFlightRule {
@@ -44,7 +44,7 @@ function metersFLR (
     return { flight_rule: 'incomplete data', color_code: 'black' }
   }
 }
-function nauticalMilesFLR (
+function nauticalMilesFLR(
   visibility: { value: number | string | undefined, unit: string },
   cloud_base: number | undefined
 ): IFlightRule {

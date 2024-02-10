@@ -1,25 +1,25 @@
-export function metarToList (metar: string): string[] {
+export function metarToList(metar: string): string[] {
   const metarList = metar.split(' ')
   return metarList
 }
-export function metarToString (metar: string[]): string {
+export function metarToString(metar: string[]): string {
   const metarString = metar.join(' ')
   return metarString
 }
 
-export function removeEndCharFromString (metar: string) {
+export function removeEndCharFromString(metar: string) {
   let result = metar.replace('$', '').replace('=', '')
   result = result.trim()
   return result
 }
 
-interface ListRemarks {
+type ListRemarks = {
   metar: string[]
   remarks: string[]
   tempo: string[]
   becoming: string[]
 }
-export function splitMetarListRemarks (metar: string[]): ListRemarks {
+export function splitMetarListRemarks(metar: string[]): ListRemarks {
   let tempoMetar: string[] = []
   let becomingMetar: string[] = []
   let remarks: string[] = []

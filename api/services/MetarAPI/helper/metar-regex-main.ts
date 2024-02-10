@@ -8,17 +8,17 @@ import {
   IMetar,
   IResultBasicTokens,
   IResultDynamicTokens
-} from '../interfaces/IMetar.js'
+} from '../types/IMetar.js'
 
-interface BasicTokens {
+type BasicTokens = {
   regexResults: IResultBasicTokens
   filteredMetarList: string[]
 }
-interface DynamicTokens {
+type DynamicTokens = {
   regexResults: IResultDynamicTokens
   filteredMetarList: string[]
 }
-export function metarDecoder (metar: string): IMetar {
+export function metarDecoder(metar: string): IMetar {
   const metarList = metarToList(metar)
   const basicTokens: BasicTokens = findBasicTokens(metarList)
   const dynamicTokens: DynamicTokens = findDynamicTokens(

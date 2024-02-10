@@ -2,14 +2,14 @@ import { Card, CardContent, Typography, Button } from '@mui/material'
 
 import '../CSS/aircraft-get.css'
 
-import { IAircraft } from '../interfaces/IAaircraft'
+import { IAircraft } from '../types/IAaircraft'
 
-interface Props {
+type Props = {
   aircraft: IAircraft
   selectAircraft: (aircraft: IAircraft) => void
 }
 
-function AircraftCard ({ aircraft, selectAircraft }: Props) {
+function AircraftCard({ aircraft, selectAircraft }: Props) {
   return (
     <Card>
       {aircraft && (

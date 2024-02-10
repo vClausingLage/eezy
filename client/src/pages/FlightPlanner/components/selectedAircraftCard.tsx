@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import '../CSS/planner-card-selected.css'
 
-interface Props {
+type Props = {
   aircraft: {
     id: number | null
     manufacturer: string
@@ -21,7 +21,7 @@ interface Props {
   user?: string
 }
 
-function SelectedAircraftCard ({
+function SelectedAircraftCard({
   aircraft,
   editAircraft,
   deleteAircraft,

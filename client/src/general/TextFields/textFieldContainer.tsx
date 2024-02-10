@@ -4,14 +4,14 @@ import IcaoInput from './icaoInput'
 
 import '../CSS/text-field-container.css'
 
-interface Props {
+type Props = {
   icon: any
   adornment: string
   value: string
   submit: (input: string) => void
 }
 
-function TextFieldContainer ({ icon, value, adornment, submit }: Props) {
+function TextFieldContainer({ icon, value, adornment, submit }: Props) {
   return (
     <Box className='text-field-container'>
       <Stack direction='row' alignItems='center' spacing={2}>

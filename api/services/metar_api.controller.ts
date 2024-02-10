@@ -14,7 +14,7 @@ import {
 } from './MetarAPI/helper/metar-regex-main-helper-functions.js'
 import getFlightRule from '../services/MetarAPI/helper/flight-rule-helper-function.js'
 
-interface ListRemarks {
+type ListRemarks = {
   metar: string[]
   remarks: string[]
   tempo: string[]

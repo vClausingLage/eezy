@@ -1,7 +1,7 @@
 import weatherCodes from '../assets/weatherCodesClient.json'
-import { IClouds } from '../interfaces/IMetar'
+import { IClouds } from '../types/IMetar'
 
-export function getFlightRules (visibility: string | number, clouds: IClouds[]) {
+export function getFlightRules(visibility: string | number, clouds: IClouds[]) {
   const flRul = {
     flightRule: '',
     colorCode: ''
@@ -41,7 +41,7 @@ export function getFlightRules (visibility: string | number, clouds: IClouds[]) 
   return flRul
 }
 
-export function formatWeatherString (weatherString: string) {
+export function formatWeatherString(weatherString: string) {
   let result: any = []
   const output = []
   weatherString = weatherString.replace(/\s/gi, '')
@@ -50,9 +50,9 @@ export function formatWeatherString (weatherString: string) {
       weatherString[0] === '-'
         ? (result = [...result, ['light', weatherString[1] + weatherString[2]]])
         : (result = [
-            ...result,
-            ['heavy', weatherString[1] + weatherString[2]]
-          ])
+          ...result,
+          ['heavy', weatherString[1] + weatherString[2]]
+        ])
       weatherString = weatherString.slice(3)
     } else if (weatherString[0] !== '-' && weatherString[0] !== '+') {
       result = [...result, ['', weatherString[0] + weatherString[1]]]
@@ -70,7 +70,7 @@ export function formatWeatherString (weatherString: string) {
   return output.join(' and ').replace('of and', 'and')
 }
 
-export function convertDate (dateString: string) {
+export function convertDate(dateString: string) {
   const date = new Date(Number(dateString))
   const localTime = date.toLocaleString(navigator.language, {
     hour12: false,
@@ -81,13 +81,13 @@ export function convertDate (dateString: string) {
     String(date.getUTCHours()) + ':' + String(date.getUTCMinutes())
   return { local: localTime, utc: utcTime }
 }
-export function qnhRegex (rawOb: string): number | null {
+export function qnhRegex(rawOb: string): number | null {
   return (rawOb.match(/Q[0-9]{4}/gi) != null)
     ? Number(rawOb.match(/Q[0-9]{4}/gi)![0].replace('Q', ''))
     : null
 }
 
-export async function checkLocation () {
+export async function checkLocation() {
   //! add return
   const locationCheck = false
   const response = await fetch('https://ipapi.co/json/')
@@ -97,7 +97,7 @@ export async function checkLocation () {
   //! return Miles && Meters --> check in JSX
 }
 
-export function tempoInformation (rawMetar: string) {
+export function tempoInformation(rawMetar: string) {
   const metar = rawMetar.split(' ')
   const tempoMetar: string[] = []
   metar.forEach((el, idx) => {

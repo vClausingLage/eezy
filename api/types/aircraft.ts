@@ -1,4 +1,4 @@
-export interface IAircraft {
+export type IAircraft = {
   id?: number | null;
   user: string;
   manufacturer: string;

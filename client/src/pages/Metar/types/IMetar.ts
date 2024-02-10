@@ -1,4 +1,4 @@
-export interface IMetarAPIObject {
+export type IMetarAPIObject = {
   //! update to new AWC API
   altim: number
   clouds: IClouds[]
@@ -15,7 +15,7 @@ export interface IMetarAPIObject {
   wxString: string
   message?: string
 }
-export interface IMetarObject {
+export type IMetarObject = {
   altim: { altim: number, qnh: number | null }
   CAVOK: boolean
   clouds: IClouds[]
@@ -38,12 +38,12 @@ export interface IMetarObject {
   wxString: string
 }
 
-export interface IAirportObject {
+export type IAirportObject = {
   frequencies: IFreq[]
   runways: IRwy[]
 }
 
-export interface IFreq {
+export type IFreq = {
   id?: string
   airport_ref?: string
   airport_ident?: string
@@ -52,12 +52,12 @@ export interface IFreq {
   frequency_mhz: string
 }
 
-export interface IRwy {
+export type IRwy = {
   he_ident: string
   le_ident: string
 }
 
-export interface IWind {
+export type IWind = {
   direction: number | string
   speed: number
   unit: string
@@ -65,17 +65,17 @@ export interface IWind {
   gusts?: number
 }
 
-export interface IPrecipitation {
+export type IPrecipitation = {
   intensity?: string
   elements: string[]
 }
 
-export interface IClouds {
+export type IClouds = {
   cover: string
   base: number
 }
 
-export interface IFlightRule {
+export type IFlightRule = {
   flightRule: string
   colorCode: string
 }

@@ -2,13 +2,13 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-interface DataProps {
+type DataProps = {
   data: Array<{ description: string, value: number | string }>
   unit?: string
   tempUnitToggle?: Function
 }
 
-function DataView ({ data, unit, tempUnitToggle }: DataProps) {
+function DataView({ data, unit, tempUnitToggle }: DataProps) {
   return (
     <>
       <Box

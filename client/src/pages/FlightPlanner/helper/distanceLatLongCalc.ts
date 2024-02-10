@@ -1,4 +1,4 @@
-interface latLong {
+type latLong = {
   icao: string
   latitude: number
   longitude: number

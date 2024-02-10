@@ -1,13 +1,13 @@
 import { TextField, Box, IconButton } from '@mui/material'
 import { Search, Check } from '@mui/icons-material'
 
-interface Props {
+type Props = {
   value: string
   adornment: string
   submit: (icao: string) => void
 }
 
-function IcaoInput (props: Props) {
+function IcaoInput(props: Props) {
   const inputPropsSearch = {
     endAdornment: (
       <IconButton
@@ -27,10 +27,10 @@ function IcaoInput (props: Props) {
     )
   }
 
-  function handleChange (e: any) {
+  function handleChange(e: any) {
     props.submit(e.target.value)
   }
-  function handleSubmit (e: any) {
+  function handleSubmit(e: any) {
     e.preventDefault()
     props.submit(e.target.value)
   }

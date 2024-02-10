@@ -4,9 +4,9 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import { IWind } from '../interfaces/IMetar'
+import { IWind } from '../types/IMetar'
 
-function Wind ({ direction, speed, unit, runways, gusts }: IWind) {
+function Wind({ direction, speed, unit, runways, gusts }: IWind) {
   const [runwayDir, setRunwayDir] = useState(0)
   const opacityNorth =
     typeof direction === 'number' && (direction > 330 || direction < 30)
@@ -17,7 +17,7 @@ function Wind ({ direction, speed, unit, runways, gusts }: IWind) {
     setRunwayDir(Number(runways[0].he_ident.slice(0, 2)) * 10)
   }, [runways])
 
-  function setRunwayDirection (input: string) {
+  function setRunwayDirection(input: string) {
     const degrees = Number(input.slice(0, 2)) * 10
     setRunwayDir(degrees)
   }

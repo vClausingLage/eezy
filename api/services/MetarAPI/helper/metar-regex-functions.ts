@@ -10,9 +10,9 @@ import {
 import {
   IResultBasicTokens,
   IResultDynamicTokens
-} from '../interfaces/IMetar.js'
+} from '../types/IMetar.js'
 
-interface DynamicTokens {
+type DynamicTokens = {
   regexResults: IResultDynamicTokens
   filteredMetarList: string[]
 }
@@ -44,11 +44,11 @@ export function findDynamicTokens(metar: string): DynamicTokens {
       }
     }
   }
-  resultObj.precipitation = resultObj.precipitation.filter((n) => n.length)
+  resultObj.precipitation = resultObj.precipitation.filter((n: string) => n.length)
   return { regexResults: resultObj, filteredMetarList: [] } //! remove regex matches from STRING then JOIN to LIST
 }
 
-interface BasicTokens {
+type BasicTokens = {
   regexResults: IResultBasicTokens
   filteredMetarList: string[]
 }
