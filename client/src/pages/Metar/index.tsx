@@ -7,6 +7,9 @@ import {
   Alert,
   Card
 } from '@mui/material'
+
+import { useAuth0 } from "@auth0/auth0-react";
+
 import SearchIcon from '@mui/icons-material/Search'
 
 import LoadingCircle from '../../general/LoadingCircle'
@@ -30,7 +33,9 @@ import {
 
 import './CSS/index.css'
 
-function Metar() {
+function Metar(user: any) {
+  const { getAccessTokenSilently } = useAuth0()
+
   const [responseError, setResponse] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [alertIcao, setAlertIcao] = useState(false)
@@ -40,6 +45,39 @@ function Metar() {
     icao: '',
     tempUnit: '°C'
   } as IMetarObject)
+  const [userMetadata, setUserMetadata] = useState(null);
+
+
+  useEffect(() => {
+    console.log(userMetadata)
+    console.log(user?.user?.sub)
+    const getUserMetadata = async () => {
+      const domain = "dev-lcqbfmwjn2s35t2q.us.auth0.com";
+
+      const accessToken = await getAccessTokenSilently({
+        authorizationParams: {
+          audience: `https://${domain}/api/v2/`,
+          // scope: "read:current_user",
+        },
+      });
+
+      console.log('token', accessToken)
+
+      const userDetailsByIdUrl = `https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/users/google-oauth2|100933529444268828878`;
+
+      const metadataResponse = await fetch(userDetailsByIdUrl, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { user_metadata } = await metadataResponse.json();
+
+      setUserMetadata(user_metadata);
+    };
+
+    getUserMetadata();
+  }, [getAccessTokenSilently, user?.user?.sub]);
 
   function tempUnitToggle(unit: string) {
     setMetarObject((prevMetarObject: IMetarObject) => ({
@@ -67,7 +105,7 @@ function Metar() {
       return
     }
     setIsLoading(true)
-    const response = await fetch(`/api/metar/${metarObject.icao}`, {
+    const response = await fetch(`localhost:4001/api/metar/${metarObject.icao}`, {
       method: 'get',
       headers: {
         'Content-Type': 'application/json'

@@ -6,8 +6,11 @@ import {
   Navigate
 } from 'react-router-dom'
 
+import { domain, clientId } from './config/auth'
+
 import './CSS/App.css'
 
+import { Auth0Provider } from '@auth0/auth0-react';
 import { useAuth0 } from '@auth0/auth0-react'
 
 import { Box, AppBar, Toolbar, ThemeProvider, Typography } from '@mui/material'
@@ -21,7 +24,7 @@ import IndexPage from './pages/Index/Index'
 import LoginButton from './general/Buttons/loginButton'
 import LoadingCircle from './general/LoadingCircle'
 
-function App () {
+function App() {
   const { user, isAuthenticated, isLoading } = useAuth0()
 
   if (isLoading) {
@@ -34,44 +37,50 @@ function App () {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Box>
-            <AppBar position='static'>
-              <Toolbar>
-                <nav className='nav-bar'>
-                  <NavLink
-                    to='/index'
-                    style={({ isActive }) =>
-                      isActive ? activeStyle : undefined}
-                  >
-                    Home
-                  </NavLink>
-                  <NavLink
-                    to='/'
-                    style={({ isActive }) =>
-                      isActive ? activeStyle : undefined}
-                  >
-                    Metar
-                  </NavLink>
+      <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Box>
+              <AppBar position='static'>
+                <Toolbar>
+                  <nav className='nav-bar'>
+                    <NavLink
+                      to='/index'
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined}
+                    >
+                      Home
+                    </NavLink>
+                    <NavLink
+                      to='/'
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined}
+                    >
+                      Metar
+                    </NavLink>
 
-                  <NavLink
-                    to='/flight-planner'
-                    style={({ isActive }) =>
-                      isActive ? activeStyle : undefined}
-                  >
-                    Flight Planner
-                  </NavLink>
-                </nav>
-                {(user == null) && <LoginButton />}
-                <Typography>{user?.name}</Typography>
-              </Toolbar>
-            </AppBar>
-          </Box>
+                    <NavLink
+                      to='/flight-planner'
+                      style={({ isActive }) =>
+                        isActive ? activeStyle : undefined}
+                    >
+                      Flight Planner
+                    </NavLink>
+                  </nav>
+                  {(user == null) && <LoginButton />}
+                  <Typography>{user?.name}</Typography>
+                </Toolbar>
+              </AppBar>
+            </Box>
 
-          <Routes>
-            <Route path='/' element={<Metar />} />
-            {/* <Route
+            <Routes>
+              <Route path='/' element={<Metar user={user} />} />
+              {/* <Route
                 path="aircraft"
                 element={
                   <Aircraft
@@ -80,21 +89,22 @@ function App () {
                   />
                 }
               /> */}
-            <Route
-              path='flight-planner'
-              element={
-                <FlightPlanner
-                  user={user?.sub?.replace('|', '')}
-                  isAuthenticated={isAuthenticated}
-                />
-              }
-            />
-            <Route path='index' element={<IndexPage />} />
-            <Route path='callback' element={<Navigate to='/aircraft' />} />
-          </Routes>
-        </BrowserRouter>
-        <AppFooter />
-      </ThemeProvider>
+              <Route
+                path='flight-planner'
+                element={
+                  <FlightPlanner
+                    user={user?.sub?.replace('|', '')}
+                    isAuthenticated={isAuthenticated}
+                  />
+                }
+              />
+              <Route path='index' element={<IndexPage />} />
+              <Route path='callback' element={<Navigate to='/aircraft' />} />
+            </Routes>
+          </BrowserRouter>
+          <AppFooter />
+        </ThemeProvider>
+      </Auth0Provider >
     </>
   )
 }

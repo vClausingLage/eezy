@@ -39,13 +39,10 @@ const jwtCheck = auth({
 // enforce on all endpoints
 app.use(jwtCheck);
 
-// app.get('/auth-metar', guard().check(['read:metar']), function (req, res) {
-//   res.send('Secured Resource');
-// });
 app.get('/auth-metar', function (req, res) {
   res.send('Secured Resource');
 })
-
+// guard().check(['read:metar']),
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes
