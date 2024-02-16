@@ -21,10 +21,12 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
+      // useRefreshTokens={true}
+      cacheLocation="localstorage"
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: "https://vincent-clausing.de/",
-        // scope: "read:metar"
+        // scope: "read:current_user"
       }}
     >
       <App />

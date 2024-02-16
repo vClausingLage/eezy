@@ -1,5 +1,9 @@
 # TO DO
 
+## Docker
+
+[Link](https://medium.com/@antonio.maccarini/dockerize-a-react-application-with-node-js-postgres-and-nginx-124c204029d4)
+
 ## URGENT
 
 - "ADD AIRCRAFT" not showing when no aircraft in DB
@@ -11,13 +15,13 @@
 - add warning codes (color green, orange, red) to weather codes
 - show Warning when orange or red
 - print colored weather strings
+
 ## client
 
 - add **Haversine distance** to ICAOs
 - useEffect metar index ARRAY!!!
 - test new Precip Decoder
 - redo navigation bar (w/o MUI)
-- add sm flightRules to _CLIENT_
 - add **animation** to _RWY SELECT_
 - **selected aircraft** must be stored in **App.tsx**
 - remove useEffect where possible
@@ -74,10 +78,6 @@
 
 # React App
 
-## Authentication
-
-- complete auth process
-
 ## Inhalt
 
 - Map fertig
@@ -85,8 +85,3 @@
 - Fuel
 - WARNING EXCEED FUEL CAPACITY
 - WARNING EDUCATIONAL PURPOSE ONLY
-
-# Mobile App
-
-- menu unten
-- keine Überschrift

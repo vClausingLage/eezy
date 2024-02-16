@@ -16,10 +16,10 @@ services:
   mysql:
     image: mariadb:latest
     volumes:
-      - database-mysql-data:/var/lib/mysql
+      - mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: database
 
 volumes:
-  database-mysql-data:
+  mysql:

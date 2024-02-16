@@ -9,6 +9,7 @@ import {
 } from '@mui/material'
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { domain } from '../../config/auth'
 
 import SearchIcon from '@mui/icons-material/Search'
 
@@ -45,40 +46,11 @@ function Metar() {
     icao: '',
     tempUnit: '°C'
   } as IMetarObject)
-  const [userMetadata, setUserMetadata] = useState(null);
+  const [userMetadata, setData] = useState(null);
+
+  const audience = "audience: `https://${domain}/api/v2/`"
 
 
-  useEffect(() => {
-    console.log(userMetadata)
-    console.log('authenticated', isAuthenticated)
-    console.log(user?.sub)
-    const getUserMetadata = async () => {
-      const domain = 'https://vincent-clausing.de'
-
-      const accessToken = await getAccessTokenSilently({
-        authorizationParams: {
-          audience: `${domain}`,
-          // scope: "read:current_user",
-        },
-      });
-
-      console.log('token', accessToken)
-
-      const userDetailsByIdUrl = `${domain}/api/v2/users/${user?.sub}`;
-
-      const metadataResponse = await fetch(userDetailsByIdUrl, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const { user_metadata } = await metadataResponse.json();
-
-      setUserMetadata(user_metadata);
-    };
-
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.user?.sub]);
 
   function tempUnitToggle(unit: string) {
     setMetarObject((prevMetarObject: IMetarObject) => ({
@@ -184,20 +156,6 @@ function Metar() {
 
   return (
     <Card className='root'>
-      {isAuthenticated && (
-        <div>
-          <p>bla user</p>
-          <img src={user?.picture} alt={user?.name} />
-          <h2>{user?.name}</h2>
-          <p>{user?.email}</p>
-          <h3>User Metadata</h3>
-          {userMetadata ? (
-            <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-          ) : (
-            "No user metadata defined"
-          )}
-        </div>
-      )}
       <Box className='metar-text-input-ICAO'>
         <Typography variant='h2'>Metar</Typography>
         <form onSubmit={searchMetar}>
