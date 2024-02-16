@@ -33,8 +33,8 @@ import {
 
 import './CSS/index.css'
 
-function Metar(user: any) {
-  const { getAccessTokenSilently } = useAuth0()
+function Metar() {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
   const [responseError, setResponse] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -50,20 +50,21 @@ function Metar(user: any) {
 
   useEffect(() => {
     console.log(userMetadata)
-    console.log(user?.user?.sub)
+    console.log('authenticated', isAuthenticated)
+    console.log(user?.sub)
     const getUserMetadata = async () => {
-      const domain = "dev-lcqbfmwjn2s35t2q.us.auth0.com";
+      const domain = 'https://vincent-clausing.de'
 
       const accessToken = await getAccessTokenSilently({
         authorizationParams: {
-          audience: `https://${domain}/api/v2/`,
+          audience: `${domain}`,
           // scope: "read:current_user",
         },
       });
 
       console.log('token', accessToken)
 
-      const userDetailsByIdUrl = `https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/users/google-oauth2|100933529444268828878`;
+      const userDetailsByIdUrl = `${domain}/api/v2/users/${user?.sub}`;
 
       const metadataResponse = await fetch(userDetailsByIdUrl, {
         headers: {
@@ -183,6 +184,20 @@ function Metar(user: any) {
 
   return (
     <Card className='root'>
+      {isAuthenticated && (
+        <div>
+          <p>bla user</p>
+          <img src={user?.picture} alt={user?.name} />
+          <h2>{user?.name}</h2>
+          <p>{user?.email}</p>
+          <h3>User Metadata</h3>
+          {userMetadata ? (
+            <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
+          ) : (
+            "No user metadata defined"
+          )}
+        </div>
+      )}
       <Box className='metar-text-input-ICAO'>
         <Typography variant='h2'>Metar</Typography>
         <form onSubmit={searchMetar}>

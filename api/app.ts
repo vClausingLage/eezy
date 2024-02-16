@@ -15,9 +15,9 @@ import { metar_router } from './routes/metar.routes.js'
 // import { awc_router } from './routes/awc.routes.js'
 // import { metar_api_router } from './routes/metar_api.routes.js'
 
+const port = process.env.PORT || 4002
 const app = express()
 dotenv.config()
-const port = process.env.PORT || 4001
 morgan('tiny')
 
 app.use(express.json())

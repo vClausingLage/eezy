@@ -7,7 +7,8 @@
   "scripts": {
     "build": "yarn tsc",
     "start": "concurrently \"yarn tsc --watch\" \"nodemon -q dist/app.js\"",
-    "dev": "concurrently \"yarn tsc --watch\" \"nodemon -q dist/app.js\" \"yarn start --prefix ../client \" ",
+    "dev": "concurrently \"yarn tsc --watch\" \"nodemon -q dist/app.js\" ",
+    "startClient": "cd .. && cd client && yarn run start",
     "test": "jest",
     "standard": "yarn ts-standard --fix"
   },

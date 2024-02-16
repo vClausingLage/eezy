@@ -50,7 +50,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4001",
   "devDependencies": {
     "@jest/globals": "^29.6.4",
     "@types/jest": "^29.5.4",
