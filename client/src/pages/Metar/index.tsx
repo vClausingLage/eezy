@@ -9,7 +9,6 @@ import {
 } from '@mui/material'
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { domain } from '../../config/auth'
 
 import SearchIcon from '@mui/icons-material/Search'
 
@@ -35,7 +34,7 @@ import {
 import './CSS/index.css'
 
 function Metar() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
 
   const [responseError, setResponse] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -46,11 +45,37 @@ function Metar() {
     icao: '',
     tempUnit: '°C'
   } as IMetarObject)
-  const [userMetadata, setData] = useState(null);
+  const [userMetadata, setUserMetadata] = useState(null);
 
-  const audience = "audience: `https://${domain}/api/v2/`"
+  useEffect(() => {
+    const getUserMetadata = async () => {
+      const domain = "dev-lcqbfmwjn2s35t2q.us.auth0.com";
 
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: { audience: "https://vincent-clausing.de/" }
+        });
 
+        console.log(accessToken)
+
+        const fetchMetar = await fetch(`http://localhost:4001/auth-metar`, {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+          }
+        })
+        const metar = await fetchMetar.json()
+        setUserMetadata(metar);
+      } catch (e: any) {
+        console.log('Authorized Connection Failed', e.message);
+      }
+    };
+
+    getUserMetadata();
+  }, [getAccessTokenSilently, user?.sub]);
+
+  console.log('User Metadata', userMetadata)
 
   function tempUnitToggle(unit: string) {
     setMetarObject((prevMetarObject: IMetarObject) => ({

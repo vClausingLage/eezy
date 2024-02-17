@@ -25,8 +25,8 @@ root.render(
       cacheLocation="localstorage"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: "https://vincent-clausing.de/",
-        // scope: "read:current_user"
+        audience: `https://vincent-clausing.de/`,
+        scope: "read:current_user"
       }}
     >
       <App />

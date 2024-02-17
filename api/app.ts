@@ -15,7 +15,7 @@ import { metar_router } from './routes/metar.routes.js'
 // import { awc_router } from './routes/awc.routes.js'
 // import { metar_api_router } from './routes/metar_api.routes.js'
 
-const port = process.env.PORT || 4002
+const port = process.env.PORT || 4001
 const app = express()
 dotenv.config()
 morgan('tiny')
@@ -33,16 +33,16 @@ app.disable('x-powered-by')
 const jwtCheck = auth({
   audience: 'https://vincent-clausing.de/',
   issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
-  tokenSigningAlg: 'RS256'
+  tokenSigningAlg: 'RS256',
+  jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
 });
 
 // enforce on all endpoints
 app.use(jwtCheck);
 
-app.get('/auth-metar', function (req, res) {
-  res.send('Secured Resource');
+app.get('/auth-metar', guard().check(['read:metar']), function (req, res) {
+  res.send({ message: 'Metar Authenticated' });
 })
-// guard().check(['read:metar']),
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes
