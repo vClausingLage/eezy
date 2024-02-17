@@ -31,18 +31,17 @@ app.use(helmet())
 app.disable('x-powered-by')
 
 const jwtCheck = auth({
-  audience: 'https://vincent-clausing.de/',
+  audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
   issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
   tokenSigningAlg: 'RS256',
   jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
 });
 
-// enforce on all endpoints
 app.use(jwtCheck);
 
-app.get('/auth-metar', guard().check(['read:metar']), function (req, res) {
-  res.send({ message: 'Metar Authenticated' });
-})
+// app.get('/auth-metar', guard().check(['read:metar']), function (req, res) {
+//   res.send({ message: 'Metar Authenticated' });
+// })
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes

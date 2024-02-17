@@ -1,41 +1,53 @@
-export type IMetarAPIObject = {
-  //! update to new AWC API
-  altim: number
-  clouds: IClouds[]
-  dewp: number
-  name: string
-  obsTime: number
-  rawOb: string
-  slp: number
-  temp: number
-  visib: string
-  wspd: number
-  wdir: number
-  wgst: number
-  wxString: string
-  message?: string
+type IWind = {
+  direction: number | string | undefined
+  speed: number | undefined
+  unit: string | undefined
+  gusts?: number | undefined
 }
-export type IMetarObject = {
-  altim: { altim: number, qnh: number | null }
-  CAVOK: boolean
-  clouds: IClouds[]
-  dewp: number
-  flightRule: IFlightRule
+type IClouds = {
+  cloud_layer: string
+  cloud_base: number | undefined
+  cloud?: string | undefined
+}
+type IAirPressure = {
+  pressure: string | undefined
+  value: number | undefined
+  unit: string | undefined
+}
+type IFlightRule = {
+  flight_rule: string
+  color_code: string
+}
+type IVisibility = {
+  value: number | string | undefined
+  unit: string
+}
+type ITemp = {
+  temp: number | undefined
+  dewp: number | undefined
+}
+
+export type IMetar = {
   icao: string
-  name: string
+  date: Date | undefined
+  wind: IWind
+  visibility: IVisibility
+  precipitation: string[]
+  clouds: IClouds[]
+  wind_var: number[] | undefined
+  air_pressure: IAirPressure
+  slp: number | undefined
+  cavok: boolean
+  flight_rule: IFlightRule | undefined
+  raw_metar: string
   nosig: boolean
-  rawMetar: string
-  slp: number
-  tempoInformation: { gusts: string[], precipitation: string[] }
-  temp: number
-  tempUnit: string
-  time: { local: string, utc: string }
-  userLocation: string
-  visibility: { meters: number, nm: number }
-  wspd: number
-  wdir: number
-  wgst: number
-  wxString: string
+  auto: boolean
+  temperature: ITemp
+  taf_prognosis: string | undefined
+  recent_precipitation: string | undefined
+  remarks: string[]
+  becoming: string[]
+  tempo: string[]
 }
 
 export type IAirportObject = {
@@ -57,7 +69,7 @@ export type IRwy = {
   le_ident: string
 }
 
-export type IWind = {
+export type IWindUI = {
   direction: number | string
   speed: number
   unit: string
@@ -68,14 +80,4 @@ export type IWind = {
 export type IPrecipitation = {
   intensity?: string
   elements: string[]
-}
-
-export type IClouds = {
-  cover: string
-  base: number
-}
-
-export type IFlightRule = {
-  flightRule: string
-  colorCode: string
 }
