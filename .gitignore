@@ -12,3 +12,4 @@ api/node_modules/
 api/config/
 api/dist/
 api/.env
+api/api.connect

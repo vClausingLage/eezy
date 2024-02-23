@@ -1,17 +1,24 @@
 services:
-  app:
-    image: node:18-alpine
-    command: sh -c "npm install && npm run dev"
+  api:
+    image: node:20-alpine
+    command: sh -c "yarn && yarn run start"
     ports:
       - 3000:3000
     working_dir: /app
     volumes:
-      - ./:/app
+      - ./src/api:/app
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: database
+
+  client:
+    image: node:20-alpine
+    command: sh -c "yarn && yarn run start"
+    working_dir: /app
+    volumes:
+      - ./src/client:/app
 
   mysql:
     image: mariadb:latest
@@ -19,7 +26,9 @@ services:
       - database-mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: database
+      MYSQL_USER: eezy
+      MYSQL_PASSWORD: eezyPassword
+      MYSQL_DATABASE: eezyApp
 
 volumes:
   database-mysql-data:
