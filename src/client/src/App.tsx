@@ -6,8 +6,6 @@ import {
   Navigate
 } from 'react-router-dom'
 
-import { domain, clientId } from './config/auth'
-
 import './CSS/App.css'
 
 import { useAuth0 } from '@auth0/auth0-react'

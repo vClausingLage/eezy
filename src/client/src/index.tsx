@@ -23,8 +23,8 @@ root.render(
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: "https://vincent-clausing.de/",
-        // scope: "read:metar"
+        audience: `https://${domain}/api/v2/`,
+        scope: "read:current_user update:current_user_metadata"
       }}
     >
       <App />

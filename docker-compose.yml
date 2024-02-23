@@ -23,7 +23,7 @@ services:
   mysql:
     image: mariadb:latest
     volumes:
-      - database-mysql-data:/var/lib/mysql
+      - mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_USER: eezy
@@ -31,4 +31,4 @@ services:
       MYSQL_DATABASE: eezyApp
 
 volumes:
-  database-mysql-data:
+  mysql:
