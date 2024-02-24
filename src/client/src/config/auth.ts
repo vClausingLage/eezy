@@ -6,3 +6,4 @@ export const redirectUri =
   process.env.REACT_APP_AUTH0_CALLBACK_URL || "http://localhost:3000/callback";
 export const audience =
   process.env.REACT_APP_AUTH0_AUDIENCE || "https://metarApp.de";
+
