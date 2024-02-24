@@ -1,6 +1,9 @@
 services:
   api:
     image: node:20-alpine
+    build:
+      context: ./src/api
+      dockerfile: Dockerfile
     command: sh -c "yarn && yarn run start"
     ports:
       - 3000:3000
@@ -9,9 +12,9 @@ services:
       - ./src/api:/app
     environment:
       MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DB: database
+      MYSQL_USER: eezy
+      MYSQL_PASSWORD: eezyPassword
+      MYSQL_DB: eezyApp
 
   client:
     image: node:20-alpine
@@ -25,7 +28,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: eezy
       MYSQL_PASSWORD: eezyPassword
       MYSQL_DATABASE: eezyApp
