@@ -5,5 +5,5 @@ export const Auth0ClientID = "QrRkDZOKZLrPbeVA6TDOx0n8s5bMIbnQ";
 export const sqlDatabase = {
     dbName: "eezyApp",
     user: "eezy",
-    password: "lieselotte90",
+    password: "eezyPassword",
 };

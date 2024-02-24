@@ -7,7 +7,6 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
 import { auth } from 'express-oauth2-jwt-bearer';
-import guard from 'express-jwt-permissions';
 
 import { aircraft_router } from './routes/aircraft.routes.js'
 import { airport_router } from './routes/airport.routes.js'
@@ -39,9 +38,10 @@ const jwtCheck = auth({
 
 app.use(jwtCheck);
 
-// app.get('/auth-metar', guard().check(['read:metar']), function (req, res) {
-//   res.send({ message: 'Metar Authenticated' });
-// })
+app.get('/auth-metar', function (req, res) {
+  let user = req.body.user;
+  res.send({ message: 'Metar Authenticated' });
+})
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 minutes
