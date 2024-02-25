@@ -28,6 +28,7 @@ type ITemp = {
 }
 
 export type IMetar = {
+  name: string
   icao: string
   date: Date | undefined
   wind: IWind

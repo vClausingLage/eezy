@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   BrowserRouter,
   Routes,
@@ -6,44 +8,44 @@ import {
   Navigate
 } from 'react-router-dom'
 
-import './CSS/App.css'
+import Metar from './pages/metar/'
 
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 
-import { Box, AppBar, Toolbar, ThemeProvider, Typography } from '@mui/material'
 import theme from './CSS/theme'
+import { Box, AppBar, Toolbar, ThemeProvider, Typography } from '@mui/material'
+const activeStyle = {
+  backgroundColor: '#93A4C5'
+}
 
-import AppFooter from './general/AppFooter'
-import Metar from './pages/Metar'
-import FlightPlanner from './pages/FlightPlanner'
-import IndexPage from './pages/Index/Index'
-
+import AppFooter from '../../client/src/general/AppFooter'
 import LoginButton from './general/Buttons/loginButton'
-import LoadingCircle from './general/LoadingCircle'
+import LoadingCircle from '../../client/src/general/LoadingCircle'
+
+import './CSS/App.css'
 
 function App() {
-  const { user, isLoading } = useAuth0()
 
-  if (isLoading) {
-    return <LoadingCircle />
-  }
+  const { user, isLoading, isAuthenticated } = useAuth0()
 
-  const activeStyle = {
-    backgroundColor: '#93A4C5'
-  }
+  // if (isLoading) {
+  //   return <LoadingCircle />
+  // }
+
+  console.log(isAuthenticated, isLoading, user)
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Auth0Provider
-          domain={process.env.AUTH0_DOMAIN || ""}
-          clientId={process.env.AUTH0_CLIENT_ID || ""}
-          authorizationParams={{
-            redirect_uri: window.location.origin,
-            audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
-            scope: "read:current_user update:current_user_metadata"
-          }}
-        >
+      <Auth0Provider
+        domain="dev-lcqbfmwjn2s35t2q.us.auth0.com"
+        clientId="qiN12JePHbGiLHcZ7b4wMcRgXOkRl2Bf"
+        authorizationParams={{
+          redirect_uri: window.location.origin,
+          // audience: `https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/`,
+          // scope: "read:current_user update:current_user_metadata"
+        }}
+      >
+        <ThemeProvider theme={theme}>
           <BrowserRouter>
             <Box>
               <AppBar position='static'>
@@ -91,18 +93,17 @@ function App() {
               /> */}
               <Route
                 path='flight-planner'
-                element={
-                  <FlightPlanner
-                  />
-                }
+              // element={
+              //   <FlightPlanner
+              //   />
+              // }
               />
-              <Route path='index' element={<IndexPage />} />
-              <Route path='callback' element={<Navigate to='/aircraft' />} />
+              {/* <Route path='index' element={<IndexPage />} /> */}
             </Routes>
           </BrowserRouter>
           <AppFooter />
-        </Auth0Provider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Auth0Provider>
     </>
   )
 }

@@ -17,3 +17,5 @@ src/client/node_modules/
 src/client/build/
 src/client/public/.htaccess
 src/client/src/config/
+
+src/client_OLD
