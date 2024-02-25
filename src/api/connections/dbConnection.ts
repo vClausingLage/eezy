@@ -1,10 +1,9 @@
 import { Sequelize } from 'sequelize'
-import { sqlDatabase } from '../config/config.js'
 
 export const dbConnection = new Sequelize(
-  sqlDatabase.dbName,
-  sqlDatabase.user,
-  sqlDatabase.password,
+  process.env.DB_NAME || "",
+  process.env.DB_USER || "",
+  process.env.DB_PASSWORD || "",
   {
     host: '127.0.0.1', //! mariadb user localhost settings
     port: 3306,

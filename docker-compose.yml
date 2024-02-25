@@ -29,8 +29,8 @@ services:
       - mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: eezy
-      MYSQL_PASSWORD: eezyPassword
+      MYSQL_USER: eezy_usr
+      MYSQL_PASSWORD: eezy_Password
       MYSQL_DATABASE: eezyApp
 
 volumes:

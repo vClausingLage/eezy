@@ -6,7 +6,7 @@ src/api/node_modules/
 src/api/config/
 src/api/dist/
 src/api/.env
-src/api/api.connect
+src/api/server_connect
 
 src/client/node_modules/
 src/client/build/

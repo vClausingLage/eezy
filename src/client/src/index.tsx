@@ -9,26 +9,13 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-import { Auth0Provider } from '@auth0/auth0-react'
-import { domain, clientId } from './config/auth'
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 root.render(
   <React.StrictMode>
     <CssBaseline enableColorScheme />
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-        audience: `https://${domain}/api/v2/`,
-        scope: "read:current_user update:current_user_metadata"
-      }}
-    >
-      <App />
-    </Auth0Provider>
+    <App />
   </React.StrictMode>
 )
 

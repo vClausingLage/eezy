@@ -4,7 +4,7 @@ type IWind = {
   unit: string | undefined
   gusts?: number | undefined
 }
-type IClouds = {
+export type IClouds = {
   cloud_layer: string
   cloud_base: number | undefined
   cloud?: string | undefined

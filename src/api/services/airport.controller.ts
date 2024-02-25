@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { airportApi } from '../config/config.js'
 
 // SEQUELIZE INIT
 //! refactor when finished
@@ -9,7 +8,7 @@ export async function getAirport(req: Request, res: Response): Promise<void> {
   const icao = req.params.airportID
   try {
     const fetchAirport = await fetch(
-      `https://airportdb.io/api/v1/airport/${icao}?apiToken=${airportApi}`,
+      `https://airportdb.io/api/v1/airport/${icao}?apiToken=${process.env.AIRPORT_DB_API_KEY}`,
       {
         method: 'get',
         headers: {

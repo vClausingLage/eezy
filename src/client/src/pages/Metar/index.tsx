@@ -9,16 +9,15 @@ import {
 } from '@mui/material'
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { domain } from '../../config/auth'
 
 import SearchIcon from '@mui/icons-material/Search'
 
 import LoadingCircle from '../../general/LoadingCircle'
-import DataPanel from './components/DataPanel'
-import SVGPanel from './components/SVGPanel'
-import AerodromeFrequencies from './components/AerodromeFrequencies'
-import WordCloudICAO from './assets/WordCloudICAO.png'
-import FlightRuleButton from './components/FlightRuleButton'
+// import DataPanel from './components/DataPanel'
+// import SVGPanel from './components/SVGPanel'
+// import AerodromeFrequencies from './components/AerodromeFrequencies'
+// import WordCloudICAO from './assets/WordCloudICAO.png'
+// import FlightRuleButton from './components/FlightRuleButton'
 
 import {
   IMetar,
@@ -64,7 +63,7 @@ function Metar() {
     }
     setIsLoading(true)
     const token = await getAccessTokenSilently({
-      authorizationParams: { audience: `https://${domain}/api/v2/` }
+      // authorizationParams: { audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/` }
     });
     const response = await fetch(`http://localhost:4001/api/metar/${metarObject.icao}`, {
       method: 'get',
@@ -145,7 +144,7 @@ function Metar() {
 
   return (
     <Card className='root'>
-      <Box className='metar-text-input-ICAO'>
+      {/* <Box className='metar-text-input-ICAO'>
         <Typography variant='h2'>Metar</Typography>
         <form onSubmit={searchMetar}>
           <TextField
@@ -248,7 +247,7 @@ function Metar() {
             <FlightRuleButton />
           </>
         )}
-      </Box>
+      </Box> */}
     </Card>
   )
 }
