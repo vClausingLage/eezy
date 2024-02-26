@@ -29,14 +29,14 @@ app.use(cors())
 app.use(helmet())
 app.disable('x-powered-by')
 
-const jwtCheck = auth({
-  audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
-  issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
-  tokenSigningAlg: 'RS256',
-  jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
-});
+// const jwtCheck = auth({
+//   audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
+//   issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
+//   tokenSigningAlg: 'RS256',
+//   jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
+// });
 
-app.use(jwtCheck);
+// app.use(jwtCheck);
 
 app.get('/auth-metar', function (req, res) {
   let user = req.body.user;
