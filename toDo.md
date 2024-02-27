@@ -1,5 +1,20 @@
 # TO DO
 
+## FROM MS TO DO
+
+- make Headlines smaller
+- flight rule is wrong?
+- no aircraft found api -> client
+- new Freuqencies render logic
+- gusts warning TEMPO
+- check precip 'plain english' working
+- units (vis, speed, etc) from location?
+- time from location or from airport?
+- [list country codes](https://de.wikipedia.org/wiki/ISO-3166-1-Kodierliste)
+- [location api](https://ipapi.co/api/#complete-location)
+- check all calculation logic and move to api
+- find nearest airport (emergency button)?
+
 ## Docker
 
 [Link](https://medium.com/@antonio.maccarini/dockerize-a-react-application-with-node-js-postgres-and-nginx-124c204029d4)
@@ -50,26 +65,6 @@
 - add taxi fuel to calculator
 
 # METAR API
-
-## Response
-
-- check (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#checking_that_the_fetch_was_successful)
-  - check for response.ok
-
-## Structure
-
-[1] ICAO
-[2] day + Zulu time
-[3] wind direction and speed
-[4] wind variation
-[5] visibility (m)
-[6] [METAR weather codes](https://en.wikipedia.org/wiki/METAR)
-[7] clouds (can be **4 instances**)
-[9] temperature/dewpoint (M for minus)
-[10] QNH/Altimeter
-[11] **RE**cent
-[12, 13, 14] TEMPO RMK **which order?**
-[-1] = for end of metar
 
 ## check METAR codes
 
