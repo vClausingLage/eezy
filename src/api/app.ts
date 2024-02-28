@@ -44,17 +44,16 @@ app.get('/auth-metar', function (req, res) {
 })
 
 const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 15 minutes
-  limit: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  // store: ... , // Use an external store for more precise rate limiting
+  windowMs: 10 * 60 * 1000,
+  limit: 5,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
 })
 app.use(limiter)
 
 app.use('/api/aircraft', aircraft_router)
-app.use('/api/airport', airport_router)
 app.use('/api/metar', metar_router)
+// app.use('/api/airport', airport_router)
 // app.use('/api/awc', awc_router)
 // app.use('/api/metardecoder', metar_api_router)
 
