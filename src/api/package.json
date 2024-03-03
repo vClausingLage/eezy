@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "yarn tsc",
-    "start": "yarn run build && nodemon dist/app.js",
+    "start": "yarn build && node dist/app.js",
     "dev": "tsx watch app.ts",
     "startClient": "cd .. && cd client && yarn run start",
     "test": "jest",

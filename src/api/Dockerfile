@@ -4,6 +4,6 @@ WORKDIR /srv/www/app
 
 COPY . .
 
-RUN yarn add express
+RUN yarn
 
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "start"]

@@ -1,11 +1,8 @@
-import { useState } from 'react'
-
 import {
   BrowserRouter,
   Routes,
   Route,
-  NavLink,
-  Navigate
+  NavLink
 } from 'react-router-dom'
 
 import Metar from './pages/metar/'
@@ -28,9 +25,9 @@ function App() {
 
   const { user, isLoading, isAuthenticated } = useAuth0()
 
-  // if (isLoading) {
-  //   return <LoadingCircle />
-  // }
+  if (isLoading) {
+    return <LoadingCircle />
+  }
 
   console.log(isAuthenticated, isLoading, user)
 
