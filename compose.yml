@@ -21,12 +21,13 @@ services:
     working_dir: /srv/www/app
     ports:
       - 8080:80
-    # environment:
+    # environment: # NEEDED?
     #   - NGINX_HOST=eezyHost
     #   - NGINX_PORT=80
     volumes:
-    #   - ./src/client/dist:/srv/www/app
-      - ./src/client/dist/:/usr/share/nginx/html/
+    # DEFAULT NGINX SERVE DIR
+    - ./src/client/dist/:/usr/share/nginx/html/
+    # IF NGINX CONF IS NEEDED
     #   - ./src/client/cfg/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     restart: always
 
