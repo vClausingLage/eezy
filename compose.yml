@@ -11,6 +11,7 @@ services:
     volumes:
       - ./src/api:/app
     environment:
+      NODE_ENV: production
       MYSQL_HOST: mysql
       MYSQL_USER: eezy
       MYSQL_PASSWORD: eezyPassword

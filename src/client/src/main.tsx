@@ -5,35 +5,31 @@ import {
   RouterProvider,
   Route,
   Link,
+  Outlet
 } from "react-router-dom";
+
+import Profile from "./Profile";
+import Login from './Login';
+import Layout from './Layout';
 
 //! to another fille
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <div>
-        <h1>Hello World</h1>
-        <Link to="about">About Us</Link>
-      </div>
-    ),
+    element: <Layout />,
+    children: [
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "login",
+        element: <Login />
+      }
+    ]
   },
-  {
-    path: "about",
-    element: <div>About</div>,
-  },
-]);
 
-{/* <NavLink
-  style={({ isActive, isPending }) => {
-    return {
-      color: isActive ? "red" : "inherit",
-    };
-  }}
-  className={({ isActive, isPending }) => {
-    return isActive ? "active" : isPending ? "pending" : "";
-  }}
-/> */}
+]);
 
 import { Auth0Provider } from '@auth0/auth0-react';
 import App from './App';

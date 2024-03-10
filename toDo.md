@@ -1,5 +1,10 @@
 # TO DO
 
+https://docs.docker.com/compose/compose-application-model/
+
+CAHCING API 
+https://expressjs.com/de/advanced/best-practice-performance.html
+
 ## FROM MS TO DO
 
 - make Headlines smaller
