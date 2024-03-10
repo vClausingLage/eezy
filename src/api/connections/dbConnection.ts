@@ -1,11 +1,11 @@
 import { Sequelize } from 'sequelize'
 
 export const dbConnection = new Sequelize(
-  process.env.DB_NAME || "",
-  process.env.DB_USER || "",
-  process.env.DB_PASSWORD || "",
+  process.env.DB_NAME || "eezyApp",
+  process.env.DB_USER || "eezy_usr",
+  process.env.DB_PASSWORD || "eezy_Password",
   {
-    host: '127.0.0.1', //! mariadb user localhost settings
+    host: 'mysql', //! set host in docker env //! mariadb localhost settings : '127.0.0.1'
     port: 3306,
     dialect: 'mariadb'
   }
