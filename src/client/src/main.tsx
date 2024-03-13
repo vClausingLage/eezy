@@ -12,7 +12,7 @@ import Profile from "./Profile";
 import Login from './Login';
 import Layout from './Layout';
 
-//! to another fille
+//! to another file
 const router = createBrowserRouter([
   {
     path: "/",
