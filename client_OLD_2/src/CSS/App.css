@@ -1,0 +1,17 @@
+.nav-bar {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  padding: 0
+}
+.nav-bar > * {
+  background-color: white;
+  padding: 1rem;
+  margin-left: .3rem;
+  border-radius: .2rem;
+  text-decoration: none;
+  color: #4C689F;
+}
+.nav-bar > *:hover {
+  background-color: #93A4C5;
+}

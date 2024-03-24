@@ -18,5 +18,5 @@ src/client/build/
 src/client/public/.htaccess
 src/client/src/config/
 
-src/client_OLD
-client_OLD_2
+# src/client_OLD
+# client_OLD_2
