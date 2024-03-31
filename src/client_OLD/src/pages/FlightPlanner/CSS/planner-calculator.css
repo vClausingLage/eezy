@@ -1,0 +1,28 @@
+.fuel-selection {
+  margin-top: .5rem !important; 
+  margin-bottom: .5rem !important;
+  width: 200px ;
+}
+.attention-bar {
+  padding: 1rem;
+  color: gray;
+  border: 3px solid #ea4f02;
+  border-radius: .5rem;
+}
+.fuel-calculator-stack > p {
+  margin: .7rem;
+  padding: .3rem;
+  border: solid 1.5px rgba(128, 128, 128, 0.5);
+  border-radius: .7rem;
+}
+.result-view {
+  text-align: center;
+  color: white;
+  background-color: #4C689F;
+  margin: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  border-radius: .5rem;
+}

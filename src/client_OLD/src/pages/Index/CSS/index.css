@@ -1,0 +1,18 @@
+.hero-container {
+  max-width: 1100px;
+  display: flex;
+  flex-flow: row wrap;  
+  justify-content: center;
+  align-items: center;
+}
+.hero-container > * {
+  display: flex;
+  justify-content: center;
+}
+.hero-text {
+  text-align: center;
+}
+.clouds {
+  border-radius: 5rem;
+  box-shadow: 2px 2px 5px gray;
+}
