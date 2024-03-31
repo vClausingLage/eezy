@@ -1,9 +1,20 @@
-FROM node:latest
+ARG NODE_VERSION=20.12.0
 
-WORKDIR /srv/www/app
+FROM node:${NODE_VERSION}-alpine
+
+ENV NODE_ENV production
+
+WORKDIR /usr/src/app
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=yarn.lock,target=yarn.lock \
+    --mount=type=cache,target=/root/.yarn \
+    yarn install --production --frozen-lockfile
+
+USER node
 
 COPY . .
 
-RUN yarn
+EXPOSE 4001
 
-CMD ["yarn", "start"]
+CMD node dist/app.js
