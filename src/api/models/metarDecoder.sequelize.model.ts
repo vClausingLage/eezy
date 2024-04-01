@@ -8,6 +8,10 @@ export const metarDecoderLogs = dbConnection.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        error: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         rawMetar: {
             type: DataTypes.STRING,
             allowNull: true

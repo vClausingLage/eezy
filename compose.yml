@@ -35,8 +35,13 @@ services:
 
   mysql:
     image: mariadb:latest
+    ports:
+      - 3306:3306
+    command: --init-file /data/application/init.sql
     volumes:
       - eezy_db:/var/lib/mysql
+      - ./../../cfg/srv/mysql/init.sql:/data/application/init.sql
+      # https://stackoverflow.com/questions/71443028/building-mysql-mariadb-database-with-scema-in-docker
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: eezyApp
