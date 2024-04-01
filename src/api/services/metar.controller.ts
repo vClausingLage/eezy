@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 
 import { metarDecoder } from './MetarAPI/helper/metar-regex-main.js';
 
+import { metarDecoderLogs } from '../models/metarDecoder.sequelize.model.js';
+
 export async function decodeMetar(req: Request, res: Response): Promise<void> {
     //! FETCH EVERYTHING SAME TIME
     // try {
@@ -35,8 +37,11 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
         runways: filterRunways(result.runways),
         frequencies: filterFrequencies(result.freqs)
     }
+    const decodedMetar = metarDecoder(rawMetar)
 
-    res.send({ rawMetar, decodedMetar: metarDecoder(rawMetar), airport })
+    saveLogs(icao, rawMetar, JSON.stringify(decodedMetar))
+
+    res.send({ rawMetar, decodedMetar, airport })
 
 
     // const headers = req.headers;
@@ -46,7 +51,6 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
     // const rawMetar = await fetchRawMetar.text()
     // // const airportAWS = await fetchAirportAWS(icao)
     // const airportAirportDB = await fetchAirportAirportDB(icao)
-    const decodedMetar = metarDecoder(rawMetar)
     // if (fetchRawMetar.status === 200 && rawMetar !== undefined) res.send({ rawMetar, decodedMetar, airportAirportDB, headers })
     // else res.send({ message: 'no data' })
 }
@@ -89,6 +93,10 @@ function filterFrequencies(frequencies: Frequency[]) {
             frequency: frequency.frequency_mhz
         }
     })
+}
+
+function saveLogs(icao: string, rawMetar: string, decodedMetar: string) {
+    metarDecoderLogs.create({ icao, rawMetar, decodedMetar })
 }
 
 type Runway = {

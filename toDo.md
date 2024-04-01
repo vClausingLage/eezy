@@ -1,9 +1,11 @@
 # TO DO
 
-https://docs.docker.com/compose/compose-application-model/
+- client to compose (nginx, React)
+- DB to compose
 
-CAHCING API 
-https://expressjs.com/de/advanced/best-practice-performance.html
+## Done
+
+- API to compose
 
 ## FROM MS TO DO
 

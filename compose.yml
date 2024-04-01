@@ -1,16 +1,22 @@
 services:
   api:
+    container_name: eezy_api
     build:
       context: ./src/api
       dockerfile: Dockerfile
     ports:
       - 4001:4001
+    depends_on:
+      - mysql
     environment:
       NODE_ENV: production
-      MYSQL_HOST: mysql
-      MYSQL_USER: eezy_usr
-      MYSQL_PASSWORD: eezy_Password
-      MYSQL_DB: eezyApp
+      DB_NAME: eezyApp
+      DB_USER: eezy_usr
+      DB_PASSWORD: eezyRoot
+      DB_HOST: mysql
+      DB_ENGINE: mariadb
+    networks:
+      - eezy_net
 
 #   client:
 #     image: nginx:latest
@@ -27,16 +33,19 @@ services:
 #     #   - ./src/client/cfg/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 #     restart: always
 
-#   mysql:
-#     image: mariadb:latest
-#     volumes:
-#       - mysql:/var/lib/mysql
-#     environment:
-#       MYSQL_ROOT_PASSWORD: root
-#       MYSQL_USER: eezy_usr
-#       MYSQL_PASSWORD: eezy_Password
-#       MYSQL_DATABASE: eezyApp
+  mysql:
+    image: mariadb:latest
+    volumes:
+      - eezy_db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: eezyApp
+      MYSQL_USER: eezy_usr
+      MYSQL_PASSWORD: eezyRoot
+    networks:
+      - eezy_net
 
-# volumes:
-#   mysql:
-#   api:
+volumes:
+  eezy_db:
+networks:
+  eezy_net:
