@@ -1,14 +1,14 @@
 import { DataTypes } from 'sequelize'
-import { dbConnection } from '../connections/dbConnection.js'
+import { sequelize } from '../connections/dbConnection.js'
 
-export const metarDecoderLogs = dbConnection.define(
+export const metarDecoderLogs = sequelize.define(
     'metarDecoderLogs',
     {
         icao: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        error: {
+        errorLog: {
             type: DataTypes.STRING,
             allowNull: true
         },

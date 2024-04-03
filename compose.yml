@@ -40,13 +40,13 @@ services:
     command: --init-file /data/application/init.sql
     volumes:
       - eezy_db:/var/lib/mysql
-      - ./../../cfg/srv/mysql/init.sql:/data/application/init.sql
+      - ./cfg/srv/mysql/init.sql:/data/application/init.sql
       # https://stackoverflow.com/questions/71443028/building-mysql-mariadb-database-with-scema-in-docker
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: eezyApp
-      MYSQL_USER: eezy_usr
-      MYSQL_PASSWORD: eezyRoot
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: eezyApp
+      MARIADB_USER: eezy_usr
+      MARIADB_PASSWORD: eezyRoot
     networks:
       - eezy_net
 

@@ -8,9 +8,9 @@ USE eezyApp;
 CREATE TABLE IF NOT EXISTS metar_decoder_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     icao VARCHAR(4),
-    error_log TEXT,
-    raw_metar VARCHAR(255),
-    decoded_metar TEXT
+    errorLog TEXT,
+    rawMetar VARCHAR(255),
+    decodedMetar TEXT
 );
 
 -- Create the user table
