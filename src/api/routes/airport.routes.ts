@@ -2,10 +2,10 @@ import { Router } from 'express'
 
 import { getAirport, getDistance } from '../services/airport.controller.js'
 
-export const airport_router = Router()
+export const airportRouter = Router()
 
 // airportDB -> metar
-airport_router.get('/:airportID', getAirport)
+airportRouter.get('/:airportID', getAirport)
 
 // airport -> route calculator
-airport_router.get('/distance/:icao', getDistance)
+airportRouter.get('/distance/:icao', getDistance)

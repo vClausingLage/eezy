@@ -8,9 +8,9 @@ import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
 import { auth } from 'express-oauth2-jwt-bearer';
 
-import { aircraft_router } from './routes/aircraft.routes.js'
-import { airport_router } from './routes/airport.routes.js'
-import { metar_router } from './routes/metar.routes.js'
+import { aircraftRouter } from './routes/aircraft.routes.js'
+import { airportRouter } from './routes/airport.routes.js'
+import { metarRouter } from './routes/metar.routes.js'
 // import { awc_router } from './routes/awc.routes.js'
 // import { metar_api_router } from './routes/metar_api.routes.js'
 
@@ -52,9 +52,9 @@ const limiter = rateLimit({
 })
 app.use(limiter)
 
-app.use('/api/aircraft', aircraft_router)
-app.use('/api/airport', airport_router)
-app.use('/api/metar', metar_router)
+app.use('/api/aircraft', aircraftRouter)
+app.use('/api/airport', airportRouter)
+app.use('/api/metar', metarRouter)
 // app.use('/api/awc', awc_router)
 // app.use('/api/metardecoder', metar_api_router)
 

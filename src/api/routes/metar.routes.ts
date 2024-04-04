@@ -2,6 +2,6 @@ import { Router } from 'express'
 
 import { decodeMetar } from '../services/metar.controller.js'
 
-export const metar_router = Router()
+export const metarRouter = Router()
 
-metar_router.get('/:icao', decodeMetar)
+metarRouter.get('/:icao', decodeMetar)
