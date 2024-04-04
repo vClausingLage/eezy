@@ -1,7 +1,7 @@
-import { dbConnection } from '../connections/dbConnection.js'
+import { sequelize } from '../connections/dbConnection.js'
 import { DataTypes } from 'sequelize'
 
-export const aircraft = dbConnection.define(
+export const aircraft = sequelize.define(
   'aircraft',
   {
     user: {

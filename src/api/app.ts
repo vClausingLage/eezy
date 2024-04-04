@@ -38,17 +38,16 @@ app.disable('x-powered-by')
 
 // app.use(jwtCheck);
 
-app.get('/auth-metar', function (req, res) {
+app.get('/auth-metar', (req, res) => {
   let user = req.body.user;
   res.send({ message: 'Metar Authenticated' });
 })
 
 const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 15 minutes
-  limit: 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  // store: ... , // Use an external store for more precise rate limiting
+  windowMs: 10 * 60 * 1000,
+  limit: 5,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
 })
 app.use(limiter)
 
@@ -60,16 +59,16 @@ app.use('/api/metar', metarRouter)
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-app.use(express.static(path.join(__dirname, 'build')))
+// app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/favicon.ico', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'favicon.ico'))
 })
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'))
-})
+// app.get('/*', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'))
+// })
 
 app.listen(port, () => {
-  console.log(`Metar App listening at http://localhost:${port}`)
+  console.log(`🚀 http://localhost:${port}`)
 })

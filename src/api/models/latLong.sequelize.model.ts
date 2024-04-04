@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
-import { dbConnection } from '../connections/dbConnection.js'
+import { sequelize } from '../connections/dbConnection.js'
 
-export const latLong = dbConnection.define(
+export const latLong = sequelize.define(
   'latLong',
   {
     id: {

@@ -1,5 +1,12 @@
 # TO DO
 
+- client to compose (nginx, React)
+- DB to compose
+
+## Done
+
+- API to compose
+
 ## FROM MS TO DO
 
 - make Headlines smaller
@@ -14,6 +21,7 @@
 - [location api](https://ipapi.co/api/#complete-location)
 - check all calculation logic and move to api
 - find nearest airport (emergency button)?
+- aircraft create form with GraphQL
 
 ## Docker
 

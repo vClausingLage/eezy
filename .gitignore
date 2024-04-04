@@ -1,21 +1,22 @@
 .vscode/
 
-node_modules/
+# node_modules/
 
-src/api/node_modules/
-src/api/config/
-src/api/dist/
-src/api/.env
-src/api/server_connect
+# src/api/node_modules/
+# src/api/config/
+# src/api/dist/
+# src/api/.env
+# src/api/server_connect
 
-src/client/node_modules/
-src/client/build/
-src/client/.env
-src/client/config/
-src/client/src/config.ts
-src/client/node_modules/
-src/client/build/
-src/client/public/.htaccess
-src/client/src/config/
+# src/client/node_modules/
+# src/client/build/
+# src/client/.env
+# src/client/config/
+# src/client/src/config.ts
+# src/client/node_modules/
+# src/client/build/
+# src/client/public/.htaccess
+# src/client/src/config/
 
-src/client_OLD
+# src/client_OLD
+# client_OLD_2

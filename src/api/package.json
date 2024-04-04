@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "yarn tsc",
-    "start": "yarn run build && nodemon dist/app.js",
+    "start": "yarn build && node dist/app.js",
     "dev": "tsx watch app.ts",
     "startClient": "cd .. && cd client && yarn run start",
     "test": "jest",
@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "vincent clausing-lage",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -38,7 +38,6 @@
     "@types/mocha": "^10.0.1",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.17",
-    "concurrently": "^7.6.0",
     "nodemon": "^2.0.21",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
