@@ -12,6 +12,8 @@ import Profile from "./Profile";
 import Login from './Login';
 import Layout from './Layout';
 
+import './main.css';
+
 //! to another file
 const router = createBrowserRouter([
   {

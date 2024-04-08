@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 {/* <NavLink
   style={({ isActive, isPending }) => {
@@ -14,30 +14,29 @@ import { Link, Outlet } from "react-router-dom";
 function Layout() {
     return (
         <div>
-            {/* A "layout route" is a good place to put markup you want to
-            share across all the pages on your site, like navigation. */}
+            <p className="text-3xl underline">App Layout</p>
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <NavLink to="/"
+                            className={({ isActive, isPending }) => {
+                                return isActive ? "red" : isPending ? "pending" : "";
+                            }}>Home</NavLink>
                     </li>
                     <li>
-                        <Link to="/profile">Profile</Link>
+                        <NavLink to="/profile">Profile</NavLink>
                     </li>
                     <li>
-                        <Link to="/login">Login</Link>
+                        <NavLink to="/login">Login</NavLink>
                     </li>
                     <li>
-                        <Link to="/nothing-here">Nothing Here</Link>
+                        <NavLink to="/nothing-here">Nothing Here</NavLink>
                     </li>
                 </ul>
             </nav>
 
             <hr />
 
-            {/* An <Outlet> renders whatever child route is currently active,
-            so you can think about this <Outlet> as a placeholder for
-            the child routes we defined above. */}
             <Outlet />
         </div>
     );
