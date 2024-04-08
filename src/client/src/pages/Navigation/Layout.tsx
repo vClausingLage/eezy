@@ -14,13 +14,13 @@ import { NavLink, Outlet } from "react-router-dom";
 function Layout() {
     return (
         <div>
-            <p className="text-3xl underline">App Layout</p>
+            <p>App Layout</p>
             <nav>
-                <ul>
+                <ul className="flex gap-2">
                     <li>
                         <NavLink to="/"
                             className={({ isActive, isPending }) => {
-                                return isActive ? "red" : isPending ? "pending" : "";
+                                return isActive ? "active" : isPending ? "pending" : "";
                             }}>Home</NavLink>
                     </li>
                     <li>
@@ -28,6 +28,9 @@ function Layout() {
                     </li>
                     <li>
                         <NavLink to="/login">Login</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/metar">Metar</NavLink>
                     </li>
                     <li>
                         <NavLink to="/nothing-here">Nothing Here</NavLink>

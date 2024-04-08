@@ -23,20 +23,27 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
     //   };
 
     const icao = req.params.icao
-    let [metar, airportDB] = await Promise.all([
+    let [fetchMetar, fetchAirportDB] = await Promise.all([
         fetch(`https://aviationweather.gov/api/data/metar?ids=${icao}`),
         fetch(`https://airportdb.io/api/v1/airport/${icao.toUpperCase()}?apiToken=${process.env.AIRPORT_DB_API_KEY}`)
     ])
-    const rawMetar = await metar.text()
-    const result = await airportDB.json()
+    if (fetchMetar.status === 200 && fetchMetar !== undefined) {
+        const rawMetar = await fetchMetar.text()
+    }
+    if (fetchAirportDB.status === 200 && fetchAirportDB !== undefined) {
+        const airportDBResult = await fetchAirportDB.json()
+    }
+
+    console.log(airportDBResult)
 
     const airport = {
-        name: result.name,
-        lat: result.latitude_deg,
-        long: result.longitude_deg,
-        runways: filterRunways(result.runways),
-        frequencies: filterFrequencies(result.freqs)
+        name: airportDBResult.name,
+        lat: airportDBResult.latitude_deg,
+        long: airportDBResult.longitude_deg,
+        runways: filterRunways(airportDBResult.runways),
+        frequencies: filterFrequencies(airportDBResult.freqs)
     }
+
     const decodedMetar = metarDecoder(rawMetar)
 
     saveLogs(icao, rawMetar, JSON.stringify(decodedMetar))
@@ -55,21 +62,21 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
     // else res.send({ message: 'no data' })
 }
 
-async function fetchAirportAirportDB(icao: string): Promise<any> {
-    const fetchAirport = await fetch(
-        `https://airportdb.io/api/v1/airport/${icao.toUpperCase()}?apiToken=${process.env.AIRPORT_DB_API_KEY}`
-    )
-    const result = await fetchAirport.json()
-    const airport = {
-        name: result.name,
-        lat: result.latitude_deg,
-        long: result.longitude_deg,
-        runways: filterRunways(result.runways),
-        frequencies: filterFrequencies(result.freqs)
-    }
-    if (fetchAirport.status === 200 && airport !== undefined) return airport
-    else return { message: 'no airport data' }
-}
+// async function fetchAirportAirportDB(icao: string): Promise<any> {
+//     const fetchAirport = await fetch(
+//         `https://airportdb.io/api/v1/airport/${icao.toUpperCase()}?apiToken=${process.env.AIRPORT_DB_API_KEY}`
+//     )
+//     const result = await fetchAirport.json()
+//     const airport = {
+//         name: result.name,
+//         lat: result.latitude_deg,
+//         long: result.longitude_deg,
+//         runways: filterRunways(result.runways),
+//         frequencies: filterFrequencies(result.freqs)
+//     }
+//     if (fetchAirport.status === 200 && airport !== undefined) return airport
+//     else return { message: 'no airport data' }
+// }
 
 function filterRunways(runways: Runway[]) {
     return runways.map(runway => {
