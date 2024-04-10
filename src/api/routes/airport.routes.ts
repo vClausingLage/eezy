@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getAirport, getDistance } from '../services/airport.controller.js'
+import { getAirport, getDistance } from '../controller/airport.controller.js'
 
 export const airportRouter = Router()
 

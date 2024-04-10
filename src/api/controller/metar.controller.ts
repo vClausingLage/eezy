@@ -22,19 +22,20 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
     //     console.log(err);
     //   };
 
+    let rawMetar: string = ''
+    let airportDBResult = {} as AirportDBResult
+
     const icao = req.params.icao
     let [fetchMetar, fetchAirportDB] = await Promise.all([
         fetch(`https://aviationweather.gov/api/data/metar?ids=${icao}`),
         fetch(`https://airportdb.io/api/v1/airport/${icao.toUpperCase()}?apiToken=${process.env.AIRPORT_DB_API_KEY}`)
     ])
     if (fetchMetar.status === 200 && fetchMetar !== undefined) {
-        const rawMetar = await fetchMetar.text()
+        rawMetar = await fetchMetar.text()
     }
     if (fetchAirportDB.status === 200 && fetchAirportDB !== undefined) {
-        const airportDBResult = await fetchAirportDB.json()
+        airportDBResult = await fetchAirportDB.json()
     }
-
-    console.log(airportDBResult)
 
     const airport = {
         name: airportDBResult.name,
@@ -102,8 +103,17 @@ function filterFrequencies(frequencies: Frequency[]) {
     })
 }
 
-function saveLogs(icao: string, rawMetar: string, decodedMetar: string) {
-    metarDecoderLogs.create({ icao, rawMetar, decodedMetar })
+function saveLogs(icao: string, raw_metar: string, decoded_metar: string) {
+    let error_log = ''
+    metarDecoderLogs.create({ icao, error_log, raw_metar, decoded_metar })
+}
+
+type AirportDBResult = {
+    name: string
+    latitude_deg: number
+    longitude_deg: number
+    runways: Runway[]
+    freqs: Frequency[]
 }
 
 type Runway = {

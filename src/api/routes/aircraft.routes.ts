@@ -5,7 +5,7 @@ import {
   getAircraft,
   deleteAircraft,
   editAircraft
-} from '../services/aircraft.sequelize.controller.js'
+} from '../controller/aircraft.sequelize.controller.js'
 
 export const aircraftRouter = Router()
 

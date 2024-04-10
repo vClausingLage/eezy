@@ -18,9 +18,9 @@ type DynamicTokens = {
 }
 export function findDynamicTokens(metar: string): DynamicTokens {
   const resultObj: IResultDynamicTokens = {
-    visibility: { value: undefined, unit: '' },
+    visibility: { value: null, unit: '' },
     precipitation: [],
-    flight_rule: undefined
+    flight_rule: null
   }
   if (/[0-9]{4}/gi.test(metar)) {
     resultObj.visibility.value = Number(/[0-9]{4}/gi.exec(metar)?.[0])
@@ -38,7 +38,7 @@ export function findDynamicTokens(metar: string): DynamicTokens {
   }
   if (/(-?|\+?|)(?:[a-z]{4}|[a-z]{2})+/gi.test(metar)) {
     const result = metar.match(/(-?|\+?|)(?:[a-z]{4}|[a-z]{2})+/gi)
-    if (result != null) {
+    if (result !== null) {
       for (const el of result) {
         resultObj.precipitation.push(precipFormat(el))
       }
@@ -55,23 +55,23 @@ type BasicTokens = {
 export function findBasicTokens(metar: string[]): BasicTokens {
   const resultObj: IResultBasicTokens = {
     icao: '',
-    date: undefined,
+    date: null,
     cavok: false,
     nosig: false,
     auto: false,
-    air_pressure: { pressure: undefined, value: undefined, unit: undefined },
-    slp: undefined,
+    air_pressure: { pressure: null, value: null, unit: null },
+    slp: null,
     clouds: [],
     wind: {
-      direction: undefined,
-      speed: undefined,
-      unit: undefined,
-      gusts: undefined
+      direction: null,
+      speed: null,
+      unit: null,
+      gusts: null
     },
-    wind_var: undefined,
-    temperature: { temp: undefined, dewp: undefined },
-    recent_precipitation: undefined,
-    taf_prognosis: undefined,
+    wind_var: null,
+    temperature: { temp: null, dewp: null },
+    recent_precipitation: null,
+    taf_prognosis: null,
     remarks: [],
     becoming: [],
     tempo: [],
