@@ -12,7 +12,7 @@ import {
   metarToString,
   splitMetarListRemarks
 } from './MetarAPI/helper/metar-regex-main-helper-functions.js'
-import getFlightRule from '../services/MetarAPI/helper/flight-rule-helper-function.js'
+import getFlightRule from '../controller/MetarAPI/helper/flight-rule-helper-function.js'
 
 type ListRemarks = {
   metar: string[]

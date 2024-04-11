@@ -14,7 +14,6 @@ import { NavLink, Outlet } from "react-router-dom";
 function Layout() {
     return (
         <div>
-            <p>App Layout</p>
             <nav>
                 <ul className="flex gap-2">
                     <li>
@@ -31,6 +30,9 @@ function Layout() {
                     </li>
                     <li>
                         <NavLink to="/metar">Metar</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/planner">Planner</NavLink>
                     </li>
                     <li>
                         <NavLink to="/nothing-here">Nothing Here</NavLink>

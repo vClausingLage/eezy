@@ -1,17 +1,17 @@
 import { Sequelize } from 'sequelize'
 
-const DB_NAME = process.env.DB_NAME
-const DB_USER = process.env.DB_USER
-const DB_PASSWORD = process.env.DB_PASSWORD
-const DB_ENGINE = process.env.DB_ENGINE
-// const DB_HOST = process.env.DB_HOST || 'mysql'
+const DB_NAME = process.env.DB_NAME || "eezyApp"
+const DB_USER = process.env.DB_USER || "eezy_usr"
+const DB_PASSWORD = process.env.DB_PASSWORD || "eezyRoot"
+const DB_HOST = process.env.NODE_ENV === 'production' ? 'mysql' : '127.0.0.1'
+// const DB_HOST = process.env.DB_HOST
 
 export const sequelize = new Sequelize(
-  DB_NAME || "eezyApp",
-  DB_USER || "eezy_usr",
-  DB_PASSWORD || "eezyRoot",
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
   {
-    host: '127.0.0.1',//DB_HOST, //! set host in docker env //! mariadb localhost settings : '127.0.0.1', Docker mysql
+    host: DB_HOST, //! set host in docker env //! mariadb localhost settings : '127.0.0.1', Docker mysql
     port: 3306,
     dialect: 'mariadb'
   }

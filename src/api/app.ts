@@ -7,6 +7,9 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
 import { auth } from 'express-oauth2-jwt-bearer';
+import { graphqlHTTP } from 'express-graphql'
+import { schema } from './graphql/schema.js'
+import { resolvers } from './graphql/resolvers.js'
 
 import { aircraftRouter } from './routes/aircraft.routes.js'
 import { airportRouter } from './routes/airport.routes.js'
@@ -37,6 +40,12 @@ app.disable('x-powered-by')
 // });
 
 // app.use(jwtCheck);
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: resolvers,
+  graphiql: true
+}))
 
 app.get('/auth-metar', (req, res) => {
   let user = req.body.user;
