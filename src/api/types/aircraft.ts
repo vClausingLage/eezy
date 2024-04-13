@@ -4,12 +4,12 @@ export type IAircraft = {
   manufacturer: string;
   model: string;
   type: string;
-  registration_number: string;
-  fuel_type: string;
-  fuel_capacity: number | number[];
-  cruise_speed: number;
-  cruise_fuel_consumption: number | number[];
-  magnetic_error?: number;
+  registrationNumber: string;
+  fuelType: string;
+  fuelCapacity: number | number[];
+  cruiseSpeed: number;
+  cruiseFuelConsumption: number | number[];
+  magneticError?: number;
   color?: string;
   ifr?: boolean;
   equiptment?: string;

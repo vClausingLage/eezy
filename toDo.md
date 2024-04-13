@@ -1,11 +1,6 @@
 # TO DO
 
-- client to compose (nginx, React)
-- DB to compose
-
 ## Done
-
-- API to compose
 
 ## FROM MS TO DO
 
@@ -22,10 +17,6 @@
 - check all calculation logic and move to api
 - find nearest airport (emergency button)?
 - aircraft create form with GraphQL
-
-## Docker
-
-[Link](https://medium.com/@antonio.maccarini/dockerize-a-react-application-with-node-js-postgres-and-nginx-124c204029d4)
 
 ## URGENT
 

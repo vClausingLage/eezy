@@ -1,8 +1,17 @@
 import { buildSchema } from 'graphql'
 
-export const schema = buildSchema(`
+export const testSchema = buildSchema(`
     type Query {
         hello: String!
+    }
+
+    input TestInput {
+        name: String!
+        age: Int!
+    }
+
+    type TestMutation {
+        createMutation(input: TestInput): String!
     }
 
     type User {
@@ -29,6 +38,6 @@ export const schema = buildSchema(`
 
     schema {
         query: Query
-        mutation: AircraftMutation
+        mutation: TestMutation
     }
 `)

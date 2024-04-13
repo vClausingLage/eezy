@@ -103,9 +103,9 @@ function filterFrequencies(frequencies: Frequency[]) {
     })
 }
 
-function saveLogs(icao: string, raw_metar: string, decoded_metar: string) {
-    let error_log = ''
-    metarDecoderLogs.create({ icao, error_log, raw_metar, decoded_metar })
+function saveLogs(icao: string, rawMetar: string, decodedMetar: string) {
+    let errorLog = ''
+    metarDecoderLogs.create({ icao: icao, errorLog: errorLog, rawMetar: rawMetar, decodedMetar: decodedMetar })
 }
 
 type AirportDBResult = {

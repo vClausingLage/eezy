@@ -7,13 +7,20 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import { rateLimit } from 'express-rate-limit'
 import { auth } from 'express-oauth2-jwt-bearer';
+
+// DB AND GRAPHQL
+import { sequelize } from './connections/dbConnection.js'
+import { metarDecoderLogs } from './models/metarDecoder.sequelize.model.js'
+import { aircraft } from './models/aircraft.sequelize.model.js'
+import { user } from './models/user.sequelize.js'
 import { graphqlHTTP } from 'express-graphql'
-import { schema } from './graphql/schema.js'
+import { testSchema } from './graphql/schema.js'
 import { resolvers } from './graphql/resolvers.js'
 
-import { aircraftRouter } from './routes/aircraft.routes.js'
-import { airportRouter } from './routes/airport.routes.js'
+// ROUTER
 import { metarRouter } from './routes/metar.routes.js'
+import { aircraftRouter } from './routes/aircraft.routes.js'
+// import { airportRouter } from './routes/airport.routes.js'
 // import { awc_router } from './routes/awc.routes.js'
 // import { metar_api_router } from './routes/metar_api.routes.js'
 
@@ -41,11 +48,24 @@ app.disable('x-powered-by')
 
 // app.use(jwtCheck);
 
+// register user via middleware => all sequelize methods can be used on it
+// app.use((req, res, next) => {
+//   user.findByPk('id')
+//     .then(user => {
+//       req.user = user
+//       next()
+//     })
+//     .catch(err => {
+//       console.log(err)
+//     })
+// })
+
 app.use('/graphql', graphqlHTTP({
-  schema: schema,
+  schema: testSchema,
   rootValue: resolvers,
   graphiql: true
 }))
+// http://localhost:4001/graphql => GraphiQL
 
 app.get('/auth-metar', (req, res) => {
   let user = req.body.user;
@@ -60,9 +80,9 @@ const limiter = rateLimit({
 })
 app.use(limiter)
 
-app.use('/api/aircraft', aircraftRouter)
-app.use('/api/airport', airportRouter)
 app.use('/api/metar', metarRouter)
+app.use('/api/aircraft', aircraftRouter)
+// app.use('/api/airport', airportRouter)
 // app.use('/api/awc', awc_router)
 // app.use('/api/metardecoder', metar_api_router)
 
@@ -78,6 +98,26 @@ app.get('/favicon.ico', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 // })
 
-app.listen(port, () => {
-  console.log(`🚀 http://localhost:${port}`)
+metarDecoderLogs.belongsTo(user, {
+  constraints: true,
+  onDelete: 'CASCADE',
 })
+aircraft.belongsTo(user, {
+  constraints: true,
+  onDelete: 'CASCADE',
+})
+user.hasMany(metarDecoderLogs)
+user.hasMany(aircraft)
+
+try {
+  await sequelize.sync()
+  // await sequelize.sync({ force: true })
+  console.log('All models were synchronized successfully.')
+  app.listen(port, () => {
+    console.log(`🚀 http://localhost:${port}`)
+  })
+} catch (error) {
+  console.error('Unable to connect to DB; Server not started:', error)
+}
+
+

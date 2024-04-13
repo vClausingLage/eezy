@@ -1,13 +1,9 @@
-import { sequelize } from '../connections/dbConnection.js'
 import { DataTypes } from 'sequelize'
+import { sequelize } from '../connections/dbConnection.js'
 
 export const aircraft = sequelize.define(
   'aircraft',
   {
-    user: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     manufacturer: {
       type: DataTypes.STRING,
       allowNull: false
@@ -20,35 +16,35 @@ export const aircraft = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     },
-    registration_number: {
+    registrationNumber: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    fuel_type: {
+    fuelType: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    fuel_capacity: {
-      type: DataTypes.NUMBER,
+    fuelCapacity: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    cruise_speed: {
-      type: DataTypes.NUMBER,
+    cruiseSpeed: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    cruise_fuel_consumption: {
-      type: DataTypes.NUMBER,
+    cruiseFuelConsumption: {
+      type: DataTypes.FLOAT,
       allowNull: false
     },
-    magnetic_error: {
-      type: DataTypes.NUMBER,
+    magneticError: {
+      type: DataTypes.FLOAT,
       allowNull: false
     },
     color: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    IFR: {
+    ifr: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -56,10 +52,5 @@ export const aircraft = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true
     }
-  },
-  {
-    modelName: 'aircraft',
-    tableName: 'aircraft',
-    timestamps: false
   }
 )

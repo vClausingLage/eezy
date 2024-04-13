@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 
 import { aircraft } from '../models/aircraft.sequelize.model.js'
+import { IAircraft } from '../types/aircraft.js'
 
 import { validator } from './Validation/validator.controller.js'
 
@@ -29,7 +30,7 @@ export async function getAircraft(req: Request, res: Response): Promise<void> {
 
 export async function createAircraft(req: Request, res: Response): Promise<void> {
   try {
-    const newAircraft = req.body
+    const newAircraft: IAircraft = req.body
     const user = req.body.user
     await aircraft.create(newAircraft)
     const response = await aircraft.findAll({

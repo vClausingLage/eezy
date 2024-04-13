@@ -11,7 +11,8 @@
     "skipLibCheck": true
   },
   "files": [
-    "app.ts"
+    "app.ts",
+    "./types/request.d.ts"
   ],
   "include": [
     "./**/*",

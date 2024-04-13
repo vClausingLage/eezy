@@ -4,11 +4,6 @@ import { sequelize } from '../connections/dbConnection.js'
 export const latLong = sequelize.define(
   'latLong',
   {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
     icao: {
       type: DataTypes.STRING,
       allowNull: false
@@ -25,9 +20,5 @@ export const latLong = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true
     }
-  },
-  {
-    modelName: 'latLong',
-    tableName: 'lat_long'
   }
 )

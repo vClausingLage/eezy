@@ -8,21 +8,17 @@ export const metarDecoderLogs = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        error_log: {
+        errorLog: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        raw_metar: {
+        rawMetar: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        decoded_metar: {
-            type: DataTypes.STRING,
+        decodedMetar: {
+            type: DataTypes.TEXT,
             allowNull: true
         },
-    },
-    {
-        modelName: 'metarDecoderLogs',
-        tableName: 'metar_decoder_logs'
     }
 )
