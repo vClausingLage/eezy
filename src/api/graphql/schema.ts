@@ -1,8 +1,9 @@
 import { buildSchema } from 'graphql'
 
-export const testSchema = buildSchema(`
+export const schema = buildSchema(`
     type Query {
         hello: String!
+        GetAircrafts(input: AircraftInputData): [Aircraft]
     }
 
     input TestInput {
@@ -10,8 +11,9 @@ export const testSchema = buildSchema(`
         age: Int!
     }
 
-    type TestMutation {
+    type Mutation {
         createMutation(input: TestInput): String!
+        createAircraft(input: AircraftInputData): Aircraft!
     }
 
     type User {
@@ -22,8 +24,8 @@ export const testSchema = buildSchema(`
 
     input AircraftInputData {
         _id: ID!
-        name: String!
-        manufacturer: String!
+        name: String
+        manufacturer: String
     }
 
     type Aircraft {
@@ -36,8 +38,9 @@ export const testSchema = buildSchema(`
         createAircraft(aircraftInput: AircraftInputData): Aircraft!
     }
 
+
     schema {
         query: Query
-        mutation: TestMutation
+        mutation: Mutation
     }
 `)

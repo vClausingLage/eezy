@@ -4,6 +4,7 @@ import Profile from "./pages/Profile";
 import Login from './pages/Profile/Login';
 import Layout from './pages/Layout';
 import Metar from './pages/Metar';
+import FlightPlanner from './pages/Planner';
 
 export const reactRoutes = createBrowserRouter([
     {
@@ -24,7 +25,7 @@ export const reactRoutes = createBrowserRouter([
             },
             {
                 path: "planner",
-                element: <div>Planner</div>,
+                element: <FlightPlanner />,
                 children: [
                     {
                         path: "add",

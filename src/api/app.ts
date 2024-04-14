@@ -13,8 +13,8 @@ import { sequelize } from './connections/dbConnection.js'
 import { metarDecoderLogs } from './models/metarDecoder.sequelize.model.js'
 import { aircraft } from './models/aircraft.sequelize.model.js'
 import { user } from './models/user.sequelize.js'
-import { graphqlHTTP } from 'express-graphql'
-import { testSchema } from './graphql/schema.js'
+import { createHandler } from "graphql-http/lib/use/express" // ES6
+import { schema } from './graphql/schema.js'
 import { resolvers } from './graphql/resolvers.js'
 
 // ROUTER
@@ -39,14 +39,14 @@ app.use(cors())
 app.use(helmet())
 app.disable('x-powered-by')
 
-// const jwtCheck = auth({
-//   audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
-//   issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
-//   tokenSigningAlg: 'RS256',
-//   jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
-// });
+const jwtCheck = auth({
+  audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
+  issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
+  tokenSigningAlg: 'RS256',
+  jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
+});
 
-// app.use(jwtCheck);
+app.use(jwtCheck);
 
 // register user via middleware => all sequelize methods can be used on it
 // app.use((req, res, next) => {
@@ -60,10 +60,15 @@ app.disable('x-powered-by')
 //     })
 // })
 
-app.use('/graphql', graphqlHTTP({
-  schema: testSchema,
+app.use('/graphql', createHandler({
+  schema: schema,
   rootValue: resolvers,
-  graphiql: true
+  context: {},
+  formatError: (err) => {
+    console.error(err)
+    return err
+  },
+  validationRules: [],
 }))
 // http://localhost:4001/graphql => GraphiQL
 

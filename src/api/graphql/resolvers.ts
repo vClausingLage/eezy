@@ -9,14 +9,14 @@ export const resolvers = {
         console.log(args)
         return 'Test me!'
     },
-    createAircraft: async function (args: any, req: any) {
-        const manufacturer = args.aircraftInput.manufacturer
-        const name = args.aircraftInput.name
-        const aircraft = {
-            manufacturer: manufacturer,
-            name: name
-        }
-        return aircraft
+    GetAircrafts: async function (args: any, req: any) {
+        console.log(args)
+        return [{ id: '1', name: 'Aircraft 1', manufacturer: 'Boeing' }]
+        // fetch from db
+    },
+    CreateAircraft: async function ({ aircraftInput }: any, req: any) {
+        console.log(aircraftInput)
+        return { message: 'Aircraft created' }
         // save to db
     }
 }

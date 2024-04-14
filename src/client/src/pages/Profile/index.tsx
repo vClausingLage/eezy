@@ -7,6 +7,10 @@ const Profile = () => {
         return <div>Loading ...</div>;
     }
 
+    // LOGIC TEST AUTH
+
+    // api auth-metar
+
     return (
         isAuthenticated && (
             <div>
