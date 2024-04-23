@@ -5,7 +5,7 @@ import { fuelTypes } from '../assets/fuelTypes'
 import { ICreateAircraft } from '../types/IAaircraft'
 
 import '../CSS/aircraft-form.css'
-import { Alert } from '../../../ui/components/Alert'
+import { Alert } from '../../../ui/alert'
 
 type Props = {
   user?: string

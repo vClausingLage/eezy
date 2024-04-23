@@ -1,10 +1,10 @@
 import AircraftCard from './aircraftCard'
-import LoadingCircleDescription from '../../../ui/components/LoadingCircleDescription'
+import LoadingCircleDescription from '../../../ui/loadingCircleDescription'
 
 import { IAircraft } from '../types/IAaircraft'
 
 import '../CSS/aircraft-card.css'
-import { Alert } from '../../../ui/components/Alert'
+import { Alert } from '../../../ui/alert'
 
 type Props = {
   aircraftList: IAircraft[]

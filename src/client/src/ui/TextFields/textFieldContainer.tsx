@@ -1,6 +1,6 @@
 import IcaoInput from './icaoInput'
 
-import '../CSS/text-field-container.css'
+import '../CSS/textFieldContainer.css'
 
 type Props = {
   icon: any

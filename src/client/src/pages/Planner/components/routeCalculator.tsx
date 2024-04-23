@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { TextFieldContainer } from '../../../ui/components/TextFields/textFieldContainer'
+import { TextFieldContainer } from '../../../ui/TextFields/textFieldContainer'
 
 import { FlightTakeoff, FlightLand, Search } from '@mui/icons-material'
 import calcLatLong from '../helper/distanceLatLongCalc'
 
 import '../CSS/planner-calculator.css'
-import { Alert } from '../../../ui/components/Alert'
+import { Alert } from '../../../ui/alert'
 
 type Props = {
   getDistance: (distance: number) => void

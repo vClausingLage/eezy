@@ -7,7 +7,7 @@ import RouteCalculator from './components/routeCalculator'
 import CreateAircraftForm from './components/createAircraftForm'
 
 import { IAircraft, ICreateAircraft } from './types/IAaircraft'
-import { Alert } from '../../ui/components/Alert'
+import { Alert } from '../../ui/alert'
 
 type Props = {
   user?: string

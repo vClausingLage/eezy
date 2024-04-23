@@ -6,10 +6,13 @@ import Layout from './pages/Layout';
 import Metar from './pages/Metar';
 import FlightPlanner from './pages/Planner';
 
+import ErrorPage from './ErrorPage';
+
 export const reactRoutes = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "profile",

@@ -5,7 +5,7 @@ import FuelCalculatorTextInput from './fuelCalculatorTextInput'
 import { getRange } from '../helper/fuelCalculator'
 
 import '../CSS/planner-calculator.css'
-import { Alert } from '../../../ui/components/Alert'
+import { Alert } from '../../../ui/alert'
 import { BoltIcon } from '@heroicons/react/24/solid'
 
 type Props = {
