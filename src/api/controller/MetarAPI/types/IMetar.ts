@@ -5,7 +5,7 @@ type IWind = {
   gusts?: number | null
 }
 type IClouds = {
-  cloud_layer: string
+  cloud_layer: string | null
   cloud_base: number | null
   cloud?: string | null
 }

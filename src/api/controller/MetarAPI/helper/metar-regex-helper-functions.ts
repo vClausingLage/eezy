@@ -1,7 +1,7 @@
 import weatherCodes from '../assets/weatherCodes.json' assert { type: 'json' }
 
 type Cloud = {
-  cloud_layer: string
+  cloud_layer: string | null
   cloud_base: number | null
   cloud?: string
 }
@@ -27,7 +27,7 @@ export function dateFormat(time: string) {
 }
 export function cloudFormat(clouds: string) {
   const output: Cloud = {} as Cloud
-  if (clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK') {
+  if (clouds && clouds !== 'NCD' && clouds !== 'CLR' && clouds !== 'CAVOK') {
     const cloud_layer = clouds.slice(0, 3)
     const cloud_base = clouds.slice(3, 6)
     if (clouds.length >= 6) {
@@ -35,7 +35,7 @@ export function cloudFormat(clouds: string) {
       if (cloud) output.cloud = cloud
       if (cloud && cloud === '///') output.cloud = 'unknown'
     }
-    output.cloud_layer = cloud_layer
+    output.cloud_layer = cloud_layer || ''
     output.cloud_base = Number(cloud_base + '00')
   } else if (clouds === 'NCD' || clouds === 'CLR') {
     output.cloud_layer = clouds

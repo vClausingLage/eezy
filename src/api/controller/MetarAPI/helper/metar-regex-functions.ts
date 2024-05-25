@@ -82,7 +82,8 @@ export function findBasicTokens(metar: string[]): BasicTokens {
   const filteredMetar = metar.filter((el) => {
     if (/NOSIG/i.test(el)) resultObj.nosig = true
     else if (/AUTO/i.test(el)) resultObj.auto = true
-    else if (/CAVOK/i.test(el)) { (resultObj.cavok = true), (resultObj.clouds[0].cloud_layer = 'CAVOK') } else if (/Q[0-9]{3,4}/i.test(el)) {
+    else if (/CAVOK/i.test(el)) resultObj.cavok = true
+    else if (/Q[0-9]{3,4}/i.test(el)) {
       el = el.replace('Q', '')
       resultObj.air_pressure.pressure = 'QNH'
       resultObj.air_pressure.value = Number(el)
@@ -102,7 +103,7 @@ export function findBasicTokens(metar: string[]): BasicTokens {
       /[a-z]{3}[0-9]{3}[a-z]/i.test(el) ||
       /[a-z]{3}[0-9]{3}\/\/\//i.test(el)
     ) {
-      resultObj.clouds.push(cloudFormat(el))
+      resultObj.clouds = [...resultObj.clouds, cloudFormat(el)]
     } else if (
       /[0-9]{5}KT/i.test(el) ||
       /[0-9]{5}G[0-9]{1,2}KT/i.test(el) ||

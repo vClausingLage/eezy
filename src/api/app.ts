@@ -40,10 +40,11 @@ app.use(helmet())
 app.disable('x-powered-by')
 
 const jwtCheck = auth({
-  audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
+  // audience: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/api/v2/',
+  audience: 'https://clausing-lage.de',
   issuerBaseURL: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/',
   tokenSigningAlg: 'RS256',
-  jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
+  // jwksUri: 'https://dev-lcqbfmwjn2s35t2q.us.auth0.com/.well-known/jwks.json',
 });
 
 app.use(jwtCheck);

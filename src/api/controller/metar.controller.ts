@@ -36,7 +36,6 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
     if (fetchAirportDB.status === 200 && fetchAirportDB !== undefined) {
         airportDBResult = await fetchAirportDB.json()
     }
-
     const airport = {
         name: airportDBResult.name,
         lat: airportDBResult.latitude_deg,
@@ -44,40 +43,15 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
         runways: filterRunways(airportDBResult.runways),
         frequencies: filterFrequencies(airportDBResult.freqs)
     }
-
-    const decodedMetar = metarDecoder(rawMetar)
-
-    saveLogs(icao, rawMetar, JSON.stringify(decodedMetar))
-
-    res.send({ rawMetar, decodedMetar, airport })
-
-
-    // const headers = req.headers;
-    // const fetchRawMetar = await fetch(
-    //     `https://aviationweather.gov/api/data/metar?ids=${icao}`
-    // )
-    // const rawMetar = await fetchRawMetar.text()
-    // // const airportAWS = await fetchAirportAWS(icao)
-    // const airportAirportDB = await fetchAirportAirportDB(icao)
-    // if (fetchRawMetar.status === 200 && rawMetar !== undefined) res.send({ rawMetar, decodedMetar, airportAirportDB, headers })
-    // else res.send({ message: 'no data' })
+    try {
+        const decodedMetar = metarDecoder(rawMetar)
+        res.send({ rawMetar, decodedMetar, airport })
+        saveLogs(icao, rawMetar, JSON.stringify(decodedMetar))
+    } catch (error: any) {
+        saveLogs(icao, rawMetar, error.message)
+        console.log(error)
+    }
 }
-
-// async function fetchAirportAirportDB(icao: string): Promise<any> {
-//     const fetchAirport = await fetch(
-//         `https://airportdb.io/api/v1/airport/${icao.toUpperCase()}?apiToken=${process.env.AIRPORT_DB_API_KEY}`
-//     )
-//     const result = await fetchAirport.json()
-//     const airport = {
-//         name: result.name,
-//         lat: result.latitude_deg,
-//         long: result.longitude_deg,
-//         runways: filterRunways(result.runways),
-//         frequencies: filterFrequencies(result.freqs)
-//     }
-//     if (fetchAirport.status === 200 && airport !== undefined) return airport
-//     else return { message: 'no airport data' }
-// }
 
 function filterRunways(runways: Runway[]) {
     return runways.map(runway => {

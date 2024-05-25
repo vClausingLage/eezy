@@ -53,6 +53,7 @@ const Metar = () => {
         const token = await getAccessTokenSilently({
             // authorizationParams: { audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/` }
         });
+        console.log('Token', token)
         const response = await fetch(`${API_SERVER}/api/metar/${icao}`, {
             method: 'get',
             headers: {
@@ -85,7 +86,7 @@ const Metar = () => {
     { isLoading && <LoadingCircle /> }
 
     return (
-        <div className="container flex place-content-center">
+        <div className="container flex justify-center">
             <form onSubmit={e => handleSubmit(e)}>
                 <input
                     type="text"

@@ -14,7 +14,7 @@
     "standard": "yarn ts-standard --fix"
   },
   "keywords": [],
-  "author": "vincent clausing-lage",
+  "author": "dr. vincent clausing-lage",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",

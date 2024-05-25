@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 
+import LoginButton from "../Profile/Login";
+
 {/* <NavLink
   style={({ isActive, isPending }) => {
     return {
@@ -26,17 +28,12 @@ function Layout() {
                         <NavLink to="/profile">Profile</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/login">Login</NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/metar">Metar</NavLink>
                     </li>
                     <li>
                         <NavLink to="/planner">Planner</NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/nothing-here">Nothing Here</NavLink>
-                    </li>
+                    <LoginButton />
                 </ul>
             </nav>
 
