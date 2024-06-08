@@ -13,8 +13,6 @@ import AerodromeFrequencies from './components/AerodromeFrequencies'
 import WordCloudICAO from './assets/WordCloudICAO.png'
 import FlightRuleButton from './components/FlightRuleButton'
 
-import './CSS/main.css'
-
 const Metar = () => {
     const { getAccessTokenSilently } = useAuth0()
 
@@ -53,7 +51,6 @@ const Metar = () => {
         const token = await getAccessTokenSilently({
             // authorizationParams: { audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/` }
         });
-        console.log('Token', token)
         const response = await fetch(`${API_SERVER}/api/metar/${icao}`, {
             method: 'get',
             headers: {
@@ -61,7 +58,6 @@ const Metar = () => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        console.log(response)
         const data = await response.json()
         console.log('API data', data)
         if (data.message && data.message === 'error') {
@@ -82,20 +78,24 @@ const Metar = () => {
         searchMetar(e)
     }
 
-
     { isLoading && <LoadingCircle /> }
 
     return (
-        <div className="container flex justify-center">
+        <div className="flex justify-center content-center bg-pink-700 py-24">
             <form onSubmit={e => handleSubmit(e)}>
                 <input
                     type="text"
                     id="icao-input"
-                    className="shadow-md"
+                    className="shadow-md rounded-lg p-4 text-2xl focus:ring-pink-700 focus:ring-opacity-50"
                     value={icao}
                     onChange={e => setIcao(e.target.value)}
                 />
-                <label htmlFor="icao-input">ICAO</label>
+                <label
+                    htmlFor="icao-input"
+                    className="text-2xl p-4"
+                >
+                    ICAO
+                </label>
             </form>
         </div>
     )

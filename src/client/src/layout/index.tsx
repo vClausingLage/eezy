@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-import LoginButton from "../Profile/Login";
+import LoginButton from "../pages/Profile/Login";
 
 {/* <NavLink
   style={({ isActive, isPending }) => {
@@ -17,7 +17,7 @@ function Layout() {
     return (
         <div>
             <nav>
-                <ul className="flex gap-2">
+                <ul className="flex py-6 mx-12 justify-evenly">
                     <li>
                         <NavLink to="/"
                             className={({ isActive, isPending }) => {
@@ -36,8 +36,6 @@ function Layout() {
                     <LoginButton />
                 </ul>
             </nav>
-
-            <hr />
 
             <Outlet />
         </div>
