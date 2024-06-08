@@ -8,7 +8,6 @@
     "build": "yarn tsc",
     "start": "yarn build && node dist/app.js",
     "dev": "tsx watch app.ts",
-    "startClient": "cd .. && cd client && yarn run start",
     "prod": "NODE_ENV=production yarn start",
     "test": "jest",
     "standard": "yarn ts-standard --fix"

@@ -36,6 +36,7 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
     if (fetchAirportDB.status === 200 && fetchAirportDB !== undefined) {
         airportDBResult = await fetchAirportDB.json()
     }
+
     const airport = {
         name: airportDBResult.name,
         lat: airportDBResult.latitude_deg,
@@ -49,7 +50,7 @@ export async function decodeMetar(req: Request, res: Response): Promise<void> {
         saveLogs(icao, rawMetar, JSON.stringify(decodedMetar))
     } catch (error: any) {
         saveLogs(icao, rawMetar, error.message)
-        console.log(error)
+        console.log('error decoding metar: ', error)
     }
 }
 
