@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 import Profile from "./pages/Profile";
-import Layout from './pages/Layout';
+import Layout from './layout';
 import Metar from './pages/Metar';
 import FlightPlanner from './pages/Planner';
 
