@@ -4,10 +4,10 @@ import { API_SERVER } from '../../constants/constants';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import SearchIcon from '@mui/icons-material/Search'
+import { IMetarObject } from './types';
 
 import LoadingCircle from '../../ui/loadingCircle'
-import DataPanel from './components/DataPanel'
+import { DataPanel } from './components/DataPanel'
 import SVGPanel from './components/SVGPanel'
 import AerodromeFrequencies from './components/AerodromeFrequencies'
 import WordCloudICAO from './assets/WordCloudICAO.png'
@@ -21,7 +21,7 @@ const Metar = () => {
     const [alertIcao, setAlertIcao] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [airportObject, setAirportObject] = useState({} as any)
-    const [metarObject, setMetarObject] = useState({} as any)
+    const [metarObject, setMetarObject] = useState({} as IMetarObject)
     const [icao, setIcao] = useState('' as string)
 
     function tempUnitToggle(unit: string) {
@@ -59,7 +59,7 @@ const Metar = () => {
             }
         })
         const data = await response.json()
-        console.log('API data', data)
+        setMetarObject(data)
         if (data.message && data.message === 'error') {
             setResponse(true)
             setIsLoading(false)
@@ -78,25 +78,88 @@ const Metar = () => {
         searchMetar(e)
     }
 
+    console.log('metarObject', metarObject)
+
     { isLoading && <LoadingCircle /> }
 
     return (
-        <div className="flex justify-center content-center bg-pink-700 py-24">
-            <form onSubmit={e => handleSubmit(e)}>
-                <input
-                    type="text"
-                    id="icao-input"
-                    className="shadow-md rounded-lg p-4 text-2xl focus:ring-pink-700 focus:ring-opacity-50"
-                    value={icao}
-                    onChange={e => setIcao(e.target.value)}
-                />
-                <label
-                    htmlFor="icao-input"
-                    className="text-2xl p-4"
-                >
-                    ICAO
-                </label>
-            </form>
+        <div>
+            {/* INPUT */}
+            <div className="flex justify-center content-center bg-pink-700 py-24">
+                <form onSubmit={e => handleSubmit(e)}>
+                    <input
+                        type="text"
+                        id="icao-input"
+                        className="shadow-md rounded-lg p-4 text-2xl outline-none focus:ring-2 focus:ring-pink-300 focus:ring-opacity-50"
+                        value={icao}
+                        onChange={e => setIcao(e.target.value)}
+                    />
+                    {/*! ADD SEARCH ICON */}
+                    <label
+                        htmlFor="icao-input"
+                        className="text-2xl p-4"
+                    >
+                        ICAO
+                    </label>
+                </form>
+            </div>
+
+            {/* RESULT */}
+            <div>
+                {/* DATA PANEL */}
+                <div className='grid grid-cols-3 mx-24 my-6 gap-4'>
+                    <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
+                        <div className='bg-green-700 text-white'>
+                            TEMP
+                        </div>
+                        <div className='text-green-700'>
+                            {metarObject?.decodedMetar?.temperature?.temp}{metarObject?.decodedMetar?.temperature?.unit}
+                        </div>
+                    </div>
+                    <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
+                        <div className='bg-green-700 text-white'>
+                            VISIBILITY
+                        </div>
+                        <div className='text-green-700'>
+                            {metarObject?.decodedMetar?.visibility?.value}{metarObject?.decodedMetar?.visibility?.unit}
+                        </div>
+                    </div>
+                    <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
+                        <div className='bg-green-700 text-white'>
+                            PRECIPITATION
+                        </div>
+                        <div className='text-green-700'>
+                            {metarObject?.decodedMetar?.precipitation}
+                        </div>
+                    </div>
+                </div>
+                <div className='grid grid-cols-3 mx-24 my-6 gap-4'>
+                    <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
+                        <div className='bg-green-700 text-white'>
+                            XXXX
+                        </div>
+                        <div className='text-green-700'>
+                            {metarObject?.decodedMetar?.temperature?.temp}°C
+                        </div>
+                    </div>
+                    <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
+                        <div className='bg-green-700 text-white'>
+                            AIR PRESSURE ({metarObject?.decodedMetar?.air_pressure?.pressure})
+                        </div>
+                        <div className='text-green-700'>
+                            {metarObject?.decodedMetar?.air_pressure?.value} {metarObject?.decodedMetar?.air_pressure?.unit}
+                        </div>
+                    </div>
+                    <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
+                        <div className='bg-green-700 text-white'>
+                            ZZZZ
+                        </div>
+                        <div className='text-green-700'>
+                            zzzzzzz
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -69,7 +69,7 @@ export function findBasicTokens(metar: string[]): BasicTokens {
       gusts: null
     },
     wind_var: null,
-    temperature: { temp: null, dewp: null },
+    temperature: { temp: null, dewp: null, unit: null },
     recent_precipitation: null,
     taf_prognosis: null,
     remarks: [],

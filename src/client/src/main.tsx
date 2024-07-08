@@ -1,20 +1,13 @@
-import { createContext } from 'react'
 import { createRoot } from 'react-dom/client'
-import {
-  RouterProvider
-} from "react-router-dom"
-import { reactRoutes } from './router'
+import { RouterProvider } from "react-router-dom"
+import { reactRoutes } from './layout/router'
 import { Auth0Provider } from '@auth0/auth0-react'
-import App from './App'
 
 import './index.css'
 
-const AppContext = createContext({
-  user: null,
-  setUser: () => { }
-})
-
 const root = createRoot(document.getElementById('root')!)
+
+import { AppContextProvider } from './context'
 
 root.render(
   <Auth0Provider
@@ -25,9 +18,8 @@ root.render(
       redirect_uri: window.location.origin
     }}
   >
-    <RouterProvider router={reactRoutes} />
-    {/* <AppContext.Provider value={ }> */}
-    <App />
-    {/* </AppContext.Provider > */}
+    <AppContextProvider>
+      <RouterProvider router={reactRoutes} />
+    </AppContextProvider>
   </Auth0Provider>,
 )

@@ -1,17 +1,6 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom"
 
-import LoginButton from "../pages/Profile/Login";
-
-{/* <NavLink
-  style={({ isActive, isPending }) => {
-    return {
-      color: isActive ? "red" : "inherit",
-    };
-  }}
-  className={({ isActive, isPending }) => {
-    return isActive ? "active" : isPending ? "pending" : "";
-  }}
-/> */}
+import LoginButton from "../pages/Profile/Login"
 
 function Layout() {
     return (
@@ -21,7 +10,7 @@ function Layout() {
                     <li>
                         <NavLink to="/"
                             className={({ isActive, isPending }) => {
-                                return isActive ? "active" : isPending ? "pending" : "";
+                                return isActive ? "active" : isPending ? "pending" : ""
                             }}>Home</NavLink>
                     </li>
                     <li>
@@ -39,7 +28,7 @@ function Layout() {
 
             <Outlet />
         </div>
-    );
+    )
 }
 
 export default Layout

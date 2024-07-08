@@ -25,6 +25,7 @@ type IVisibility = {
 type ITemp = {
   temp: number | null
   dewp: number | null
+  unit: string | null
 }
 
 export type IMetar = {

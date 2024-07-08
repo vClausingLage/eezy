@@ -74,6 +74,7 @@ export function windVarFormat(windVar: string) {
 export function tempFormat(temperature: string): {
   temp: number
   dewp: number
+  unit: string
 } {
   const output: number[] = []
   const tempArr = temperature.split('/')
@@ -87,7 +88,7 @@ export function tempFormat(temperature: string): {
       output.push(Number(el))
     }
   })
-  return { temp: output[0], dewp: output[1] }
+  return { temp: output[0], dewp: output[1], unit: '°C' }
 }
 export function precipFormat(weatherString: string): string {
   let result: any = []
