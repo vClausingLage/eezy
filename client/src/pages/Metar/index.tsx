@@ -1,45 +1,45 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { API_SERVER } from '../../constants/constants';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { IMetarObject } from './types';
+import { MetarObject } from './types';
 
 import LoadingCircle from '../../ui/loadingCircle'
-import { DataPanel } from './components/DataPanel'
-import SVGPanel from './components/SVGPanel'
-import AerodromeFrequencies from './components/AerodromeFrequencies'
-import WordCloudICAO from './assets/WordCloudICAO.png'
-import FlightRuleButton from './components/FlightRuleButton'
+// import { DataPanel } from './components/DataPanel'
+// import SVGPanel from './components/SVGPanel'
+// import AerodromeFrequencies from './components/AerodromeFrequencies'
+// import WordCloudICAO from './assets/WordCloudICAO.png'
+// import FlightRuleButton from './components/FlightRuleButton'
 
 const Metar = () => {
     const { getAccessTokenSilently } = useAuth0()
 
-    const [responseError, setResponse] = useState(false)
-    const [disabled, setDisabled] = useState(true)
-    const [alertIcao, setAlertIcao] = useState(false)
+    const [, setResponse] = useState(false)
+    // const [, setDisabled] = useState(true)
+    const [, setAlertIcao] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [airportObject, setAirportObject] = useState({} as any)
-    const [metarObject, setMetarObject] = useState({} as IMetarObject)
+    // const [airportObject, setAirportObject] = useState({} as any)
+    const [metarObject, setMetarObject] = useState({} as MetarObject)
     const [icao, setIcao] = useState('' as string)
 
-    function tempUnitToggle(unit: string) {
-        setMetarObject((prevMetarObject: any) => ({ //! type
-            ...prevMetarObject,
-            tempUnit: unit === '°C' ? '°F' : '°C'
-        }))
-    }
+    // function tempUnitToggle(unit: string) {
+    //     setMetarObject((prevMetarObject: any) => ({ //! type
+    //         ...prevMetarObject,
+    //         tempUnit: unit === '°C' ? '°F' : '°C'
+    //     }))
+    // }
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const icao = event.target.value.toUpperCase()
-        setMetarObject((prevMetarObject: any) => ({//! type
-            ...prevMetarObject,
-            icao
-        }))
-        setDisabled(icao.length !== 4)
-        setAlertIcao(false)
-    }
+    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const icao = event.target.value.toUpperCase()
+    //     setMetarObject((prevMetarObject: any) => ({//! type
+    //         ...prevMetarObject,
+    //         icao
+    //     }))
+    //     setDisabled(icao.length !== 4)
+    //     setAlertIcao(false)
+    // }
 
     const searchMetar = async (e: React.SyntheticEvent) => {
         e.preventDefault()
@@ -144,10 +144,10 @@ const Metar = () => {
                     </div>
                     <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>
                         <div className='bg-green-700 text-white'>
-                            AIR PRESSURE ({metarObject?.decodedMetar?.air_pressure?.pressure})
+                            AIR PRESSURE ({metarObject?.decodedMetar?.airPressure?.pressure})
                         </div>
                         <div className='text-green-700'>
-                            {metarObject?.decodedMetar?.air_pressure?.value} {metarObject?.decodedMetar?.air_pressure?.unit}
+                            {metarObject?.decodedMetar?.airPressure?.value} {metarObject?.decodedMetar?.airPressure?.unit}
                         </div>
                     </div>
                     <div className='flex flex-col rounded-lg border-2 border-green-700 text-center'>

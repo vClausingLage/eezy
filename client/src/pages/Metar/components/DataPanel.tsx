@@ -7,7 +7,7 @@ type Props = {
   slp: number
   temp: number
   dewp: number
-  tempUnitToggle: Function
+  tempUnitToggle: (unit: string) => void
   tempUnit: string
   wxString: string
   visibilityMeters: number

@@ -1,20 +1,28 @@
-ARG NODE_VERSION=20.12.0
+# Use the official Node.js 20 image as the base image
+FROM node:20
 
-FROM node:${NODE_VERSION}-alpine
-
-ENV NODE_ENV production
-
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=yarn.lock,target=yarn.lock \
-    --mount=type=cache,target=/root/.yarn \
-    yarn install --production --frozen-lockfile
+RUN npm install -g corepack yarn
 
-USER node
+# Install corepack to manage yarn versions
+RUN corepack enable
 
-COPY . .
+# Set the specific version of Yarn to 4.3.1
+RUN yarn set version stable
 
+# Copy the package.json and yarn.lock files to the working directory
+COPY package.json yarn.lock ./
+
+# Install the dependencies using yarn
+RUN yarn
+
+# Copy the rest of the application code to the working directory
+COPY ./dist .
+
+# Expose port 4001
 EXPOSE 4001
 
-CMD node dist/app.js
+# Command to run the application
+CMD ["node", "app.js"]

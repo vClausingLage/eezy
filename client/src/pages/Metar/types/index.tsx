@@ -1,4 +1,9 @@
-export type IMetarObject = {
+export type Freq = {
+    type: string
+    frequency_mhz: string
+}
+
+export type MetarObject = {
     airport: {
         frequencies: [{
             type: string,
@@ -19,7 +24,7 @@ export type IMetarObject = {
     },
     decodedMetar: {
         icao: string,
-        air_pressure: {
+        airPressure: {
             pressure: string,
             unit: string,
             value: number
@@ -50,6 +55,6 @@ export type IMetarObject = {
             gust: number,
             variable: number
         },
-        wind_var: number
+        windVar: number
     }
 }

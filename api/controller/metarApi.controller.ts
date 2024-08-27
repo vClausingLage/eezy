@@ -5,21 +5,14 @@ import { getRawMetar } from './awc.controller.js'
 
 import { validator } from './Validation/validator.controller.js'
 
-import { metarDecoder } from './MetarAPI/helper/metar-regex-main.js'
+import { metarDecoder } from './MetarAPI/main.js'
 
 import {
   metarToList,
   metarToString,
   splitMetarListRemarks
-} from './MetarAPI/helper/metar-regex-main-helper-functions.js'
-import getFlightRule from '../controller/MetarAPI/helper/flight-rule-helper-function.js'
-
-type ListRemarks = {
-  metar: string[]
-  remarks: string[]
-  tempo: string[]
-  becoming: string[]
-}
+} from './MetarAPI/helper/metarRegexMainHelper.js'
+import getFlightRule from './MetarAPI/helper/flightRuleHelper.js'
 
 export async function decodeRawMetar(req: Request, res: Response): Promise<void> {
   try {
@@ -50,8 +43,7 @@ export async function decodeRawMetar(req: Request, res: Response): Promise<void>
     // res.send({ metarJSON: metarObject })
     res.status(200).send('hi')
   } catch (error) {
-    console.log(error)
-    res.status(500).send({ error: error.message })
+    res.status(500).send({ error: error })
   } finally {
     console.log('done')
   }

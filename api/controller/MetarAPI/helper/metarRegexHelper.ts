@@ -1,16 +1,6 @@
 import weatherCodes from '../assets/weatherCodes.json' assert { type: 'json' }
 
-type Cloud = {
-  cloudLayer: string | null
-  cloudBase: number | null
-  cloud?: string
-}
-type Wind = {
-  direction: number | string
-  speed: number
-  unit: string
-  gusts?: number
-}
+import { Cloud, Wind } from '../types/index.js'
 
 export function dateFormat (time: string): Date {
   const today = new Date()

@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import CellTowerIcon from '@mui/icons-material/CellTower'
 
-import { IFreq } from '../types/IMetar'
+import { Freq } from '../types'
 
 type Props = {
-  frequencies: IFreq[]
+  frequencies: Freq[]
 }
 
 function Aerodrome({ frequencies }: Props) {

@@ -1,6 +1,6 @@
 import test, { describe } from 'node:test'
 
-import { metarDecoder } from '../helper/metar-regex-main.js'
+import { metarDecoder } from '../main.js'
 
 describe('metarDecoder', () => {
   test('schould return a metar object', () => {

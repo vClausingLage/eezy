@@ -1,10 +1,10 @@
-type Wind = {
+export type Wind = {
   direction: number | string | null
   speed: number | null
   unit: string | null
   gusts?: number | null
 }
-type Clouds = {
+export type Cloud = {
   cloudLayer: string | null
   cloudBase: number | null
   cloud?: string | null
@@ -34,7 +34,7 @@ export type Metar = {
   wind: Wind
   visibility: Visibility
   precipitation: string[]
-  clouds: Clouds[]
+  clouds: Cloud[]
   wind_var: number[] | null
   air_pressure: AirPressure
   slp: number | null
@@ -59,7 +59,7 @@ export type ResultBasicTokens = {
   auto: boolean
   air_pressure: AirPressure
   slp: number | null
-  clouds: Clouds[]
+  clouds: Cloud[]
   wind: Wind
   wind_var: number[] | null
   temperature: Temp
@@ -86,4 +86,11 @@ export type DynamicTokens = {
 export type BasicTokens = {
   regexResults: ResultBasicTokens
   filteredMetarList: string[]
+}
+
+export type ListRemarks = {
+  metar: string[]
+  remarks: string[]
+  tempo: string[]
+  becoming: string[]
 }

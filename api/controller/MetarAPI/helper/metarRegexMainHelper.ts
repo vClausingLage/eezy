@@ -1,3 +1,5 @@
+import { ListRemarks } from "../types/index.js"
+
 export function metarToList (metar: string): string[] {
   const metarList = metar.split(' ')
   return metarList
@@ -13,12 +15,6 @@ export function removeEndCharFromString (metar: string): string {
   return result
 }
 
-type ListRemarks = {
-  metar: string[]
-  remarks: string[]
-  tempo: string[]
-  becoming: string[]
-}
 export function splitMetarListRemarks (metar: string[]): ListRemarks {
   let tempoMetar: string[] = []
   let becomingMetar: string[] = []

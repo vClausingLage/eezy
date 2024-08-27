@@ -1,23 +1,17 @@
 import {
   metarToList,
   metarToString
-} from './metar-regex-main-helper-functions.js'
-import { findBasicTokens, findDynamicTokens } from './metar-regex-functions.js'
+} from './helper/metarRegexMainHelper.js'
+import { findBasicTokens, findDynamicTokens } from './metarRegex.js'
 
 import {
   Metar,
+  BasicTokens,
+  DynamicTokens,
   ResultBasicTokens,
   ResultDynamicTokens
-} from '../types/index.js'
+} from './types/index.js'
 
-type BasicTokens = {
-  regexResults: ResultBasicTokens
-  filteredMetarList: string[]
-}
-type DynamicTokens = {
-  regexResults: ResultDynamicTokens
-  filteredMetarList: string[]
-}
 export function metarDecoder(metar: string): Metar {
   const metarList = metarToList(metar)
   const basicTokens: BasicTokens = findBasicTokens(metarList)

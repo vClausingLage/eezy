@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { metarDecoder } from './MetarAPI/helper/metar-regex-main.js';
+import { metarDecoder } from './MetarAPI/main.js';
 
 import { metarDecoderLogs } from '../models/metarDecoder.sequelize.model.js';
 

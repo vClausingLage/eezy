@@ -2,7 +2,7 @@ services:
   api:
     container_name: eezy_api
     build:
-      context: ./src/api
+      context: ./api
       dockerfile: Dockerfile
     ports:
       - 4001:4001
@@ -31,11 +31,10 @@ services:
 #     - ./src/client/dist/:/usr/share/nginx/html/
 #     # IF NGINX CONF IS NEEDED
 #     #   - ./src/client/cfg/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-#     restart: always
 
   mysql:
     image: mariadb:latest
-    container_name: mysql
+    container_name: mysql-eezy
     ports:
       - 3306:3306
     command: --init-file /data/application/init.sql

@@ -1,4 +1,4 @@
-export type IAircraft = {
+export type Aircraft = {
   id?: number | null;
   user: string;
   manufacturer: string;

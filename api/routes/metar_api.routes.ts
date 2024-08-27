@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { decodeRawMetar } from '../controller/metar_api.controller.js'
+import { decodeRawMetar } from '../controller/metarApi.controller.js'
 
 export const metar_api_router = Router()
 

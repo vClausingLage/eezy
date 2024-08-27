@@ -5,14 +5,14 @@ import {
   windVarFormat,
   tempFormat,
   precipFormat
-} from './metar-regex-helper-functions.js'
+} from './helper/metarRegexHelper.js'
 
 import {
   ResultBasicTokens,
   ResultDynamicTokens,
   BasicTokens,
   DynamicTokens
-} from '../types/index.js'
+} from './types/index.js'
 
 export function findDynamicTokens (metar: string): DynamicTokens {
   const resultObj: ResultDynamicTokens = {
