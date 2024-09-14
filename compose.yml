@@ -5,7 +5,7 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - 4001:4001
+      - 4041:4041
     depends_on:
       - mysql
     environment:
@@ -13,8 +13,8 @@ services:
       DB_NAME: eezyApp
       DB_USER: eezy_usr
       DB_PASSWORD: eezyRoot
-      # DB_HOST: mysql
-      # DB_ENGINE: mariadb
+      DB_HOST: mysql
+      DB_ENGINE: mariadb
     networks:
       - eezy_net
 

@@ -1,11 +1,9 @@
 {
   "name": "eezy",
-  "packageManager": "yarn@4.2.2",
   "scripts": {
     "dev": "yarn run build:api && yarn run build:client && docker compose up",
     "build:api": "cd api && yarn build",
-    "build:client": "cd client && yarn build",
-    "mysql:start": "docker start $(docker ps -aq) | grep mysql-eezy",
-    "mysql:stop": "docker stop $(docker ps -aq) | grep mysql-eezy"
-  }
+    "build:client": "cd client && yarn build"
+  },
+  "packageManager": "yarn@4.5.0"
 }

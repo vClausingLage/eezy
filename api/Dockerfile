@@ -40,7 +40,7 @@ RUN pnpm install
 COPY ./dist .
 
 # Expose port 4001
-EXPOSE 4001
+EXPOSE 4041
 
 # Command to run the application
 CMD ["node", "app.js"]
